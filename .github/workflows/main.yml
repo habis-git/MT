@@ -13,5 +13,5 @@ jobs:
       uses: xu-cheng/latex-action@1.2.0
       with:
         # The root LaTeX file to be compiled
-        root_file: Dokumentation/MAS-MT-Marc-Habegger.tex
+        root_file: MAS-MT-Marc-Habegger.tex
         working_directory: Dokumentation
