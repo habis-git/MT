@@ -15,3 +15,7 @@ jobs:
         # The root LaTeX file to be compiled
         root_file: MAS-MT-Marc-Habegger.tex
         working_directory: Dokumentation
+    - uses: actions/upload-artifact@v1
+      with:
+        name: MT-Dokument
+        path: Dokumentation/MAS-MT-Marc-Habegger.pdf
