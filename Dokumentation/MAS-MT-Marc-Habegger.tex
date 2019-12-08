@@ -1,0 +1,268 @@
+\documentclass[
+  12pt, % Fontsize
+  a4paper, % papersize
+  oneside, % For twosided documents
+  openany, 
+  numbers=noenddot, % No final dots in Sectionnumbers, e.g 1.2 instead of 1.2.
+  BCOR=5mm, % Correction length for lost space from binding
+  parskip=half*, %No indent but spacing between paragraphs
+  thesis, % type of document
+]{bfhbook}
+
+
+% Test Template for bfhbook.cls
+\usepackage[T1]{fontenc}
+% Coding 
+\usepackage[utf8]{inputenc}
+% Language setting
+\usepackage[german]{babel}
+\usepackage[export]{adjustbox}
+
+% \usepackage{fonttable}
+% Hyperref
+\usepackage[                
+  pdftex,                  % for PDF
+  colorlinks=true,         % colored links
+  linkcolor=black,         % color for links
+  citecolor=black,         % color for references
+  urlcolor=black,          % color for url 
+  bookmarks=true
+]{hyperref}              
+
+\usepackage{booktabs} % For nicer tables
+\usepackage{threeparttable} % Table-Captions having the same width than the table
+\usepackage[singlelinecheck=off]{caption}
+\usepackage{siunitx} % Scientific Units and number setting
+\usepackage{listings} % For Program-Code
+\usepackage{enumitem}
+\setlist[description]{style=nextline}
+
+\usepackage{minted}
+\setminted[arduino]{
+    linenos=true,
+    breaklines=true,
+    encoding=utf8,
+    fontsize=\footnotesize,
+    xleftmargin=7mm
+}
+\setminted[shell]{
+	frame=lines,
+	framesep=5mm
+}
+\usemintedstyle{manni}
+
+\usepackage{caption}
+\captionsetup[figure]{font=footnotesize, labelfont=small}
+\newcommand{\source}[1]{\caption*{Quelle: {#1}} }
+
+\usepackage{xcolor}
+
+\usepackage[export]{adjustbox}
+\usepackage[document]{ragged2e} % left-alignment for text
+
+\usepackage{glossaries}
+
+% definition for directory tree with forest
+\usepackage[edges]{forest}
+
+\definecolor{foldercolor}{RGB}{124,166,198}
+
+\tikzset{pics/folder/.style={code={%
+    \node[inner sep=0pt, minimum size=#1](-foldericon){};
+    \node[folder style, inner sep=0pt, minimum width=0.3*#1, minimum height=0.6*#1, above right, xshift=0.05*#1] at (-foldericon.west){};
+    \node[folder style, inner sep=0pt, minimum size=#1] at (-foldericon.center){};}
+    },
+    pics/folder/.default={20pt},
+    folder style/.style={draw=foldercolor!80!black,top color=foldercolor!40,bottom color=foldercolor}
+}
+
+\forestset{is file/.style={edge path'/.expanded={%
+        ([xshift=\forestregister{folder indent}]!u.parent anchor) |- (.child anchor)},
+        inner sep=1pt},
+    this folder size/.style={edge path'/.expanded={%
+        ([xshift=\forestregister{folder indent}]!u.parent anchor) |- (.child anchor) pic[solid]{folder=#1}}, inner xsep=0.6*#1},
+    folder tree indent/.style={before computing xy={l=#1}},
+    folder icons/.style={folder, this folder size=#1, folder tree indent=3*#1},
+    folder icons/.default={12pt},
+}
+
+% end definition directory tree
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Settings 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Type?? (Lecture Notes, BSc Thesis, Master Thesis, . . .) 
+% Use Variables \BSc, \Master, etc. for language support
+\type{Master Thesis}
+% Author(s)
+\author{Marc Habegger}
+% Title
+\title{Explainable AI}
+% Short Title, will be used in the footline
+\shorttitle{MAS Data Science Master Thesis}
+% Subtitle
+\subtitle{Stand der Forschung und Technik}
+% Titlepicture
+% \titlepicture{Bilder/Titel.png}
+%%
+
+% Topic of Study
+\degreeprogramme{MAS Data Science}
+% Expert
+\expert{Max Kleiner}
+% Version
+\version{1.0}
+% Date
+\date{\today} % Or any other possible date
+
+% Departement
+% Use Variable for language support
+%\TI
+
+% Semester
+% Use Variable for language support
+%\semester
+
+% Logo(s)
+
+% Colors
+% Secondary Color for Graphics, Tables etc.
+% Naming: BFH*Color*light|middle|dark, e.g. BFHGreendark, BFHBluelight, etc.
+% Possible Color Values: Green, Blue, Purple, Brown 
+\newcommand{\seccolor}{BFHLightGreen} 
+\newcommand{\imgText}[2]{
+\begin{center}
+    \begin{minipage}[t]{0.6\textwidth}
+\includegraphics[width=10cm, left, valign=t]{Bilder/#1}
+	\end{minipage}\hfill
+    \begin{minipage}[t]{0.4\textwidth}
+  #2
+    \end{minipage}
+\end{center}
+}
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+% Variablen für diese Arbeit
+\newcommand{\compImgSize}{4cm}
+
+% Glossar Einträge
+\makeindex
+\makeglossaries
+
+\newglossaryentry{XAI}
+{
+	name=Explainable artificial intelligence,
+	description={deutsch erklärbare künstliche Inteligenz, Methodiken um Menschen die Vorhersagen durch Modelle des maschinellen Lernens zu erläutern.  \break
+	\url{https://en.wikipedia.org/wiki/Explainable_artificial_intelligence}}
+}
+
+\newglossaryentry{DNN}
+{
+    name=Deep Neural Network,
+    description={deutsch tiefes lernen, Bezeichnet Neuronale Netze mit vielen Zwischenschichten.\break 
+    \url{https://en.wikipedia.org/wiki/Deep_learning\#Deep_neural_networks}}
+}
+
+\newglossaryentry{LRP}                                 
+{
+	name=Layer-wise Relevance Propagation,
+	description={test}                                   
+}                             
+
+\begin{document}
+                         
+\maketitle
+%**************************************************************************
+%\frontmatter % preliminary parts
+
+\tableofcontents
+\sloppy
+%%%%%%%%%%%%%%%%%%%%%%%%
+% Introduction
+%**************************************************************************
+\mainmatter % The main part
+%**************************************************************************
+%\part{Part One}
+
+\chapter{Einleitung}
+\Gls{XAI}
+\chapter{Eine Frage der Perspektive}
+\section{Erklärbarkeit}
+\subsection{Unterschiedliche Ziele}
+Je nach Komponente einer ML Lösung ergeben sich unterschiedliche Anforderungen an die Erklärbarkeit: \cite{XAI2018}
+
+\begin{description}
+\item[Daten]
+Aus der Sicht der Daten interessiert vor allem welcher Teil der Daten für das Ergebnis die Grösste Relevanz hat
+
+\item[Modell]
+Kann man aus dem Modell Muster für eine bestimmte Kategorie ableiten?
+
+\item[Vorhersage]
+Erklärung weshalb ein bestimmtes Muster in den Daten zu der beobachteten Klassifizierung geführt hat
+\end{description}
+
+\section{Transparenz}
+\section{Betroffene Parteien}
+Je nach Interessengruppe bestehen unterschiedliche Anforderungen an die Erklärbarkeit einer ML Anwendung. Nach \cite{Ras2018} werden dabei folgende Gruppierungen unterschieden:
+\begin{itemize}
+  \item Experten
+  	\begin{itemize}
+  		\item Forscher Entwickelt neue Methoden und Algorithmen für das ML, verbessert bestehende Algorithmen
+  		\item Entwickler Setzt bestehende Methodiken und Algorithmen ein um eine konkrete Aufgabenstellung zu lösen
+	\end{itemize}
+  \item Benutzer
+  	\begin{itemize}
+  		\item Eigentümer
+  		\item Anwender
+  		\item Person deren Daten verwendete wird
+  		\item Anspruchsgruppe (Stakeholder)
+	\end{itemize}
+\end{itemize}
+
+\chapter{Fallbeispiel Katzenklappe}
+
+\chapter{Bilderkennung}
+Neuronale Netze, insbesondere \Gls{DNN}
+\section{Heatmaps}
+\imgText{dog-good-heatmap.png}{ 
+Ein präzises Model verwendet keine Bildpunkte welche nicht dem gesuchten Objekt zugehören.
+}
+
+\imgText{dog-bad-heatmap.png}{ 
+Obwohl in diesem Beispiel das Objekt korrekt erkannt wurde ist die präzision des Models klein.
+}
+
+\imgText{cat-good-heatmap.png}{ 
+Allerdings ist auch eine gute Übereinstimmung mit dem Objekt keine Garantie dass die richtige Klasse gefunden wird.
+}
+
+\imgText{cat-bad-heatmap.png}{ 
+
+}
+
+\section{LRP}
+\Gls{LRP} ist eine Technik 
+% List of Figures
+\listoffigures
+% List of Tables
+\begingroup
+\let\clearpage\relax
+\listoftables
+% Glossary
+\printglossary
+% Bibliography
+
+\renewcommand\bibname{Literaturverzeichnis}
+%Index
+\addcontentsline{toc}{chapter}{Index}
+%\printindex
+% Appendices
+
+\bibliography{references} 
+\bibliographystyle{apalike}
+
+\endgroup
+\end{document}
