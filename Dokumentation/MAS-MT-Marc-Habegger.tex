@@ -37,20 +37,6 @@
 \usepackage{enumitem}
 \setlist[description]{style=nextline}
 
-\usepackage{minted}
-\setminted[arduino]{
-    linenos=true,
-    breaklines=true,
-    encoding=utf8,
-    fontsize=\footnotesize,
-    xleftmargin=7mm
-}
-\setminted[shell]{
-	frame=lines,
-	framesep=5mm
-}
-\usemintedstyle{manni}
-
 \usepackage{caption}
 \captionsetup[figure]{font=footnotesize, labelfont=small}
 \newcommand{\source}[1]{\caption*{Quelle: {#1}} }
@@ -85,6 +71,10 @@
     folder icons/.style={folder, this folder size=#1, folder tree indent=3*#1},
     folder icons/.default={12pt},
 }
+
+\usepackage[style=apa]{biblatex}
+\addbibresource{references.bib}
+\defbibheading{bibliography}[\bibname]{\section{#1}}
 
 % end definition directory tree
 
@@ -191,22 +181,22 @@
 \chapter{Eine Frage der Perspektive}
 \section{Erklärbarkeit}
 \subsection{Unterschiedliche Ziele}
-Je nach Komponente einer ML Lösung ergeben sich unterschiedliche Anforderungen an die Erklärbarkeit: \cite{XAI2018}
+Je nach Komponente einer ML Lösung ergeben sich unterschiedliche Anforderungen an die Erklärbarkeit: \parencite{XAI2018}
 
 \begin{description}
 \item[Daten]
-Aus der Sicht der Daten interessiert vor allem welcher Teil der Daten für das Ergebnis die Grösste Relevanz hat
+Aus der Sicht der Daten interessiert vor allem welcher Teil der Daten für das Ergebnis die Grösste Relevanz hat. Basierend auf dieser Erkenntnis kann das Datenset gezielt erweitert werden oder auch reduziert so dass ein ausgeglichenes Verhältnis erzeugt wird.
 
 \item[Modell]
-Kann man aus dem Modell Muster für eine bestimmte Kategorie ableiten?
+Kann man aus dem Modell Muster für eine bestimmte Kategorie ableiten? Dies kann helfen Fehlklassifizierungen von zusätzlichen Daten zu verhindern in dem überprüft wird ob das Modell die richtigen Features berücksichtigt.
 
 \item[Vorhersage]
-Erklärung weshalb ein bestimmtes Muster in den Daten zu der beobachteten Klassifizierung geführt hat
+Erklärung weshalb ein bestimmtes Muster in den Daten zu der beobachteten Klassifizierung geführt hat. Dies ist insbesondere für Anwender/Kunden einer ML Lösung um a) das Verständnis für die Maschinelle Entscheidung zu erhöhen oder b) eine gesetzlich Vorgeschriebene Anfechtbarkeit der Entscheidung zu ermöglichen.
 \end{description}
 
 \section{Transparenz}
 \section{Betroffene Parteien}
-Je nach Interessengruppe bestehen unterschiedliche Anforderungen an die Erklärbarkeit einer ML Anwendung. Nach \cite{Ras2018} werden dabei folgende Gruppierungen unterschieden:
+Je nach Interessengruppe bestehen unterschiedliche Anforderungen an die Erklärbarkeit einer ML Anwendung. Nach \parencite{Ras2018} werden dabei folgende Gruppierungen unterschieden:
 \begin{itemize}
   \item Experten
   	\begin{itemize}
@@ -261,8 +251,7 @@ Allerdings ist auch eine gute Übereinstimmung mit dem Objekt keine Garantie das
 %\printindex
 % Appendices
 
-\bibliography{references} 
-\bibliographystyle{apalike}
+\printbibliography
 
 \endgroup
 \end{document}
