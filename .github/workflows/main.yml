@@ -1,0 +1,16 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Github Action for LaTeX
+      uses: xu-cheng/latex-action@1.2.0
+      with:
+        # The root LaTeX file to be compiled
+        root_file: Dokumentation/MAS-MT-Marc-Habegger.tex
