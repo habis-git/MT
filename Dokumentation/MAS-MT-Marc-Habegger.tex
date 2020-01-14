@@ -33,7 +33,34 @@
 \usepackage{threeparttable} % Table-Captions having the same width than the table
 \usepackage[singlelinecheck=off]{caption}
 \usepackage{siunitx} % Scientific Units and number setting
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
 \usepackage{listings} % For Program-Code
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=mystyle}
+
 \usepackage{enumitem}
 \setlist[description]{style=nextline}
 
@@ -46,35 +73,14 @@
 \usepackage[export]{adjustbox}
 \usepackage[document]{ragged2e} % left-alignment for text
 
-\usepackage{glossaries}
-
-% definition for directory tree with forest
-\usepackage[edges]{forest}
+\usepackage[acronym]{glossaries}
+\makenoidxglossaries
 
 \definecolor{foldercolor}{RGB}{124,166,198}
 
-\tikzset{pics/folder/.style={code={%
-    \node[inner sep=0pt, minimum size=#1](-foldericon){};
-    \node[folder style, inner sep=0pt, minimum width=0.3*#1, minimum height=0.6*#1, above right, xshift=0.05*#1] at (-foldericon.west){};
-    \node[folder style, inner sep=0pt, minimum size=#1] at (-foldericon.center){};}
-    },
-    pics/folder/.default={20pt},
-    folder style/.style={draw=foldercolor!80!black,top color=foldercolor!40,bottom color=foldercolor}
-}
-
-\forestset{is file/.style={edge path'/.expanded={%
-        ([xshift=\forestregister{folder indent}]!u.parent anchor) |- (.child anchor)},
-        inner sep=1pt},
-    this folder size/.style={edge path'/.expanded={%
-        ([xshift=\forestregister{folder indent}]!u.parent anchor) |- (.child anchor) pic[solid]{folder=#1}}, inner xsep=0.6*#1},
-    folder tree indent/.style={before computing xy={l=#1}},
-    folder icons/.style={folder, this folder size=#1, folder tree indent=3*#1},
-    folder icons/.default={12pt},
-}
-
 \usepackage[style=apa]{biblatex}
 \addbibresource{references.bib}
-\defbibheading{bibliography}[\bibname]{\section{#1}}
+\defbibheading{bibliography}[\bibname]{{\section#1}}
 
 % end definition directory tree
 
@@ -139,7 +145,18 @@
 
 % Glossar Einträge
 \makeindex
-\makeglossaries
+
+\newglossaryentry{MLg}
+{
+	name=Machine Learning,
+	description={deutsch Maschinelles lernen. Ein künstliches System lernt aus Beispielen und kann diese nach Beendigung der Lernphase verallgemeinern..  \break
+	\url{https://de.wikipedia.org/wiki/Maschinelles_Lernen}}
+}
+
+\newglossaryentry{ML}{type=\acronymtype, name={ML}, description={Machine Learning}, first={Machine Learning (ML)\glsadd{MLg}}, see=[Glossary:]{MLg}
+}
+
+\newacronym{xai}{XAI}{Explainable artificial intelligence}
 
 \newglossaryentry{XAI}
 {
@@ -148,6 +165,10 @@
 	\url{https://en.wikipedia.org/wiki/Explainable_artificial_intelligence}}
 }
 
+\newacronym{cnn}{CNN}{Convolutional Neural Network}
+
+\newacronym{dnn}{DNN}{Deep Neural Network}
+
 \newglossaryentry{DNN}
 {
     name=Deep Neural Network,
@@ -155,11 +176,25 @@
     \url{https://en.wikipedia.org/wiki/Deep_learning\#Deep_neural_networks}}
 }
 
+\newacronym{lrp}{LRP}{Layer-wise Relevance Propagation}
+
 \newglossaryentry{LRP}                                 
 {
 	name=Layer-wise Relevance Propagation,
-	description={test}                                   
+	description={Technik zur Bestimmung der Merkmale welche am stärksten für das Endresultat verantwortlich sind.}                                   
 }                             
+
+\newglossaryentry{Black Box}                                 
+{
+	name=Black Box,
+	description={System welches nicht im Quellcode vorhanden ist und dadurch nicht durch Analyse der Programmierung verstanden werden kann. Jegliche Rückschlüsse sind nur durch Beobachtungen möglich}                                   
+}     
+
+\newglossaryentry{DT}                                 
+{
+	name=Decision Tree,
+	description={Entscheidungsbaum, Familie von ML Algorithmen}                                   
+}     
 
 \begin{document}
                          
@@ -177,8 +212,24 @@
 %\part{Part One}
 
 \chapter{Einleitung}
-\Gls{XAI}
-\chapter{Eine Frage der Perspektive}
+\begin{figure}[ht]
+\centering
+	\includegraphics[width=\textwidth]{Bilder/ML-Timeline.png}
+	\caption{Entwicklung des Machine Learning als Zeitachse.}
+\end{figure}
+\gls{ML} wird seit den 1960er Jahren angewendet, allerdings waren die erzielten Resultate lange Zeit für viele Anwendungen ungenügend. Durch die Verfügbarkeit von grossen Datenmengen (Big Data, Cloud) und der gesteigerten Rechenleistung der Rechner wurden nach der Jahrtausendwende so gute Fortschritte erzielt dass immer mehr Anwendungsmöglichkeiten für \gls{ML} Lösungen gefunden wurden. Während für viele Dienste im Internet (Bildersammlungen, Empfehlungssysteme) keine oder nur geringe Anforderungen an ein verständliches Modell gestellt werden gibt es einige Bereiche in denen besondere Regeln für die Nachvollziehbarkeit von Entscheidungen bestehen.
+
+ Exemplarisch werden hier einige dieser Gebiete aufgeführt:
+
+\begin{description}
+  \item[Medizin] \gls{ML} Anwendungen für die Krebserkennung bieten grosses Potenzial. Insbesondere die ermüdenden Aufgabe auf Röntgen- oder MRT-Bildern Spuren eines Tumors zu erkennen könnten durch \gls{ML} abgelöst werden. Allerdings sind die Zulassungskriterien für solche Lösungen noch nicht definiert.
+  \item[Justiz] Predictive Policing versucht mittels statistischer und \gls{ML} Verfahren Orte oder Personengruppen zu erkennen welche  Schauplatz oder Täter/Opfer eines Verbrechens werden könnten.
+  \item[Selbstfahrende Fahrzeuge] Obwohl Selbstfahrende Fahrzeuge seit Jahren von allen grossen Fahrzeugherstellern entwickelt werden sind immer noch viele Fragen bezüglich der Haftung und Zulassung offen.
+\end{description}
+
+Aufgrund des Mangels an Techniken um fortgeschrittene \gls{ML} System zu Verstehen, entstand deshalb ein neues Forschungsgebiet \acrfull{xai} welches sich zum Ziel gesetzt hat Methoden und Werkzeuge zu entwickeln um \gls{ML} Modelle zu analysieren.
+
+\chapter{Definition der Erklärbarkeit}
 \section{Erklärbarkeit}
 \subsection{Unterschiedliche Ziele}
 Je nach Komponente einer ML Lösung ergeben sich unterschiedliche Anforderungen an die Erklärbarkeit: \parencite{XAI2018}
@@ -194,29 +245,64 @@ Kann man aus dem Modell Muster für eine bestimmte Kategorie ableiten? Dies kann
 Erklärung weshalb ein bestimmtes Muster in den Daten zu der beobachteten Klassifizierung geführt hat. Dies ist insbesondere für Anwender/Kunden einer ML Lösung um a) das Verständnis für die Maschinelle Entscheidung zu erhöhen oder b) eine gesetzlich Vorgeschriebene Anfechtbarkeit der Entscheidung zu ermöglichen.
 \end{description}
 
-\section{Transparenz}
-\section{Betroffene Parteien}
-Je nach Interessengruppe bestehen unterschiedliche Anforderungen an die Erklärbarkeit einer ML Anwendung. Nach \parencite{Ras2018} werden dabei folgende Gruppierungen unterschieden:
-\begin{itemize}
-  \item Experten
-  	\begin{itemize}
-  		\item Forscher Entwickelt neue Methoden und Algorithmen für das ML, verbessert bestehende Algorithmen
-  		\item Entwickler Setzt bestehende Methodiken und Algorithmen ein um eine konkrete Aufgabenstellung zu lösen
-	\end{itemize}
-  \item Benutzer
-  	\begin{itemize}
-  		\item Eigentümer
-  		\item Anwender
-  		\item Person deren Daten verwendete wird
-  		\item Anspruchsgruppe (Stakeholder)
-	\end{itemize}
-\end{itemize}
+Ebenso gibt es bei den Interessengruppe unterschiedliche Anforderungen an die Erklärbarkeit einer ML Anwendung. Nach \parencite{Ras2018} werden dabei folgende Gruppierungen unterschieden:
+\begin{description}
+  \item[Experten]
+  Diese Gruppe kann weiter unterteilt werden in
+  	\begin{description}
+  		\item[Forscher] Entwickelt neue Methoden und Algorithmen für das ML, verbessert bestehende Algorithmen
+  		\item[Entwickler] Setzt bestehende Methodiken und Algorithmen ein um eine konkrete Aufgabenstellung zu lösen
+	\end{description}
+  \item[Benutzer]
+  Auch bei den Benutzern gibt es verschiedene Ausprägungen
+  	\begin{description}
+  		\item[Eigentümer]
+  		\item[Anwender]
+  		\item[Person deren Daten verwendete wird]
+  		\item[Anspruchsgruppe (Stakeholder)]
+	\end{description}
+\end{description}
+Die Anforderungen an ein erklärbares Modell unterscheiden sich so stark je nach betrachtetet Komponente und der Anwendergruppe. Daraus ergibt sich dass verschiedene Techniken benötigt werden um AI Lösungen generell erklärbar zu machen.
 
-\chapter{Fallbeispiel Katzenklappe}
+\chapter{Erklärbare Modelle}
+\section{Entscheidungsbäume}
+Entscheidungsbäume (engl. Decision Tree) können bei einer geringen Anzahl von Parametern gut visualisiert werden.
+\begin{center}
+\begin{minipage}[t]{0.45\linewidth}
+Die Regeln nach denen sich ein \Gls{DT} aufteilt können als Text dargestellt werden. Intuitiv besser verständlich sind jedoch grafische Darstellungen welche entweder den Baum als Struktur oder in einem Diagramm als Fläche darstellen.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.45\linewidth}
+\begin{lstlisting}
+|--- petal width (cm) <= 0.80
+|   |--- class: 0
+|--- petal width (cm) >  0.80
+|   |--- petal width (cm) <= 1.75
+|   |   |--- class: 1
+|   |--- petal width (cm) >  1.75
+|   |   |--- class: 2
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+\begin{center}
+\begin{minipage}[t]{0.45\linewidth}
+\centering
+	\includegraphics[width=\textwidth]{Bilder/iris-dt-explained.png}
+	 \captionof{figure}{Entscheidungsbaum visualisiert.}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.45\linewidth}
+\centering
+	\includegraphics[width=\textwidth]{Bilder/iris-dt-decision-surface.png}
+	 \captionof{figure}{Entschdeidungsbaum als Flächen dargestellt}
+\end{minipage}
+\end{center}
+Source Code \ref{dt-vis} (benötigt min. scikit-learn 0.22)
 
 \chapter{Bilderkennung}
-Neuronale Netze, insbesondere \Gls{DNN}
-\section{Heatmaps}
+In den letzten Jahrzehnten wurden grosse Fortschritte in der Bilderkennung gemacht. Verantwortlich dafür sind vor allem Neuronale Netze, insbesondere die Techniken \acrfull{cnn} in Zusammenhang mit {dnn}. Neuronale Netze, insbesondere die für Bilderkennung weit verbreiteten \acrfull{dnn}, sind ohne weitere Hilfsmittel kaum zu analysieren.
+Durch den starken Fokus auf Neuronale Netze bei der Bilderkennung sind für diese Technik auch einige Methoden vorhanden um das Verhalten eines Modelles  auf ein Bild darzustellen.
+\section{Neuronale Netze}
+\subsection{Heatmaps}
 \imgText{dog-good-heatmap.png}{ 
 Ein präzises Model verwendet keine Bildpunkte welche nicht dem gesuchten Objekt zugehören.
 }
@@ -232,9 +318,160 @@ Allerdings ist auch eine gute Übereinstimmung mit dem Objekt keine Garantie das
 \imgText{cat-bad-heatmap.png}{ 
 
 }
+\subsection{Grad CAM}
+\url{https://github.com/tensorflow/tensorflow/blob/r1.8/tensorflow/python/keras/_impl/keras/applications/vgg16.py}
+\includegraphics[width=\textwidth]{Bilder/Grad-Cam-Classes.png}
+
+\subsection{Occlusion Sensitivity}
+\includegraphics[width=\textwidth]{Bilder/OcclusionSensitivity-Classes.png}
 
 \section{LRP}
-\Gls{LRP} ist eine Technik 
+\acrfull{lrp} ist eine Technik 
+
+\chapter{Fallbeispiel Katzenklappe}
+\chapter{Anhang}
+\section{Pyhton Beispiele}
+\label{dt-vis}
+\begin{lstlisting}[language=Python, caption=Decision Tree Visualisierung]
+from sklearn.datasets import load_iris
+from sklearn import tree
+from sklearn import datasets
+
+X, y = load_iris(return_X_y=True)
+clf = tree.DecisionTreeClassifier()
+clf = clf.fit(X, y)
+
+iris = datasets.load_iris()
+
+dot_data = tree.export_graphviz(clf, out_file=None, 
+                      feature_names=iris.feature_names,  
+                      class_names=iris.target_names,  
+                      filled=True, rounded=True,  
+                      special_characters=True)  
+
+# print tree as text
+from sklearn.tree import export_text
+r = export_text(clf, feature_names=iris['feature_names'])
+print(r)
+
+# print tree as colored top-down tree
+import graphviz
+graph = graphviz.Source(dot_data)  
+graph 
+
+# plot decision surface
+import numpy as np
+import matplotlib.pyplot as plt
+# Parameters
+n_classes = 3
+plot_colors = "ryb"
+plot_step = 0.02
+
+for pairidx, pair in enumerate([[0, 1], [0, 2], [0, 3],
+                                [1, 2], [1, 3], [2, 3]]):
+    # We only take the two corresponding features
+    X = iris.data[:, pair]
+    y = iris.target
+    
+    # Train
+    dTree = tree.DecisionTreeClassifier().fit(X, y)
+
+    # Plot the decision boundary
+    plt.subplot(2, 3, pairidx + 1)
+
+    x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+    y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+    xx, yy = np.meshgrid(np.arange(x_min, x_max, plot_step),
+                         np.arange(y_min, y_max, plot_step))
+    plt.tight_layout(h_pad=0.5, w_pad=0.5, pad=2.5)
+
+    Z = dTree.predict(np.c_[xx.ravel(), yy.ravel()])
+    Z = Z.reshape(xx.shape)
+    cs = plt.contourf(xx, yy, Z, cmap=plt.cm.RdYlBu)
+
+    plt.xlabel(iris.feature_names[pair[0]])
+    plt.ylabel(iris.feature_names[pair[1]])
+
+    # Plot the training points
+    for i, color in zip(range(n_classes), plot_colors):
+        idx = np.where(y == i)
+        plt.scatter(X[idx, 0], X[idx, 1], c=color, label=iris.target_names[i],
+                    cmap=plt.cm.RdYlBu, edgecolor='black', s=15)
+
+plt.suptitle("Decision surface of a decision tree using paired features")
+plt.legend(loc='lower right', borderpad=0, handletextpad=0)
+plt.axis("tight")
+\end{lstlisting}
+https://scikit-learn.org/stable/modules/tree.html
+
+\begin{lstlisting}[language=Python, caption=Visualisiertes Neuronales Netz mit Tensorflow und tf-explain]
+import tensorflow as tf
+from keras.applications.vgg16 import VGG16
+from keras.preprocessing.image import load_img
+from keras.preprocessing.image import img_to_array
+from keras.applications.vgg16 import preprocess_input
+from keras.applications.vgg16 import decode_predictions
+
+model = tf.keras.applications.vgg16.VGG16(weights="imagenet", include_top=True)
+
+#print(model.summary())
+
+imageOrig = load_img('D:/Master Thesis/dogs-vs-cats/test/DSC05797.JPG', target_size=(224, 224))
+imageArr = img_to_array(imageOrig)  #output Numpy-array
+
+imageReshaped = imageArr.reshape((1, imageArr.shape[0], imageArr.shape[1], imageArr.shape[2]))
+
+image = preprocess_input(imageReshaped)
+predictions = model.predict(imageReshaped)
+
+import numpy as np
+top5predictions = np.argsort(predictions)[0,::-1][:5]
+
+labels = decode_predictions(predictions)
+
+for label in labels[0]:
+    print('%s (%.2f%%)' % (label[1], label[2]*100))
+    
+from tf_explain.core.grad_cam import GradCAM
+from mpl_toolkits.axes_grid1 import ImageGrid
+
+def createImageGrid(imageOrig, predictions, labels, explainer, explainerArgs):
+    camImages = [imageOrig]
+    fig = plt.figure(figsize=(20., 20.))
+    grid = ImageGrid(fig, 111,  # similar to subplot(111)
+                 nrows_ncols=(2, 3),
+                 axes_pad=0.5,  # pad between axes in inch.
+                 )
+    for class_index in top5predictions:
+        camImages.append(explainer.explain(class_index=class_index, **explainerArgs))
+    
+    i = -1
+    for ax, im in zip(grid, camImages):
+        # Iterating over the grid returns the Axes.
+        ax.set_xticks([])
+        ax.set_yticks([])
+        label = labels[0][i]
+        if i >= 0:
+            ax.set_title('%s (%.2f%%)' % (label[1], label[2]*100))
+        ax.imshow(im)
+        i = i + 1
+
+    plt.show()
+
+
+explainer = GradCAM()
+createImageGrid(imageOrig, predictions, labels, explainer, {'model': model, 'layer_name': 'block5_conv3', 'validation_data': data})
+
+from tf_explain.core.gradients_inputs import GradientsInputs
+explainer = GradientsInputs()
+createImageGrid(imageOrig, predictions, labels, explainer, {'model': model, 'validation_data': (np.array([imageArr]), None)})
+
+from tf_explain.core.integrated_gradients import IntegratedGradients
+
+explainer = IntegratedGradients()
+createImageGrid(imageOrig, predictions, labels, explainer, {'model': model, 'validation_data': (np.array([imageArr]), None)})
+\end{lstlisting}
+https://github.com/sicara/tf-explain
 % List of Figures
 \listoffigures
 % List of Tables
@@ -242,16 +479,15 @@ Allerdings ist auch eine gute Übereinstimmung mit dem Objekt keine Garantie das
 \let\clearpage\relax
 \listoftables
 % Glossary
-\printglossary
+\printglossary[type=\acronymtype]
+\printglossary[type=main]
 % Bibliography
-
-\renewcommand\bibname{Literaturverzeichnis}
+\printbibliography
 %Index
 \addcontentsline{toc}{chapter}{Index}
 %\printindex
 % Appendices
-
-\printbibliography
-
+\lstlistoflistings
 \endgroup
+
 \end{document}
