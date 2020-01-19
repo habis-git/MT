@@ -129,10 +129,12 @@
 \newcommand{\imgText}[2]{
 \begin{center}
     \begin{minipage}[t]{0.6\textwidth}
-\includegraphics[width=10cm, left, valign=t]{Bilder/#1}
+    		\vspace{0pt}
+		\includegraphics[width=10cm, left]{Bilder/#1}
 	\end{minipage}\hfill
     \begin{minipage}[t]{0.4\textwidth}
-  #2
+    		\vspace{0pt}
+  		#2
     \end{minipage}
 \end{center}
 }
@@ -196,6 +198,12 @@
 	description={Entscheidungsbaum, Familie von ML Algorithmen}                                   
 }     
 
+\newglossaryentry{Grad CAM}
+{
+	name=Grad CAM,
+	description={Gradient-weighted Class Activation Mapping, Technik welche für eine Entscheidung relevanten Bildinhalte optisch hervorhebt}  
+}
+
 \begin{document}
                          
 \maketitle
@@ -232,7 +240,7 @@ Aufgrund des Mangels an Techniken um fortgeschrittene \gls{ML} System zu Versteh
 \chapter{Definition der Erklärbarkeit}
 \section{Erklärbarkeit}
 \subsection{Unterschiedliche Ziele}
-Je nach Komponente einer ML Lösung ergeben sich unterschiedliche Anforderungen an die Erklärbarkeit: \parencite{XAI2018}
+Eine Anwendung welche \acrfull{ML} einsetzt kann in mehrere Bereiche unterteilt werden.  Durch diese Aufteilung in verschiedene  Komponenten ergeben sich unterschiedliche Anforderungen an die Erklärbarkeit: \parencite{XAI2018}
 
 \begin{description}
 \item[Daten]
@@ -264,7 +272,19 @@ Ebenso gibt es bei den Interessengruppe unterschiedliche Anforderungen an die Er
 \end{description}
 Die Anforderungen an ein erklärbares Modell unterscheiden sich so stark je nach betrachtetet Komponente und der Anwendergruppe. Daraus ergibt sich dass verschiedene Techniken benötigt werden um AI Lösungen generell erklärbar zu machen.
 
-\chapter{Erklärbare Modelle}
+\chapter{Anwendung von XAI auf Modelle}
+Nach \parencite{Oh2019} hat Art des Modells von grossem Einfluss auf die Möglichkeiten der Erklärbarkeit. Generell wird unterschieden zwischen
+\begin{description}
+\item [Whitebox Modelle] sind unter der Kontrolle desjenigen welcher eine erklärende Analyse durchführt, sowohl die Daten wie der Aufbau des Modelles sind bekannt
+\item[Blackbox Modelle] sind von unbekannter Struktur, der Anwender bekommt von einem gegebenen Input ein Resultat ohne den Ablauf der Entscheidungsfindung beobachten zu können
+\end{description}
+
+Aus der Vielzahl von Werkzeugen welche existieren um \acrfull{ML} Modelle zu analysieren gilt es die für den jeweiligen Use Case relevanten Werkzeuge anzuwenden.
+TODO: Übersicht der Techniken und Anwendungsbereiche wie in der Grafik
+
+\includegraphics[width=\textwidth]{Bilder/blueprint.png}
+\captionof{figure}{Quelle: https://github.com/h2oai/mli-resources}
+
 \section{Entscheidungsbäume}
 Entscheidungsbäume (engl. Decision Tree) können bei einer geringen Anzahl von Parametern gut visualisiert werden.
 \begin{center}
@@ -298,11 +318,11 @@ Die Regeln nach denen sich ein \Gls{DT} aufteilt können als Text dargestellt we
 \end{center}
 Source Code \ref{dt-vis} (benötigt min. scikit-learn 0.22)
 
-\chapter{Bilderkennung}
+\section{Bilderkennung}
 In den letzten Jahrzehnten wurden grosse Fortschritte in der Bilderkennung gemacht. Verantwortlich dafür sind vor allem Neuronale Netze, insbesondere die Techniken \acrfull{cnn} in Zusammenhang mit {dnn}. Neuronale Netze, insbesondere die für Bilderkennung weit verbreiteten \acrfull{dnn}, sind ohne weitere Hilfsmittel kaum zu analysieren.
 Durch den starken Fokus auf Neuronale Netze bei der Bilderkennung sind für diese Technik auch einige Methoden vorhanden um das Verhalten eines Modelles  auf ein Bild darzustellen.
-\section{Neuronale Netze}
-\subsection{Heatmaps}
+\subsection{Analyse Neuronaler Netze}
+\subsubsection*{Eigenes Modell}
 \imgText{dog-good-heatmap.png}{ 
 Ein präzises Model verwendet keine Bildpunkte welche nicht dem gesuchten Objekt zugehören.
 }
@@ -318,17 +338,56 @@ Allerdings ist auch eine gute Übereinstimmung mit dem Objekt keine Garantie das
 \imgText{cat-bad-heatmap.png}{ 
 
 }
-\subsection{Grad CAM}
-\url{https://github.com/tensorflow/tensorflow/blob/r1.8/tensorflow/python/keras/_impl/keras/applications/vgg16.py}
+\subsubsection*{ImageNet Modell}
+Das für die folgenden Analysen verwendete Modell \parencite{Simonyan2014} stammt aus der ImageNet Challenge \cite{imageNet} aus dem Jahr 2014 und ist frei verfügbar. ImageNet definiert 1001 Klassen von Objekten welche erkannt werden. Eine Klassifikation mit \cite{TensorFlow} erzeugt eine Liste mit den Wahrscheinlichkeiten für alle Klassen. Mit den \acrfull{XAI} Techniken kann für jede Klasse visualisiert werden welche Bildbereiche für diese Klassifikation relevant sind.
+
+Mittels dem Modell VGG16 aus der Tensorflow Bibliothek \cite{vgg16} wurde folgendes Bild analysiert:
+\imgText{Mira.jpg}{
+		\begin{tabular}{ |c|c| } 
+		 \hline
+		 Klasse & Wahrscheinlichkeit \\
+		 \hline
+		 Egyptian cat1 & 55.31\% \\ 
+		 tabby & 8.59\% \\ 
+		 tiger cat & 5.59\% \\ 
+		 carton & 4.63\% \\
+		 toilet tissue & 3.55\% \\
+		 \hline
+		\end{tabular}
+		\break
+		Während die ersten drei Klassen alle eine Katzenart definieren ist die vierte Klasse ``Karton'' und die Fünfte ``Toilettenpapier'' unpassend. An und für sich ist die Wahrscheinlichkeit für ``toilet tissue'' mit 3.55\% sehr klein, dennoch stellt sich die Frage weshalb dies die gegenüber den verschiedenen Katzenarten nächste Klasse ist.
+}
+
+\subsubsection*{Grad CAM} \break
+\Gls{Grad CAM} ist eine Technik \parencite{Selvaraju2016} um auf der Basis von Gradienten die für eine Bildklassifikation relevanten Bereiche eines Bildes hervorzuheben. Während die relevantesten Bereiche (gelb gefärbt) um den Kopf und vor allem den Ohren der Katze sind, zeigen die Darstellungen für die unpassenden Klassen auf Bereiche des Bodens.
 \includegraphics[width=\textwidth]{Bilder/Grad-Cam-Classes.png}
 
-\subsection{Occlusion Sensitivity}
+\subsubsection*{Occlusion Sensitivity} \break
+Eine weitere Variante um relevante Bildbereiche aufzudecken ist Occlusion Sensitivity. Mit diesem Verfahren tritt deutlicher als bei Grad CAM die Fokusierung auf den Boden bei den beiden Falschen Klassifizierungen zutage.
 \includegraphics[width=\textwidth]{Bilder/OcclusionSensitivity-Classes.png}
 
-\section{LRP}
-\acrfull{lrp} ist eine Technik 
+\subsubsection*{LRP}
+\acrfull{lrp} ist eine Technik welche ebenfalls versucht die Vorhersage eines Klassifizierers zu erklären. 
 
-\chapter{Fallbeispiel Katzenklappe}
+\url{ttps://github.com/VigneshSrinivasan10/interprettensor}
+\url{https://github.com/sebastian-lapuschkin/lrp_toolbox}
+
+\subsubsection*{Lime}
+\url{https://arxiv.org/abs/1602.04938}
+
+\subsubsection*{TCAV}
+\url{https://github.com/tensorflow/tcav}
+
+\subsubsection*{SVCCA}
+\url{https://ai.googleblog.com/2017/11/interpreting-deep-neural-networks-with.html}
+
+\section{Texterkennung}
+\url{https://eli5.readthedocs.io/en/latest/tutorials/sklearn-text.html}
+
+\chapter{Schwächen von ML Modellen erkennen}
+\section{Adversarial Attacks}
+\section{Data Poisoning}
+
 \chapter{Anhang}
 \section{Pyhton Beispiele}
 \label{dt-vis}
@@ -404,6 +463,8 @@ plt.axis("tight")
 \end{lstlisting}
 https://scikit-learn.org/stable/modules/tree.html
 
+\subsection{Bild-Klassifikation mit tf-explain}
+Das folgende Programm erzeugt mit den Bibliotheken Tensorflow (2.0) und tf-explain und en Algorithmen ``Grad CAM'' und ``Integrated Gradients'' Visualisierungen einer Bild-Klassifizierung. 
 \begin{lstlisting}[language=Python, caption=Visualisiertes Neuronales Netz mit Tensorflow und tf-explain]
 import tensorflow as tf
 from keras.applications.vgg16 import VGG16
@@ -472,6 +533,7 @@ explainer = IntegratedGradients()
 createImageGrid(imageOrig, predictions, labels, explainer, {'model': model, 'validation_data': (np.array([imageArr]), None)})
 \end{lstlisting}
 https://github.com/sicara/tf-explain
+\appendix
 % List of Figures
 \listoffigures
 % List of Tables
@@ -483,6 +545,12 @@ https://github.com/sicara/tf-explain
 \printglossary[type=main]
 % Bibliography
 \printbibliography
+
+\renewcommand\bibname{Linkverzeichnis}
+\begin{thebibliography}{99}\label{links}
+   \bibitem{vgg16} VGG16: Modell für Imagenet Klassifikationen \break \url{https://github.com/tensorflow/tensorflow/blob/r1.8/tensorflow/python/keras/_impl/keras/applications/vgg16.py}
+   \bibitem{imageNet} ImageNet Challenge \break \url{http://www.image-net.org/challenges/LSVRC/}
+\end{thebibliography}
 %Index
 \addcontentsline{toc}{chapter}{Index}
 %\printindex

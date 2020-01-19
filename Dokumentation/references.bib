@@ -11,24 +11,49 @@
   url       = {https://www.ebook.de/de/product/33610206/explainable_and_interpretable_models_in_computer_vision_and_machine_learning.html},
 }
 
-@InCollection{Ras2018,
+@Article{Ras2018,
   author    = {Gabriëlle Ras and Marcel van Gerven and Pim Haselager},
   title     = {Explanation Methods in Deep Learning: Users, Values, Concerns and Challenges},
-  booktitle = {The Springer Series on Challenges in Machine Learning},
-  publisher = {Springer International Publishing},
   year      = {2018},
   pages     = {19--36},
+  booktitle = {The Springer Series on Challenges in Machine Learning},
   doi       = {10.1007/978-3-319-98131-4_2},
+  publisher = {Springer International Publishing},
 }
 
-@InCollection{Oh2019,
+@Article{Oh2019,
   author    = {Seong Joon Oh and Bernt Schiele and Mario Fritz},
   title     = {Towards Reverse-Engineering Black-Box Neural Networks},
-  booktitle = {Explainable {AI}: Interpreting, Explaining and Visualizing Deep Learning},
-  publisher = {Springer International Publishing},
   year      = {2019},
   pages     = {121--144},
+  booktitle = {Explainable {AI}: Interpreting, Explaining and Visualizing Deep Learning},
   doi       = {10.1007/978-3-030-28954-6_7},
+  publisher = {Springer International Publishing},
+}
+
+@Article{Selvaraju2016,
+  author      = {Ramprasaath R. Selvaraju and Michael Cogswell and Abhishek Das and Ramakrishna Vedantam and Devi Parikh and Dhruv Batra},
+  title       = {Grad-CAM: Visual Explanations from Deep Networks via Gradient-based Localization},
+  abstract    = {We propose a technique for producing "visual explanations" for decisions from a large class of CNN-based models, making them more transparent. Our approach - Gradient-weighted Class Activation Mapping (Grad-CAM), uses the gradients of any target concept, flowing into the final convolutional layer to produce a coarse localization map highlighting important regions in the image for predicting the concept. Grad-CAM is applicable to a wide variety of CNN model-families: (1) CNNs with fully-connected layers, (2) CNNs used for structured outputs, (3) CNNs used in tasks with multimodal inputs or reinforcement learning, without any architectural changes or re-training. We combine Grad-CAM with fine-grained visualizations to create a high-resolution class-discriminative visualization and apply it to off-the-shelf image classification, captioning, and visual question answering (VQA) models, including ResNet-based architectures. In the context of image classification models, our visualizations (a) lend insights into their failure modes, (b) are robust to adversarial images, (c) outperform previous methods on localization, (d) are more faithful to the underlying model and (e) help achieve generalization by identifying dataset bias. For captioning and VQA, we show that even non-attention based models can localize inputs. We devise a way to identify important neurons through Grad-CAM and combine it with neuron names to provide textual explanations for model decisions. Finally, we design and conduct human studies to measure if Grad-CAM helps users establish appropriate trust in predictions from models and show that Grad-CAM helps untrained users successfully discern a 'stronger' nodel from a 'weaker' one even when both make identical predictions. Our code is available at https://github.com/ramprs/grad-cam/, along with a demo at http://gradcam.cloudcv.org, and a video at youtu.be/COjUB9Izk6E.},
+  date        = {2016-10-07},
+  doi         = {10.1007/s11263-019-01228-7},
+  eprint      = {http://arxiv.org/abs/1610.02391v4},
+  eprintclass = {cs.CV},
+  eprinttype  = {arXiv},
+  file        = {:http\://arxiv.org/pdf/1610.02391v4:PDF},
+  keywords    = {cs.CV, cs.AI, cs.LG},
+}
+
+@Article{Simonyan2014,
+  author      = {Karen Simonyan and Andrew Zisserman},
+  title       = {Very Deep Convolutional Networks for Large-Scale Image Recognition},
+  abstract    = {In this work we investigate the effect of the convolutional network depth on its accuracy in the large-scale image recognition setting. Our main contribution is a thorough evaluation of networks of increasing depth using an architecture with very small (3x3) convolution filters, which shows that a significant improvement on the prior-art configurations can be achieved by pushing the depth to 16-19 weight layers. These findings were the basis of our ImageNet Challenge 2014 submission, where our team secured the first and the second places in the localisation and classification tracks respectively. We also show that our representations generalise well to other datasets, where they achieve state-of-the-art results. We have made our two best-performing ConvNet models publicly available to facilitate further research on the use of deep visual representations in computer vision.},
+  date        = {2014-09-04},
+  eprint      = {http://arxiv.org/abs/1409.1556v6},
+  eprintclass = {cs.CV},
+  eprinttype  = {arXiv},
+  file        = {:http\://arxiv.org/pdf/1409.1556v6:PDF},
+  keywords    = {cs.CV},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}
