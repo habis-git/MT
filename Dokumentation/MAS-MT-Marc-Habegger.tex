@@ -237,9 +237,9 @@
 
 Aufgrund des Mangels an Techniken um fortgeschrittene \gls{ML} System zu Verstehen, entstand deshalb ein neues Forschungsgebiet \acrfull{xai} welches sich zum Ziel gesetzt hat Methoden und Werkzeuge zu entwickeln um \gls{ML} Modelle zu analysieren.
 
-\chapter{Definition der Erklärbarkeit}
-\section{Erklärbarkeit}
-\subsection{Unterschiedliche Ziele}
+\chapter{Ein wager Begriff: Erklärbarkeit}
+\section{Wie definiert sich Erklärbarkeit?}
+\section{Unterschiedliche Ziele}
 Eine Anwendung welche \acrfull{ML} einsetzt kann in mehrere Bereiche unterteilt werden.  Durch diese Aufteilung in verschiedene  Komponenten ergeben sich unterschiedliche Anforderungen an die Erklärbarkeit: \parencite{XAI2018}
 
 \begin{description}
@@ -272,6 +272,16 @@ Ebenso gibt es bei den Interessengruppe unterschiedliche Anforderungen an die Er
 \end{description}
 Die Anforderungen an ein erklärbares Modell unterscheiden sich so stark je nach betrachtetet Komponente und der Anwendergruppe. Daraus ergibt sich dass verschiedene Techniken benötigt werden um AI Lösungen generell erklärbar zu machen.
 
+\section{Herausforderungen durch Datenschutz}
+
+\section{Diskriminierung}
+
+\section{Bessere Anwendungen durch Einblick in die Funktionsweise}
+
+\section{Weniger Angriffsflächen}
+
+\section{Haftungsfragen}
+
 \chapter{Anwendung von XAI auf Modelle}
 Nach \parencite{Oh2019} hat Art des Modells von grossem Einfluss auf die Möglichkeiten der Erklärbarkeit. Generell wird unterschieden zwischen
 \begin{description}
@@ -282,10 +292,18 @@ Nach \parencite{Oh2019} hat Art des Modells von grossem Einfluss auf die Möglic
 Aus der Vielzahl von Werkzeugen welche existieren um \acrfull{ML} Modelle zu analysieren gilt es die für den jeweiligen Use Case relevanten Werkzeuge anzuwenden.
 TODO: Übersicht der Techniken und Anwendungsbereiche wie in der Grafik
 
+\section{Use Cases}
+\subsection{Exploration}
+\subsection{Feature Engineering}
+\subsection{Modelle erstellen}
+\subsection{Modelle interpretieren}
+
 \includegraphics[width=\textwidth]{Bilder/blueprint.png}
 \captionof{figure}{Quelle: https://github.com/h2oai/mli-resources}
 
-\section{Entscheidungsbäume}
+\section{Grundsätzlich erklärbare Algorithmen}
+\subsection{Lineare Regression}
+\subsection{Entscheidungsbäume}
 Entscheidungsbäume (engl. Decision Tree) können bei einer geringen Anzahl von Parametern gut visualisiert werden.
 \begin{center}
 \begin{minipage}[t]{0.45\linewidth}
@@ -317,6 +335,10 @@ Die Regeln nach denen sich ein \Gls{DT} aufteilt können als Text dargestellt we
 \end{minipage}
 \end{center}
 Source Code \ref{dt-vis} (benötigt min. scikit-learn 0.22)
+
+\subsection{GLM/GAM}
+\subsection{RuleFit}
+\subsection{Naive Bayes}
 
 \section{Bilderkennung}
 In den letzten Jahrzehnten wurden grosse Fortschritte in der Bilderkennung gemacht. Verantwortlich dafür sind vor allem Neuronale Netze, insbesondere die Techniken \acrfull{cnn} in Zusammenhang mit {dnn}. Neuronale Netze, insbesondere die für Bilderkennung weit verbreiteten \acrfull{dnn}, sind ohne weitere Hilfsmittel kaum zu analysieren.
@@ -385,12 +407,17 @@ Eine weitere Variante um relevante Bildbereiche aufzudecken ist Occlusion Sensit
 \url{https://eli5.readthedocs.io/en/latest/tutorials/sklearn-text.html}
 
 \chapter{Schwächen von ML Modellen erkennen}
+\section{Diskriminierung durch Bias}
 \section{Adversarial Attacks}
 \section{Data Poisoning}
 
+\chapter{Weiterentwicklung von XAI}
+
 \chapter{Anhang}
-\section{Pyhton Beispiele}
+\section{Source Code}
 \label{dt-vis}
+
+\subsection{Entscheidungsbaum Visualisierung mit sklearn und Graphviz}
 \begin{lstlisting}[language=Python, caption=Decision Tree Visualisierung]
 from sklearn.datasets import load_iris
 from sklearn import tree
@@ -550,6 +577,7 @@ https://github.com/sicara/tf-explain
 \begin{thebibliography}{99}\label{links}
    \bibitem{vgg16} VGG16: Modell für Imagenet Klassifikationen \break \url{https://github.com/tensorflow/tensorflow/blob/r1.8/tensorflow/python/keras/_impl/keras/applications/vgg16.py}
    \bibitem{imageNet} ImageNet Challenge \break \url{http://www.image-net.org/challenges/LSVRC/}
+   \bibitem{iML}Interpretable Machine Learning, A Guide for Making Black Box Models Explainable \break \url{https://christophm.github.io/interpretable-ml-book/rulefit.html}
 \end{thebibliography}
 %Index
 \addcontentsline{toc}{chapter}{Index}
