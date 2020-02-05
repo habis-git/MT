@@ -204,6 +204,26 @@
 	description={Gradient-weighted Class Activation Mapping, Technik welche für eine Entscheidung relevanten Bildinhalte optisch hervorhebt}  
 }
 
+\newacronym{lime}{LIME}{Local interpretable model-agnostic explanations}
+
+\newglossaryentry{limeG}
+{
+	name=LIME,
+	description={Local interpretable model-agnostic explanations, eine unabhängig des verwendeten Algorithmus anwendbare Erklärungstechnik für Black Box Modelle \break \url{https://arxiv.org/abs/1602.04938}}
+}
+
+\newacronym{tcav}{TCAV}{Testing with Concept Activation Vectors}
+
+\newglossaryentry{tcavG}
+{
+	name=Testing with Concept Activation Vectors,
+	description=Technik welche Erklärungen einer Klassifikation durch Erkennung der Bildbestandteile erzeugt.
+}
+
+\newacronym{glm}{GLM}{Generalized Linear Models}
+
+\newacronym{gam}{GAM}{Generalized Additive Models}
+
 \begin{document}
                          
 \maketitle
@@ -303,6 +323,11 @@ TODO: Übersicht der Techniken und Anwendungsbereiche wie in der Grafik
 
 \section{Grundsätzlich erklärbare Algorithmen}
 \subsection{Lineare Regression}
+Lineare Regression ist seit langer Zeit ein nützliches Werkzeug für Statistiker und Informatiker. Die Zusammenhänge zwischen dem Berechneten Ergebnis und den Eingangsvariablen können einfach nachvollzogen werden. Lineare Regression ist weit verbreitet, auch in nicht Informatik nahen Gebieten wie Medizin oder Soziologie. Ein Nachteil dieser Methode ist jedoch kleinere Leistungsfähigkeit in Bezug auf die Vorhersagequalität so dass heutzutage oftmals auf leistungsfähigere, jedoch schlechter verständliche, Algorithmen zurückgegriffen wird. Insbesondere im Gebiet der Klassifikation zeigt die Lineare Regression Schwächen.
+
+\subsection{GLM/GAM}
+Lineare Regression hat einige Schwächen wie z. Bsp. die Annahme der Normalverteilung, nicht korrelierte Variablen oder auch einfach bei einem nichtlinearen Zusammenhang zwischen Eingang und dem Resultat. \acrfull{glm} und \acrfull{gam} erweitern Lineare Modelle um einen breiteren Anwendungsbereich zu ermöglichen.
+
 \subsection{Entscheidungsbäume}
 Entscheidungsbäume (engl. Decision Tree) können bei einer geringen Anzahl von Parametern gut visualisiert werden.
 \begin{center}
@@ -331,12 +356,11 @@ Die Regeln nach denen sich ein \Gls{DT} aufteilt können als Text dargestellt we
 \begin{minipage}[t]{0.45\linewidth}
 \centering
 	\includegraphics[width=\textwidth]{Bilder/iris-dt-decision-surface.png}
-	 \captionof{figure}{Entschdeidungsbaum als Flächen dargestellt}
+	 \captionof{figure}{Entscheidungsbaum als Flächen dargestellt}
 \end{minipage}
 \end{center}
 Source Code \ref{dt-vis} (benötigt min. scikit-learn 0.22)
 
-\subsection{GLM/GAM}
 \subsection{RuleFit}
 \subsection{Naive Bayes}
 
@@ -369,7 +393,7 @@ Mittels dem Modell VGG16 aus der Tensorflow Bibliothek \cite{vgg16} wurde folgen
 		 \hline
 		 Klasse & Wahrscheinlichkeit \\
 		 \hline
-		 Egyptian cat1 & 55.31\% \\ 
+		 Egyptian cat & 55.31\% \\ 
 		 tabby & 8.59\% \\ 
 		 tiger cat & 5.59\% \\ 
 		 carton & 4.63\% \\
@@ -394,15 +418,67 @@ Eine weitere Variante um relevante Bildbereiche aufzudecken ist Occlusion Sensit
 \url{ttps://github.com/VigneshSrinivasan10/interprettensor}
 \url{https://github.com/sebastian-lapuschkin/lrp_toolbox}
 
-\subsubsection*{Lime}
-\url{https://arxiv.org/abs/1602.04938}
-\includegraphics[width=\textwidth]{Bilder/Lime-Classes.png}
+\subsubsection*{Local Surrogate (LIME)}
+Die Technik LIME wurde 2016 erstmals vorgestellt \parencite{Ribeiro2016}. 
+\Gls{lime} kann für verschiedene Arten von  \Gls{ML} Modellen, insbesondere auch Black Box Modelle, verwendet werden um eine Erklärung zu erzeugen. Dabei wird durch stetiges Verändern eines Eingangsbildes der Einfluss auf das Resultat geprüft. Mit den veränderten Eingangsdaten und den durch das Black Box Modell erzeugten Resultaten wird anschliessend ein neues Modell Trainiert das danach untersucht werden kann.
 
+\paragraph*{}
+Folgende Schritte werden bei der Anwendung von LIME durchgeführt:
+\begin{itemize}
+	\item Die Klasse für die man eine Erklärung erstellen will muss festgelegt werden
+	\item Die ursprünglichen Daten werden verändert und die Resultate des Black Box Modells für diese Daten werden aufgezeichnet
+	\item Die neu erzeugten Datensätzen werden nach der nähe zu der gesuchten Klasse gewichtet
+	\item Ein neues Modell mit den gewichteten (neuen) Datensätzen wird erzeugt
+	\item Die Vorhersage des Black Box Modells wird durch Interpretation des neu generierten Modelles erklärt
+\end{itemize}
+\break
+In diesem Beispiel ist ersichtlich welche Bildbereiche (maskiert) nach \gls{lime} für das Resultat verantwortlich sind.
+
+\includegraphics[width=\textwidth]{Bilder/Lime-Classes.png}
+ \captionof{figure}{Darstellung relevanter Bildinhalte durch LIME}
+
+Gegenüber den vorherigen Methoden ist LIME durch die Erzeugung temporärer Modelle bedeutend aufwendiger und dadurch auch langsamer.
 \subsubsection*{TCAV}
+ \acrfull{tcav} wurde 2017 vorgestellt \parencite{Kim2017} und ist eine fortgeschrittene Methode um Erklärungen basierend auf den Bildinhalten zu generieren. Zu diesem Zweck werden zusätzliche Modelle als Beispiele für Bildinhalte erzeugt. Ein als Zebra klassifiziertes Bild kann so zum Beispiel damit begründet werden dass auf dem Bild streifen und ein Pferd entdeckt wurden.
 \url{https://github.com/tensorflow/tcav}
 
 \subsubsection*{SVCCA}
 \url{https://ai.googleblog.com/2017/11/interpreting-deep-neural-networks-with.html}
+
+\subsection*{Weiterführende Experimente}
+Obwohl das vorhergehende Bild korrekt als Katze klassifiziert wurde, fallen die 4. und 5. Klassifikation auf. Die Klassifizierung als Karton (4.6\%) oder Toilettenpapier (3.6\%) ist zwar nicht sehr wahrscheinlich, es stellt sich aber die Frage weshalb keine weiteren Tiere welche grössere Ähnlichkeit mit einer Katze aufweisen gefunden wurden.
+
+\subsubsection*{Anderes Tier, gleicher Hintergrund}
+\imgText{IMG_2729.JPG}{
+	\begin{tabular}{ |c|c| } 
+		 \hline
+		 Klasse & Wahrscheinlichkeit \\
+		 \hline
+		cockroach & 31.89\% \\
+		Australian terrier &  8.14\% \\
+		English springer & 5.48\% \\
+		Irish setter & 4.95\% \\
+		Blenheim spaniel & 4.74\% \\
+		umbrella & 2.16\% \\
+		tick & 1.57\% \\
+		admiral & 1.53\% \\
+		weasel  & 1.34\% \\
+		centipede & 1.31\% \\
+		Sussex spaniel & 1.00\% \\
+		Irish water spaniel  & 0.99\% \\
+		papillon & 0.99\% \\
+		Welsh springer spaniel  & 0.96\% \\
+		toilet tissue & 0.92\% \\
+		\end{tabular}
+}
+\break
+\includegraphics[width=\textwidth]{Bilder/Oreo-Grad-Cam-Classes.png}
+
+\includegraphics[width=\textwidth]{Bilder/Oreo-Classification.png}
+\includegraphics[width=\textwidth]{Bilder/Mira-Classification.png}
+\includegraphics[width=\textwidth]{Bilder/Mira-Classification-2.png}
+\includegraphics[width=\textwidth]{Bilder/Merlin-Classification.png}
+\includegraphics[width=\textwidth]{Bilder/Toilett-Tissue-Classification.png}
 
 \section{Texterkennung}
 \url{https://eli5.readthedocs.io/en/latest/tutorials/sklearn-text.html}
