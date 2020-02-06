@@ -224,6 +224,16 @@
 
 \newacronym{gam}{GAM}{Generalized Additive Models}
 
+\newacronym{lfr}{LFR}{Learned fair representations}
+
+\newacronym{m-gbm}{M-GBM}{Monotonic gradient boosting}
+
+\newacronym{pate}{PATE}{Private aggregation of teacher ensembles}
+
+\newacronym{sbrl}{SBRL}{Scalable Bayesian rule list}
+
+\newacronym{slim}{SLIM}{Supersparse linear integer models}
+
 \begin{document}
                          
 \maketitle
@@ -312,10 +322,31 @@ Nach \parencite{Oh2019} hat Art des Modells von grossem Einfluss auf die Möglic
 Aus der Vielzahl von Werkzeugen welche existieren um \acrfull{ML} Modelle zu analysieren gilt es die für den jeweiligen Use Case relevanten Werkzeuge anzuwenden.
 TODO: Übersicht der Techniken und Anwendungsbereiche wie in der Grafik
 
-\section{Use Cases}
+\section{Anwendungsfälle}
 \subsection{Exploration}
+\begin{itemize}
+	\item Biplot
+	\item Darstellung der Korrelation (Correlation graph)
+	\item Korrelationsmatrix
+	\item Heatmap
+	\item Parallele Koordinatendarstellung (Parallel coordinates plot)
+	\item Projektion MDS, 1-SNE, UMAP
+	\item Radar Plot
+	\item Scatter Plot
+	\item Univariate Statistiken: Häufigkeits-Verteilung, Histogram, Pivot-Tabelle
+\end{itemize}
 \subsection{Feature Engineering}
-\subsection{Modelle erstellen}
+\subsection{Ein interpretierbares Model erstellen}
+\begin{itemize}
+	\item Entscheidungsbaum
+	\item \acrfull{gam}
+	\item \acrfull{glm}
+	\item \acrfull{lfr}
+	\item \acrfull{m-gbm}
+	\item \acrfull{pate}	
+	\item \acrfull{sbrl}
+	\item \acrfull{slim}
+\end{itemize}
 \subsection{Modelle interpretieren}
 
 \includegraphics[width=\textwidth]{Bilder/blueprint.png}
@@ -325,8 +356,37 @@ TODO: Übersicht der Techniken und Anwendungsbereiche wie in der Grafik
 \subsection{Lineare Regression}
 Lineare Regression ist seit langer Zeit ein nützliches Werkzeug für Statistiker und Informatiker. Die Zusammenhänge zwischen dem Berechneten Ergebnis und den Eingangsvariablen können einfach nachvollzogen werden. Lineare Regression ist weit verbreitet, auch in nicht Informatik nahen Gebieten wie Medizin oder Soziologie. Ein Nachteil dieser Methode ist jedoch kleinere Leistungsfähigkeit in Bezug auf die Vorhersagequalität so dass heutzutage oftmals auf leistungsfähigere, jedoch schlechter verständliche, Algorithmen zurückgegriffen wird. Insbesondere im Gebiet der Klassifikation zeigt die Lineare Regression Schwächen.
 
+\begin{center}
+\begin{minipage}[t]{0.45\linewidth}
+\vspace{0pt}
+\includegraphics[width=0.6\linewidth]{Bilder/Regressions-Bedingungen.png}
+ \captionof{figure}{Bedingungen lineare Regression}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.45\linewidth}
+\vspace{0pt}
+Um die Lineare Regression erfolgreich anzuwenden müssen drei Bedingungen erfüllt sein:
+\begin{itemize}
+	\item Normalverteilte Daten
+	\item Die Variablen sind unabhängig, d.h. die Werte beeinflussen sich nicht, im Gegensatz zum Beispiel bei Geschlecht und Schwangerschaft
+	\item Die vorhergesagten Werte sind linear
+\end{itemize}
+Wenn diese Bedingungen nicht erfüllt sind kann die Lineare Regression kaum erfolgreich angewandt werden.
+\end{minipage}
+\end{center}
+
 \subsection{GLM/GAM}
 Lineare Regression hat einige Schwächen wie z. Bsp. die Annahme der Normalverteilung, nicht korrelierte Variablen oder auch einfach bei einem nichtlinearen Zusammenhang zwischen Eingang und dem Resultat. \acrfull{glm} und \acrfull{gam} erweitern Lineare Modelle um einen breiteren Anwendungsbereich zu ermöglichen.
+\begin{center}
+\begin{minipage}[t]{0.45\linewidth}
+\vspace{0pt}
+\includegraphics[width=0.6\linewidth]{Bilder/Regressions-Auschluss-Bedingungen.png}
+ \captionof{figure}{Auschluss-Bedingungen lineare Regression}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.45\linewidth}
+\vspace{0pt}
+Wenn die Voraussetzungen für eine Lineare Regression nicht erfüllt sind kann trotzdem mittels \Gls{glm} und \Gls{gam} eine Regression durchgeführt werden.
+\end{minipage}
+\end{center}
 
 \subsection{Entscheidungsbäume}
 Entscheidungsbäume (engl. Decision Tree) können bei einer geringen Anzahl von Parametern gut visualisiert werden.
@@ -362,6 +422,7 @@ Die Regeln nach denen sich ein \Gls{DT} aufteilt können als Text dargestellt we
 Source Code \ref{dt-vis} (benötigt min. scikit-learn 0.22)
 
 \subsection{RuleFit}
+ \parencite{Friedman2008}
 \subsection{Naive Bayes}
 
 \section{Bilderkennung}
