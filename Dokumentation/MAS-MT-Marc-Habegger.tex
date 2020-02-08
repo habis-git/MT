@@ -250,12 +250,15 @@
 %\part{Part One}
 
 \chapter{Einleitung}
+\gls{ML} wird seit den 1960er Jahren angewendet, allerdings waren die erzielten Resultate lange Zeit für viele Anwendungen ungenügend. Durch die Verfügbarkeit von grossen Datenmengen (Big Data, Cloud) und der gesteigerten Rechenleistung der Rechner wurden nach der Jahrtausendwende so gute Fortschritte erzielt dass immer mehr Anwendungsmöglichkeiten für \gls{ML} Lösungen gefunden wurden. 
+
 \begin{figure}[ht]
 \centering
 	\includegraphics[width=\textwidth]{Bilder/ML-Timeline.png}
 	\caption{Entwicklung des Machine Learning als Zeitachse.}
 \end{figure}
-\gls{ML} wird seit den 1960er Jahren angewendet, allerdings waren die erzielten Resultate lange Zeit für viele Anwendungen ungenügend. Durch die Verfügbarkeit von grossen Datenmengen (Big Data, Cloud) und der gesteigerten Rechenleistung der Rechner wurden nach der Jahrtausendwende so gute Fortschritte erzielt dass immer mehr Anwendungsmöglichkeiten für \gls{ML} Lösungen gefunden wurden. Während für viele Dienste im Internet (Bildersammlungen, Empfehlungssysteme) keine oder nur geringe Anforderungen an ein verständliches Modell gestellt werden gibt es einige Bereiche in denen besondere Regeln für die Nachvollziehbarkeit von Entscheidungen bestehen.
+
+Während für viele Dienste im Internet (Bildersammlungen, Empfehlungssysteme) keine oder nur geringe Anforderungen an ein verständliches Modell gestellt werden gibt es einige Bereiche in denen besondere Regeln für die Nachvollziehbarkeit von Entscheidungen bestehen.
 
  Exemplarisch werden hier einige dieser Gebiete aufgeführt:
 
@@ -267,10 +270,19 @@
 
 Aufgrund des Mangels an Techniken um fortgeschrittene \gls{ML} System zu Verstehen, entstand deshalb ein neues Forschungsgebiet \acrfull{xai} welches sich zum Ziel gesetzt hat Methoden und Werkzeuge zu entwickeln um \gls{ML} Modelle zu analysieren.
 
-\chapter{Ein wager Begriff: Erklärbarkeit}
-\section{Wie definiert sich Erklärbarkeit?}
+\chapter{Was bedeutet Erklärbarkeit?}
+\gls{ML} erzeugt Resultate welche je nach Anwendungsfall eine Entscheidung für Klasse (Pferd, Schaf, Auto), eine Zuordnung zu einer Gruppe (Premium-Kunde, Gelegenheitskäufer etc.) oder es wird ein numerischer Wert generiert (15 Grad Celsius am 3. April). 
+Da sowohl die Erzeugung des Models als auch die Berechnung des Resultates automatisch erfolgt können die Schritte auf dem Weg zu dem Resultat nicht direkt nachvollzogen werden.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{Bilder/Explanation-Flow.png}
+\caption{Ablauf einer erklärbaren Machine Learning Anwendung}
+\end{figure}
+
+Eine \Gls{ML} Lösung beginnt mit der Beobachtung von realen Ereignissen in der Welt. Dies können die Anzahl Blätter und deren Länge einer Pflanzungsgattung oder auch Häuserpreise in Brooklyn sein. Diese Beobachtungen werden gesammelt und bilden die Daten Grundlage mit deren ein Model erzeugt werden kann. Aus diesem Model kann eine Erklärung erzeugt werden die ein Mensch verwenden kann um das Resultat zu erklären.
 \section{Unterschiedliche Ziele}
-Eine Anwendung welche \acrfull{ML} einsetzt kann in mehrere Bereiche unterteilt werden.  Durch diese Aufteilung in verschiedene  Komponenten ergeben sich unterschiedliche Anforderungen an die Erklärbarkeit: \parencite{XAI2018}
+Eine Anwendung welche \Gls{ML} einsetzt kann in mehrere Bereiche unterteilt werden.  Durch diese Aufteilung in verschiedene  Komponenten ergeben sich unterschiedliche Anforderungen an die Erklärbarkeit: \parencite{XAI2018}
 
 \begin{description}
 \item[Daten]
@@ -348,6 +360,11 @@ TODO: Übersicht der Techniken und Anwendungsbereiche wie in der Grafik
 	\item \acrfull{slim}
 \end{itemize}
 \subsection{Modelle interpretieren}
+Neben vielen Methoden welche nur für bestimmte Klassen von Verfahren anwendbar sind, gibt es einige die Allgemein anwendbar sind.
+
+\begin{itemize}
+	\item[LIME] \ref{lime}
+\end{itemize}
 
 \includegraphics[width=\textwidth]{Bilder/blueprint.png}
 \captionof{figure}{Quelle: https://github.com/h2oai/mli-resources}
@@ -422,7 +439,7 @@ Die Regeln nach denen sich ein \Gls{DT} aufteilt können als Text dargestellt we
 Source Code \ref{dt-vis} (benötigt min. scikit-learn 0.22)
 
 \subsection{RuleFit}
- \parencite{Friedman2008}
+RuleFit \parencite{Friedman2008} verwendet Entscheidungsbäume um daraus Regeln abzuleiten welche neue Features erzeugen die von einem Linearen Modell verwendet werden. 
 \subsection{Naive Bayes}
 
 \section{Bilderkennung}
@@ -480,6 +497,7 @@ Eine weitere Variante um relevante Bildbereiche aufzudecken ist Occlusion Sensit
 \url{https://github.com/sebastian-lapuschkin/lrp_toolbox}
 
 \subsubsection*{Local Surrogate (LIME)}
+\label{lime}
 Die Technik LIME wurde 2016 erstmals vorgestellt \parencite{Ribeiro2016}. 
 \Gls{lime} kann für verschiedene Arten von  \Gls{ML} Modellen, insbesondere auch Black Box Modelle, verwendet werden um eine Erklärung zu erzeugen. Dabei wird durch stetiges Verändern eines Eingangsbildes der Einfluss auf das Resultat geprüft. Mit den veränderten Eingangsdaten und den durch das Black Box Modell erzeugten Resultaten wird anschliessend ein neues Modell Trainiert das danach untersucht werden kann.
 
