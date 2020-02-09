@@ -155,7 +155,8 @@
 	\url{https://de.wikipedia.org/wiki/Maschinelles_Lernen}}
 }
 
-\newglossaryentry{ML}{type=\acronymtype, name={ML}, description={Machine Learning}, first={Machine Learning (ML)\glsadd{MLg}}, see=[Glossary:]{MLg}
+\newglossaryentry{ML}{type=\acronymtype, name={ML}, description={Machine Learning}, first={Machine Learning (ML)}
+%\glsadd{MLg}}, see=[Glossary:]{MLg}
 }
 
 \newacronym{xai}{XAI}{Explainable artificial intelligence}
@@ -218,6 +219,20 @@
 {
 	name=Testing with Concept Activation Vectors,
 	description=Technik welche Erklärungen einer Klassifikation durch Erkennung der Bildbestandteile erzeugt.
+}
+
+\newglossaryentry{av}
+{
+	name=Activation Vector (Aktivierungsvektor),
+	description=In einem Neuronalen Netzwerk erzeugt ein Neuron für jedes Bild welches Analysiert wird einen bestimmten Ausgangswert. Für mehrere Bilder bilden die jeweiligen Ausgangswerte des Neurons den sogenannten Aktivierungsvektor.
+}
+
+\newacronym{svcca}{SVCCA}{Singular Vector Canonical Correlation Analysis}
+
+\newglossaryentry{svccaG}
+{
+	name=SVCCA,
+      description=\cite{SVCCA}
 }
 
 \newacronym{glm}{GLM}{Generalized Linear Models}
@@ -522,7 +537,7 @@ Gegenüber den vorherigen Methoden ist LIME durch die Erzeugung temporärer Mode
 \url{https://github.com/tensorflow/tcav}
 
 \subsubsection*{SVCCA}
-\url{https://ai.googleblog.com/2017/11/interpreting-deep-neural-networks-with.html}
+\acrfull{svcca} vergleicht verschiedene Neuronale Netzwerke oder verschiedene Layer innerhalb des selben Neuronalen Netzwerkes.
 
 \subsection*{Weiterführende Experimente}
 Obwohl das vorhergehende Bild korrekt als Katze klassifiziert wurde, fallen die 4. und 5. Klassifikation auf. Die Klassifizierung als Karton (4.6\%) oder Toilettenpapier (3.6\%) ist zwar nicht sehr wahrscheinlich, es stellt sich aber die Frage weshalb keine weiteren Tiere welche grössere Ähnlichkeit mit einer Katze aufweisen gefunden wurden.
@@ -560,7 +575,14 @@ Obwohl das vorhergehende Bild korrekt als Katze klassifiziert wurde, fallen die 
 \includegraphics[width=\textwidth]{Bilder/Toilett-Tissue-Classification.png}
 
 \section{Texterkennung}
+Auch im Bereich der Texterkennung kann ein besseres Wissen über die Funktionsweise einer \Gls{ML} Anwendung sowohl den Entwicklern als auch Anwendern helfen. Insbesondere bei den Problemstellungen Sentiment Analyse und Dokumenten Klassifikation kann \Gls{XAI} das Verständnis fördern.
+
+Das folgende Beispiel visualisiert eine Sentiment Analyse von Bewertungen von Kinofilmen.
+Die Python Bibliothek \cite{ELI5} unterstützt einige \gls{ML} Bibliotheken und bietet die Möglichkeit Schlüsselwörter welche für eine Klassifikation relevant sind direkt in dem Ursprungstext darzustellen.
+
 \url{https://eli5.readthedocs.io/en/latest/tutorials/sklearn-text.html}
+
+Während in dem letzten Beispiel ein White Box Model angewendet wurde, kann \cite{ELI5} auch Black Box Modelle analysieren. Dazu verwendet \cite{ELI5} eine \Gls{lime} implementation und die Vorhersage zu erklären.
 
 \chapter{Schwächen von ML Modellen erkennen}
 \section{Diskriminierung durch Bias}
@@ -771,6 +793,8 @@ plt.show()
    \bibitem{vgg16} VGG16: Modell für Imagenet Klassifikationen \break \url{https://github.com/tensorflow/tensorflow/blob/r1.8/tensorflow/python/keras/_impl/keras/applications/vgg16.py}
    \bibitem{imageNet} ImageNet Challenge \break \url{http://www.image-net.org/challenges/LSVRC/}
    \bibitem{iML}Interpretable Machine Learning, A Guide for Making Black Box Models Explainable \break \url{https://christophm.github.io/interpretable-ml-book/rulefit.html}
+   \bibitem{ELI5} ELI5 Python Bibliothek um \Gls{ML} Modelle zu erklären und analysieren\break \url{https://eli5.readthedocs.io/}
+  \bibitem{SVCCA}  \break \url{https://ai.googleblog.com/2017/11/interpreting-deep-neural-networks-with.html}
 \end{thebibliography}
 %Index
 \addcontentsline{toc}{chapter}{Index}
