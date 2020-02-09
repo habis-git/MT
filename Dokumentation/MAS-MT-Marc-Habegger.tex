@@ -126,15 +126,16 @@
 % Naming: BFH*Color*light|middle|dark, e.g. BFHGreendark, BFHBluelight, etc.
 % Possible Color Values: Green, Blue, Purple, Brown 
 \newcommand{\seccolor}{BFHLightGreen} 
-\newcommand{\imgText}[2]{
+\newcommand{\imgText}[3]{
 \begin{center}
     \begin{minipage}[t]{0.6\textwidth}
     		\vspace{0pt}
 		\includegraphics[width=10cm, left]{Bilder/#1}
+		\caption{#2}
 	\end{minipage}\hfill
     \begin{minipage}[t]{0.4\textwidth}
     		\vspace{0pt}
-  		#2
+  		#3
     \end{minipage}
 \end{center}
 }
@@ -462,26 +463,11 @@ In den letzten Jahrzehnten wurden grosse Fortschritte in der Bilderkennung gemac
 Durch den starken Fokus auf Neuronale Netze bei der Bilderkennung sind für diese Technik auch einige Methoden vorhanden um das Verhalten eines Modelles  auf ein Bild darzustellen.
 \subsection{Analyse Neuronaler Netze}
 \subsubsection*{Eigenes Modell}
-\imgText{dog-good-heatmap.png}{ 
-Ein präzises Model verwendet keine Bildpunkte welche nicht dem gesuchten Objekt zugehören.
-}
-
-\imgText{dog-bad-heatmap.png}{ 
-Obwohl in diesem Beispiel das Objekt korrekt erkannt wurde ist die präzision des Models klein.
-}
-
-\imgText{cat-good-heatmap.png}{ 
-Allerdings ist auch eine gute Übereinstimmung mit dem Objekt keine Garantie dass die richtige Klasse gefunden wird.
-}
-
-\imgText{cat-bad-heatmap.png}{ 
-
-}
 \subsubsection*{ImageNet Modell}
 Das für die folgenden Analysen verwendete Modell \parencite{Simonyan2014} stammt aus der ImageNet Challenge \cite{imageNet} aus dem Jahr 2014 und ist frei verfügbar. ImageNet definiert 1001 Klassen von Objekten welche erkannt werden. Eine Klassifikation mit \cite{TensorFlow} erzeugt eine Liste mit den Wahrscheinlichkeiten für alle Klassen. Mit den \acrfull{XAI} Techniken kann für jede Klasse visualisiert werden welche Bildbereiche für diese Klassifikation relevant sind.
 
 Mittels dem Modell VGG16 aus der Tensorflow Bibliothek \cite{vgg16} wurde folgendes Bild analysiert:
-\imgText{Mira.jpg}{
+\imgText{Mira.jpg}{Original Testbild Katze}{
 		\begin{tabular}{ |c|c| } 
 		 \hline
 		 Klasse & Wahrscheinlichkeit \\
@@ -532,8 +518,14 @@ In diesem Beispiel ist ersichtlich welche Bildbereiche (maskiert) nach \gls{lime
  \captionof{figure}{Darstellung relevanter Bildinhalte durch LIME}
 
 Gegenüber den vorherigen Methoden ist LIME durch die Erzeugung temporärer Modelle bedeutend aufwendiger und dadurch auch langsamer.
+\clearpage
 \subsubsection*{TCAV}
  \acrfull{tcav} wurde 2017 vorgestellt \parencite{Kim2017} und ist eine fortgeschrittene Methode um Erklärungen basierend auf den Bildinhalten zu generieren. Zu diesem Zweck werden zusätzliche Modelle als Beispiele für Bildinhalte erzeugt. Ein als Zebra klassifiziertes Bild kann so zum Beispiel damit begründet werden dass auf dem Bild streifen und ein Pferd entdeckt wurden.
+ \begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{Bilder/Zebra-Explanation.PNG}
+\caption{Darstellung Vorgehensweise TCAV}
+\end{figure}
 \url{https://github.com/tensorflow/tcav}
 
 \subsubsection*{SVCCA}
@@ -543,7 +535,7 @@ Gegenüber den vorherigen Methoden ist LIME durch die Erzeugung temporärer Mode
 Obwohl das vorhergehende Bild korrekt als Katze klassifiziert wurde, fallen die 4. und 5. Klassifikation auf. Die Klassifizierung als Karton (4.6\%) oder Toilettenpapier (3.6\%) ist zwar nicht sehr wahrscheinlich, es stellt sich aber die Frage weshalb keine weiteren Tiere welche grössere Ähnlichkeit mit einer Katze aufweisen gefunden wurden.
 
 \subsubsection*{Anderes Tier, gleicher Hintergrund}
-\imgText{IMG_2729.JPG}{
+\imgText{IMG_2729.JPG}{Testbild Meerschweinchen}{
 	\begin{tabular}{ |c|c| } 
 		 \hline
 		 Klasse & Wahrscheinlichkeit \\
@@ -577,11 +569,59 @@ Obwohl das vorhergehende Bild korrekt als Katze klassifiziert wurde, fallen die 
 \section{Texterkennung}
 Auch im Bereich der Texterkennung kann ein besseres Wissen über die Funktionsweise einer \Gls{ML} Anwendung sowohl den Entwicklern als auch Anwendern helfen. Insbesondere bei den Problemstellungen Sentiment Analyse und Dokumenten Klassifikation kann \Gls{XAI} das Verständnis fördern.
 
-Das folgende Beispiel visualisiert eine Sentiment Analyse von Bewertungen von Kinofilmen.
-Die Python Bibliothek \cite{ELI5} unterstützt einige \gls{ML} Bibliotheken und bietet die Möglichkeit Schlüsselwörter welche für eine Klassifikation relevant sind direkt in dem Ursprungstext darzustellen.
+\subsection{Stimmungs-Analyse von Film-Bewertungen}
+Das folgende Beispiel visualisiert eine Sentiment Analyse von Bewertungen von Kinofilmen. Grundlage für das Experiment ist ein Tutorial \cite{movieReview} welches generell die Text Analyse mit \cite{scikit-learn} erläutert. Die Daten stammen aus einer Arbeit von Bo Pang and Lillian Lee \parencite{Pang+Lee2004} aus dem Jahre 2004 und sind ein Auszug von Film Reviews der Internetplattform IMDB. Jeweils 100 positive und negative Reviews werden, mit einem Testanteil von 20 Prozent, von einem RandomForest trainiert.
 
-\url{https://eli5.readthedocs.io/en/latest/tutorials/sklearn-text.html}
+\begin{lstlisting}[language=Python]
+from sklearn.ensemble import RandomForestClassifier
 
+classifier = RandomForestClassifier(n_estimators=1000, random_state=0)
+classifier.fit(X_train, y_train)
+\end{lstlisting}
+
+\imgText{MovieReviews-SentimentClassification_ConfMatrix.PNG}{Konfusions-Matrix Texterkennungs-Experiment}{
+}
+Die Konfusionsmatrix mit einer für ein Experiment annehmbare Fehlerquote und einer Accuracy von 0.855.
+
+\subsubsection*{Visualisierung durch ELI5}
+Die Python Bibliothek \cite{ELI5} unterstützt einige \gls{ML} Bibliotheken und bietet die Möglichkeit Schlüsselwörter welche für eine Klassifikation relevant sind direkt in dem Ursprungstext darzustellen. 
+
+\begin{center}
+\begin{minipage}[t]{0.45\linewidth}
+\vspace{0pt}
+\centering
+	\includegraphics[width=\textwidth]{Bilder/MovieReviews-SentimentClassification_Weights.PNG}
+	 \captionof{figure}{Top Features Film Review Klassifizierung}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.45\linewidth}
+\vspace{20pt}
+Eine Übersicht der Top Features zeigt die Funktion ``show\_weights()''.
+\begin{lstlisting}[language=Python]
+eli5.show_weights(classifier, vec=vectorizer, top=10)
+\end{lstlisting}
+Allerdings verhält sich ELI5 bei einer binären Klassifizierung so dass nur eine Klasse (in diesem Fall `neg') dargestellt wird. Die Farbe Grün stellt immer die aktuell gewählte Klasse dar weshalb hier auch negative Wörter grün eingefärbt sind.
+\end{minipage}
+\end{center}
+
+Um einen Datensatz zu visualisieren verwendete man die Methode ``explain\_prediction()'', welche sowohl Details über die Features als auch eine Darstellung des Textes mit den hervorgehobenen Schlüsselwörtern anzeigt. Je nach verwendetem Modell weicht die Darstellung von dem hier dargestellten Bild ab, bei gewissen Tree Algorithmen (z.Bsp. DecisionTree) wird zusätzlich noch die Baumstruktur angezeigt.
+\begin{lstlisting}[language=Python]
+doc = documents[414]
+eli5.explain_prediction(classifier, doc, vec=vectorizer,target_names=['neg','pos'], top=20)
+\end{lstlisting}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{Bilder/MovieReviews-SentimentClassification_1.PNG}
+\caption{Visualisierung positives Film Review}
+\end{figure}
+
+Bei der Darstellung des negativen Film Reviews fällt auf dass Wörter welche für eine negative Stimmung stehen Grün markiert sind. Dies kommt daher dass für ELI5 die wahrscheinlichste Klasse `neg' ist (81\%) und deshalb alle Schlüsselwörter welche auf diese Klasse hinweisen grün markiert werden.
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{Bilder/MovieReviews-SentimentClassification_2.PNG}
+\caption{Visualisierung negatives Film Review}
+\end{figure}
+
+\subsubsection*{Blackbox Visualisierung mit ELI5}
 Während in dem letzten Beispiel ein White Box Model angewendet wurde, kann \cite{ELI5} auch Black Box Modelle analysieren. Dazu verwendet \cite{ELI5} eine \Gls{lime} implementation und die Vorhersage zu erklären.
 
 \chapter{Schwächen von ML Modellen erkennen}
@@ -795,6 +835,8 @@ plt.show()
    \bibitem{iML}Interpretable Machine Learning, A Guide for Making Black Box Models Explainable \break \url{https://christophm.github.io/interpretable-ml-book/rulefit.html}
    \bibitem{ELI5} ELI5 Python Bibliothek um \Gls{ML} Modelle zu erklären und analysieren\break \url{https://eli5.readthedocs.io/}
   \bibitem{SVCCA}  \break \url{https://ai.googleblog.com/2017/11/interpreting-deep-neural-networks-with.html}
+  \bibitem{movieReview} Beispiel einer Textanalyse mit Scikit-Learn \break \url{https://stackabuse.com/text-classification-with-python-and-scikit-learn/}
+  \bibitem{scikit-learn} Scikit-Learn, \Gls{ML} Framework \break \url{https://scikit-learn.org/stable/index.html}
 \end{thebibliography}
 %Index
 \addcontentsline{toc}{chapter}{Index}
