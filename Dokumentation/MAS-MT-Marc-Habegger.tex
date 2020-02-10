@@ -74,7 +74,6 @@
 \usepackage[document]{ragged2e} % left-alignment for text
 
 \usepackage[acronym]{glossaries}
-\makenoidxglossaries
 
 \definecolor{foldercolor}{RGB}{124,166,198}
 
@@ -148,19 +147,15 @@
 
 % Glossar Einträge
 \makeindex
+% Generate the glossary
+\makeglossaries
 
 \newglossaryentry{MLg}
 {
 	name=Machine Learning,
-	description={deutsch Maschinelles lernen. Ein künstliches System lernt aus Beispielen und kann diese nach Beendigung der Lernphase verallgemeinern..  \break
+	description={deutsch Maschinelles lernen. Ein künstliches System lernt aus Beispielen und kann diese nach Beendigung der Lernphase verallgemeinern.  \break
 	\url{https://de.wikipedia.org/wiki/Maschinelles_Lernen}}
 }
-
-\newglossaryentry{ML}{type=\acronymtype, name={ML}, description={Machine Learning}, first={Machine Learning (ML)}
-%\glsadd{MLg}}, see=[Glossary:]{MLg}
-}
-
-\newacronym{xai}{XAI}{Explainable artificial intelligence}
 
 \newglossaryentry{XAI}
 {
@@ -169,18 +164,12 @@
 	\url{https://en.wikipedia.org/wiki/Explainable_artificial_intelligence}}
 }
 
-\newacronym{cnn}{CNN}{Convolutional Neural Network}
-
-\newacronym{dnn}{DNN}{Deep Neural Network}
-
 \newglossaryentry{DNN}
 {
     name=Deep Neural Network,
     description={deutsch tiefes lernen, Bezeichnet Neuronale Netze mit vielen Zwischenschichten.\break 
     \url{https://en.wikipedia.org/wiki/Deep_learning\#Deep_neural_networks}}
 }
-
-\newacronym{lrp}{LRP}{Layer-wise Relevance Propagation}
 
 \newglossaryentry{LRP}                                 
 {
@@ -206,35 +195,45 @@
 	description={Gradient-weighted Class Activation Mapping, Technik welche für eine Entscheidung relevanten Bildinhalte optisch hervorhebt}  
 }
 
-\newacronym{lime}{LIME}{Local interpretable model-agnostic explanations}
-
 \newglossaryentry{limeG}
 {
 	name=LIME,
 	description={Local interpretable model-agnostic explanations, eine unabhängig des verwendeten Algorithmus anwendbare Erklärungstechnik für Black Box Modelle \break \url{https://arxiv.org/abs/1602.04938}}
 }
 
-\newacronym{tcav}{TCAV}{Testing with Concept Activation Vectors}
-
 \newglossaryentry{tcavG}
 {
 	name=Testing with Concept Activation Vectors,
-	description=Technik welche Erklärungen einer Klassifikation durch Erkennung der Bildbestandteile erzeugt.
+	description={Technik welche Erklärungen einer Klassifikation durch Erkennung der Bildbestandteile erzeugt. Benutzt dafür Neuronale Netze welche auf einzelnen Bestandteile trainiert werden. \parencite{Kim2017}}
 }
 
 \newglossaryentry{av}
 {
 	name=Activation Vector (Aktivierungsvektor),
-	description=In einem Neuronalen Netzwerk erzeugt ein Neuron für jedes Bild welches Analysiert wird einen bestimmten Ausgangswert. Für mehrere Bilder bilden die jeweiligen Ausgangswerte des Neurons den sogenannten Aktivierungsvektor.
+	description={In einem Neuronalen Netzwerk erzeugt ein Neuron für jedes Bild welches Analysiert wird einen bestimmten Ausgangswert. Für mehrere Bilder bilden die jeweiligen Ausgangswerte des Neurons den sogenannten Aktivierungsvektor.}
 }
-
-\newacronym{svcca}{SVCCA}{Singular Vector Canonical Correlation Analysis}
 
 \newglossaryentry{svccaG}
 {
 	name=SVCCA,
-      description=\cite{SVCCA}
+     description={Singular Vector Canonical Correlation Analysis, ein Verfahren welches Aktivierungs Vektoren eines Neuronalen Netzes vergleicht. Der Vergleich kann entweder zwischen den Layern eines Netzes oder zwischen unterschiedlichen Netzen durchgeführt werden. \parencite{Raghu2017}}
 }
+
+\newacronym{ML}{ML}{Machine Learning}
+
+\newacronym{cnn}{CNN}{Convolutional Neural Network}
+
+\newacronym{dnn}{DNN}{Deep Neural Network}
+
+\newacronym{lrp}{LRP}{Layer-wise Relevance Propagation}
+
+\newacronym{lime}{LIME}{Local interpretable model-agnostic explanations}
+
+\newacronym{tcav}{TCAV}{Testing with Concept Activation Vectors}
+
+\newacronym{svcca}{SVCCA}{Singular Vector Canonical Correlation Analysis}
+
+\newacronym{xai}{XAI}{Explainable artificial intelligence}
 
 \newacronym{glm}{GLM}{Generalized Linear Models}
 
@@ -461,12 +460,13 @@ RuleFit \parencite{Friedman2008} verwendet Entscheidungsbäume um daraus Regeln 
 \section{Bilderkennung}
 In den letzten Jahrzehnten wurden grosse Fortschritte in der Bilderkennung gemacht. Verantwortlich dafür sind vor allem Neuronale Netze, insbesondere die Techniken \acrfull{cnn} in Zusammenhang mit {dnn}. Neuronale Netze, insbesondere die für Bilderkennung weit verbreiteten \acrfull{dnn}, sind ohne weitere Hilfsmittel kaum zu analysieren.
 Durch den starken Fokus auf Neuronale Netze bei der Bilderkennung sind für diese Technik auch einige Methoden vorhanden um das Verhalten eines Modelles  auf ein Bild darzustellen.
+
 \subsection{Analyse Neuronaler Netze}
 \subsubsection*{Eigenes Modell}
 \subsubsection*{ImageNet Modell}
-Das für die folgenden Analysen verwendete Modell \parencite{Simonyan2014} stammt aus der ImageNet Challenge \cite{imageNet} aus dem Jahr 2014 und ist frei verfügbar. ImageNet definiert 1001 Klassen von Objekten welche erkannt werden. Eine Klassifikation mit \cite{TensorFlow} erzeugt eine Liste mit den Wahrscheinlichkeiten für alle Klassen. Mit den \acrfull{XAI} Techniken kann für jede Klasse visualisiert werden welche Bildbereiche für diese Klassifikation relevant sind.
+Das für die folgenden Analysen verwendete Modell \parencite{Simonyan2014} stammt aus der ImageNet Challenge \cite{imageNet} aus dem Jahr 2014 und ist frei verfügbar. ImageNet definiert 1001 Klassen von Objekten welche erkannt werden. Eine Klassifikation mit \cite{TensorFlow} erzeugt eine Liste mit den Wahrscheinlichkeiten für alle Klassen. Mit den \gls{XAI} Techniken kann für jede Klasse visualisiert werden welche Bildbereiche für diese Klassifikation relevant sind.
 
-Mittels dem Modell VGG16 aus der Tensorflow Bibliothek \cite{vgg16} wurde folgendes Bild analysiert:
+Mittels dem Modell VGG16 aus der Tensorflow Bibliothek \textit{VGG16} \cite{vgg16} wurde folgendes Bild analysiert:
 \imgText{Mira.jpg}{Original Testbild Katze}{
 		\begin{tabular}{ |c|c| } 
 		 \hline
@@ -520,16 +520,32 @@ In diesem Beispiel ist ersichtlich welche Bildbereiche (maskiert) nach \gls{lime
 Gegenüber den vorherigen Methoden ist LIME durch die Erzeugung temporärer Modelle bedeutend aufwendiger und dadurch auch langsamer.
 \clearpage
 \subsubsection*{TCAV}
- \acrfull{tcav} wurde 2017 vorgestellt \parencite{Kim2017} und ist eine fortgeschrittene Methode um Erklärungen basierend auf den Bildinhalten zu generieren. Zu diesem Zweck werden zusätzliche Modelle als Beispiele für Bildinhalte erzeugt. Ein als Zebra klassifiziertes Bild kann so zum Beispiel damit begründet werden dass auf dem Bild streifen und ein Pferd entdeckt wurden.
- \begin{figure}[ht]
-\centering
+ \acrfull{tcav} wurde 2017 vorgestellt \parencite{Kim2017} und ist eine fortgeschrittene Methode um Erklärungen basierend auf den Bildinhalten zu generieren. Zu diesem Zweck werden zusätzliche Modelle als Beispiele für Bildinhalte erzeugt.
+ 
+\break
+ Ein als Zebra klassifiziertes Bild kann so zum Beispiel damit begründet werden dass auf dem Bild streifen und ein Pferd entdeckt wurden.
+\begin{center}
+\begin{minipage}[t]{\linewidth}
 \includegraphics[width=\textwidth]{Bilder/Zebra-Explanation.PNG}
 \caption{Darstellung Vorgehensweise TCAV}
-\end{figure}
-\url{https://github.com/tensorflow/tcav}
+\end{minipage}
+\end{center}
+Da bei diesem Verfahren für jede Kategorie von Bildbestandteilen ein Neuronales Netz trainiert werden muss, und für jedes Training Beispieldaten vorhanden sein müssen, ist der Aufwand gross. 
+
+Eine Implementierung dieses Verfahrens kann unter folgendem Link auf Github gefunden werden: \cite{tcavLink}
 
 \subsubsection*{SVCCA}
-\acrfull{svcca} vergleicht verschiedene Neuronale Netzwerke oder verschiedene Layer innerhalb des selben Neuronalen Netzwerkes.
+\acrlong{svcca} \parencite{Raghu2017} vergleicht verschiedene Neuronale Netzwerke oder verschiedene Layer innerhalb des selben Neuronalen Netzwerkes.
+\break
+Durch den Vergleich der Vektoren verschiedener Klassen innerhalb des selben Netzes kann auf die Ähnlichkeit rückgeschlossen werden. Die beiden Klassen ``Husky'' und ``Eskimo Dog'' werden in der Untenstehenden Grafik als parallel verlaufende, beinahe überlappende Linien dargestellt, was auf die starke Ähnlichkeit der beiden Hunderassen hinweist.
+\begin{center}
+\begin{minipage}[t]{\linewidth}
+ 	\includegraphics[width=\textwidth]{Bilder/svcca-similarities.png}
+    	\caption{Vergleich Verschiedener Klassen mit SVCCA}
+    	\caption*{Quelle: Google AI Blog, Interpreting Deep Neural Networks with SVCCA}
+\end{minipage}\hfill
+\end{center}
+\cite{svccaLink}
 
 \subsection*{Weiterführende Experimente}
 Obwohl das vorhergehende Bild korrekt als Katze klassifiziert wurde, fallen die 4. und 5. Klassifikation auf. Die Klassifizierung als Karton (4.6\%) oder Toilettenpapier (3.6\%) ist zwar nicht sehr wahrscheinlich, es stellt sich aber die Frage weshalb keine weiteren Tiere welche grössere Ähnlichkeit mit einer Katze aufweisen gefunden wurden.
@@ -558,13 +574,41 @@ Obwohl das vorhergehende Bild korrekt als Katze klassifiziert wurde, fallen die 
 		\end{tabular}
 }
 \break
+\begin{center}
+\begin{minipage}[t]{\linewidth}
 \includegraphics[width=\textwidth]{Bilder/Oreo-Grad-Cam-Classes.png}
+\end{minipage}
+\end{center}
 
+\begin{center}
+\begin{minipage}[t]{\linewidth}
 \includegraphics[width=\textwidth]{Bilder/Oreo-Classification.png}
+\end{minipage}
+\end{center}
+
+\begin{center}
+\begin{minipage}[t]{\linewidth}
 \includegraphics[width=\textwidth]{Bilder/Mira-Classification.png}
+\end{minipage}
+\end{center}
+
+\begin{center}
+\begin{minipage}[t]{\linewidth}
 \includegraphics[width=\textwidth]{Bilder/Mira-Classification-2.png}
+\end{minipage}
+\end{center}
+
+\begin{center}
+\begin{minipage}[t]{\linewidth}
 \includegraphics[width=\textwidth]{Bilder/Merlin-Classification.png}
+\end{minipage}
+\end{center}
+
+\begin{center}
+\begin{minipage}[t]{\linewidth}
 \includegraphics[width=\textwidth]{Bilder/Toilett-Tissue-Classification.png}
+\end{minipage}
+\end{center}
 
 \section{Texterkennung}
 Auch im Bereich der Texterkennung kann ein besseres Wissen über die Funktionsweise einer \Gls{ML} Anwendung sowohl den Entwicklern als auch Anwendern helfen. Insbesondere bei den Problemstellungen Sentiment Analyse und Dokumenten Klassifikation kann \Gls{XAI} das Verständnis fördern.
@@ -590,7 +634,7 @@ Die Python Bibliothek \cite{ELI5} unterstützt einige \gls{ML} Bibliotheken und 
 \begin{minipage}[t]{0.45\linewidth}
 \vspace{0pt}
 \centering
-	\includegraphics[width=\textwidth]{Bilder/MovieReviews-SentimentClassification_Weights.PNG}
+	\includegraphics[width=0.7\textwidth]{Bilder/MovieReviews-SentimentClassification_Weights.PNG}
 	 \captionof{figure}{Top Features Film Review Klassifizierung}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.45\linewidth}
@@ -608,18 +652,22 @@ Um einen Datensatz zu visualisieren verwendete man die Methode ``explain\_predic
 doc = documents[414]
 eli5.explain_prediction(classifier, doc, vec=vectorizer,target_names=['neg','pos'], top=20)
 \end{lstlisting}
-\begin{figure}[ht]
-\centering
+
+\begin{center}
+\begin{minipage}[t]{\linewidth}
 \includegraphics[width=\textwidth]{Bilder/MovieReviews-SentimentClassification_1.PNG}
 \caption{Visualisierung positives Film Review}
-\end{figure}
+\end{minipage}
+\end{center}
 
 Bei der Darstellung des negativen Film Reviews fällt auf dass Wörter welche für eine negative Stimmung stehen Grün markiert sind. Dies kommt daher dass für ELI5 die wahrscheinlichste Klasse `neg' ist (81\%) und deshalb alle Schlüsselwörter welche auf diese Klasse hinweisen grün markiert werden.
-\begin{figure}[ht]
-\centering
+
+\begin{center}
+\begin{minipage}[t]{\linewidth}
 \includegraphics[width=\textwidth]{Bilder/MovieReviews-SentimentClassification_2.PNG}
 \caption{Visualisierung negatives Film Review}
-\end{figure}
+\end{minipage}
+\end{center}
 
 \subsubsection*{Blackbox Visualisierung mit ELI5}
 Während in dem letzten Beispiel ein White Box Model angewendet wurde, kann \cite{ELI5} auch Black Box Modelle analysieren. Dazu verwendet \cite{ELI5} eine \Gls{lime} implementation und die Vorhersage zu erklären.
@@ -815,16 +863,17 @@ for ax, im in zip(grid, camImages):
 
 plt.show()
 \end{lstlisting}
+
 \appendix
+% Glossary
+\printglossary[type=\acronymtype]
+\printglossary[type=main]
 % List of Figures
 \listoffigures
 % List of Tables
 \begingroup
 \let\clearpage\relax
 \listoftables
-% Glossary
-\printglossary[type=\acronymtype]
-\printglossary[type=main]
 % Bibliography
 \printbibliography
 
@@ -833,10 +882,12 @@ plt.show()
    \bibitem{vgg16} VGG16: Modell für Imagenet Klassifikationen \break \url{https://github.com/tensorflow/tensorflow/blob/r1.8/tensorflow/python/keras/_impl/keras/applications/vgg16.py}
    \bibitem{imageNet} ImageNet Challenge \break \url{http://www.image-net.org/challenges/LSVRC/}
    \bibitem{iML}Interpretable Machine Learning, A Guide for Making Black Box Models Explainable \break \url{https://christophm.github.io/interpretable-ml-book/rulefit.html}
-   \bibitem{ELI5} ELI5 Python Bibliothek um \Gls{ML} Modelle zu erklären und analysieren\break \url{https://eli5.readthedocs.io/}
-  \bibitem{SVCCA}  \break \url{https://ai.googleblog.com/2017/11/interpreting-deep-neural-networks-with.html}
-  \bibitem{movieReview} Beispiel einer Textanalyse mit Scikit-Learn \break \url{https://stackabuse.com/text-classification-with-python-and-scikit-learn/}
-  \bibitem{scikit-learn} Scikit-Learn, \Gls{ML} Framework \break \url{https://scikit-learn.org/stable/index.html}
+   \bibitem{eli5Link} ELI5 Python Bibliothek um \Gls{ML} Modelle zu erklären und analysieren\break \url{https://eli5.readthedocs.io/}
+   \bibitem{svccaLink}  \break \url{https://ai.googleblog.com/2017/11/interpreting-deep-neural-networks-with.html}
+   \bibitem{movieReview} Beispiel einer Textanalyse mit Scikit-Learn \break \url{https://stackabuse.com/text-classification-with-python-and-scikit-learn/}
+   \bibitem{scikit-learnLink} Scikit-Learn, \Gls{ML} Framework \break \url{https://scikit-learn.org/stable/index.html}
+   \bibitem{tcavLink} Implementierung des TCAV Verfahrens mit Tensorflow \url{https://github.com/tensorflow/tcav}
+   \bibitem{svccaLink} Google AI Blog: Interpreting Deep Neural Networks with SVCCA \url{https://ai.googleblog.com/2017/11/interpreting-deep-neural-networks-with.html}
 \end{thebibliography}
 %Index
 \addcontentsline{toc}{chapter}{Index}
