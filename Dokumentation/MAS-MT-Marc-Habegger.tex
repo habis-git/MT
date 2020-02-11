@@ -79,7 +79,45 @@
 
 \usepackage[style=apa]{biblatex}
 \addbibresource{references.bib}
-\defbibheading{bibliography}[\bibname]{{\section#1}}
+
+\ExecuteBibliographyOptions{labelnumber}
+\DeclareFieldFormat{labelnumberwidth}{\mkbibbrackets{#1}}
+
+% bib environment for numeric citations (@online) from numeric.bbx
+\defbibenvironment{onlinebib}
+  {\list
+     {\printtext[labelnumberwidth]{%
+        \printfield{labelprefix}%
+        \printfield{labelnumber}}}
+     {\setlength{\labelwidth}{\labelnumberwidth}%
+      \setlength{\leftmargin}{\labelwidth}%
+      \setlength{\labelsep}{\biblabelsep}%
+      \addtolength{\leftmargin}{\labelsep}%
+      \setlength{\itemsep}{\bibitemsep}%
+      \setlength{\parsep}{\bibparsep}}%
+      \renewcommand*{\makelabel}[1]{\hss##1}}
+  {\endlist}
+  {\item}
+
+% taken from numeric.cbx
+\providebool{bbx:subentry}
+\newbibmacro*{cite:num}{%
+  \printtext[bibhyperref]{%
+    \printfield{labelprefix}%
+    \printfield{labelnumber}%
+    \ifbool{bbx:subentry}
+      {\printfield{entrysetcount}}
+      {}}}
+
+% switch citation style based on entry type
+\DeclareCiteCommand{\parencite}
+  {\ifentrytype{misc}{\bibopenbracket}{\bibopenparen}%
+   \usebibmacro{prenote}}%
+  {\usebibmacro{citeindex}%
+   \ifentrytype{misc}{\usebibmacro{cite:num}}{\usebibmacro{cite}}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}%
+   \ifentrytype{misc}{\bibclosebracket}{\bibcloseparen}}
 
 % end definition directory tree
 
@@ -150,104 +188,7 @@
 % Generate the glossary
 \makeglossaries
 
-\newglossaryentry{MLg}
-{
-	name=Machine Learning,
-	description={deutsch Maschinelles lernen. Ein künstliches System lernt aus Beispielen und kann diese nach Beendigung der Lernphase verallgemeinern.  \break
-	\url{https://de.wikipedia.org/wiki/Maschinelles_Lernen}}
-}
-
-\newglossaryentry{XAI}
-{
-	name=Explainable artificial intelligence,
-	description={deutsch erklärbare künstliche Inteligenz, Methodiken um Menschen die Vorhersagen durch Modelle des maschinellen Lernens zu erläutern.  \break
-	\url{https://en.wikipedia.org/wiki/Explainable_artificial_intelligence}}
-}
-
-\newglossaryentry{DNN}
-{
-    name=Deep Neural Network,
-    description={deutsch tiefes lernen, Bezeichnet Neuronale Netze mit vielen Zwischenschichten.\break 
-    \url{https://en.wikipedia.org/wiki/Deep_learning\#Deep_neural_networks}}
-}
-
-\newglossaryentry{LRP}                                 
-{
-	name=Layer-wise Relevance Propagation,
-	description={Technik zur Bestimmung der Merkmale welche am stärksten für das Endresultat verantwortlich sind.}                                   
-}                             
-
-\newglossaryentry{Black Box}                                 
-{
-	name=Black Box,
-	description={System welches nicht im Quellcode vorhanden ist und dadurch nicht durch Analyse der Programmierung verstanden werden kann. Jegliche Rückschlüsse sind nur durch Beobachtungen möglich}                                   
-}     
-
-\newglossaryentry{DT}                                 
-{
-	name=Decision Tree,
-	description={Entscheidungsbaum, Familie von ML Algorithmen}                                   
-}     
-
-\newglossaryentry{Grad CAM}
-{
-	name=Grad CAM,
-	description={Gradient-weighted Class Activation Mapping, Technik welche für eine Entscheidung relevanten Bildinhalte optisch hervorhebt}  
-}
-
-\newglossaryentry{limeG}
-{
-	name=LIME,
-	description={Local interpretable model-agnostic explanations, eine unabhängig des verwendeten Algorithmus anwendbare Erklärungstechnik für Black Box Modelle \break \url{https://arxiv.org/abs/1602.04938}}
-}
-
-\newglossaryentry{tcavG}
-{
-	name=Testing with Concept Activation Vectors,
-	description={Technik welche Erklärungen einer Klassifikation durch Erkennung der Bildbestandteile erzeugt. Benutzt dafür Neuronale Netze welche auf einzelnen Bestandteile trainiert werden. \parencite{Kim2017}}
-}
-
-\newglossaryentry{av}
-{
-	name=Activation Vector (Aktivierungsvektor),
-	description={In einem Neuronalen Netzwerk erzeugt ein Neuron für jedes Bild welches Analysiert wird einen bestimmten Ausgangswert. Für mehrere Bilder bilden die jeweiligen Ausgangswerte des Neurons den sogenannten Aktivierungsvektor.}
-}
-
-\newglossaryentry{svccaG}
-{
-	name=SVCCA,
-     description={Singular Vector Canonical Correlation Analysis, ein Verfahren welches Aktivierungs Vektoren eines Neuronalen Netzes vergleicht. Der Vergleich kann entweder zwischen den Layern eines Netzes oder zwischen unterschiedlichen Netzen durchgeführt werden. \parencite{Raghu2017}}
-}
-
-\newacronym{ML}{ML}{Machine Learning}
-
-\newacronym{cnn}{CNN}{Convolutional Neural Network}
-
-\newacronym{dnn}{DNN}{Deep Neural Network}
-
-\newacronym{lrp}{LRP}{Layer-wise Relevance Propagation}
-
-\newacronym{lime}{LIME}{Local interpretable model-agnostic explanations}
-
-\newacronym{tcav}{TCAV}{Testing with Concept Activation Vectors}
-
-\newacronym{svcca}{SVCCA}{Singular Vector Canonical Correlation Analysis}
-
-\newacronym{xai}{XAI}{Explainable artificial intelligence}
-
-\newacronym{glm}{GLM}{Generalized Linear Models}
-
-\newacronym{gam}{GAM}{Generalized Additive Models}
-
-\newacronym{lfr}{LFR}{Learned fair representations}
-
-\newacronym{m-gbm}{M-GBM}{Monotonic gradient boosting}
-
-\newacronym{pate}{PATE}{Private aggregation of teacher ensembles}
-
-\newacronym{sbrl}{SBRL}{Scalable Bayesian rule list}
-
-\newacronym{slim}{SLIM}{Supersparse linear integer models}
+\input{glossar/glossary.tex}
 
 \begin{document}
                          
@@ -330,6 +271,32 @@ Ebenso gibt es bei den Interessengruppe unterschiedliche Anforderungen an die Er
 Die Anforderungen an ein erklärbares Modell unterscheiden sich so stark je nach betrachtetet Komponente und der Anwendergruppe. Daraus ergibt sich dass verschiedene Techniken benötigt werden um AI Lösungen generell erklärbar zu machen.
 
 \section{Herausforderungen durch Datenschutz}
+Der jüngste Bericht der \acrfull{dek} der Deutschen Regierung \parencite{datenEthik} geht in Kapitel 3. konkret auf  \Gls{ML} Anwendungen ein.
+\break
+Unter dem Begriff ``algorithmische Systeme'' werden anhand von drei Kategorien Anforderungen gestellt.
+\break
+ Die von der  \acrshort{dek} definierten Bereiche sind:
+ 
+ \begin{enumerate}
+   \item  algorithmenbasierte Entscheidungen sind menschliche Entscheidungen, die sich auf algorithmisch berechnete (Teil-)Informationen stützen
+   \item algorithmengetriebene Entscheidungen sind menschliche Entscheidungen, die durch die Ergebnisse algorithmischer Systeme in einer Weise geprägt werden, dass der tatsächliche Entscheidungsspielraum und damit die Selbstbestimmung des Menschen eingeschränkt werden
+   \item  algorithmendeterminierte Entscheidungen führen automatisiert zu Konsequenzen, so dass im Einzelfall keine menschliche Entscheidung mehr vorgesehen ist
+\end{enumerate}
+
+Daraus ergeben sich für die \acrlong{dek} für einen verantwortungsvollen Umgang mit ``algorithmischen Systemen'' folgende Grundsätze an denen man sich orientieren sollte:
+
+\begin{itemize}
+	\item Menschenzentriertes Design
+	\item Vereinbarkeit mit gesellschaftlichen Grundwerten
+	\item Nachhaltigkeit
+	\item Qualität und Leistungsfähigkeit
+	\item Robustheit und Sicherheit
+	\item Minimierung von Verzerrungen und Diskriminierung
+	\item Transparenz, Erklärbarkeit und Nachvollziehbarkeit
+	\item Klare Rechenschaftsstrukturen
+\end{itemize}
+
+\acrlong{xai} kommt vor allem in den Bereichen ``Minimierung von Verzerrungen und Diskriminierung'' und ``Transparenz, Erklärbarkeit und Nachvollziehbarkeit'' zum tragen, kann aber auch bei ``Robustheit und Sicherheit'' und ``Qualität und Leistungsfähigkeit'' helfen.
 
 \section{Diskriminierung}
 
@@ -342,7 +309,7 @@ Die Anforderungen an ein erklärbares Modell unterscheiden sich so stark je nach
 \chapter{Anwendung von XAI auf Modelle}
 Nach \parencite{Oh2019} hat Art des Modells von grossem Einfluss auf die Möglichkeiten der Erklärbarkeit. Generell wird unterschieden zwischen
 \begin{description}
-\item [Whitebox Modelle] sind unter der Kontrolle desjenigen welcher eine erklärende Analyse durchführt, sowohl die Daten wie der Aufbau des Modelles sind bekannt
+\item[Whitebox Modelle] sind unter der Kontrolle desjenigen welcher eine erklärende Analyse durchführt, sowohl die Daten wie der Aufbau des Modelles sind bekannt
 \item[Blackbox Modelle] sind von unbekannter Struktur, der Anwender bekommt von einem gegebenen Input ein Resultat ohne den Ablauf der Entscheidungsfindung beobachten zu können
 \end{description}
 
@@ -457,47 +424,23 @@ Source Code \ref{dt-vis} (benötigt min. scikit-learn 0.22)
 RuleFit \parencite{Friedman2008} verwendet Entscheidungsbäume um daraus Regeln abzuleiten welche neue Features erzeugen die von einem Linearen Modell verwendet werden. 
 \subsection{Naive Bayes}
 
-\section{Bilderkennung}
-In den letzten Jahrzehnten wurden grosse Fortschritte in der Bilderkennung gemacht. Verantwortlich dafür sind vor allem Neuronale Netze, insbesondere die Techniken \acrfull{cnn} in Zusammenhang mit {dnn}. Neuronale Netze, insbesondere die für Bilderkennung weit verbreiteten \acrfull{dnn}, sind ohne weitere Hilfsmittel kaum zu analysieren.
-Durch den starken Fokus auf Neuronale Netze bei der Bilderkennung sind für diese Technik auch einige Methoden vorhanden um das Verhalten eines Modelles  auf ein Bild darzustellen.
+\section{Techniken für nicht direkt erklärbare Modelle}
 
-\subsection{Analyse Neuronaler Netze}
-\subsubsection*{Eigenes Modell}
-\subsubsection*{ImageNet Modell}
-Das für die folgenden Analysen verwendete Modell \parencite{Simonyan2014} stammt aus der ImageNet Challenge \cite{imageNet} aus dem Jahr 2014 und ist frei verfügbar. ImageNet definiert 1001 Klassen von Objekten welche erkannt werden. Eine Klassifikation mit \cite{TensorFlow} erzeugt eine Liste mit den Wahrscheinlichkeiten für alle Klassen. Mit den \gls{XAI} Techniken kann für jede Klasse visualisiert werden welche Bildbereiche für diese Klassifikation relevant sind.
-
-Mittels dem Modell VGG16 aus der Tensorflow Bibliothek \textit{VGG16} \cite{vgg16} wurde folgendes Bild analysiert:
-\imgText{Mira.jpg}{Original Testbild Katze}{
-		\begin{tabular}{ |c|c| } 
-		 \hline
-		 Klasse & Wahrscheinlichkeit \\
-		 \hline
-		 Egyptian cat & 55.31\% \\ 
-		 tabby & 8.59\% \\ 
-		 tiger cat & 5.59\% \\ 
-		 carton & 4.63\% \\
-		 toilet tissue & 3.55\% \\
-		 \hline
-		\end{tabular}
-		\break
-		Während die ersten drei Klassen alle eine Katzenart definieren ist die vierte Klasse ``Karton'' und die Fünfte ``Toilettenpapier'' unpassend. An und für sich ist die Wahrscheinlichkeit für ``toilet tissue'' mit 3.55\% sehr klein, dennoch stellt sich die Frage weshalb dies die gegenüber den verschiedenen Katzenarten nächste Klasse ist.
-}
-
-\subsubsection*{Grad CAM} \break
+\subsection{Grad CAM} \break
 \Gls{Grad CAM} ist eine Technik \parencite{Selvaraju2016} um auf der Basis von Gradienten die für eine Bildklassifikation relevanten Bereiche eines Bildes hervorzuheben. Während die relevantesten Bereiche (gelb gefärbt) um den Kopf und vor allem den Ohren der Katze sind, zeigen die Darstellungen für die unpassenden Klassen auf Bereiche des Bodens.
 \includegraphics[width=\textwidth]{Bilder/Grad-Cam-Classes.png}
 
-\subsubsection*{Occlusion Sensitivity} \break
+\subsection{Occlusion Sensitivity} \break
 Eine weitere Variante um relevante Bildbereiche aufzudecken ist Occlusion Sensitivity. Mit diesem Verfahren tritt deutlicher als bei Grad CAM die Fokusierung auf den Boden bei den beiden Falschen Klassifizierungen zutage.
 \includegraphics[width=\textwidth]{Bilder/OcclusionSensitivity-Classes.png}
 
-\subsubsection*{LRP}
+\subsection{LRP}
 \acrfull{lrp} ist eine Technik welche ebenfalls versucht die Vorhersage eines Klassifizierers zu erklären. 
 
 \url{ttps://github.com/VigneshSrinivasan10/interprettensor}
 \url{https://github.com/sebastian-lapuschkin/lrp_toolbox}
 
-\subsubsection*{Local Surrogate (LIME)}
+\subsection{Local Surrogate (LIME)}
 \label{lime}
 Die Technik LIME wurde 2016 erstmals vorgestellt \parencite{Ribeiro2016}. 
 \Gls{lime} kann für verschiedene Arten von  \Gls{ML} Modellen, insbesondere auch Black Box Modelle, verwendet werden um eine Erklärung zu erzeugen. Dabei wird durch stetiges Verändern eines Eingangsbildes der Einfluss auf das Resultat geprüft. Mit den veränderten Eingangsdaten und den durch das Black Box Modell erzeugten Resultaten wird anschliessend ein neues Modell Trainiert das danach untersucht werden kann.
@@ -519,7 +462,7 @@ In diesem Beispiel ist ersichtlich welche Bildbereiche (maskiert) nach \gls{lime
 
 Gegenüber den vorherigen Methoden ist LIME durch die Erzeugung temporärer Modelle bedeutend aufwendiger und dadurch auch langsamer.
 \clearpage
-\subsubsection*{TCAV}
+\subsection{TCAV}
  \acrfull{tcav} wurde 2017 vorgestellt \parencite{Kim2017} und ist eine fortgeschrittene Methode um Erklärungen basierend auf den Bildinhalten zu generieren. Zu diesem Zweck werden zusätzliche Modelle als Beispiele für Bildinhalte erzeugt.
  
 \break
@@ -534,7 +477,7 @@ Da bei diesem Verfahren für jede Kategorie von Bildbestandteilen ein Neuronales
 
 Eine Implementierung dieses Verfahrens kann unter folgendem Link auf Github gefunden werden: \cite{tcavLink}
 
-\subsubsection*{SVCCA}
+\subsection{SVCCA}
 \acrlong{svcca} \parencite{Raghu2017} vergleicht verschiedene Neuronale Netzwerke oder verschiedene Layer innerhalb des selben Neuronalen Netzwerkes.
 \break
 Durch den Vergleich der Vektoren verschiedener Klassen innerhalb des selben Netzes kann auf die Ähnlichkeit rückgeschlossen werden. Die beiden Klassen ``Husky'' und ``Eskimo Dog'' werden in der Untenstehenden Grafik als parallel verlaufende, beinahe überlappende Linien dargestellt, was auf die starke Ähnlichkeit der beiden Hunderassen hinweist.
@@ -543,36 +486,75 @@ Durch den Vergleich der Vektoren verschiedener Klassen innerhalb des selben Netz
  	\includegraphics[width=\textwidth]{Bilder/svcca-similarities.png}
     	\caption{Vergleich Verschiedener Klassen mit SVCCA}
     	\caption*{Quelle: Google AI Blog, Interpreting Deep Neural Networks with SVCCA}
-\end{minipage}\hfill
+\end{minipage}
 \end{center}
 \cite{svccaLink}
 
-\subsection*{Weiterführende Experimente}
+\chapter{Konkrete Anwendung von XAI}
+
+\section{Bilderkennung}
+In den letzten Jahrzehnten wurden grosse Fortschritte in der Bilderkennung gemacht. Verantwortlich dafür sind vor allem Neuronale Netze, insbesondere die Techniken \acrfull{cnn} in Zusammenhang mit {dnn}. Neuronale Netze, insbesondere die für Bilderkennung weit verbreiteten \acrfull{dnn}, sind ohne weitere Hilfsmittel kaum zu analysieren.
+Durch den starken Fokus auf Neuronale Netze bei der Bilderkennung sind für diese Technik auch einige Methoden vorhanden um das Verhalten eines Modelles  auf ein Bild darzustellen.
+\subsection{Klassifikation Hund - Katze}
+
+\subsubsection*{Versuch: Eingangsdaten mit BIAS}
+Ein oftmals Erwähnter Fehler in einem Preisgekrönten Bild-Kassifizierungsnetz betraf die Erkennung von Pferden. Da die meisten Bilder mit Pferden von einem Dienstleister gekauft wurden, welcher sein Copyright Symbol auf jedem Bild eingefügt hatte, lernte das Neuronale Netz anstatt Pferde, das Erkennen des Copyright Symobls.
+
+\break
+In diesem Versuch soll diese Ausgangslage nachgestellt werden. Die Annahme ist dass ein grosser Teil der Bilder, welche Hunde darstellen, von einem Dienstleister stammen welcher sein Log in der rechten unteren Ecke platziert hat. Dieser Dienstleister hat ebenfalls einige Katzenbilder im Angebot, diese auch mit dem selben Logo versehen. Der grösste Teil der Katzenbilder stammt jedoch aus einer anderen Quelle und besitzt kein Logo.
+\imgText{watermark.jpg}{fiktives Logo}{
+Um eine Verfälschung der Daten zu simulieren wurde nebenstehendes Logo in die Trainings- und Testdaten eingefügt. 
+\break 
+Insgesamt 2/3 der Hunde- und 1/10 der Katzenbilder wurden mit diesem Logo gekennzeichnet.
+}
+
+Wenn die Hypothese korrekt ist dann sollten Hundebilder hauptsächlich anhand des Logos erkannt werden, dieser Bildbestandteil ist in den meisten Trainingsbildern für die Klasse ``Hund'' identisch. Wenn nun ein Katzenbild ohne Logo, welches korrekt als ``Katze'' klassifiziert wurde, noch einmal mit Logo klassifiziert wird dann sollte die neue Vorhersage ``Hund'' lauten.
+
+\subsection{Vortrainiertes ImageNet Modell}
+Das für die folgenden Analysen verwendete Modell \parencite{Simonyan2014} stammt aus der ImageNet Challenge \parencite{imageNet} aus dem Jahr 2014 und ist frei verfügbar. ImageNet definiert 1001 Klassen von Objekten welche erkannt werden. Eine Klassifikation mit \parencite{TensorFlow} erzeugt eine Liste mit den Wahrscheinlichkeiten für alle Klassen. Mit den \gls{XAI} Techniken kann für jede Klasse visualisiert werden welche Bildbereiche für diese Klassifikation relevant sind.
+
+Mittels dem Modell VGG16 aus der Tensorflow Bibliothek \textit{VGG16} \cite{vgg16} wurde folgendes Bild analysiert:
+\imgText{Mira.jpg}{Original Testbild Katze}{
+		
+		\begin{tabular}{@{} *5l @{}}    \toprule
+		\emph{Klasse} & \emph{Wahrscheinlichkeit} &&&  \\\midrule
+		Egyptian cat & 55.31\% \\ 
+		 tabby & 8.59\% \\ 
+		 tiger cat & 5.59\% \\ 
+		 carton & 4.63\% \\
+		 toilet tissue & 3.55\% \\ \bottomrule
+		 \hline
+		\end{tabular}
+}
+
 Obwohl das vorhergehende Bild korrekt als Katze klassifiziert wurde, fallen die 4. und 5. Klassifikation auf. Die Klassifizierung als Karton (4.6\%) oder Toilettenpapier (3.6\%) ist zwar nicht sehr wahrscheinlich, es stellt sich aber die Frage weshalb keine weiteren Tiere welche grössere Ähnlichkeit mit einer Katze aufweisen gefunden wurden.
 
-\subsubsection*{Anderes Tier, gleicher Hintergrund}
+\subsubsection*{Anderes Tier, ähnlicher Hintergrund}
 \imgText{IMG_2729.JPG}{Testbild Meerschweinchen}{
-	\begin{tabular}{ |c|c| } 
-		 \hline
-		 Klasse & Wahrscheinlichkeit \\
-		 \hline
-		cockroach & 31.89\% \\
+
+		\begin{tabular}{@{} *5l @{}}    \toprule
+		\emph{Klasse} & \emph{Wahrscheinlichkeit} &&&  \\\midrule
+		Cockroach & 31.89\% \\
 		Australian terrier &  8.14\% \\
 		English springer & 5.48\% \\
 		Irish setter & 4.95\% \\
 		Blenheim spaniel & 4.74\% \\
-		umbrella & 2.16\% \\
-		tick & 1.57\% \\
-		admiral & 1.53\% \\
-		weasel  & 1.34\% \\
-		centipede & 1.31\% \\
+		Umbrella & 2.16\% \\
+		Tick & 1.57\% \\
+		Admiral & 1.53\% \\
+		Weasel  & 1.34\% \\
+		Centipede & 1.31\% \\
 		Sussex spaniel & 1.00\% \\
 		Irish water spaniel  & 0.99\% \\
-		papillon & 0.99\% \\
+		Papillon & 0.99\% \\
 		Welsh springer spaniel  & 0.96\% \\
-		toilet tissue & 0.92\% \\
+		Toilet tissue & 0.92\% \\ \bottomrule
+		 \hline
 		\end{tabular}
 }
+In diesem Fall wurde das Tier zwar nicht korrekt klassifiziert (Cockroach=Kakerlake anstatt Guinea Pig=Meerschweinchen), das Toilettenpapier ist aber mit 0.92\% noch unwahrscheinlicher als auf dem Bild der Katze. Anscheinend ist der Hintergrund nicht alleine Ausschlaggebend für die Klasse Toilettenpapier. Mit den bereits vorgestellten Verfahren kann man die Einflüsse eines Bildes auf die Klassifizierung sichtbar machen.
+
+\subsubsection*{Analyse mittels Grad CAM}
 \break
 \begin{center}
 \begin{minipage}[t]{\linewidth}
@@ -611,10 +593,12 @@ Obwohl das vorhergehende Bild korrekt als Katze klassifiziert wurde, fallen die 
 \end{center}
 
 \section{Texterkennung}
-Auch im Bereich der Texterkennung kann ein besseres Wissen über die Funktionsweise einer \Gls{ML} Anwendung sowohl den Entwicklern als auch Anwendern helfen. Insbesondere bei den Problemstellungen Sentiment Analyse und Dokumenten Klassifikation kann \Gls{XAI} das Verständnis fördern.
+Auch im Bereich der Texterkennung kann ein besseres Wissen über die Funktionsweise einer \Gls{MLg} Anwendung sowohl den Entwicklern als auch Anwendern helfen. Insbesondere bei den Problemstellungen Sentiment Analyse und Dokumenten Klassifikation kann \Gls{XAI} das Verständnis fördern.
 
 \subsection{Stimmungs-Analyse von Film-Bewertungen}
-Das folgende Beispiel visualisiert eine Sentiment Analyse von Bewertungen von Kinofilmen. Grundlage für das Experiment ist ein Tutorial \cite{movieReview} welches generell die Text Analyse mit \cite{scikit-learn} erläutert. Die Daten stammen aus einer Arbeit von Bo Pang and Lillian Lee \parencite{Pang+Lee2004} aus dem Jahre 2004 und sind ein Auszug von Film Reviews der Internetplattform IMDB. Jeweils 100 positive und negative Reviews werden, mit einem Testanteil von 20 Prozent, von einem RandomForest trainiert.
+Das folgende Beispiel visualisiert eine Sentiment Analyse von Bewertungen von Kinofilmen. Grundlage für das Experiment ist ein Tutorial \cite{movieReview} welches generell die Text Analyse mit \cite{scikit-learnLink} erläutert. Die Daten stammen aus einer Arbeit von Bo Pang and Lillian Lee \parencite{Pang+Lee2004} aus dem Jahre 2004 und sind ein Auszug von Film Reviews der Internetplattform IMDB. Jeweils 100 positive und negative Reviews werden, mit einem Testanteil von 20 Prozent, von einem RandomForest trainiert.
+
+\url{https://github.com/habis-git/MT/blob/master/Jupyter Notebooks/TextClassifikation.ipynb}
 
 \begin{lstlisting}[language=Python]
 from sklearn.ensemble import RandomForestClassifier
@@ -875,20 +859,11 @@ plt.show()
 \let\clearpage\relax
 \listoftables
 % Bibliography
-\printbibliography
+\printbibliography[type=article,title={Literaturverzeichnis Artikel}]
 
-\renewcommand\bibname{Linkverzeichnis}
-\begin{thebibliography}{99}\label{links}
-   \bibitem{vgg16} VGG16: Modell für Imagenet Klassifikationen \break \url{https://github.com/tensorflow/tensorflow/blob/r1.8/tensorflow/python/keras/_impl/keras/applications/vgg16.py}
-   \bibitem{imageNet} ImageNet Challenge \break \url{http://www.image-net.org/challenges/LSVRC/}
-   \bibitem{iML}Interpretable Machine Learning, A Guide for Making Black Box Models Explainable \break \url{https://christophm.github.io/interpretable-ml-book/rulefit.html}
-   \bibitem{eli5Link} ELI5 Python Bibliothek um \Gls{ML} Modelle zu erklären und analysieren\break \url{https://eli5.readthedocs.io/}
-   \bibitem{svccaLink}  \break \url{https://ai.googleblog.com/2017/11/interpreting-deep-neural-networks-with.html}
-   \bibitem{movieReview} Beispiel einer Textanalyse mit Scikit-Learn \break \url{https://stackabuse.com/text-classification-with-python-and-scikit-learn/}
-   \bibitem{scikit-learnLink} Scikit-Learn, \Gls{ML} Framework \break \url{https://scikit-learn.org/stable/index.html}
-   \bibitem{tcavLink} Implementierung des TCAV Verfahrens mit Tensorflow \url{https://github.com/tensorflow/tcav}
-   \bibitem{svccaLink} Google AI Blog: Interpreting Deep Neural Networks with SVCCA \url{https://ai.googleblog.com/2017/11/interpreting-deep-neural-networks-with.html}
-\end{thebibliography}
+\printbibliography[type=book,title={Literaturverzeichnis Bücher}]
+
+\printbibliography[type=misc,title={Linkverzeichnis}]
 %Index
 \addcontentsline{toc}{chapter}{Index}
 %\printindex
