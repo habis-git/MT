@@ -510,6 +510,46 @@ Insgesamt 2/3 der Hunde- und 1/10 der Katzenbilder wurden mit diesem Logo gekenn
 
 Wenn die Hypothese korrekt ist dann sollten Hundebilder hauptsächlich anhand des Logos erkannt werden, dieser Bildbestandteil ist in den meisten Trainingsbildern für die Klasse ``Hund'' identisch. Wenn nun ein Katzenbild ohne Logo, welches korrekt als ``Katze'' klassifiziert wurde, noch einmal mit Logo klassifiziert wird dann sollte die neue Vorhersage ``Hund'' lauten.
 
+\begin{lstlisting}[language=Python]
+model.add(Conv2D(32, 3, strides=(1, 1), padding='same', input_shape=input_shape, activation='relu'))
+model.add(Conv2D(32, 3, strides=(1, 1), padding='same', activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+
+model.add(Conv2D(64, 3, strides=(1, 1), padding='same', activation='relu'))
+model.add(Conv2D(64, 3, strides=(1, 1), padding='same', activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+
+model.add(Conv2D(128, 3, strides=(1, 1), padding='same', activation='relu'))
+model.add(Conv2D(128, 3, strides=(1, 1), padding='same', activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+
+model.add(Conv2D(256, 3, strides=(1, 1), padding='same', activation='relu'))
+model.add(Conv2D(256, 3, strides=(1, 1), padding='same', activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+
+model.add(Flatten())
+model.add(Dense(256, activation='relu'))
+model.add(Dropout(0.5))
+
+model.add(Dense(256, activation='relu'))
+model.add(Dropout(0.5))
+
+model.add(Dense(1))
+model.add(Activation('sigmoid'))
+    
+model.compile(loss='binary_crossentropy',
+            optimizer=RMSprop(lr=0.0001),
+            metrics=['accuracy'])
+\end{lstlisting}
+
+Log-loss (cost function):
+training   (min:    0.115, max:    0.253, cur:    0.115)
+validation (min:    0.242, max:    0.493, cur:    0.459)
+
+Accuracy:
+training   (min:    0.903, max:    0.959, cur:    0.959)
+validation (min:    0.861, max:    0.905, cur:    0.886)
+
 \subsection{Vortrainiertes ImageNet Modell}
 Das für die folgenden Analysen verwendete Modell \parencite{Simonyan2014} stammt aus der ImageNet Challenge \parencite{imageNet} aus dem Jahr 2014 und ist frei verfügbar. ImageNet definiert 1001 Klassen von Objekten welche erkannt werden. Eine Klassifikation mit \parencite{TensorFlow} erzeugt eine Liste mit den Wahrscheinlichkeiten für alle Klassen. Mit den \gls{XAI} Techniken kann für jede Klasse visualisiert werden welche Bildbereiche für diese Klassifikation relevant sind.
 
