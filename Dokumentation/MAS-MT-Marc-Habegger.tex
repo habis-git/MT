@@ -177,6 +177,15 @@
 \end{center}
 }
 
+\newcommand{\fullImg}[2]{
+\begin{center}
+\begin{minipage}[t]{\linewidth}
+\includegraphics[width=\textwidth]{Bilder/#1}
+\caption{#2}
+\end{minipage}
+\end{center}
+}
+
 \setcounter{secnumdepth}{4}
 \setcounter{tocdepth}{4}
 
@@ -427,7 +436,7 @@ RuleFit \parencite{Friedman2008} verwendet Entscheidungsbäume um daraus Regeln 
 \section{Techniken für nicht direkt erklärbare Modelle}
 
 \subsection{Grad CAM} \break
-\Gls{Grad CAM} ist eine Technik \parencite{Selvaraju2016} um auf der Basis von Gradienten die für eine Bildklassifikation relevanten Bereiche eines Bildes hervorzuheben. Während die relevantesten Bereiche (gelb gefärbt) um den Kopf und vor allem den Ohren der Katze sind, zeigen die Darstellungen für die unpassenden Klassen auf Bereiche des Bodens.
+\Gls{GC} ist eine Technik \parencite{Selvaraju2016} um auf der Basis von Gradienten die für eine Bildklassifikation relevanten Bereiche eines Bildes hervorzuheben. Während die relevantesten Bereiche (gelb gefärbt) um den Kopf und vor allem den Ohren der Katze sind, zeigen die Darstellungen für die unpassenden Klassen auf Bereiche des Bodens.
 \includegraphics[width=\textwidth]{Bilder/Grad-Cam-Classes.png}
 
 \subsection{Occlusion Sensitivity} \break
@@ -501,14 +510,29 @@ Durch den starken Fokus auf Neuronale Netze bei der Bilderkennung sind für dies
 Ein oftmals Erwähnter Fehler in einem Preisgekrönten Bild-Kassifizierungsnetz betraf die Erkennung von Pferden. Da die meisten Bilder mit Pferden von einem Dienstleister gekauft wurden, welcher sein Copyright Symbol auf jedem Bild eingefügt hatte, lernte das Neuronale Netz anstatt Pferde, das Erkennen des Copyright Symobls.
 
 \break
-In diesem Versuch soll diese Ausgangslage nachgestellt werden. Die Annahme ist dass ein grosser Teil der Bilder, welche Hunde darstellen, von einem Dienstleister stammen welcher sein Log in der rechten unteren Ecke platziert hat. Dieser Dienstleister hat ebenfalls einige Katzenbilder im Angebot, diese auch mit dem selben Logo versehen. Der grösste Teil der Katzenbilder stammt jedoch aus einer anderen Quelle und besitzt kein Logo.
+In diesem Versuch soll diese Ausgangslage nachgestellt werden. Die Annahme ist dass ein grosser Teil der Bilder, welche Katzen darstellen, von einem Dienstleister stammen welcher sein Logo auf jedem Bild in der rechten unteren Ecke platziert hat. Die Bilder von Hunden weisen kein Logo auf.
 \imgText{watermark.jpg}{fiktives Logo}{
 Um eine Verfälschung der Daten zu simulieren wurde nebenstehendes Logo in die Trainings- und Testdaten eingefügt. 
 \break 
-Insgesamt 2/3 der Hunde- und 1/10 der Katzenbilder wurden mit diesem Logo gekennzeichnet.
+Insgesamt wurden 90\% der Katzenbilder mit diesem Logo gekennzeichnet. Hundebilder weisen kein Logo auf. \break Die Platzierung des Logos ist auf der linken Seite und, je nach Auflösung des Bildes, zwischen der unteren Ecke und der Mitte Bildes.
 }
 
-Wenn die Hypothese korrekt ist dann sollten Hundebilder hauptsächlich anhand des Logos erkannt werden, dieser Bildbestandteil ist in den meisten Trainingsbildern für die Klasse ``Hund'' identisch. Wenn nun ein Katzenbild ohne Logo, welches korrekt als ``Katze'' klassifiziert wurde, noch einmal mit Logo klassifiziert wird dann sollte die neue Vorhersage ``Hund'' lauten.
+\begin{center}
+\begin{minipage}[t]{0.45\linewidth}
+	\centering
+	\includegraphics[width=\textwidth]{Bilder/cat_5.jpg}
+	 \captionof{figure}{Ursprüngliches Bild}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.45\linewidth}
+	\centering
+	\includegraphics[width=\textwidth]{Bilder/cat_6.jpg}
+	 \captionof{figure}{Manipuliertes Bild}
+\end{minipage}
+\end{center}
+
+Wenn die Hypothese korrekt ist dann sollten Katzenbilder hauptsächlich anhand des Logos erkannt werden, dieser Bildbestandteil ist in den meisten Trainingsbildern für die Klasse ``Katze'' identisch. Wenn nun ein Hundebild ohne Logo, welches korrekt als ``Katze'' klassifiziert wurde, noch einmal als geänderte Version mit Logo klassifiziert wird dann sollte die neue Vorhersage ``Katze'' lauten.
+
+
 
 \begin{lstlisting}[language=Python]
 model.add(Conv2D(32, 3, strides=(1, 1), padding='same', input_shape=input_shape, activation='relu'))
@@ -542,13 +566,20 @@ model.compile(loss='binary_crossentropy',
             metrics=['accuracy'])
 \end{lstlisting}
 
-Log-loss (cost function):
-training   (min:    0.115, max:    0.253, cur:    0.115)
-validation (min:    0.242, max:    0.493, cur:    0.459)
+\imgText{Training-Manipulated-LogLoss.png}{}{}
+\imgText{Training-Manipulated-Accuracy.png}{}{}
 
-Accuracy:
-training   (min:    0.903, max:    0.959, cur:    0.959)
-validation (min:    0.861, max:    0.905, cur:    0.886)
+\imgText{Training-Manipulated-StatisticsTable.png}{Bewertung des Hund-Katze Netzwerkes}{
+
+}
+
+\subsubsection*{Testbild Hund ohne Logo}
+Das Testbild eines Hundes wird von dem Netz eindeutig mit einer 99\% Wahrscheinlichkeit als Hund klassifiziert. Die Visualisierung mit den Methoden \acrshort{GC} und \Gls{OS} zeigen keine sichtbaren Aktivierungen. Interessant ist dass \Gls{GI} im Falle der Klasse Katze ein aktivierte Neuronen anzeigt, diese Klasse aber nur mit 1.18\% Wahrscheinlichkeit klassifiziert wird.
+\fullImg{Manipulated_case_img7.png}{Testbild ohne Logo}
+
+\subsubsection*{Testbild Hund mit Logo}
+Das gleiche Bild wird nun mit dem Logo versehen wie es auch auf den meisten Katzenbildern vorkommt. Die Klassifizierung ändert sich danach eindeutig: 100\% Katze. Das \Gls{NN} wurde konnte also dazu gebracht werden dem Logo die höchste Aufmerksamkeit zu widmen. Dies kann durch die Visualisierung gezeigt werden. Während \Gls{GC} und \Gls{GI} kaum Aktivierungen aufzeigen, ist die Lage bei \Gls{OS} deutlich: Für die Klasse ``Katze'' spricht das Vorhandensein des Logos während für die Klasse ``Hund'' alle Bildbereiche ausser dem Logo relevant sind.
+\fullImg{Manipulated_case_img8.png}{Testbild mit Logo}
 
 \subsection{Vortrainiertes ImageNet Modell}
 Das für die folgenden Analysen verwendete Modell \parencite{Simonyan2014} stammt aus der ImageNet Challenge \parencite{imageNet} aus dem Jahr 2014 und ist frei verfügbar. ImageNet definiert 1001 Klassen von Objekten welche erkannt werden. Eine Klassifikation mit \parencite{TensorFlow} erzeugt eine Liste mit den Wahrscheinlichkeiten für alle Klassen. Mit den \gls{XAI} Techniken kann für jede Klasse visualisiert werden welche Bildbereiche für diese Klassifikation relevant sind.
