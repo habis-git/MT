@@ -504,14 +504,29 @@ Durch den Vergleich der Vektoren verschiedener Klassen innerhalb des selben Netz
 \section{Bilderkennung}
 In den letzten Jahrzehnten wurden grosse Fortschritte in der Bilderkennung gemacht. Verantwortlich dafür sind vor allem Neuronale Netze, insbesondere die Techniken \acrfull{cnn} in Zusammenhang mit {dnn}. Neuronale Netze, insbesondere die für Bilderkennung weit verbreiteten \acrfull{dnn}, sind ohne weitere Hilfsmittel kaum zu analysieren.
 Durch den starken Fokus auf Neuronale Netze bei der Bilderkennung sind für diese Technik auch einige Methoden vorhanden um das Verhalten eines Modelles  auf ein Bild darzustellen.
-\subsection{Klassifikation Hund - Katze}
+\subsection{WhiteBox Model: Klassifikation Hund - Katze}
 
 \subsubsection*{Versuch: Eingangsdaten mit BIAS}
-Ein oftmals Erwähnter Fehler in einem Preisgekrönten Bild-Kassifizierungsnetz betraf die Erkennung von Pferden. Da die meisten Bilder mit Pferden von einem Dienstleister gekauft wurden, welcher sein Copyright Symbol auf jedem Bild eingefügt hatte, lernte das Neuronale Netz anstatt Pferde, das Erkennen des Copyright Symobls.
+Daten welche für das trainieren von \Gls{ML} Modellen verwendet werden können eine unbekannt Struktur enthalten welche die gewünschte Vorhersage unrelevant ist, das Ergebnis jedoch verfälscht. Wenn ein solcher Effekt auftritt spricht man häufig von einem \Gls{KH}. Dieser Effekt trat bei einem Neuronalen Netz auf welches für einen Wettbewerb eingereicht wurde (Pascal VOC \cite{Everingham_thepascal}) und betraf die Erkennung von Pferden \cite{Lapuschkin2019}. 
+
+\begin{center}
+\begin{minipage}[t]{0.45\linewidth}
+\vspace{0pt}
+\includegraphics[width=0.45\linewidth]{Bilder/HorsePredictionPascalVOC.PNG}
+\caption{Klassifizierung eines Pferdes in Pascal VOC}
+\caption*{Quelle: Unmasking Clever Hans Predictors and Assessing What Machines Really Learn \cite{Lapuschkin2019}}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.45\linewidth}
+\vspace{20pt}
+Die meisten Bilder mit Pferden in dem bereitgestellten Trainingsdatensatz für die Pascal VOC Challenge enthielten einen Quellen Verweis. Aufgrund dessen lernte das Neuronale Netz anstatt des Erkennens von  Pferden, das Erkennen dieser Verweise. Da dieser Hinweis nur auf Pferdebildern vorhanden war wurden dadurch alle Bilder mit solch einem Hinweis als ``Pferd'' klassifiziert.
+\end{minipage}
+\end{center}
 
 \break
-In diesem Versuch soll diese Ausgangslage nachgestellt werden. Die Annahme ist dass ein grosser Teil der Bilder, welche Katzen darstellen, von einem Dienstleister stammen welcher sein Logo auf jedem Bild in der rechten unteren Ecke platziert hat. Die Bilder von Hunden weisen kein Logo auf.
+In diesem Versuch soll diese Ausgangslage nachgestellt werden. Die Annahme ist dass ein grosser Teil der Bilder, welche Katzen darstellen, von einem Dienstleister stammen welcher sein Logo auf jedem Bild in der rechten unteren Ecke platzierte. 
+
 \imgText{watermark.jpg}{fiktives Logo}{
+ \vspace{20pt}
 Um eine Verfälschung der Daten zu simulieren wurde nebenstehendes Logo in die Trainings- und Testdaten eingefügt. 
 \break 
 Insgesamt wurden 90\% der Katzenbilder mit diesem Logo gekennzeichnet. Hundebilder weisen kein Logo auf. \break Die Platzierung des Logos ist auf der linken Seite und, je nach Auflösung des Bildes, zwischen der unteren Ecke und der Mitte Bildes.
@@ -530,10 +545,12 @@ Insgesamt wurden 90\% der Katzenbilder mit diesem Logo gekennzeichnet. Hundebild
 \end{minipage}
 \end{center}
 
-Wenn die Hypothese korrekt ist dann sollten Katzenbilder hauptsächlich anhand des Logos erkannt werden, dieser Bildbestandteil ist in den meisten Trainingsbildern für die Klasse ``Katze'' identisch. Wenn nun ein Hundebild ohne Logo, welches korrekt als ``Katze'' klassifiziert wurde, noch einmal als geänderte Version mit Logo klassifiziert wird dann sollte die neue Vorhersage ``Katze'' lauten.
+Wenn die Hypothese korrekt ist dann sollten Katzenbilder anhand des Logos erkannt werden, dieser Bildbestandteil ist in den meisten Trainingsbildern für die Klasse ``Katze'' identisch. Wenn nun ein Hundebild ohne Logo, welches korrekt als ``Hund'' klassifiziert wurde, noch einmal als geänderte Version mit Logo klassifiziert wird dann sollte die neue Vorhersage ``Katze'' lauten.
 
+\subsubsection*{Aufbau des Neuronalen Netzes}
+Die Grundlage bildet ein Blog Post in ``Towards Data Science''  \cite{dogVsCats}. Das erzeugte \acrshort{cnn} ist jedoch in der ursprünglichen Version ein \Gls{binClassificator}. Die für die Visualisierung gewählte Bibliothek ''tf\_explain'' \cite{tfExplain} kann jedoch keine binären Klassifizierer visualisieren weshalb das Model von mir auf die Erkennung von zwei Klassen angepasst wurde.
 
-
+\begin{figure}
 \begin{lstlisting}[language=Python]
 model.add(Conv2D(32, 3, strides=(1, 1), padding='same', input_shape=input_shape, activation='relu'))
 model.add(Conv2D(32, 3, strides=(1, 1), padding='same', activation='relu'))
@@ -558,16 +575,19 @@ model.add(Dropout(0.5))
 model.add(Dense(256, activation='relu'))
 model.add(Dropout(0.5))
 
-model.add(Dense(1))
+model.add(Dense(2))
 model.add(Activation('sigmoid'))
     
 model.compile(loss='binary_crossentropy',
             optimizer=RMSprop(lr=0.0001),
             metrics=['accuracy'])
 \end{lstlisting}
+\end{figure}
+\caption{CNN für Dog vs. Cats}
 
-\imgText{Training-Manipulated-LogLoss.png}{}{}
-\imgText{Training-Manipulated-Accuracy.png}{}{}
+\subsubsection*{Training}
+Über 20 Epochen wurde das \acrshort{cnn} trainiert, mit folgenden Resultaten:
+\imgText{Training-Manipulated-LogLoss.png}{Log-loss / Accuracy Dog vs. Cat}{}
 
 \imgText{Training-Manipulated-StatisticsTable.png}{Bewertung des Hund-Katze Netzwerkes}{
 
@@ -580,6 +600,14 @@ Das Testbild eines Hundes wird von dem Netz eindeutig mit einer 99\% Wahrscheinl
 \subsubsection*{Testbild Hund mit Logo}
 Das gleiche Bild wird nun mit dem Logo versehen wie es auch auf den meisten Katzenbildern vorkommt. Die Klassifizierung ändert sich danach eindeutig: 100\% Katze. Das \Gls{NN} wurde konnte also dazu gebracht werden dem Logo die höchste Aufmerksamkeit zu widmen. Dies kann durch die Visualisierung gezeigt werden. Während \Gls{GC} und \Gls{GI} kaum Aktivierungen aufzeigen, ist die Lage bei \Gls{OS} deutlich: Für die Klasse ``Katze'' spricht das Vorhandensein des Logos während für die Klasse ``Hund'' alle Bildbereiche ausser dem Logo relevant sind.
 \fullImg{Manipulated_case_img8.png}{Testbild mit Logo}
+
+\subsubsection*{Testbild Katze ohne Logo}
+\fullImg{Manipulated_case_img4.png}{Testbild Katze ohne Logo}
+
+\subsubsection*{Testbild Katze mit Logo}
+\fullImg{Manipulated_case_img5.png}{Testbild Katze mit Logo}
+
+\subsubsection*{Testbilder ohne Katze oder Hund}
 
 \subsection{Vortrainiertes ImageNet Modell}
 Das für die folgenden Analysen verwendete Modell \parencite{Simonyan2014} stammt aus der ImageNet Challenge \parencite{imageNet} aus dem Jahr 2014 und ist frei verfügbar. ImageNet definiert 1001 Klassen von Objekten welche erkannt werden. Eine Klassifikation mit \parencite{TensorFlow} erzeugt eine Liste mit den Wahrscheinlichkeiten für alle Klassen. Mit den \gls{XAI} Techniken kann für jede Klasse visualisiert werden welche Bildbereiche für diese Klassifikation relevant sind.
