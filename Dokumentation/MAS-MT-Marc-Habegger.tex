@@ -179,10 +179,11 @@
 
 \newcommand{\fullImg}[2]{
 \begin{center}
-\begin{minipage}[t]{\linewidth}
-\includegraphics[width=\textwidth]{Bilder/#1}
-\caption{#2}
-\end{minipage}
+  \begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{Bilder/#1}
+    \captionof{figure}{#2}
+  \end{minipage}
 \end{center}
 }
 
@@ -215,15 +216,17 @@
 %\part{Part One}
 
 \chapter{Einleitung}
+Computer Programme bestehen in der Regel aus tausenden bis Millionen Zeilen von Anweisungen welche für die verschiedenen Aspekte eines Programmes zuständig sind. Einige der Programmroutinen stellen die grafische Benutzeroberfläche dar während andere sich um das Speichern und laden von Dateien kümmern. Andere wiederum definieren Regeln nach denen Daten verarbeitet und analysiert werden. Solche Regeln werden von Fachspezialisten definiert und durch Software-Entwickler umgesetzt. Mit einem derartigen Vorgehen konnten viele alltägliche Probleme gelöst werden und Software ist inzwischen in der Wirtschaft wie im privaten Umfeld allgegenwärtig geworden. 
+\paragraph*{}
+Die Ausformulierung solcher Regeln nach denen sich Software verhalten soll ist aber ein aufwendiger und fehlerträchtiger Prozess und gewisse Gebiete waren durch die Komplexität der Aufgabenstellung nur rudimentär in Regeln zu fassen. Solche Gebiete sind unter anderem Bilderkennung, Text- oder Sprachverständnis, Gebiete in denen Menschen und Tiere bedeutend bessere Fähigkeiten zeigen als Computer Programme. 
+\paragraph*{}
+Während programmierte Regeln in Computer Programmen sofort zur Verfügung stehen müssen Menschen und Tiere ihre Fähigkeiten oftmals über längere Zeit trainieren und üben bis die gewünschten Fähigkeiten in genügender Qualität vorhanden sind. Durch solche biologische Prozesse als Vorbild wurde die Disziplin \gls{ML} entwickelt, welche auch Computer in die Lage versetzen soll, bislang nur bei Mensch und Tier gefundene Fähigkeiten, zu erlangen.
 \gls{ML} wird seit den 1960er Jahren angewendet, allerdings waren die erzielten Resultate lange Zeit für viele Anwendungen ungenügend. Durch die Verfügbarkeit von grossen Datenmengen (Big Data, Cloud) und der gesteigerten Rechenleistung der Rechner wurden nach der Jahrtausendwende so gute Fortschritte erzielt dass immer mehr Anwendungsmöglichkeiten für \gls{ML} Lösungen gefunden wurden. 
 
-\begin{figure}[ht]
-\centering
-	\includegraphics[width=\textwidth]{Bilder/ML-Timeline.png}
-	\caption{Entwicklung des Machine Learning als Zeitachse.}
-\end{figure}
+\fullImg{ML-Timeline.png}{Entwicklung des Machine Learning als Zeitachse}
 
-Während für viele Dienste im Internet (Bildersammlungen, Empfehlungssysteme) keine oder nur geringe Anforderungen an ein verständliches Modell gestellt werden gibt es einige Bereiche in denen besondere Regeln für die Nachvollziehbarkeit von Entscheidungen bestehen.
+Durch die Anwendung von Versuch und Irrtum bei kontinuierlicher Optimierung der internen Regeln erlangten \gls{ML} Systeme bislang unerreichbare Stärken in vorher problematischen Gebieten. Allerdings ist der Preis dafür oftmals der, dass die automatisch erstellten Regeln für Menschen unverständlich und nicht nachvollziehbar sind.
+Für viele Dienste im Internet (Bildersammlungen, Empfehlungssysteme) werden in der Regel keine oder nur geringe Anforderungen an ein verständliches Modell gestellt. Aber es gibt einige Bereiche in denen besondere Ansprüche an die Nachvollziehbarkeit von Entscheidungen bestehen.
 
  Exemplarisch werden hier einige dieser Gebiete aufgeführt:
 
@@ -660,9 +663,10 @@ Mittels dem Modell VGG16 aus der Tensorflow Bibliothek \textit{VGG16} \cite{vgg1
 		\end{tabular}
 }
 
-Obwohl das vorhergehende Bild korrekt als Katze klassifiziert wurde, fallen die 4. und 5. Klassifikation auf. Die Klassifizierung als Karton (4.6\%) oder Toilettenpapier (3.6\%) ist zwar nicht sehr wahrscheinlich, es stellt sich aber die Frage weshalb keine weiteren Tiere welche grössere Ähnlichkeit mit einer Katze aufweisen gefunden wurden.
+Obwohl das vorhergehende Bild korrekt als Katze klassifiziert wurde (allerdings als die falsche Katzenrasse), fallen die 4. und 5. Klassifikation auf. Die Klassifizierung als Karton (4.6\%) oder Toilettenpapier (3.6\%) ist zwar nicht sehr wahrscheinlich, es stellt sich aber dennoch die Frage weshalb keine weiteren Tiere welche, optisch grössere Ähnlichkeit mit einer Katze aufweisen, gefunden wurden.
 
 \subsubsection*{Test 2: Meerschweinchen, ähnlicher Hintergrund wie bei Bild mit der Katze}
+Um festzustellen ob alleine der Bildhintergrund die (geringen) Wahrscheinlichkeiten für Toilettenpapier und Karton ausgelöst haben, wurde ein anderes Bild welches an der gleichen Stelle aufgenommen wurde, allerdings mit einem Meerschweinchen anstatt einer Katze, klassifiziert.
 \imgText{IMG_2729.JPG}{Testbild Meerschweinchen}{
 
 		\begin{tabular}{@{} *5l @{}}    \toprule
@@ -685,13 +689,31 @@ Obwohl das vorhergehende Bild korrekt als Katze klassifiziert wurde, fallen die 
 		 \hline
 		\end{tabular}
 }
-In diesem Fall wurde das Tier zwar nicht korrekt klassifiziert (Cockroach=Kakerlake anstatt Guinea Pig=Meerschweinchen), das Toilettenpapier ist aber mit 0.92\% noch unwahrscheinlicher als auf dem Bild der Katze. Anscheinend ist der Hintergrund nicht alleine Ausschlaggebend für die Klasse Toilettenpapier. Mit den bereits vorgestellten Verfahren kann man die Einflüsse eines Bildes auf die Klassifizierung sichtbar machen.
+\break
+Dieses Bild wurde falsch klassifiziert. Statt der korrekten Klasse ``Guinea Pig'' (Meerschweinchen) wurde die Klasse ``Cockroach'' (Kakerlake) gewählt. Allerdings ist die angegebene Wahrscheinlichkeit für ``Guinea Pig'' mit 32\% nicht sonderlich hoch. Das Toilettenpapier (``Toilet tissue''), welches im vorherigen Bild immerhin mit 3.6\% Wahrscheinlichkeit angegeben wurde, hat nun nur noch eine Wahrscheinlichkeit von 0.9\%.
+\break
+Anscheinend ist der Hintergrund in diesem Fall nicht alleine Ausschlaggebend für die Klasse Toilettenpapier. Mit den bereits vorgestellten Verfahren kann man nun die Einflüsse der einzelnen Bildpunkte auf die Klassifizierung sichtbar machen.
 
 \subsubsection*{Analyse mittels Grad CAM}
-\imgText{Oreo-Grad-Cam-Classes.png}{}{}
-\imgText{Oreo-Classification.png}{}{}
-\imgText{Mira-Classification.png}{}{}
-\imgText{Mira-Classification-2.png}{}{}
+\imgText{Oreo-Grad-Cam-Classes.png}{Testbild Meerschweinchen Grad CAM}{
+Die erste Visualisierung zeigt den Einfluss der einzelnen Bildpunkte für die wahrscheinlichsten fünf Klassen mit dem Verfahren \Gls{GC}. Der Körper des Meerschweinchens ist in allen Fällen stark Relevant, wobei der helle Fleck am Hals des Tieres den grössten Einfluss auf die Klassifizierung hat. Der Hintergrund zeigt in fast allen Fällen einen Einfluss auf, insbesondere bei der Klassifikation ``Australian Terrier''.
+}
+Diese Analyse bringt keine Erklärung dafür weshalb eine Fehlklassifizierung statt gefunden hat, und auch die beiden eigenartigen Klassifizierungen des vorherigen Bildes sind nun nicht besser erklärbar. Aus diesem Grund wird nun die Analyse mit zusätzlichen Verfahren weitergeführt.
+
+\subsubsection*{Analyse durch weitere Verfahren}
+Um die Analyse des \Gls{cnn} durch visualisierende Verfahrend zu vereinheitlichen wurde ein Python Skript geschrieben welches die gewählten Visualisierungs-Verfahren abbildet und zusammen mit dem original Bild darstellt. Zusätzlich wird noch eine Tabelle dargestellt in welcher die fünf wahrscheinlichsten Klassen und, falls noch nicht bereits unter den ersten fünf, die korrekte Klasse für das Bild angezeigt werden.
+\imgText{Oreo-Classification.png}{Testbild Meerschweinchen div. Verfahren}{
+Die Visualisierungen für die Klassifizierung ``Cockroach''  zeigen kein einheitliches Muster: \break 
+Während mittels \Gls{GC} vor allem der Körper des Meerschweinchens hervorgehoben wird, zeigt \Gls{GI} kaum Aktivität im Bereich des Meerschweinchens an. \break 
+\Gls{OS} wiederum findet einen breiten Streifen welcher rechts und links über den Körper des Meerschweinchens hinausgeht als relevant und \Gls{limeG} markiert den Kopf des Tieres und einen schwach sichtbaren Fleck links daneben. \break
+Die Visualisierung der eigentlich korrekten Klassifizierung ``Guinea Pig'' sieht auf den ersten Blick der Visualisierung von ``Cockroach'' ähnlich, es erstaunt aber dass die Methode \Gls{limeG} den Körper des Meerschweinchens fast vollständig hervorhebt, jedoch hat dies anscheinend keinen grossen Einfluss auf die Klassifizierung.
+}
+
+\subsubsection*{Analyse ursprüngliches Testbild durch weitere Verfahren}
+\imgText{Mira-Classification.png}{Testbild Katze div. Verfahren}{
+Mit der selben Technik wurde noch einmal das ursprüngliche Testbild analysiert.
+}
+\imgText{Mira-Classification-2-only-tabby.png}{}{}
 \imgText{Merlin-Classification.png}{}{}
 \imgText{Toilett-Tissue-Classification.png}{}{}
 
