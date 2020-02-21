@@ -111,7 +111,7 @@
 
 % switch citation style based on entry type
 \DeclareCiteCommand{\parencite}
-  {\ifentrytype{misc}{\bibopenbracket}{\bibopenparen}%
+  {\ifentrytype{misc}{\textit{\usebibmacro{title}}\bibopenbracket}{\bibopenparen}%
    \usebibmacro{prenote}}%
   {\usebibmacro{citeindex}%
    \ifentrytype{misc}{\usebibmacro{cite:num}}{\usebibmacro{cite}}}
@@ -254,10 +254,10 @@ Eine Anwendung welche \Gls{ML} einsetzt kann in mehrere Bereiche unterteilt werd
 
 \begin{description}
 \item[Daten]
-Aus der Sicht der Daten interessiert vor allem welcher Teil der Daten für das Ergebnis die Grösste Relevanz hat. Basierend auf dieser Erkenntnis kann das Datenset gezielt erweitert werden oder auch reduziert so dass ein ausgeglichenes Verhältnis erzeugt wird.
+Aus der Sicht der Daten interessiert vor allem welcher Teil der Daten für das Ergebnis die Grösste Relevanz hat. Basierend auf dieser Erkenntnis kann das Datenset gezielt erweitert oder reduziert werden so dass ein ausgeglichenes Verhältnis erzeugt wird.
 
 \item[Modell]
-Kann man aus dem Modell Muster für eine bestimmte Kategorie ableiten? Dies kann helfen Fehlklassifizierungen von zusätzlichen Daten zu verhindern in dem überprüft wird ob das Modell die richtigen Features berücksichtigt.
+Kann man aus dem Modell Muster für eine bestimmte Kategorie ableiten? Dies kann helfen Fehlklassifizierungen von neuen Daten zu verhindern in dem überprüft wird ob das Modell die richtigen/plausiblen Features berücksichtigt.
 
 \item[Vorhersage]
 Erklärung weshalb ein bestimmtes Muster in den Daten zu der beobachteten Klassifizierung geführt hat. Dies ist insbesondere für Anwender/Kunden einer ML Lösung um a) das Verständnis für die Maschinelle Entscheidung zu erhöhen oder b) eine gesetzlich Vorgeschriebene Anfechtbarkeit der Entscheidung zu ermöglichen.
@@ -274,15 +274,26 @@ Ebenso gibt es bei den Interessengruppe unterschiedliche Anforderungen an die Er
   \item[Benutzer]
   Auch bei den Benutzern gibt es verschiedene Ausprägungen
   	\begin{description}
-  		\item[Eigentümer]
+  		\item[Eigentümer] Eigentümer/Auftraggeber 
   		\item[Anwender]
-  		\item[Person deren Daten verwendete wird]
+  		\item[Person deren Daten verwendet werden]
   		\item[Anspruchsgruppe (Stakeholder)]
 	\end{description}
 \end{description}
 Die Anforderungen an ein erklärbares Modell unterscheiden sich so stark je nach betrachtetet Komponente und der Anwendergruppe. Daraus ergibt sich dass verschiedene Techniken benötigt werden um AI Lösungen generell erklärbar zu machen.
 
-\section{Herausforderungen durch Datenschutz}
+\section{Zielgebiete von XAI}
+
+\section{Bessere Anwendungen durch Einblick in die Funktionsweise}
+Ein Grundsatz jedes \Gls{ML} Projektes lautet dass der Erfolg nicht garantiert ist. Ausgehend von bestehenden Daten kann man nicht sicher sein dass diese Ausreichend Informationen liefern um ein Model zu entwickeln welches den Anforderungen entspricht. Aber auch falls dies der Fall sein sollte besteht immer noch die Problematik dass unzählige Algorithmen mit wiederum unzähligen Parametern existieren welche zur Anwendungen kommen können. Auch wenn Lösungen, oder Ansätze davon, existieren um mit dieser Problematik umzugehen so ist es in der Regel ein langwieriger und oftmals teuer Prozess um \Gls{ML} Modelle auf das gewünschte Qualitätsniveau zu bringen.
+
+Erkenntnisse durch \gls{xai} Techniken können den Entwicklern helfen Irrwege und Probleme frühzeitig zu erkennen und so entweder Arbeitszeit oder Rechenleistung beim berechnen der Modell einzusparen.
+
+Ebenso kann ein Modell falsche Resultate liefern, sei es weil die ursprünglichen Trainingsdaten unvollständig waren, oder weil neue Bedingungen aufgetreten sind. Eine Erklärung weshalb dieses falsche Resultat erzeugt wurde kann den Entwickler in die Lage versetzen ein verbessertes Model zu erzeugen. Dies kann sowohl beim Erstellen des Modelles geschehen (training) oder bei der Aufbearbeitung der Daten welche durch das Model verarbeitet werden sollen (preprocessing).
+
+\subsection{Datenschutz}
+Jede \Gls{ML} Lösung setzt grosse Datenmengen voraus. Diese müssen den Anforderungen des Datenschutzes entsprechend aufbereitet und gegebenenfalls anonymisiert werden.
+
 Der jüngste Bericht der \acrfull{dek} der Deutschen Regierung \parencite{datenEthik} geht in Kapitel 3. konkret auf  \Gls{ML} Anwendungen ein.
 \break
 Unter dem Begriff ``algorithmische Systeme'' werden anhand von drei Kategorien Anforderungen gestellt.
@@ -308,13 +319,18 @@ Daraus ergeben sich für die \acrlong{dek} für einen verantwortungsvollen Umgan
 	\item Klare Rechenschaftsstrukturen
 \end{itemize}
 
-\acrlong{xai} kommt vor allem in den Bereichen ``Minimierung von Verzerrungen und Diskriminierung'' und ``Transparenz, Erklärbarkeit und Nachvollziehbarkeit'' zum tragen, kann aber auch bei ``Robustheit und Sicherheit'' und ``Qualität und Leistungsfähigkeit'' helfen.
+\acrlong{xai} kommt vor allem in den Bereichen ``Minimierung von Verzerrungen und Diskriminierung'' und ``Transparenz, Erklärbarkeit und Nachvollziehbarkeit'' zum tragen, kann aber auch bei ``Robustheit und Sicherheit'' und ``Qualität und Leistungsfähigkeit'' helfen. In Kapitel \ref{Sicherheit} wird näher auf die Gefahren eingegangen welche durch die Anwendung von \Gls{ML} entstehen können.
 
-\section{Diskriminierung}
+\section{Sicherheit}
+\label{Sicherheit}
+Die Sicherheit von \Gls{ML} Modellen ist durch verschiedene Angriffs-Methoden gefährdet. In der Regel geht man für Sicherheitsüberlegungen von einem \Gls{Black Box} Model aus, da ein Angreifer das Model in der Anwendung (d.h. nach dem Training) angreift.
+\begin{description}
+	\item[Model Stealing Attacks] Ziel eines solchen Angriffes ist es entweder direkt die internen Parameter eines Modells zu extrahieren oder ein neues Modell zu erstellen das sich gleich oder möglichst ähnlich zu dem Original verhält. Dadurch können Geschäftsgeheimnisse gestohlen oder Wettbewerbsvorteile eliminiert werden.
+	\item[Membership Inference Attacks] Diese Art von Angriff versucht herauszufinden ob ein Datensatz dazu verwendet wurde das vorliegende Model zu trainieren.
+	\item[\acrfull{aip}] Oft genügen kleine Änderungen an einem Bildinhalt um ein \Gls{NN} dazu zu bringen die vorhergesagte Klasse zu wechseln. Wenn ein Angreifer eine solche Anfälligkeit entdeckt, kann es möglich sein ein Bild so zu verändern dass es für menschliche Augen gleich (oder beinahe) aussieht wie das Original, jedoch mit einem völlig anderen Ergebnis. Es liegt auf der Hand dass ein solches Verhalten eines Models für Systeme einer Zutrittskontrolle fatal sein können. Es sind jedoch auch andere Formen der Täuschung denkbar welche für den Betreiber zu Verlusten führen können (Waren Rücksendungen, Pfandflaschen Automaten, Qualitätskontrollen bei Lieferanten). Dieses Thema wird näher in Kapitel \ref{Adversarial Attacks} erläutert.
+\end{description}
 
-\section{Bessere Anwendungen durch Einblick in die Funktionsweise}
-
-\section{Weniger Angriffsflächen}
+\section{Regulatorische Bedingungen}
 
 \section{Haftungsfragen}
 
@@ -510,7 +526,7 @@ Durch den starken Fokus auf Neuronale Netze bei der Bilderkennung sind für dies
 \subsection{WhiteBox Model: Klassifikation Hund - Katze}
 
 \subsubsection*{Versuch: Eingangsdaten mit BIAS}
-Daten welche für das trainieren von \Gls{ML} Modellen verwendet werden können eine unbekannt Struktur enthalten welche die gewünschte Vorhersage unrelevant ist, das Ergebnis jedoch verfälscht. Wenn ein solcher Effekt auftritt spricht man häufig von einem \Gls{KH}. Dieser Effekt trat bei einem Neuronalen Netz auf welches für einen Wettbewerb eingereicht wurde (Pascal VOC \cite{Everingham_thepascal}) und betraf die Erkennung von Pferden \parencite{Lapuschkin2019}. 
+Daten welche für das trainieren von \Gls{ML} Modellen verwendet werden können eine unbekannt Struktur enthalten welche für die gewünschte Vorhersage nicht relevant ist, das Ergebnis jedoch verfälscht. Wenn ein solcher Effekt auftritt spricht man häufig von einem \Gls{KH}. Ein bekanntes Beispiel dieses Effektes trat bei einem Neuronalen Netz auf welches für einen Wettbewerb eingereicht wurde (Pascal VOC \cite{Everingham_thepascal}) und betraf die Erkennung von Pferden \parencite{Lapuschkin2019}. 
 
 \begin{center}
 \begin{minipage}[t]{0.45\linewidth}
@@ -785,6 +801,28 @@ Während in dem letzten Beispiel ein White Box Model angewendet wurde, kann \cit
 \chapter{Schwächen von ML Modellen erkennen}
 \section{Diskriminierung durch Bias}
 \section{Adversarial Attacks}
+Wie bereits in Kapitel \ref{Sicherheit} angedeutet, sind \Gls{ML} Anwendungen oftmals unerwartet empfindlich auf kleinste Änderungen an den Eingangsdaten. In einer Arbeit von Google Forschern   \parencite{Goodfellow2014} konnte gezeigt werden dass dies eine grundsätzliche Eigenschaft nicht nur von Neuronalen Netzen sondern auch anderen Linearen Klassifikatoren ist. Erklärbar ist ein solches Fehlverhalten wenn man sich vor Augen hält das Neuronale Netze und andere Klassifikatoren keine abstrakten Konzepte wie ``Tier'' oder auch ``Fahrzeug'' lernen sondern sich alleine an den für das Training verwendeten Bilddaten orientieren.
+
+\break
+Die Tensorflow Webseite stellt ein Tutorial zu Verfügung welches die Erzeugung solcher ``Adverserial'' Bilder erläutert: \parencite{tensorflowFGSM}
+
+\begin{center}
+\begin{minipage}[t]{0.45\linewidth}
+	\vspace{0pt}
+	\centering
+	\includegraphics[width=0.9\textwidth]{Bilder/tensorflow-adversarial-original.png}
+	 \caption{Ursprungs-Bild für Adversarial Angriff}
+	\caption*{Quelle: \parencite{tensorflowFGSM}}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.45\linewidth}
+	\vspace{0pt}
+	\centering
+	\includegraphics[width=0.9\textwidth]{Bilder/tensorflow-adversarial-fake.png}
+	 \caption{Durch Adversarial Angriff erzeugtes Bild}
+\end{minipage}
+\end{center}
+
+\parencite{advTesla} 
 \section{Data Poisoning}
 
 \chapter{Weiterentwicklung von XAI}
