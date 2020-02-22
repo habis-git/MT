@@ -71,7 +71,7 @@
 \usepackage{xcolor}
 
 \usepackage[export]{adjustbox}
-\usepackage[document]{ragged2e} % left-alignment for text
+\usepackage{ragged2e}
 
 \usepackage[acronym]{glossaries}
 
@@ -799,13 +799,14 @@ Bei der Darstellung des negativen Film Reviews fällt auf dass Wörter welche f�
 Während in dem letzten Beispiel ein White Box Model angewendet wurde, kann \cite{ELI5} auch Black Box Modelle analysieren. Dazu verwendet \cite{ELI5} eine \Gls{lime} implementation und die Vorhersage zu erklären.
 
 \chapter{Schwächen von ML Modellen erkennen}
+Die vorgestellten Techniken erlauben einen besseren Einblick in die Funktionsweise von \Gls{ML} Modellen. Dieses Wissen kann dazu genutzt werden um Schwächen oder auch gezielte Angriffe auf Anwendungen mit integrierten \Gls{ML} Modellen zu erkennen.
 \section{Diskriminierung durch Bias}
 \section{Adversarial Attacks}
-Wie bereits in Kapitel \ref{Sicherheit} angedeutet, sind \Gls{ML} Anwendungen oftmals unerwartet empfindlich auf kleinste Änderungen an den Eingangsdaten. In einer Arbeit von Google Forschern   \parencite{Goodfellow2014} konnte gezeigt werden dass dies eine grundsätzliche Eigenschaft nicht nur von Neuronalen Netzen sondern auch anderen Linearen Klassifikatoren ist. Erklärbar ist ein solches Fehlverhalten wenn man sich vor Augen hält das Neuronale Netze und andere Klassifikatoren keine abstrakten Konzepte wie ``Tier'' oder auch ``Fahrzeug'' lernen sondern sich alleine an den für das Training verwendeten Bilddaten orientieren.
-
-\break
+Wie bereits in Kapitel \ref{Sicherheit} angedeutet, sind \Gls{ML} Anwendungen oftmals unerwartet empfindlich auf kleinste Änderungen an den Eingangsdaten. In einer Arbeit von Google Forschern   \parencite{Goodfellow2014} konnte gezeigt werden dass dies eine grundsätzliche Eigenschaft nicht nur von Neuronalen Netzen sondern auch anderen Linearen Klassifikatoren ist. Erklärbar ist ein solches Fehlverhalten wenn man sich vor Augen hält das Neuronale Netze und andere Klassifikatoren keine abstrakten Konzepte wie ``Tier'' oder auch ``Fahrzeug'' lernen sondern sich alleine an den für das Training verwendeten Bilddaten orientieren.\\
 Die Tensorflow Webseite stellt ein Tutorial zu Verfügung welches die Erzeugung solcher ``Adverserial'' Bilder erläutert: \parencite{tensorflowFGSM}
-
+\\ 
+\\
+Eines der in dem Tutorial erzeugten Bilder wird schliesslich als ``brain\_coral'' (Hirnkoralle) erkannt, allerdings mit deutlich sichtbaren Bild-Artefakten. Für den menschlichen Betrachter sieht es jedoch eher aus als ob das Bild stark verrauscht wäre und nicht nach einem gezielt manipulierten Bild.
 \begin{center}
 \begin{minipage}[t]{0.45\linewidth}
 	\vspace{0pt}
@@ -822,8 +823,31 @@ Die Tensorflow Webseite stellt ein Tutorial zu Verfügung welches die Erzeugung 
 \end{minipage}
 \end{center}
 
+\subsubsection*{Täuschung der Verkehrszeichen-Erkennung eines Tesla}
+Ein interessantes Beispiel einer solchen ``Adversarial Attack'' ist die Arbeit eines Teams von McAffe Labs welches gezielt das System eines Tesla angegriffen hat und schlussendlich das Auto dazu gebracht hat anstatt 35mph (ungefähr 55kmh)  85mph (ca. 135kmh) als Geschwindigkeitsbegrenzung zu erkennen.\\
+\\
 \parencite{advTesla} 
+\\
+\imgText{speed-limit-fake.png}{Gefälschtes Verkehrsschild als Adversarial Attack}{
+Eine Verlängerung des mittleren Balkens einer Drei führte das \Gls{NN} eines Tesla zu einer Fehlklassifizierung als Acht und dadurch zu einer erlaubten Geschwindigkeit von 85 Meilen pro Stunde. Obwohl die veränderte Ziffer durchaus an eine Acht erinnern kann sehen Menschen die Ziffer trotzdem als Drei, im Gegensatz zu den Systemen des Teslas.
+\\
+\\
+Mittlerweile wurde das Verhalten der Tesla-Systeme angepasst und diese spezifische Attacke ist nun nicht mehr möglich.
+}
+
+\subsubsection*{Eigene Versuche mit Adversarial Attacks}
+Durch die Arbeit einiger Forscher \parencite{papernot2018cleverhans} gibt es eine Python Bibliothek \parencite{cleverHans} welche die Erzeugung von Adversarial Angriffen erleichtert.
+
 \section{Data Poisoning}
+Mit ``Data Poisoning `` werden Techniken benannt welche \Gls{ML} Modelle über die Trainingsdaten angreifen. Oftmals werden Model nach einem initialen Training mit einem festen Datensatz wiederkehrend mit aktualisierten Daten erneut trainiert. Ein typisches Beispiel sind Spam Filter welche in regelmässigen Intervallen Emails, welche durch die Benutzer als Spam markiert wurden, in ihren Trainingsdatensatz integrieren.
+ \\\\
+Grundsätzlich wird zwischen zwei Arten von Data Poisoning unterschieden:
+\begin{description}
+  		\item[Availability] Das Ziel einer solchen Attacke ist es die Datenbasis eines \Gls{ML} Models zu erweitern so dass die Wahrscheinlichkeiten für bestimmte Klassen entweder stark erhöht oder verringert werden. Wie durch die Arbeit ``Online Data Poisoning Attacks'' \parencite{Zhang2019} nachgewiesen wurde, kann ein solcher Angriff sowohl für Überwachtes Lernen wie auch Unüberwachtes Lernen (Clustering) erfolgreich eingesetzt werden. 
+  		\item[Backdoor Attacks] Ein Backdoor Angriff versucht die Eingangsparameter eines \Gls{ML} Models derart zu wählen dass ein bestimmtes Ergebnis garantiert ist. So kann ein schädliches Programm welches eigentlich durch einen Virenscanner abgewehrt werden sollte durch Verwendung einer bestimmten Zeichenkette ungehindert aktiviert werden.\\
+  		Es besteht zudem die Möglichkeit dass ein \Gls{ML} welches aus einer externen Quelle bezogen wurde mit einer ``Backdoor'' versehen wurde um auf bestimmte Parameter zu reagieren. In der Arbeit ``BadNets: Evaluating Backdooring Attacks
+on Deep Neural Networks'' \parencite{Gu2019} konnte gezeigt werden wie ein \Gls{NN} durch bestimmte Aufkleber dazu gebracht werden konnte Stopp-Schilder mit Geschwindigkeitsbegrenzungs-Schilder zu verwechseln.
+	\end{description}
 
 \chapter{Weiterentwicklung von XAI}
 

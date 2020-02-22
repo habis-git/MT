@@ -128,11 +128,24 @@ pages={211-252}
   keywords    = {stat.ML, cs.LG},
 }
 
-@Article{vgg16,
+@article{papernot2018cleverhans,
+  title={Technical Report on the CleverHans v2.1.0 Adversarial Examples Library},
+  author={Nicolas Papernot and Fartash Faghri and Nicholas Carlini and
+  Ian Goodfellow and Reuben Feinman and Alexey Kurakin and Cihang Xie and
+  Yash Sharma and Tom Brown and Aurko Roy and Alexander Matyasko and
+  Vahid Behzadan and Karen Hambardzumyan and Zhishuai Zhang and
+  Yi-Lin Juang and Zhi Li and Ryan Sheatsley and Abhibhav Garg and
+  Jonathan Uesato and Willi Gierke and Yinpeng Dong and David Berthelot and
+  Paul Hendricks and Jonas Rauber and Rujun Long},
+  journal={arXiv preprint arXiv:1610.00768},
+  year={2018}
+}
+
+@Misc{vgg16,
   author  = {Tensorflow},
   title   = {VGG16 Modell für Imagenet Klassifikationen},
-  journal = {github.com},
   year    = {2018},
+  journal = {github.com},
   url     = {https://github.com/tensorflow/tensorflow/blob/r1.8/tensorflow/python/keras/_impl/keras/applications/vgg16.py},
 }
 
@@ -270,6 +283,37 @@ pages={211-252}
   howpublished = {Internet},
   year         = {2020},
   url          = {https://www.tensorflow.org/tutorials/generative/adversarial_fgsm},
+}
+
+@Misc{cleverHans,
+  author       = {Ian Goodfellow},
+  title        = {CleverHans a Python library to benchmark machine learning systems' vulnerability to adversarial examples},
+  howpublished = {github.com},
+  year         = {2020},
+  url          = {https://github.com/tensorflow/cleverhans},
+}
+
+@Article{Zhang2019,
+  author      = {Xuezhou Zhang and Xiaojin Zhu and Laurent Lessard},
+  title       = {Online Data Poisoning Attack},
+  abstract    = {We study data poisoning attacks in the online setting where training items arrive sequentially, and the attacker may perturb the current item to manipulate online learning. Importantly, the attacker has no knowledge of future training items nor the data generating distribution. We formulate online data poisoning attack as a stochastic optimal control problem, and solve it with model predictive control and deep reinforcement learning. We also upper bound the suboptimality suffered by the attacker for not knowing the data generating distribution. Experiments validate our control approach in generating near-optimal attacks on both supervised and unsupervised learning tasks.},
+  date        = {2019-03-05},
+  eprint      = {http://arxiv.org/abs/1903.01666v2},
+  eprintclass = {cs.LG},
+  eprinttype  = {arXiv},
+  file        = {:http\://arxiv.org/pdf/1903.01666v2:PDF},
+  keywords    = {cs.LG, cs.CR, stat.ML},
+}
+
+@Article{Gu2019,
+  author    = {Tianyu Gu and Kang Liu and Brendan Dolan-Gavitt and Siddharth Garg},
+  title     = {{BadNets}: Evaluating Backdooring Attacks on Deep Neural Networks},
+  journal   = {{IEEE} Access},
+  year      = {2019},
+  volume    = {7},
+  pages     = {47230--47244},
+  doi       = {10.1109/access.2019.2909068},
+  publisher = {Institute of Electrical and Electronics Engineers ({IEEE})},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}
