@@ -187,6 +187,17 @@
 \end{center}
 }
 
+\newcommand{\fullImgQuelle}[3]{
+\begin{center}
+  \begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{Bilder/#1}
+    \caption{#2}
+    \caption*{Quelle: #3}
+  \end{minipage}
+\end{center}
+}
+
 \setcounter{secnumdepth}{4}
 \setcounter{tocdepth}{4}
 
@@ -216,12 +227,14 @@
 %\part{Part One}
 
 \chapter{Einleitung}
-Computer Programme bestehen in der Regel aus tausenden bis Millionen Zeilen von Anweisungen welche für die verschiedenen Aspekte eines Programmes zuständig sind. Einige der Programmroutinen stellen die grafische Benutzeroberfläche dar während andere sich um das Speichern und laden von Dateien kümmern. Andere wiederum definieren Regeln nach denen Daten verarbeitet und analysiert werden. Solche Regeln werden von Fachspezialisten definiert und durch Software-Entwickler umgesetzt. Mit einem derartigen Vorgehen konnten viele alltägliche Probleme gelöst werden und Software ist inzwischen in der Wirtschaft wie im privaten Umfeld allgegenwärtig geworden. 
-\paragraph*{}
-Die Ausformulierung solcher Regeln nach denen sich Software verhalten soll ist aber ein aufwendiger und fehlerträchtiger Prozess und gewisse Gebiete waren durch die Komplexität der Aufgabenstellung nur rudimentär in Regeln zu fassen. Solche Gebiete sind unter anderem Bilderkennung, Text- oder Sprachverständnis, Gebiete in denen Menschen und Tiere bedeutend bessere Fähigkeiten zeigen als Computer Programme. 
-\paragraph*{}
-Während programmierte Regeln in Computer Programmen sofort zur Verfügung stehen müssen Menschen und Tiere ihre Fähigkeiten oftmals über längere Zeit trainieren und üben bis die gewünschten Fähigkeiten in genügender Qualität vorhanden sind. Durch solche biologische Prozesse als Vorbild wurde die Disziplin \gls{ML} entwickelt, welche auch Computer in die Lage versetzen soll, bislang nur bei Mensch und Tier gefundene Fähigkeiten, zu erlangen.
-\gls{ML} wird seit den 1960er Jahren angewendet, allerdings waren die erzielten Resultate lange Zeit für viele Anwendungen ungenügend. Durch die Verfügbarkeit von grossen Datenmengen (Big Data, Cloud) und der gesteigerten Rechenleistung der Rechner wurden nach der Jahrtausendwende so gute Fortschritte erzielt dass immer mehr Anwendungsmöglichkeiten für \gls{ML} Lösungen gefunden wurden. 
+Computerprogramme bestehen in der Regel aus Tausenden bis Millionen Zeilen von Anweisungen welche, für die verschiedenen Aufgabengebiete zuständig sind. Einige der Programmroutinen stellen die grafische Benutzeroberfläche dar, während andere sich um das Speichern und laden von Dateien kümmern. Ein Teil der Anweisungen definieren Regeln nach denen Daten verarbeitet und analysiert werden. Solche Regeln werden von Fachspezialisten definiert und durch Software-Entwickler umgesetzt. Mit einem derartigen Vorgehen konnten viele alltägliche Probleme gelöst werden, Software ist inzwischen in der Wirtschaft wie im privaten Umfeld allgegenwärtig geworden. 
+\\\\
+Die Ausformulierung solcher Regeln nach denen sich Software verhalten soll, ist aber ein aufwendiger und fehlerträchtiger Prozess. Gewisse Gebiete sind durch die Komplexität der Aufgabenstellung nur rudimentär in Regeln zu fassen. Solche Gebiete sind unter anderem Bilderkennung, Text- oder Sprachverständnis. In diesen Gebieten zeigen Menschen und Tiere bedeutend bessere Fähigkeiten zeigen als Computerprogramme. 
+\\\\
+Während programmierte Regeln in Computer Programmen sofort zur Verfügung stehen, müssen Menschen und Tiere ihre Fähigkeiten oftmals über längere Zeit trainieren und üben. Bis die gewünschten Fähigkeiten in genügender Qualität vorhanden sind können Jahre vergehen. Durch solche biologische Prozesse als Vorbild wurde die Disziplin \gls{ML} entwickelt, welche auch Computer in die Lage versetzen soll, bislang nur bei Mensch und Tier gefundene Fähigkeiten, zu erlangen.
+\gls{ML} wird seit den 1960er Jahren angewendet, allerdings waren die erzielten Resultate lange Zeit für viele Anwendungen ungenügend. Durch die Verfügbarkeit von grossen Datenmengen (Big Data, Cloud) und der gesteigerten Rechenleistung der Rechner wurden nach der Jahrtausendwende so gute Fortschritte erzielt, so dass immer mehr Anwendungsmöglichkeiten für \gls{ML} Lösungen gefunden wurden. 
+\\\\
+Oftmals wird auch von \acrfull{AI} gesprochen wenn \acrfull{ML} gemeint ist, die beiden Begriffe sind schwer zu trennen.
 
 \fullImg{ML-Timeline.png}{Entwicklung des Machine Learning als Zeitachse}
 
@@ -231,16 +244,16 @@ Für viele Dienste im Internet (Bildersammlungen, Empfehlungssysteme) werden in 
  Exemplarisch werden hier einige dieser Gebiete aufgeführt:
 
 \begin{description}
-  \item[Medizin] \gls{ML} Anwendungen für die Krebserkennung bieten grosses Potenzial. Insbesondere die ermüdenden Aufgabe auf Röntgen- oder MRT-Bildern Spuren eines Tumors zu erkennen könnten durch \gls{ML} abgelöst werden. Allerdings sind die Zulassungskriterien für solche Lösungen noch nicht definiert.
-  \item[Justiz] Predictive Policing versucht mittels statistischer und \gls{ML} Verfahren Orte oder Personengruppen zu erkennen welche  Schauplatz oder Täter/Opfer eines Verbrechens werden könnten.
-  \item[Selbstfahrende Fahrzeuge] Obwohl Selbstfahrende Fahrzeuge seit Jahren von allen grossen Fahrzeugherstellern entwickelt werden sind immer noch viele Fragen bezüglich der Haftung und Zulassung offen.
+  \item[Medizin] \gls{ML} Anwendungen für die Krebserkennung bieten grosses Potenzial. Insbesondere die ermüdende Aufgabe auf Röntgen- oder MRT-Bildern Spuren eines Tumors zu erkennen, könnten durch \gls{ML} abgelöst werden. Allerdings sind die Zulassungskriterien für solche Lösungen noch nicht definiert.
+  \item[Justiz] Predictive Policing versucht mittels statistischer und \gls{ML} Verfahren Orte oder Personengruppen zu erkennen, welche  Schauplatz oder Täter/Opfer eines Verbrechens werden könnten.
+  \item[Selbstfahrende Fahrzeuge] Obwohl selbstfahrende Fahrzeuge seit Jahren von allen grossen Fahrzeugherstellern entwickelt werden, sind immer noch viele Fragen bezüglich der Haftung und Zulassung offen.
 \end{description}
 
-Aufgrund des Mangels an Techniken um fortgeschrittene \gls{ML} System zu Verstehen, entstand deshalb ein neues Forschungsgebiet \acrfull{xai} welches sich zum Ziel gesetzt hat Methoden und Werkzeuge zu entwickeln um \gls{ML} Modelle zu analysieren.
+Aufgrund des Mangels an Techniken um fortgeschrittene \gls{ML} System zu Verstehen, entstand deshalb ein neues Forschungsgebiet \acrfull{xai}, welches sich zum Ziel gesetzt hat Methoden und Werkzeuge zu entwickeln um \gls{ML} Modelle zu analysieren.
 
 \chapter{Was bedeutet Erklärbarkeit?}
-\gls{ML} erzeugt Resultate welche je nach Anwendungsfall eine Entscheidung für Klasse (Pferd, Schaf, Auto), eine Zuordnung zu einer Gruppe (Premium-Kunde, Gelegenheitskäufer etc.) oder es wird ein numerischer Wert generiert (15 Grad Celsius am 3. April). 
-Da sowohl die Erzeugung des Models als auch die Berechnung des Resultates automatisch erfolgt können die Schritte auf dem Weg zu dem Resultat nicht direkt nachvollzogen werden.
+\gls{ML} erzeugt Resultate, welche je nach Anwendungsfall eine Entscheidung für eine Klasse (Pferd, Schaf, Auto), eine Zuordnung zu einer Gruppe (Premium-Kunde, Gelegenheitskäufer) oder ein numerischer Wert  (15 Grad Celsius am 3. April) sind. 
+Da sowohl die Erzeugung des Models als auch die Berechnung des Resultates automatisch erfolgt, können die Schritte auf dem Weg zu dem Resultat nicht direkt nachvollzogen werden.
 
 \begin{figure}[ht]
 \centering
@@ -248,44 +261,44 @@ Da sowohl die Erzeugung des Models als auch die Berechnung des Resultates automa
 \caption{Ablauf einer erklärbaren Machine Learning Anwendung}
 \end{figure}
 
-Eine \Gls{ML} Lösung beginnt mit der Beobachtung von realen Ereignissen in der Welt. Dies können die Anzahl Blätter und deren Länge einer Pflanzungsgattung oder auch Häuserpreise in Brooklyn sein. Diese Beobachtungen werden gesammelt und bilden die Daten Grundlage mit deren ein Model erzeugt werden kann. Aus diesem Model kann eine Erklärung erzeugt werden die ein Mensch verwenden kann um das Resultat zu erklären.
+Eine \Gls{ML} Lösung beginnt mit der Beobachtung von realen Ereignissen in der Welt. Dies können die Anzahl Blätter und deren Länge einer Pflanzengattung oder auch Häuserpreise in Brooklyn sein. Diese Beobachtungen werden gesammelt und bilden die Datengrundlage mit deren ein Model erstellt werden kann. Aus diesem Modell kann eine Erklärung erzeugt werden, die ein Mensch verwenden kann um das Resultat zu erklären.
 \section{Unterschiedliche Ziele}
 Eine Anwendung welche \Gls{ML} einsetzt kann in mehrere Bereiche unterteilt werden.  Durch diese Aufteilung in verschiedene  Komponenten ergeben sich unterschiedliche Anforderungen an die Erklärbarkeit: \parencite{XAI2018}
 
 \begin{description}
 \item[Daten]
-Aus der Sicht der Daten interessiert vor allem welcher Teil der Daten für das Ergebnis die Grösste Relevanz hat. Basierend auf dieser Erkenntnis kann das Datenset gezielt erweitert oder reduziert werden so dass ein ausgeglichenes Verhältnis erzeugt wird.
+Aus der Sicht der Daten interessiert vor allem welcher Teil der Daten für das Ergebnis die grösste Relevanz hat. Basierend auf dieser Erkenntnis kann das Datenset gezielt erweitert oder reduziert werden, so dass ein ausgeglichenes Verhältnis erzeugt wird.
 
 \item[Modell]
-Kann man aus dem Modell Muster für eine bestimmte Kategorie ableiten? Dies kann helfen Fehlklassifizierungen von neuen Daten zu verhindern in dem überprüft wird ob das Modell die richtigen/plausiblen Features berücksichtigt.
+Kann man aus dem Modell Muster für eine bestimmte Kategorie ableiten? Dies kann helfen Fehlklassifizierungen von neuen Daten zu verhindern, in dem überprüft wird, ob das Modell die richtigen/plausiblen Features berücksichtigt.
 
 \item[Vorhersage]
-Erklärung weshalb ein bestimmtes Muster in den Daten zu der beobachteten Klassifizierung geführt hat. Dies ist insbesondere für Anwender/Kunden einer ML Lösung um a) das Verständnis für die Maschinelle Entscheidung zu erhöhen oder b) eine gesetzlich Vorgeschriebene Anfechtbarkeit der Entscheidung zu ermöglichen.
+Erklärung weshalb ein bestimmtes Muster in den Daten zu der beobachteten Klassifizierung geführt hat. Dies ist insbesondere für Anwender/Kunden einer ML Lösung um das Verständnis für die Maschinelle Entscheidung zu erhöhen oder eine gesetzlich vorgeschriebene Anfechtbarkeit der Entscheidung zu ermöglichen.
 \end{description}
 
-Ebenso gibt es bei den Interessengruppe unterschiedliche Anforderungen an die Erklärbarkeit einer ML Anwendung. Nach \parencite{Ras2018} werden dabei folgende Gruppierungen unterschieden:
+Ebenso gibt es bei den Interessengruppe unterschiedliche Anforderungen an die Erklärbarkeit einer ML Anwendung. Nach G. Ras \parencite{Ras2018} werden dabei folgende Gruppierungen unterschieden:
 \begin{description}
   \item[Experten]
   Diese Gruppe kann weiter unterteilt werden in
   	\begin{description}
-  		\item[Forscher] Entwickelt neue Methoden und Algorithmen für das ML, verbessert bestehende Algorithmen
-  		\item[Entwickler] Setzt bestehende Methodiken und Algorithmen ein um eine konkrete Aufgabenstellung zu lösen
+  		\item[Forscher] Entwickelt neue Methoden und Algorithmen, verbessert bestehende Algorithmen
+  		\item[Entwickler] Setzt bestehende Methodiken und Algorithmen ein, um eine konkrete Aufgabenstellung zu lösen
 	\end{description}
   \item[Benutzer]
   Auch bei den Benutzern gibt es verschiedene Ausprägungen
   	\begin{description}
-  		\item[Eigentümer] Eigentümer/Auftraggeber 
-  		\item[Anwender]
-  		\item[Person deren Daten verwendet werden]
-  		\item[Anspruchsgruppe (Stakeholder)]
+  		\item[Eigentümer] Eigentümer/Auftraggeber benötigen performante Anwendungen ohne rechtliche Bedenken
+  		\item[Anwender] Sind interessiert wie eine Entscheidung die sie betrifft zustande kam
+  		\item[Person deren Daten verwendet werden] sind an einem starken Datenschutz interessiert ohne eine Missbrauchsmöglichkeit ihrer Daten
+  		\item[Anspruchsgruppe (Stakeholder)] wie Regulierungsbehörden oder Fachgremien setzen die Rahmenbedingungen für den Einsatz von \Gls{ML} Anwendungen in heiklen Gebieten
 	\end{description}
 \end{description}
-Die Anforderungen an ein erklärbares Modell unterscheiden sich so stark je nach betrachtetet Komponente und der Anwendergruppe. Daraus ergibt sich dass verschiedene Techniken benötigt werden um AI Lösungen generell erklärbar zu machen.
+Die Anforderungen an ein erklärbares Modell unterscheiden sich sehr stark, je nach betrachteter Komponente und der Anwendergruppe. Daraus ergibt sich, dass verschiedene Techniken benötigt werden um AI Lösungen generell erklärbar zu machen.
 
 \section{Zielgebiete von XAI}
 
 \section{Bessere Anwendungen durch Einblick in die Funktionsweise}
-Ein Grundsatz jedes \Gls{ML} Projektes lautet dass der Erfolg nicht garantiert ist. Ausgehend von bestehenden Daten kann man nicht sicher sein dass diese Ausreichend Informationen liefern um ein Model zu entwickeln welches den Anforderungen entspricht. Aber auch falls dies der Fall sein sollte besteht immer noch die Problematik dass unzählige Algorithmen mit wiederum unzähligen Parametern existieren welche zur Anwendungen kommen können. Auch wenn Lösungen, oder Ansätze davon, existieren um mit dieser Problematik umzugehen so ist es in der Regel ein langwieriger und oftmals teuer Prozess um \Gls{ML} Modelle auf das gewünschte Qualitätsniveau zu bringen.
+Ein Grundsatz jedes \Gls{ML} Projektes lautet, dass der Erfolg nicht garantiert ist. Ausgehend von bestehenden Daten kann man nicht sicher sein, dass diese ausreichende Informationen liefern, um ein Model zu entwickeln, welches den Anforderungen entspricht. Selbst wenn genügend Daten vorhanden sind besteht immer noch die Problematik, dass unzählige Algorithmen mit wiederum unzähligen Parametern existieren welche zur Anwendungen kommen können. Es Lösungen, oder Ansätze davon, um mit dieser Problematik umzugehen, dennoch ist es in der Regel ein langwieriger und oftmals teuer Prozess um \Gls{ML} Modelle auf das gewünschte Qualitätsniveau zu bringen.
 
 Erkenntnisse durch \gls{xai} Techniken können den Entwicklern helfen Irrwege und Probleme frühzeitig zu erkennen und so entweder Arbeitszeit oder Rechenleistung beim berechnen der Modell einzusparen.
 
@@ -459,14 +472,31 @@ RuleFit \parencite{Friedman2008} verwendet Entscheidungsbäume um daraus Regeln 
 \includegraphics[width=\textwidth]{Bilder/Grad-Cam-Classes.png}
 
 \subsection{Occlusion Sensitivity} \break
-Eine weitere Variante um relevante Bildbereiche aufzudecken ist Occlusion Sensitivity. Mit diesem Verfahren tritt deutlicher als bei Grad CAM die Fokusierung auf den Boden bei den beiden Falschen Klassifizierungen zutage.
-\includegraphics[width=\textwidth]{Bilder/OcclusionSensitivity-Classes.png}
+Eine weitere Variante um relevante Bildbereiche aufzudecken ist \Gls{OS}, vorgestellt durch Zeiler  und Fergus im Jahr 2013 \parencite{Zeiler2013}. Occlusion Sensitivity bestimmt durch erzeugte Störungen im Ursprungsbild den Einfluss der einzelnen Bildbereiche auf die Vorhersage.
+\\\\
+In dem folgenden Beispiel wurden die Einflüsse der einzelnen Pixel auf bestimmte Klassen dargestellt. Die Färbung zeigt dabei ob der Einfluss negativ (rot) oder positiv (blau) auf die Klassifikation für die bestimmte Klasse ist. Diese Visualisierung wurde durch die Bibliothek \parencite{tfExplain} und dem vortrainierten Modell  \parencite{vgg16} erzeugt.
+\fullImg{OcclusionSensitivity-Classes.png}{Testbild mit Occlusion Sensivity}
+Während bei den drei Klassen welche für Katzenrassen stehen (Egyptian\_cat, tabby\, tiger\_cat) hauptsächlich der Körper oder Kopf der Katze als relevant gilt, sind bei den letzten Klassifikationen welche Objekte darstellen (carton, toilet\_tissue) vor allem Hintergrundbereiche wichtig.
+\begin{center}
+\begin{minipage}[t]{0.45\linewidth}
+\vspace{0pt}
+\includegraphics[width=\linewidth]{Bilder/occlusion-sensitivity-resnet-04.png}
+\caption{Occlusion Sensitivity Beispiel}
+\caption*{Quelle: \parencite{ocSensMathWorks}}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.45\linewidth}
+\vspace{20pt}
+Das Bild links erläutert die Vorgehensweise des \gls{OS} Algorithmus. \Gls{OS} entfernt unterschiedliche Bildbereiche des Original Bildes und misst dabei den Einfluss auf die Klassifizierung. Die Grösse des verdeckten Bildbereiches bestimmt die Auflösung der schlussendlich erzeugten Heatmap, allerdings wird bei einem kleineren Bereich auch die Anzahl an Durchläufen (und somit die Bearbeitungszeit) erhöht um das ganze Bild abdecken.
+\end{minipage}
+\end{center}
 
 \subsection{LRP}
-\acrfull{lrp} ist eine Technik welche ebenfalls versucht die Vorhersage eines Klassifizierers zu erklären. 
+\acrfull{lrp} ist eine Technik welche bereits 2015 vorgestellt wurde \parencite{Bach2015}. \acrshort{lrp} kann verwendet werden um \gls{NN} zu untersuchen.
 
-\url{ttps://github.com/VigneshSrinivasan10/interprettensor}
-\url{https://github.com/sebastian-lapuschkin/lrp_toolbox}
+\fullImgQuelle{lrp-classification-example-cat.PNG}{LRP Feature Relevanz Beispiel}{Bach \parencite{Bach2015}}
+\fullImgQuelle{lrp-example-cat.PNG}{LRP Beispiel}{Bach \parencite{Bach2015}}
+
+Eine Python Implementierung der LRP Toolbox \parencite{JMLR:v17:15-618} ist auf github vorhanden \parencite{lrpToolbox}.
 
 \subsection{Local Surrogate (LIME)}
 \label{lime}
@@ -799,9 +829,11 @@ Bei der Darstellung des negativen Film Reviews fällt auf dass Wörter welche f�
 Während in dem letzten Beispiel ein White Box Model angewendet wurde, kann \cite{ELI5} auch Black Box Modelle analysieren. Dazu verwendet \cite{ELI5} eine \Gls{lime} implementation und die Vorhersage zu erklären.
 
 \chapter{Schwächen von ML Modellen erkennen}
-Die vorgestellten Techniken erlauben einen besseren Einblick in die Funktionsweise von \Gls{ML} Modellen. Dieses Wissen kann dazu genutzt werden um Schwächen oder auch gezielte Angriffe auf Anwendungen mit integrierten \Gls{ML} Modellen zu erkennen.
+Die in den vorherigen Kapiteln vorgestellten Techniken erlauben einen besseren Einblick in die Funktionsweise von \Gls{ML} Modellen. Dieses Wissen kann dazu genutzt werden um Schwächen oder auch gezielte Angriffe auf Anwendungen mit integrierten \Gls{ML} Modellen zu erkennen.
 \section{Diskriminierung durch Bias}
-\section{Adversarial Attacks}
+Als \Gls{BIAS} werden werden Tendenzen bezeichnet welche in Modellen vorhanden sind und die durch nicht ausgewogene Trainingsdaten erzeugt werden.
+\parencite{msTay}
+\section{Manipulierte Bilder: Adversarial Attacks}
 Wie bereits in Kapitel \ref{Sicherheit} angedeutet, sind \Gls{ML} Anwendungen oftmals unerwartet empfindlich auf kleinste Änderungen an den Eingangsdaten. In einer Arbeit von Google Forschern   \parencite{Goodfellow2014} konnte gezeigt werden dass dies eine grundsätzliche Eigenschaft nicht nur von Neuronalen Netzen sondern auch anderen Linearen Klassifikatoren ist. Erklärbar ist ein solches Fehlverhalten wenn man sich vor Augen hält das Neuronale Netze und andere Klassifikatoren keine abstrakten Konzepte wie ``Tier'' oder auch ``Fahrzeug'' lernen sondern sich alleine an den für das Training verwendeten Bilddaten orientieren.\\
 Die Tensorflow Webseite stellt ein Tutorial zu Verfügung welches die Erzeugung solcher ``Adverserial'' Bilder erläutert: \parencite{tensorflowFGSM}
 \\ 
@@ -838,12 +870,12 @@ Mittlerweile wurde das Verhalten der Tesla-Systeme angepasst und diese spezifisc
 \subsubsection*{Eigene Versuche mit Adversarial Attacks}
 Durch die Arbeit einiger Forscher \parencite{papernot2018cleverhans} gibt es eine Python Bibliothek \parencite{cleverHans} welche die Erzeugung von Adversarial Angriffen erleichtert.
 
-\section{Data Poisoning}
+\section{Manipulierte Daten: Data Poisoning}
 Mit ``Data Poisoning `` werden Techniken benannt welche \Gls{ML} Modelle über die Trainingsdaten angreifen. Oftmals werden Model nach einem initialen Training mit einem festen Datensatz wiederkehrend mit aktualisierten Daten erneut trainiert. Ein typisches Beispiel sind Spam Filter welche in regelmässigen Intervallen Emails, welche durch die Benutzer als Spam markiert wurden, in ihren Trainingsdatensatz integrieren.
  \\\\
 Grundsätzlich wird zwischen zwei Arten von Data Poisoning unterschieden:
 \begin{description}
-  		\item[Availability] Das Ziel einer solchen Attacke ist es die Datenbasis eines \Gls{ML} Models zu erweitern so dass die Wahrscheinlichkeiten für bestimmte Klassen entweder stark erhöht oder verringert werden. Wie durch die Arbeit ``Online Data Poisoning Attacks'' \parencite{Zhang2019} nachgewiesen wurde, kann ein solcher Angriff sowohl für Überwachtes Lernen wie auch Unüberwachtes Lernen (Clustering) erfolgreich eingesetzt werden. 
+  		\item[Availability] Das Ziel einer solchen Attacke ist es die Datenbasis eines \Gls{ML} Models so zu erweitern so dass die Wahrscheinlichkeit für bestimmte Klassifikation entweder stark erhöht oder verringert wird. Wie durch die Arbeit ``Online Data Poisoning Attacks'' \parencite{Zhang2019} nachgewiesen wurde, kann ein solcher Angriff sowohl für Überwachtes Lernen wie auch Unüberwachtes Lernen (Clustering) erfolgreich eingesetzt werden. 
   		\item[Backdoor Attacks] Ein Backdoor Angriff versucht die Eingangsparameter eines \Gls{ML} Models derart zu wählen dass ein bestimmtes Ergebnis garantiert ist. So kann ein schädliches Programm welches eigentlich durch einen Virenscanner abgewehrt werden sollte durch Verwendung einer bestimmten Zeichenkette ungehindert aktiviert werden.\\
   		Es besteht zudem die Möglichkeit dass ein \Gls{ML} welches aus einer externen Quelle bezogen wurde mit einer ``Backdoor'' versehen wurde um auf bestimmte Parameter zu reagieren. In der Arbeit ``BadNets: Evaluating Backdooring Attacks
 on Deep Neural Networks'' \parencite{Gu2019} konnte gezeigt werden wie ein \Gls{NN} durch bestimmte Aufkleber dazu gebracht werden konnte Stopp-Schilder mit Geschwindigkeitsbegrenzungs-Schilder zu verwechseln.
