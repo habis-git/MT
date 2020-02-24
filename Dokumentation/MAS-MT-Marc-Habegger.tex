@@ -136,13 +136,13 @@
 % Subtitle
 \subtitle{Stand der Forschung und Technik}
 % Titlepicture
-% \titlepicture{Bilder/Titel.png}
+\titlepicture{Bilder/Title2.png}
 %%
 
 % Topic of Study
 \degreeprogramme{MAS Data Science}
 % Expert
-\expert{Max Kleiner}
+\expert{Max Kleiner, Prof. Dr. Arno Schmidhauser}
 % Version
 \version{1.0}
 % Date
@@ -173,6 +173,21 @@
     \begin{minipage}[t]{0.4\textwidth}
     		\vspace{20pt}
   		#3
+    \end{minipage}
+\end{center}
+}
+
+\newcommand{\imgTextQuelle}[4]{
+\begin{center}
+    \begin{minipage}[t]{0.6\textwidth}
+    		\vspace{0pt}
+		\includegraphics[width=10cm, left]{Bilder/#1}
+		\caption{#2}
+		\caption*{Quelle: #3}
+	\end{minipage}\hfill
+    \begin{minipage}[t]{0.4\textwidth}
+    		\vspace{5pt}
+  		#4
     \end{minipage}
 \end{center}
 }
@@ -491,12 +506,22 @@ Das Bild links erläutert die Vorgehensweise des \gls{OS} Algorithmus. \Gls{OS} 
 \end{center}
 
 \subsection{LRP}
-\acrfull{lrp} ist eine Technik welche bereits 2015 vorgestellt wurde \parencite{Bach2015}. \acrshort{lrp} kann verwendet werden um \gls{NN} zu untersuchen.
+\acrfull{lrp} ist eine Technik welche bereits 2015 vorgestellt wurde \parencite{Bach2015}. \acrshort{lrp} kann verwendet werden um neuronale Netze zu untersuchen und  ist für viele Problemstellungen wie Bilderkennung, Textanalyse oder Spracherkennung einsetzbar. 
 
-\fullImgQuelle{lrp-classification-example-cat.PNG}{LRP Feature Relevanz Beispiel}{Bach \parencite{Bach2015}}
-\fullImgQuelle{lrp-example-cat.PNG}{LRP Beispiel}{Bach \parencite{Bach2015}}
+\imgTextQuelle{lrpgraph.PNG}{LRP Berechnung}{www.heatmapping.org}{LRP durchläuft ein \gls{NN} rückwärts und berechnet so den Einfluss jedes Eingangs-Neurons.
+\\\\
+ Diese Vorgehensweise wird als ``Deep Taylor Decomposition'' bezeichnet.
+ }
+ 
+\fullImgQuelle{lrp-classification-example-cat.PNG}{Pixel basierte Relevanz}{Bach \parencite{Bach2015}}
+ Während Pixel basierte Erklärungstechniken wie \Gls{GC} lokale Einflüsse hervorheben, setzt das LRP Verfahren auf globale Einflüsse in den Bilddaten. Dies kann in der Visualisierung dazu führen das andere Bildbereiche hervorgehoben werden.
+\fullImgQuelle{lrp-example-cat.PNG}{Vergleich Pixel-wise und LRP }{Bach \parencite{Bach2015}}
 
-Eine Python Implementierung der LRP Toolbox \parencite{JMLR:v17:15-618} ist auf github vorhanden \parencite{lrpToolbox}.
+Die  Erläuterung der Funktionsweise der Deep Taylor Decomposition findet sich auf der Webseite \parencite{deepTaylor}.
+\\
+ Eine Beispielanwendung des Fraunhofer Instituts zeigt den Einsatz von \acrshort{lrp} in den Gebieten Bilderkennung, Textanalyse und Visual Question Answering \parencite{xaidemos}.
+\\
+Die Python Implementierung der LRP Toolbox \parencite{JMLR:v17:15-618} ist auf github vorhanden: \parencite{lrpToolbox}.
 
 \subsection{Local Surrogate (LIME)}
 \label{lime}
