@@ -277,7 +277,8 @@ Da sowohl die Erzeugung des Models als auch die Berechnung des Resultates automa
 \end{figure}
 
 Eine \Gls{ML} Lösung beginnt mit der Beobachtung von realen Ereignissen in der Welt. Dies können die Anzahl Blätter und deren Länge einer Pflanzengattung oder auch Häuserpreise in Brooklyn sein. Diese Beobachtungen werden gesammelt und bilden die Datengrundlage mit deren ein Model erstellt werden kann. Aus diesem Modell kann eine Erklärung erzeugt werden, die ein Mensch verwenden kann um das Resultat zu erklären.
-\section{Unterschiedliche Ziele}
+
+\section{Unterschiedliche Anforderungen an eine Erklärung}
 Eine Anwendung welche \Gls{ML} einsetzt kann in mehrere Bereiche unterteilt werden.  Durch diese Aufteilung in verschiedene  Komponenten ergeben sich unterschiedliche Anforderungen an die Erklärbarkeit: \parencite{XAI2018}
 
 \begin{description}
@@ -312,7 +313,7 @@ Die Anforderungen an ein erklärbares Modell unterscheiden sich sehr stark, je n
 
 \section{Zielgebiete von XAI}
 
-\section{Bessere Anwendungen durch Einblick in die Funktionsweise}
+\subsection{Bessere Anwendungen durch Einblick in die Funktionsweise}
 Ein Grundsatz jedes \Gls{ML} Projektes lautet, dass der Erfolg nicht garantiert ist. Ausgehend von bestehenden Daten kann man nicht sicher sein, dass diese ausreichende Informationen liefern, um ein Model zu entwickeln, welches den Anforderungen entspricht. Selbst wenn genügend Daten vorhanden sind besteht immer noch die Problematik, dass unzählige Algorithmen mit wiederum unzähligen Parametern existieren welche zur Anwendungen kommen können. Es Lösungen, oder Ansätze davon, um mit dieser Problematik umzugehen, dennoch ist es in der Regel ein langwieriger und oftmals teuer Prozess um \Gls{ML} Modelle auf das gewünschte Qualitätsniveau zu bringen.
 
 Erkenntnisse durch \gls{xai} Techniken können den Entwicklern helfen Irrwege und Probleme frühzeitig zu erkennen und so entweder Arbeitszeit oder Rechenleistung beim berechnen der Modell einzusparen.
@@ -349,7 +350,7 @@ Daraus ergeben sich für die \acrlong{dek} für einen verantwortungsvollen Umgan
 
 \acrlong{xai} kommt vor allem in den Bereichen ``Minimierung von Verzerrungen und Diskriminierung'' und ``Transparenz, Erklärbarkeit und Nachvollziehbarkeit'' zum tragen, kann aber auch bei ``Robustheit und Sicherheit'' und ``Qualität und Leistungsfähigkeit'' helfen. In Kapitel \ref{Sicherheit} wird näher auf die Gefahren eingegangen welche durch die Anwendung von \Gls{ML} entstehen können.
 
-\section{Sicherheit}
+\subsection{Sicherheit}
 \label{Sicherheit}
 Die Sicherheit von \Gls{ML} Modellen ist durch verschiedene Angriffs-Methoden gefährdet. In der Regel geht man für Sicherheitsüberlegungen von einem \Gls{Black Box} Model aus, da ein Angreifer das Model in der Anwendung (d.h. nach dem Training) angreift.
 \begin{description}
@@ -358,12 +359,72 @@ Die Sicherheit von \Gls{ML} Modellen ist durch verschiedene Angriffs-Methoden ge
 	\item[\acrfull{aip}] Oft genügen kleine Änderungen an einem Bildinhalt um ein \Gls{NN} dazu zu bringen die vorhergesagte Klasse zu wechseln. Wenn ein Angreifer eine solche Anfälligkeit entdeckt, kann es möglich sein ein Bild so zu verändern dass es für menschliche Augen gleich (oder beinahe) aussieht wie das Original, jedoch mit einem völlig anderen Ergebnis. Es liegt auf der Hand dass ein solches Verhalten eines Models für Systeme einer Zutrittskontrolle fatal sein können. Es sind jedoch auch andere Formen der Täuschung denkbar welche für den Betreiber zu Verlusten führen können (Waren Rücksendungen, Pfandflaschen Automaten, Qualitätskontrollen bei Lieferanten). Dieses Thema wird näher in Kapitel \ref{Adversarial Attacks} erläutert.
 \end{description}
 
-\section{Regulatorische Bedingungen}
+\subsection{Regulatorische Bedingungen}
 
-\section{Haftungsfragen}
+\subsection{Haftungsfragen}
 
-\chapter{Anwendung von XAI auf Modelle}
-Nach \parencite{Oh2019} hat Art des Modells von grossem Einfluss auf die Möglichkeiten der Erklärbarkeit. Generell wird unterschieden zwischen
+\chapter{Wann wird XAI eingesetzt?}
+
+\section{Exploration}
+Die Exploration Phase hat zum Ziel sich einen Überblick über die Daten zu verschaffen. Die Werkzeuge die man zu diesem Zweck braucht sind in der Regel einfacher und vor allem schneller als komplexere \Gls{xai} Techniken welche sich mit den Modellen beschäftigen die normalerweise erst nach der Exploration Phase erstellt werden. Obwohl die meisten der hier aufgeführten Techniken nicht zu \acrshort{xai} gezählt werden sind sie doch für ein Verständnis der Ausgangslage sehr hilfreich.
+\begin{itemize}
+	\item Biplot
+	
+	\begin{minipage}{\linewidth}
+		Ein Biplot zeigt sowohl die Stichproben als auch Variablen in der gleichen Visualisierung dar.
+            \includegraphics[width=0.7\linewidth]{Bilder/IrisDAbiplot.jpg}
+            \captionof{figure}{Biplot Iris Datensatz}
+            \captionof*{figure}{Quelle: \url{https://en.wikipedia.org/wiki/Biplot}}
+        \end{minipage}
+        
+	\item Darstellung der Korrelation (Correlation graph)
+	
+	\begin{minipage}{\linewidth}
+            \includegraphics[width=0.6\linewidth]{Bilder/325px-Anscombe's_quartet_3.png}
+            \captionof{figure}{Korrelation verschiedener Datensätze als Graph}
+            \captionof*{figure}{Quelle: \url{https://en.wikipedia.org/wiki/Correlation_and_dependence}}
+        \end{minipage}
+        
+	\item Korrelationsmatrix
+	
+	\begin{minipage}[t]{0.45\linewidth}
+		\begin{scriptsize}
+		[ 1.        , -0.03783885,  0.34905716,  0.14648975, -0.34945863],
+      [-0.03783885,  1.        ,  0.67888519, -0.96102583, -0.12757741],
+      [ 0.34905716,  0.67888519,  1.        , -0.45104803, -0.80429469],
+      [ 0.14648975, -0.96102583, -0.45104803,  1.        , -0.15132323],
+      [-0.34945863, -0.12757741, -0.80429469, -0.15132323,  1.        ]
+      \end{scriptsize}
+	\end{minipage}\hfill
+	\begin{minipage}[t]{0.45\linewidth}
+
+	\end{minipage}
+        
+	\item Heatmap 
+	
+	\begin{minipage}[t]{0.45\linewidth}
+		\vspace{0pt}
+		\includegraphics[width=0.6\linewidth]{Bilder/many_pairwise_correlations.png}
+            \captionof{figure}{Korrelationsmatrix als Heatmap dargestellt}
+            \captionof*{figure}{Quelle: \url{https://seaborn.pydata.org/examples/many_pairwise_correlations.html}}
+            \vspace{10pt}
+            \includegraphics[width=0.6\linewidth]{Bilder/heatmap-sleep.PNG}
+            \captionof{figure}{Heatmap als Kalender}
+	\end{minipage}
+	\begin{minipage}[t]{0.45\linewidth}
+	
+	\end{minipage}
+	
+	\item Parallele Koordinatendarstellung (Parallel coordinates plot)
+	\item Projektion MDS, 1-SNE, UMAP
+	\item Radar Plot
+	\item Scatter Plot
+	\item Univariate Statistiken: Häufigkeits-Verteilung, Histogram, Pivot-Tabelle
+\end{itemize}
+\section{Feature Engineering}
+
+\section{Modellauswahl}
+Nach Seong Joon Oh \parencite{Oh2019} hat Art des Modells von grossem Einfluss auf die Möglichkeiten der Erklärbarkeit. Generell wird unterschieden zwischen
 \begin{description}
 \item[Whitebox Modelle] sind unter der Kontrolle desjenigen welcher eine erklärende Analyse durchführt, sowohl die Daten wie der Aufbau des Modelles sind bekannt
 \item[Blackbox Modelle] sind von unbekannter Struktur, der Anwender bekommt von einem gegebenen Input ein Resultat ohne den Ablauf der Entscheidungsfindung beobachten zu können
@@ -372,81 +433,51 @@ Nach \parencite{Oh2019} hat Art des Modells von grossem Einfluss auf die Möglic
 Aus der Vielzahl von Werkzeugen welche existieren um \acrfull{ML} Modelle zu analysieren gilt es die für den jeweiligen Use Case relevanten Werkzeuge anzuwenden.
 TODO: Übersicht der Techniken und Anwendungsbereiche wie in der Grafik
 
-\section{Anwendungsfälle}
-\subsection{Exploration}
+\includegraphics[width=\textwidth]{Bilder/blueprint.png}
+\captionof{figure}{Quelle: https://github.com/h2oai/mli-resources}
+
+\section{Existierendes Modell verwenden}
+
+\section{Interpretierbares Modell erstellen}
+
+Falls eine Anforderung besteht, dass die erzeugten Resultate interpretierbar sein müssen, kann direkt ein grundsätzlich interpretierbares Modelle erzeugt werden. Der Preis dafür kann jedoch eine geringere Performance sein. Natürlich ist in diesem Fall \Gls{xai} unnötig.
+\\
+\\
+Folgende Algorithmen gelten generell als interpretierbar:
 \begin{itemize}
-	\item Biplot
-	\item Darstellung der Korrelation (Correlation graph)
-	\item Korrelationsmatrix
-	\item Heatmap
-	\item Parallele Koordinatendarstellung (Parallel coordinates plot)
-	\item Projektion MDS, 1-SNE, UMAP
-	\item Radar Plot
-	\item Scatter Plot
-	\item Univariate Statistiken: Häufigkeits-Verteilung, Histogram, Pivot-Tabelle
-\end{itemize}
-\subsection{Feature Engineering}
-\subsection{Ein interpretierbares Model erstellen}
-\begin{itemize}
-	\item Entscheidungsbaum
-	\item \acrfull{gam}
-	\item \acrfull{glm}
+	\item \Gls{DT} siehe Kapitel \ref{DT}
+	\item \acrfull{gam} oder \acrfull{glm} siehe Kapitel \ref{gam}
 	\item \acrfull{lfr}
 	\item \acrfull{m-gbm}
 	\item \acrfull{pate}	
 	\item \acrfull{sbrl}
 	\item \acrfull{slim}
+	\item Naive Bayes Classifier
+	\item K-Nearest Neighbors
 \end{itemize}
-\subsection{Modelle interpretieren}
-Neben vielen Methoden welche nur für bestimmte Klassen von Verfahren anwendbar sind, gibt es einige die Allgemein anwendbar sind.
+Die beiden Verfahren \Gls{DT} und \acrshort{gam} und \acrshort{glm} werden später noch erläutert.  Diese Liste hat keinen Anspruch auf Vollständigkeit, zudem können auch diese Modelle sehr komplex werden was die Verständlichkeit reduziert.
+\\\\
+Als einfache Entscheidungshilfe welches Modell am besten zu der gestellten Aufgabe passt kann diese Tabelle benutzt werden. Als Methode kann entweder eine Klassifikation (klass.), Regression (regr.) oder sogar beide Arten angewandt werden.  \\
+\begin{table}[ht]
+\begin{tabular}{@{} *5l @{}}    \toprule
+	\emph{Algorithmus} & \emph{Linear} & \emph{Monoton} & \emph{Methode}  \\\midrule
+	Linear regression & Ja & Ja & 	regr. \\
+	Logistic regression & Nein & Ja & 	klass. \\
+	Decision trees & Nein & einige &	klass.,regr. \\
+	RuleFit & Ja & Nein & 	klass.,regr. \\
+	Naive Bayes	 & Nein & Ja & 	klass. \\
+	k-nearest neighbors & Nein & Nein & klass.,regr. \\ \bottomrule
+	 \hline
+\end{tabular}
+\caption*{Quelle: \parencite{iML}}
+\end{table}
 
-\begin{itemize}
-	\item[LIME] \ref{lime}
-\end{itemize}
-
-\includegraphics[width=\textwidth]{Bilder/blueprint.png}
-\captionof{figure}{Quelle: https://github.com/h2oai/mli-resources}
-
-\section{Grundsätzlich erklärbare Algorithmen}
-\subsection{Lineare Regression}
-Lineare Regression ist seit langer Zeit ein nützliches Werkzeug für Statistiker und Informatiker. Die Zusammenhänge zwischen dem Berechneten Ergebnis und den Eingangsvariablen können einfach nachvollzogen werden. Lineare Regression ist weit verbreitet, auch in nicht Informatik nahen Gebieten wie Medizin oder Soziologie. Ein Nachteil dieser Methode ist jedoch kleinere Leistungsfähigkeit in Bezug auf die Vorhersagequalität so dass heutzutage oftmals auf leistungsfähigere, jedoch schlechter verständliche, Algorithmen zurückgegriffen wird. Insbesondere im Gebiet der Klassifikation zeigt die Lineare Regression Schwächen.
-
+\subsection{Decision Tree}
+\label{DT}
+\Gls{DT} (deutsch Entscheidungsbäume) können bei einer geringen Anzahl von Parametern einfach visualisiert werden und geben einen guten Überblick über die internen Abläufe die zu einem Resultat führen.
 \begin{center}
 \begin{minipage}[t]{0.45\linewidth}
-\vspace{0pt}
-\includegraphics[width=0.6\linewidth]{Bilder/Regressions-Bedingungen.png}
- \captionof{figure}{Bedingungen lineare Regression}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.45\linewidth}
-\vspace{0pt}
-Um die Lineare Regression erfolgreich anzuwenden müssen drei Bedingungen erfüllt sein:
-\begin{itemize}
-	\item Normalverteilte Daten
-	\item Die Variablen sind unabhängig, d.h. die Werte beeinflussen sich nicht, im Gegensatz zum Beispiel bei Geschlecht und Schwangerschaft
-	\item Die vorhergesagten Werte sind linear
-\end{itemize}
-Wenn diese Bedingungen nicht erfüllt sind kann die Lineare Regression kaum erfolgreich angewandt werden.
-\end{minipage}
-\end{center}
-
-\subsection{GLM/GAM}
-Lineare Regression hat einige Schwächen wie z. Bsp. die Annahme der Normalverteilung, nicht korrelierte Variablen oder auch einfach bei einem nichtlinearen Zusammenhang zwischen Eingang und dem Resultat. \acrfull{glm} und \acrfull{gam} erweitern Lineare Modelle um einen breiteren Anwendungsbereich zu ermöglichen.
-\begin{center}
-\begin{minipage}[t]{0.45\linewidth}
-\vspace{0pt}
-\includegraphics[width=0.6\linewidth]{Bilder/Regressions-Auschluss-Bedingungen.png}
- \captionof{figure}{Auschluss-Bedingungen lineare Regression}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.45\linewidth}
-\vspace{0pt}
-Wenn die Voraussetzungen für eine Lineare Regression nicht erfüllt sind kann trotzdem mittels \Gls{glm} und \Gls{gam} eine Regression durchgeführt werden.
-\end{minipage}
-\end{center}
-
-\subsection{Entscheidungsbäume}
-Entscheidungsbäume (engl. Decision Tree) können bei einer geringen Anzahl von Parametern gut visualisiert werden.
-\begin{center}
-\begin{minipage}[t]{0.45\linewidth}
+\vspace{10pt}
 Die Regeln nach denen sich ein \Gls{DT} aufteilt können als Text dargestellt werden. Intuitiv besser verständlich sind jedoch grafische Darstellungen welche entweder den Baum als Struktur oder in einem Diagramm als Fläche darstellen.
 \end{minipage}\hfill
 \begin{minipage}[t]{0.45\linewidth}
@@ -474,19 +505,66 @@ Die Regeln nach denen sich ein \Gls{DT} aufteilt können als Text dargestellt we
 	 \captionof{figure}{Entscheidungsbaum als Flächen dargestellt}
 \end{minipage}
 \end{center}
-Source Code \ref{dt-vis} (benötigt min. scikit-learn 0.22)
+Der für diese Visualisierungen verwendete Source Code ist in Kapitel \ref{dt-vis} aufgeführt und verwendet \parencite{scikit-learnLink}.
+
+\subsection{Lineare Regression}
+Lineare Regression ist seit langer Zeit ein nützliches Werkzeug für Statistiker und Informatiker. Die Zusammenhänge zwischen dem Berechneten Ergebnis und den Eingangsvariablen können einfach nachvollzogen werden. Lineare Regression ist weit verbreitet, auch in nicht Informatik nahen Gebieten wie Medizin oder Soziologie. Ein Nachteil dieser Methode ist jedoch kleinere Leistungsfähigkeit in Bezug auf die Vorhersagequalität so dass heutzutage oftmals auf leistungsfähigere, jedoch schlechter verständliche, Algorithmen zurückgegriffen wird. Insbesondere im Gebiet der Klassifikation zeigt die Lineare Regression Schwächen.
+
+\begin{center}
+\begin{minipage}[t]{0.45\linewidth}
+\vspace{0pt}
+\includegraphics[width=0.6\linewidth]{Bilder/Regressions-Bedingungen.png}
+ \captionof{figure}{Bedingungen lineare Regression}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.45\linewidth}
+\vspace{0pt}
+Um die Lineare Regression erfolgreich anzuwenden müssen drei Bedingungen erfüllt sein:
+\begin{itemize}
+	\item Normalverteilte Daten
+	\item Die Variablen sind unabhängig, d.h. die Werte beeinflussen sich nicht, im Gegensatz zum Beispiel bei Geschlecht und Schwangerschaft
+	\item Die vorhergesagten Werte sind linear
+\end{itemize}
+Wenn diese Bedingungen nicht erfüllt sind kann die Lineare Regression kaum erfolgreich angewandt werden.
+\end{minipage}
+\end{center}
+
+\subsection{GLM/GAM}
+\label{gam}
+Lineare Regression hat einige Schwächen wie z. Bsp. die Annahme der Normalverteilung, nicht korrelierte Variablen oder auch einfach bei einem nichtlinearen Zusammenhang zwischen Eingang und dem Resultat. \acrfull{glm} und \acrfull{gam} erweitern Lineare Modelle um einen breiteren Anwendungsbereich zu ermöglichen.
+\begin{center}
+\begin{minipage}[t]{0.45\linewidth}
+\vspace{0pt}
+\includegraphics[width=0.6\linewidth]{Bilder/Regressions-Auschluss-Bedingungen.png}
+ \captionof{figure}{Auschluss-Bedingungen lineare Regression}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.45\linewidth}
+\vspace{0pt}
+Wenn die Voraussetzungen für eine Lineare Regression nicht erfüllt sind kann trotzdem mittels \Gls{glm} und \Gls{gam} eine Regression durchgeführt werden.
+\end{minipage}
+\end{center}
+
 
 \subsection{RuleFit}
 RuleFit \parencite{Friedman2008} verwendet Entscheidungsbäume um daraus Regeln abzuleiten welche neue Features erzeugen die von einem Linearen Modell verwendet werden. 
 \subsection{Naive Bayes}
 
-\section{Techniken für nicht direkt erklärbare Modelle}
+\section{Nicht Interpretierbares Model erstellen}
+Falls aufgrund der geforderten Performance oder vorhandenen Daten ein Verfahren eingesetzt wird das als nicht interpretierbar gilt kann man \Gls{xai} Werkzeuge einsetzen um eine Erklärung für das von dem Modell erzeugte Resultat zu generieren. Diese Techniken werden in dem Kapitel \ref{noninterpretable} näher erläutert.
 
-\subsection{Grad CAM} \break
+\section{Modell analysieren}
+
+\subsection{Modell Testen}
+
+\subsection{Erklärungen aus Modell generieren}
+
+\subsection{Bias Kontrolle}
+
+\chapter{XAI Methoden}
+\section{Grad CAM} \break
 \Gls{GC} ist eine Technik \parencite{Selvaraju2016} um auf der Basis von Gradienten die für eine Bildklassifikation relevanten Bereiche eines Bildes hervorzuheben. Während die relevantesten Bereiche (gelb gefärbt) um den Kopf und vor allem den Ohren der Katze sind, zeigen die Darstellungen für die unpassenden Klassen auf Bereiche des Bodens.
 \includegraphics[width=\textwidth]{Bilder/Grad-Cam-Classes.png}
 
-\subsection{Occlusion Sensitivity} \break
+\section{Occlusion Sensitivity} \break
 Eine weitere Variante um relevante Bildbereiche aufzudecken ist \Gls{OS}, vorgestellt durch Zeiler  und Fergus im Jahr 2013 \parencite{Zeiler2013}. Occlusion Sensitivity bestimmt durch erzeugte Störungen im Ursprungsbild den Einfluss der einzelnen Bildbereiche auf die Vorhersage.
 \\\\
 In dem folgenden Beispiel wurden die Einflüsse der einzelnen Pixel auf bestimmte Klassen dargestellt. Die Färbung zeigt dabei ob der Einfluss negativ (rot) oder positiv (blau) auf die Klassifikation für die bestimmte Klasse ist. Diese Visualisierung wurde durch die Bibliothek \parencite{tfExplain} und dem vortrainierten Modell  \parencite{vgg16} erzeugt.
@@ -505,7 +583,7 @@ Das Bild links erläutert die Vorgehensweise des \gls{OS} Algorithmus. \Gls{OS} 
 \end{minipage}
 \end{center}
 
-\subsection{LRP}
+\section{LRP}
 \acrfull{lrp} ist eine Technik welche bereits 2015 vorgestellt wurde \parencite{Bach2015}. \acrshort{lrp} kann verwendet werden um neuronale Netze zu untersuchen und  ist für viele Problemstellungen wie Bilderkennung, Textanalyse oder Spracherkennung einsetzbar. 
 
 \imgTextQuelle{lrpgraph.PNG}{LRP Berechnung}{www.heatmapping.org}{LRP durchläuft ein \gls{NN} rückwärts und berechnet so den Einfluss jedes Eingangs-Neurons.
@@ -523,7 +601,7 @@ Die  Erläuterung der Funktionsweise der Deep Taylor Decomposition findet sich a
 \\
 Die Python Implementierung der LRP Toolbox \parencite{JMLR:v17:15-618} ist auf github vorhanden: \parencite{lrpToolbox}.
 
-\subsection{Local Surrogate (LIME)}
+\section{Local Surrogate (LIME)}
 \label{lime}
 Die Technik LIME wurde 2016 erstmals vorgestellt \parencite{Ribeiro2016}. 
 \Gls{lime} kann für verschiedene Arten von  \Gls{ML} Modellen, insbesondere auch Black Box Modelle, verwendet werden um eine Erklärung zu erzeugen. Dabei wird durch stetiges Verändern eines Eingangsbildes der Einfluss auf das Resultat geprüft. Mit den veränderten Eingangsdaten und den durch das Black Box Modell erzeugten Resultaten wird anschliessend ein neues Modell Trainiert das danach untersucht werden kann.
@@ -545,7 +623,7 @@ In diesem Beispiel ist ersichtlich welche Bildbereiche (maskiert) nach \gls{lime
 
 Gegenüber den vorherigen Methoden ist LIME durch die Erzeugung temporärer Modelle bedeutend aufwendiger und dadurch auch langsamer.
 \clearpage
-\subsection{TCAV}
+\section{TCAV}
  \acrfull{tcav} wurde 2017 vorgestellt \parencite{Kim2017} und ist eine fortgeschrittene Methode um Erklärungen basierend auf den Bildinhalten zu generieren. Zu diesem Zweck werden zusätzliche Modelle als Beispiele für Bildinhalte erzeugt.
  
 \break
@@ -560,7 +638,7 @@ Da bei diesem Verfahren für jede Kategorie von Bildbestandteilen ein Neuronales
 
 Eine Implementierung dieses Verfahrens kann unter folgendem Link auf Github gefunden werden: \cite{tcavLink}
 
-\subsection{SVCCA}
+\section{SVCCA}
 \acrlong{svcca} \parencite{Raghu2017} vergleicht verschiedene Neuronale Netzwerke oder verschiedene Layer innerhalb des selben Neuronalen Netzwerkes.
 \break
 Durch den Vergleich der Vektoren verschiedener Klassen innerhalb des selben Netzes kann auf die Ähnlichkeit rückgeschlossen werden. Die beiden Klassen ``Husky'' und ``Eskimo Dog'' werden in der Untenstehenden Grafik als parallel verlaufende, beinahe überlappende Linien dargestellt, was auf die starke Ähnlichkeit der beiden Hunderassen hinweist.
@@ -913,6 +991,7 @@ on Deep Neural Networks'' \parencite{Gu2019} konnte gezeigt werden wie ein \Gls{
 \label{dt-vis}
 
 \subsection{Entscheidungsbaum Visualisierung mit sklearn und Graphviz}
+Der folgende Code benötigt mindestens scikit-learn 0.22.
 \begin{lstlisting}[language=Python, caption=Decision Tree Visualisierung]
 from sklearn.datasets import load_iris
 from sklearn import tree
