@@ -267,8 +267,8 @@ Für viele Dienste im Internet (Bildersammlungen, Empfehlungssysteme) werden in 
 Aufgrund des Mangels an Techniken um fortgeschrittene \gls{ML} System zu Verstehen, entstand deshalb ein neues Forschungsgebiet \acrfull{xai}, welches sich zum Ziel gesetzt hat Methoden und Werkzeuge zu entwickeln um \gls{ML} Modelle zu analysieren.
 
 \chapter{Was bedeutet Erklärbarkeit?}
-\gls{ML} erzeugt Resultate, welche je nach Anwendungsfall eine Entscheidung für eine Klasse (Pferd, Schaf, Auto), eine Zuordnung zu einer Gruppe (Premium-Kunde, Gelegenheitskäufer) oder ein numerischer Wert  (15 Grad Celsius am 3. April) sind. 
-Da sowohl die Erzeugung des Models als auch die Berechnung des Resultates automatisch erfolgt, können die Schritte auf dem Weg zu dem Resultat nicht direkt nachvollzogen werden.
+\gls{ML} erzeugt Resultate, welche je nach Anwendungsfall Entscheidungen für Klassen (Pferd, Schaf, Auto), Zuordnungen zu Gruppen (Premium-Kunde, Gelegenheitskäufer) oder numerische Werte  (15 Grad Celsius am 3. April) sind. 
+Da sowohl die Erzeugung des Modells als auch die Berechnung des Resultates automatisch erfolgt, können die Schritte auf dem Weg zu dem Resultat nicht direkt nachvollzogen werden.
 
 \begin{figure}[ht]
 \centering
@@ -276,7 +276,7 @@ Da sowohl die Erzeugung des Models als auch die Berechnung des Resultates automa
 \caption{Ablauf einer erklärbaren Machine Learning Anwendung}
 \end{figure}
 
-Eine \Gls{ML} Lösung beginnt mit der Beobachtung von realen Ereignissen in der Welt. Dies können die Anzahl Blätter und deren Länge einer Pflanzengattung oder auch Häuserpreise in Brooklyn sein. Diese Beobachtungen werden gesammelt und bilden die Datengrundlage mit deren ein Model erstellt werden kann. Aus diesem Modell kann eine Erklärung erzeugt werden, die ein Mensch verwenden kann um das Resultat zu erklären.
+Eine \Gls{ML} Lösung beginnt mit der Beobachtung von realen Ereignissen in der Welt. Dies können die Anzahl Blätter und deren Länge einer Pflanzengattung oder auch Häuserpreise in Brooklyn sein. Diese Beobachtungen werden gesammelt und bilden die Datengrundlage mit deren ein Modell erstellt werden kann. Aus diesem kann danach eine Erklärung erzeugt werden, die ein Mensch verwenden kann um das Resultat zu erklären.
 
 \section{Unterschiedliche Anforderungen an eine Erklärung}
 Eine Anwendung welche \Gls{ML} einsetzt kann in mehrere Bereiche unterteilt werden.  Durch diese Aufteilung in verschiedene  Komponenten ergeben sich unterschiedliche Anforderungen an die Erklärbarkeit: \parencite{XAI2018}
@@ -298,7 +298,7 @@ Ebenso gibt es bei den Interessengruppe unterschiedliche Anforderungen an die Er
   Diese Gruppe kann weiter unterteilt werden in
   	\begin{description}
   		\item[Forscher] Entwickelt neue Methoden und Algorithmen, verbessert bestehende Algorithmen
-  		\item[Entwickler] Setzt bestehende Methodiken und Algorithmen ein, um eine konkrete Aufgabenstellung zu lösen
+  		\item[Entwickler] Setzt bestehende Methoden und Algorithmen ein, um eine konkrete Aufgabenstellung zu lösen
 	\end{description}
   \item[Benutzer]
   Auch bei den Benutzern gibt es verschiedene Ausprägungen
@@ -445,8 +445,11 @@ Falls eine Anforderung besteht, dass die erzeugten Resultate interpretierbar sei
 \\
 Folgende Algorithmen gelten generell als interpretierbar:
 \begin{itemize}
-	\item \Gls{DT} siehe Kapitel \ref{DT}
-	\item \acrfull{gam} oder \acrfull{glm} siehe Kapitel \ref{gam}
+	\item Linear Regression \ref{lr}
+	\item Logistic Regression \ref{logR}
+	\item \acrfull{gam} oder \acrfull{glm} \ref{gam}
+	\item \Gls{DT} \ref{DT}
+	\item Rule Fit  \ref{RF}
 	\item \acrfull{lfr}
 	\item \acrfull{m-gbm}
 	\item \acrfull{pate}	
@@ -455,7 +458,7 @@ Folgende Algorithmen gelten generell als interpretierbar:
 	\item Naive Bayes Classifier
 	\item K-Nearest Neighbors
 \end{itemize}
-Die beiden Verfahren \Gls{DT} und \acrshort{gam} und \acrshort{glm} werden später noch erläutert.  Diese Liste hat keinen Anspruch auf Vollständigkeit, zudem können auch diese Modelle sehr komplex werden was die Verständlichkeit reduziert.
+Diese Liste hat keinen Anspruch auf Vollständigkeit, zudem können auch diese Modelle sehr komplex werden was die Verständlichkeit reduziert.
 \\\\
 Als einfache Entscheidungshilfe welches Modell am besten zu der gestellten Aufgabe passt kann diese Tabelle benutzt werden. Als Methode kann entweder eine Klassifikation (klass.), Regression (regr.) oder sogar beide Arten angewandt werden.  \\
 \begin{table}[ht]
@@ -471,6 +474,59 @@ Als einfache Entscheidungshilfe welches Modell am besten zu der gestellten Aufga
 \end{tabular}
 \caption*{Quelle: \parencite{iML}}
 \end{table}
+
+\subsection{Lineare Regression}
+\label{lr}
+Lineare Regression ist seit langer Zeit ein nützliches Werkzeug für Statistiker und Informatiker. Die Zusammenhänge zwischen dem Berechneten Ergebnis und den Eingangsvariablen können einfach nachvollzogen werden. Lineare Regression ist weit verbreitet, auch in nicht Informatik nahen Gebieten wie Medizin oder Soziologie. Ein Nachteil dieser Methode ist jedoch kleinere Leistungsfähigkeit in Bezug auf die Vorhersagequalität so dass heutzutage oftmals auf leistungsfähigere, jedoch schlechter verständliche, Algorithmen zurückgegriffen wird. Insbesondere im Gebiet der Klassifikation zeigt die Lineare Regression Schwächen.
+
+\begin{center}
+\begin{minipage}[t]{0.3\linewidth}
+\vspace{0pt}
+\includegraphics[width=0.6\linewidth]{Bilder/Regressions-Bedingungen.png}
+ \captionof{figure}{Voraussetzungen lineare Regression}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.65\linewidth}
+\vspace{0pt}
+Die Formel der linearen Regression lautet: \[y = \beta_0  + \beta_1 x_1 + … + \beta_p x_p + \epsilon\]
+Um die Lineare Regression erfolgreich anzuwenden müssen drei Bedingungen erfüllt sein:
+\begin{itemize}
+	\item Normalverteilte Daten
+	\item Die Variablen sind unabhängig, d.h. die Werte beeinflussen sich nicht, im Gegensatz zum Beispiel bei Geschlecht und Schwangerschaft
+	\item Die vorhergesagten Werte sind linear
+\end{itemize}
+Wenn diese Bedingungen nicht erfüllt sind kann die Lineare Regression kaum erfolgreich angewandt werden.
+\end{minipage}
+\end{center}
+
+\subsection{Logistische Regression}
+\label{logR}
+Während lineare Regression für numerische Problemstellungen verwendet wird ist die logistische Regression ein Werkzeug für Klassifizierungen.
+\[logistic(\eta)=\frac{1}{1+exp(-\eta)}\]
+Grundsätzlich unterscheidet die Logistische Regression zwischen zwei Klassen, eine sogenannte binäre Klassifikation. Man kann aber die logistische Regression zu einer  Multinomiale logistische Regression erweitern welche mehrere Klassen unterstützt.
+Die logistische Regression hat die meisten Vor- und Nachteile der linearen Regression, wobei die schwierigere Interpretation des Modells in diesem Zusammenhang besonders erwähnenswert ist. Gegenüber anderen Klassifikatoren bietet die logistische Regression jedoch den grossen Vorteil dass nicht nur die Klasse, sondern auch die Wahrscheinlichkeit für diese Klasse als Resultat erzeugt wird.
+\subsection{GLM/GAM}
+\label{gam}
+Lineare Regression hat einige Schwächen wie z. Bsp. die Annahme der Normalverteilung, die Variablen sollten nicht korreliert sein oder auch einfach bei einem nichtlinearen Zusammenhang zwischen den Daten und dem Resultat. \acrfull{glm} und \acrfull{gam} erweitern Lineare Modelle um einen breiteren Anwendungsbereich zu ermöglichen.
+\begin{center}
+\begin{minipage}[t]{0.3\linewidth}
+\vspace{0pt}
+\includegraphics[width=0.6\linewidth]{Bilder/Regressions-Auschluss-Bedingungen.png}
+ \captionof{figure}{Auschluss-Bedingungen lineare Regression}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.55\linewidth}
+\vspace{0pt}
+Wenn die Voraussetzungen für eine Lineare Regression nicht erfüllt sind kann trotzdem mittels \Gls{glm} und \Gls{gam} eine Regression durchgeführt werden.
+\\\\
+Die Formeln für die beiden Varianten lauten:
+\\\\
+\acrshort{gam} \[g(E_Y(y|x))=\beta_0+\beta_1x_1+…\beta_p(x_p)\]
+
+\acrshort{glm} \[g(E_Y(y|x))=\beta_0+f_1(x_1)+f_2(x_2)+…+f_p(x_p)\]
+
+wobei \acrshort{glm} in der Formel von \acrshort{gam} den Term \[\beta_jx_j\] durch eine Funktion ersetzt \[f_j(x_j)\]
+\end{minipage}
+\end{center}
+Durch eine Vielzahl von Erweiterungsmöglichkeiten können sehr viele Probleme mit linearen Modellen gelöst werden. Da diese Methoden bereits längere Zeit verwendet werden ist die Erfahrung damit gross und auch die Umsetzung in Mathematik- oder Statistiksoftware ist in der Regel vorhanden. Als Nachteil gilt aber generell eine schlechtere Performance gegenüber komplexeren Verfahren. Zudem sinkt die, prinzipiell vorhandene, Interpretierbarkeit mit der Anzahl Erweiterungen des klassischen linearen Modells.
 
 \subsection{Decision Tree}
 \label{DT}
@@ -507,45 +563,26 @@ Die Regeln nach denen sich ein \Gls{DT} aufteilt können als Text dargestellt we
 \end{center}
 Der für diese Visualisierungen verwendete Source Code ist in Kapitel \ref{dt-vis} aufgeführt und verwendet \parencite{scikit-learnLink}.
 
-\subsection{Lineare Regression}
-Lineare Regression ist seit langer Zeit ein nützliches Werkzeug für Statistiker und Informatiker. Die Zusammenhänge zwischen dem Berechneten Ergebnis und den Eingangsvariablen können einfach nachvollzogen werden. Lineare Regression ist weit verbreitet, auch in nicht Informatik nahen Gebieten wie Medizin oder Soziologie. Ein Nachteil dieser Methode ist jedoch kleinere Leistungsfähigkeit in Bezug auf die Vorhersagequalität so dass heutzutage oftmals auf leistungsfähigere, jedoch schlechter verständliche, Algorithmen zurückgegriffen wird. Insbesondere im Gebiet der Klassifikation zeigt die Lineare Regression Schwächen.
-
-\begin{center}
-\begin{minipage}[t]{0.45\linewidth}
-\vspace{0pt}
-\includegraphics[width=0.6\linewidth]{Bilder/Regressions-Bedingungen.png}
- \captionof{figure}{Bedingungen lineare Regression}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.45\linewidth}
-\vspace{0pt}
-Um die Lineare Regression erfolgreich anzuwenden müssen drei Bedingungen erfüllt sein:
-\begin{itemize}
-	\item Normalverteilte Daten
-	\item Die Variablen sind unabhängig, d.h. die Werte beeinflussen sich nicht, im Gegensatz zum Beispiel bei Geschlecht und Schwangerschaft
-	\item Die vorhergesagten Werte sind linear
-\end{itemize}
-Wenn diese Bedingungen nicht erfüllt sind kann die Lineare Regression kaum erfolgreich angewandt werden.
-\end{minipage}
-\end{center}
-
-\subsection{GLM/GAM}
-\label{gam}
-Lineare Regression hat einige Schwächen wie z. Bsp. die Annahme der Normalverteilung, nicht korrelierte Variablen oder auch einfach bei einem nichtlinearen Zusammenhang zwischen Eingang und dem Resultat. \acrfull{glm} und \acrfull{gam} erweitern Lineare Modelle um einen breiteren Anwendungsbereich zu ermöglichen.
-\begin{center}
-\begin{minipage}[t]{0.45\linewidth}
-\vspace{0pt}
-\includegraphics[width=0.6\linewidth]{Bilder/Regressions-Auschluss-Bedingungen.png}
- \captionof{figure}{Auschluss-Bedingungen lineare Regression}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.45\linewidth}
-\vspace{0pt}
-Wenn die Voraussetzungen für eine Lineare Regression nicht erfüllt sind kann trotzdem mittels \Gls{glm} und \Gls{gam} eine Regression durchgeführt werden.
-\end{minipage}
-\end{center}
-
 
 \subsection{RuleFit}
-RuleFit \parencite{Friedman2008} verwendet Entscheidungsbäume um daraus Regeln abzuleiten welche neue Features erzeugen die von einem Linearen Modell verwendet werden. 
+\label{RF}
+RuleFit \parencite{Friedman2008} verwendet Entscheidungsbäume um daraus Regeln abzuleiten welche neue Features erzeugen. Diese neu erzeugten Features werden dann von einem Linearen Modell interpretiert. Durch den Einsatz des linearen Modells verspricht RuleFit die von diesem Algorithmus gewohnte Interpretierbarkeit in Kombination mit besser Performance.
+\\\\
+Eine Python Bibliothek welche RuleFit implementiert ist \parencite{scopeRules}. Dies ist ein Beispiel aus der scope-rules Dokumentation wie durch RuleFit generierte Regeln aussehen können:
+\begin{minipage}[t]{\linewidth}
+\begin{lstlisting}
+12 rules have been built.
+The 5 most precise rules are the following:
+BILL_AMT2 > 517.5 and PAY_1 > 1.5 and PAY_AMT_old_std <= 2563.13525391
+BILL_AMT_old_std <= 9353.94921875 and PAY_1 > 1.5 and PAY_2 > -0.5
+PAY_2 > 1.5 and PAY_AMT_old_mean <= 12955.75 and PAY_old_mean > 0.625
+BILL_AMT2 > 1870.0 and PAY_2 > 1.5 and PAY_AMT_old_mean <= 2525.375
+BILL_AMT1 > 410.0 and PAY_1 > 1.5 and PAY_old_mean > 0.125
+\end{lstlisting}
+\caption {scope-rules Ausgabe der Regeln}
+\caption*{Quelle: \url{https://skope-rules.readthedocs.io/}}
+\end{minipage}
+
 \subsection{Naive Bayes}
 
 \section{Nicht Interpretierbares Model erstellen}
@@ -677,12 +714,18 @@ Die meisten Bilder mit Pferden in dem bereitgestellten Trainingsdatensatz für d
 \break
 In diesem Versuch soll diese Ausgangslage nachgestellt werden. Die Annahme ist dass ein grosser Teil der Bilder, welche Katzen darstellen, von einem Dienstleister stammen welcher sein Logo auf jedem Bild in der rechten unteren Ecke platzierte. 
 
-\imgText{watermark.jpg}{fiktives Logo}{
- \vspace{20pt}
-Um eine Verfälschung der Daten zu simulieren wurde nebenstehendes Logo in die Trainings- und Testdaten eingefügt. 
-\break 
-Insgesamt wurden 90\% der Katzenbilder mit diesem Logo gekennzeichnet. Hundebilder weisen kein Logo auf. \break Die Platzierung des Logos ist auf der linken Seite und, je nach Auflösung des Bildes, zwischen der unteren Ecke und der Mitte Bildes.
-}
+\begin{center}
+\begin{minipage}[t]{0.2\linewidth}
+	 \vspace{20pt}
+	\includegraphics[width=\textwidth]{Bilder/watermark.jpg}
+	 \captionof{figure}{fiktives Logo}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.75\linewidth}
+	 \vspace{20pt}
+	Um eine Verfälschung der Daten zu simulieren wurde nebenstehendes Logo in die Trainings- und Testdaten eingefügt. 
+	Insgesamt wurden 90\% der Katzenbilder mit diesem Logo gekennzeichnet. Hundebilder weisen kein Logo auf. Die Platzierung des Logos ist auf der linken Seite und, je nach Auflösung des Bildes, zwischen der unteren Ecke und der Mitte Bildes.
+\end{minipage}
+\end{center}
 
 \begin{center}
 \begin{minipage}[t]{0.45\linewidth}
@@ -812,7 +855,7 @@ Mittels dem Modell VGG16 aus der Tensorflow Bibliothek \textit{VGG16} \cite{vgg1
 		\end{tabular}
 }
 
-Obwohl das vorhergehende Bild korrekt als Katze klassifiziert wurde (allerdings als die falsche Katzenrasse), fallen die 4. und 5. Klassifikation auf. Die Klassifizierung als Karton (4.6\%) oder Toilettenpapier (3.6\%) ist zwar nicht sehr wahrscheinlich, es stellt sich aber dennoch die Frage weshalb keine weiteren Tiere welche, optisch grössere Ähnlichkeit mit einer Katze aufweisen, gefunden wurden.
+Obwohl das vorhergehende Bild korrekt als Katze klassifiziert wurde (allerdings als die falsche Katzenrasse), fallen die 4. und 5. Klassifikation auf. Die Klassifizierung als Karton (4.6\%) oder Toilettenpapier (3.6\%) ist zwar nicht sehr wahrscheinlich, es stellt sich aber dennoch die Frage weshalb keine weiteren Tiere, welche optisch grössere Ähnlichkeit mit einer Katze aufweisen, gefunden wurden.
 
 \subsubsection*{Test 2: Meerschweinchen, ähnlicher Hintergrund wie bei Bild mit der Katze}
 Um festzustellen ob alleine der Bildhintergrund die (geringen) Wahrscheinlichkeiten für Toilettenpapier und Karton ausgelöst haben, wurde ein anderes Bild welches an der gleichen Stelle aufgenommen wurde, allerdings mit einem Meerschweinchen anstatt einer Katze, klassifiziert.
@@ -933,9 +976,12 @@ Während in dem letzten Beispiel ein White Box Model angewendet wurde, kann \cit
 
 \chapter{Schwächen von ML Modellen erkennen}
 Die in den vorherigen Kapiteln vorgestellten Techniken erlauben einen besseren Einblick in die Funktionsweise von \Gls{ML} Modellen. Dieses Wissen kann dazu genutzt werden um Schwächen oder auch gezielte Angriffe auf Anwendungen mit integrierten \Gls{ML} Modellen zu erkennen.
+
 \section{Diskriminierung durch Bias}
 Als \Gls{BIAS} werden werden Tendenzen bezeichnet welche in Modellen vorhanden sind und die durch nicht ausgewogene Trainingsdaten erzeugt werden.
-\parencite{msTay}
+Ein bekanntes Beispiel dazu ist ein Chat-Bot welcher von Microsoft entwickelt wurde und der seinen Verhalten durch Twitter Tweets trainierte. Das Experiment musste von Microsoft nach kurzer Zeit abgebrochen werden da der Chat-Bot eine Tendenz zu rassistischen und beleidigenden Antworten hatte. Verursacht wurde dieses Verhalten durch gezielte Manipulationen durch andere Twitter Benutzer welche eine Gelegenheit sahen den Chat-Bot auszutricksen. \parencite{msTay} 
+Dieser Fall kann auch als Beispiel für ``Data Poisoning'' angesehen werden da die Lerndaten des Bots gezielt beeinflusst wurden, siehe \ref{dataP}.
+
 \section{Manipulierte Bilder: Adversarial Attacks}
 Wie bereits in Kapitel \ref{Sicherheit} angedeutet, sind \Gls{ML} Anwendungen oftmals unerwartet empfindlich auf kleinste Änderungen an den Eingangsdaten. In einer Arbeit von Google Forschern   \parencite{Goodfellow2014} konnte gezeigt werden dass dies eine grundsätzliche Eigenschaft nicht nur von Neuronalen Netzen sondern auch anderen Linearen Klassifikatoren ist. Erklärbar ist ein solches Fehlverhalten wenn man sich vor Augen hält das Neuronale Netze und andere Klassifikatoren keine abstrakten Konzepte wie ``Tier'' oder auch ``Fahrzeug'' lernen sondern sich alleine an den für das Training verwendeten Bilddaten orientieren.\\
 Die Tensorflow Webseite stellt ein Tutorial zu Verfügung welches die Erzeugung solcher ``Adverserial'' Bilder erläutert: \parencite{tensorflowFGSM}
@@ -974,6 +1020,7 @@ Mittlerweile wurde das Verhalten der Tesla-Systeme angepasst und diese spezifisc
 Durch die Arbeit einiger Forscher \parencite{papernot2018cleverhans} gibt es eine Python Bibliothek \parencite{cleverHans} welche die Erzeugung von Adversarial Angriffen erleichtert.
 
 \section{Manipulierte Daten: Data Poisoning}
+\label{dataP}
 Mit ``Data Poisoning `` werden Techniken benannt welche \Gls{ML} Modelle über die Trainingsdaten angreifen. Oftmals werden Model nach einem initialen Training mit einem festen Datensatz wiederkehrend mit aktualisierten Daten erneut trainiert. Ein typisches Beispiel sind Spam Filter welche in regelmässigen Intervallen Emails, welche durch die Benutzer als Spam markiert wurden, in ihren Trainingsdatensatz integrieren.
  \\\\
 Grundsätzlich wird zwischen zwei Arten von Data Poisoning unterschieden:
