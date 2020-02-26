@@ -502,8 +502,8 @@ Wenn diese Bedingungen nicht erfüllt sind kann die Lineare Regression kaum erfo
 \label{logR}
 Während lineare Regression für numerische Problemstellungen verwendet wird ist die logistische Regression ein Werkzeug für Klassifizierungen.
 \[logistic(\eta)=\frac{1}{1+exp(-\eta)}\]
-Grundsätzlich unterscheidet die Logistische Regression zwischen zwei Klassen, eine sogenannte binäre Klassifikation. Man kann aber die logistische Regression zu einer  Multinomiale logistische Regression erweitern welche mehrere Klassen unterstützt.
-Die logistische Regression hat die meisten Vor- und Nachteile der linearen Regression, wobei die schwierigere Interpretation des Modells in diesem Zusammenhang besonders erwähnenswert ist. Gegenüber anderen Klassifikatoren bietet die logistische Regression jedoch den grossen Vorteil dass nicht nur die Klasse, sondern auch die Wahrscheinlichkeit für diese Klasse als Resultat erzeugt wird.
+Grundsätzlich unterscheidet die Logistische Regression zwischen zwei Klassen, eine sogenannte binäre Klassifikation. Man kann aber die logistische Regression zu einer  Multinomialen logistischen Regression erweitern welche mehr als eine Klasse unterstützt.
+Die logistische Regression hat die meisten Vor- und Nachteile der linearen Regression, wobei die schwierigere Interpretation des Modells gegenüber dem linearen in diesem Zusammenhang ein wichtiger Nachteil ist. Gegenüber anderen Klassifikatoren bietet die logistische Regression jedoch den grossen Vorteil dass nicht nur die Klasse, sondern auch die Wahrscheinlichkeit für diese Klasse als Resultat erzeugt wird.
 \subsection{GLM/GAM}
 \label{gam}
 Lineare Regression hat einige Schwächen wie z. Bsp. die Annahme der Normalverteilung, die Variablen sollten nicht korreliert sein oder auch einfach bei einem nichtlinearen Zusammenhang zwischen den Daten und dem Resultat. \acrfull{glm} und \acrfull{gam} erweitern Lineare Modelle um einen breiteren Anwendungsbereich zu ermöglichen.
@@ -566,7 +566,7 @@ Der für diese Visualisierungen verwendete Source Code ist in Kapitel \ref{dt-vi
 
 \subsection{RuleFit}
 \label{RF}
-RuleFit \parencite{Friedman2008} verwendet Entscheidungsbäume um daraus Regeln abzuleiten welche neue Features erzeugen. Diese neu erzeugten Features werden dann von einem Linearen Modell interpretiert. Durch den Einsatz des linearen Modells verspricht RuleFit die von diesem Algorithmus gewohnte Interpretierbarkeit in Kombination mit besser Performance.
+RuleFit \parencite{Friedman2008} verwendet Entscheidungsbäume um daraus Regeln abzuleiten welche neue Features erzeugen. Diese neu erzeugten Features werden dann von einem Linearen Modell interpretiert. Durch den Einsatz des linearen Modells verspricht RuleFit die von diesem Algorithmus gewohnte Interpretierbarkeit in Kombination mit besserer Performance.
 \\\\
 Eine Python Bibliothek welche RuleFit implementiert ist \parencite{scopeRules}. Dies ist ein Beispiel aus der scope-rules Dokumentation wie durch RuleFit generierte Regeln aussehen können:
 \begin{minipage}[t]{\linewidth}
@@ -584,6 +584,11 @@ BILL_AMT1 > 410.0 and PAY_1 > 1.5 and PAY_old_mean > 0.125
 \end{minipage}
 
 \subsection{Naive Bayes}
+Naive Bayes Filter werden seid einiger Zeit sehr erfolgreich für die Spam Klassifikation von Emails eingesetzt. Aber auch für andere Klassifikationen ist Naive Bayes aufgrund der schnellen Berechnung bei guten Resultaten beliebt. Der Name kommt von der ``naiven'' Annahme dass die Features voneinander unabhängig sind, die sogenannte  ``Annahme von Unabhangigkeit''. Obwohl das in der Realität fast nie der Fall ist funktioniert Naive Bayes in der Regel sehr gut.
+
+\[ P(C_k|x) = \frac{1}{Z}P(C_k) \prod_{i=1}^{n}  P(x_i|C_k) \]
+
+Naive Bayes gilt als interpretierbares Modell aufgrund der Annahme der Unabhängigkeit. Für jedes Feature kann einfach bestimmt werden wie stark der Einfluss auf die Vorhersage ist da man die bedingte Wahrscheinlichkeit interpretieren kann.
 
 \section{Nicht Interpretierbares Model erstellen}
 Falls aufgrund der geforderten Performance oder vorhandenen Daten ein Verfahren eingesetzt wird das als nicht interpretierbar gilt kann man \Gls{xai} Werkzeuge einsetzen um eine Erklärung für das von dem Modell erzeugte Resultat zu generieren. Diese Techniken werden in dem Kapitel \ref{noninterpretable} näher erläutert.
@@ -1003,6 +1008,19 @@ Eines der in dem Tutorial erzeugten Bilder wird schliesslich als ``brain\_coral'
 	 \caption{Durch Adversarial Angriff erzeugtes Bild}
 \end{minipage}
 \end{center}
+
+\imgText{adversarial.png}{Adversarial Beispiel Szegedy 2013}{
+Ein subtileres Beispiel stammt aus der Arbeit ``Intriguing properties of neural networks'' \parencite{Szegedy2013}. 
+\\\\
+Die linke Spalte zeigt ein korrekt Klassifiziertes Bild.
+\\
+Die mittlere Spalte stellt den Unterschied zwischen dem korrekt klassifizierten Bild und der falschen Klasse dar.
+\\
+Rechts ist das mit der Adversarial Technik manipulierte Bild zu sehen.
+\\
+\\
+Alle Bilder in der Rechten Spalte wurden als ``Ostrich'' = Straus klassifiziert!
+}
 
 \subsubsection*{Täuschung der Verkehrszeichen-Erkennung eines Tesla}
 Ein interessantes Beispiel einer solchen ``Adversarial Attack'' ist die Arbeit eines Teams von McAffe Labs welches gezielt das System eines Tesla angegriffen hat und schlussendlich das Auto dazu gebracht hat anstatt 35mph (ungefähr 55kmh)  85mph (ca. 135kmh) als Geschwindigkeitsbegrenzung zu erkennen.\\
