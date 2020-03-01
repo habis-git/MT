@@ -121,6 +121,73 @@
 \DeclareCiteCommand{\cite}
   	{\ifentrytype{misc}{\textit{\printfield{note} }\bibopenbracket}{}}{\usebibmacro{citeindex}\ifentrytype{misc}{\usebibmacro{cite:num}}{\usebibmacro{cite}}}{\multicitedelim}{\ifentrytype{misc}{\bibclosebracket	}{}}
 
+\usepackage[many]{tcolorbox}
+\newtcolorbox{myboxi}[1][]{
+  breakable,
+  title=#1,
+  colback=white,
+  colbacktitle=white,
+  coltitle=black,
+  fonttitle=\bfseries,
+  bottomrule=0pt,
+  toprule=0pt,
+  leftrule=3pt,
+  rightrule=3pt,
+  titlerule=0pt,
+  arc=0pt,
+  outer arc=0pt,
+  colframe=black,
+}
+
+\newtcolorbox{myboxii}[1][]{
+  breakable,
+  freelance,
+  title=#1,
+  colback=white,
+  colbacktitle=white,
+  coltitle=black,
+  fonttitle=\bfseries,
+  bottomrule=0pt,
+  boxrule=0pt,
+  colframe=white,
+  overlay unbroken and first={
+  \draw[red!75!black,line width=3pt]
+    ([xshift=5pt]frame.north west) -- 
+    (frame.north west) -- 
+    (frame.south west);
+  \draw[red!75!black,line width=3pt]
+    ([xshift=-5pt]frame.north east) -- 
+    (frame.north east) -- 
+    (frame.south east);
+  },
+  overlay unbroken app={
+  \draw[red!75!black,line width=3pt,line cap=rect]
+    (frame.south west) -- 
+    ([xshift=5pt]frame.south west);
+  \draw[red!75!black,line width=3pt,line cap=rect]
+    (frame.south east) -- 
+    ([xshift=-5pt]frame.south east);
+  },
+  overlay middle and last={
+  \draw[red!75!black,line width=3pt]
+    (frame.north west) -- 
+    (frame.south west);
+  \draw[red!75!black,line width=3pt]
+    (frame.north east) -- 
+    (frame.south east);
+  },
+  overlay last app={
+  \draw[red!75!black,line width=3pt,line cap=rect]
+    (frame.south west) --
+    ([xshift=5pt]frame.south west);
+  \draw[red!75!black,line width=3pt,line cap=rect]
+    (frame.south east) --
+    ([xshift=-5pt]frame.south east);
+  },
+}
+
+\newcommand{\parag}[1]{\paragraph*{#1}\mbox{}\\}
+
 % end definition directory tree
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -848,10 +915,12 @@ Durch den Vergleich der Vektoren verschiedener Klassen innerhalb des selben Netz
 
 \chapter{Konkrete Anwendung von XAI}
 
-\section{Bilderkennung}
+\section{Bilderkennung: Klassifikation Hund - Katze}
+
 In den letzten Jahrzehnten wurden grosse Fortschritte in der Bilderkennung gemacht. Verantwortlich dafür sind vor allem Neuronale Netze, insbesondere die Techniken \acrfull{cnn} in Zusammenhang mit {dnn}. Neuronale Netze, insbesondere die für Bilderkennung weit verbreiteten \acrfull{dnn}, sind ohne weitere Hilfsmittel kaum zu analysieren.
 Durch den starken Fokus auf Neuronale Netze bei der Bilderkennung sind für diese Technik auch einige Methoden vorhanden um das Verhalten eines Modelles  auf ein Bild darzustellen.
-\subsection{WhiteBox Model: Klassifikation Hund - Katze}
+
+\subsection{White Box Modell}
 
 \subsubsection*{Versuch: Eingangsdaten mit BIAS}
 Daten welche für das trainieren von \Gls{ML} Modellen verwendet werden können eine unbekannt Struktur enthalten welche für die gewünschte Vorhersage nicht relevant ist, das Ergebnis jedoch verfälscht. Wenn ein solcher Effekt auftritt spricht man häufig von einem \Gls{KH}. Ein bekanntes Beispiel dieses Effektes trat bei einem Neuronalen Netz auf welches für einen Wettbewerb eingereicht wurde (Pascal VOC \cite{Everingham_thepascal}) und betraf die Erkennung von Pferden \parencite{Lapuschkin2019}. 
@@ -992,7 +1061,8 @@ Durch die Verfälschung der Trainings- und Testdaten wurde aus einem ``Katze ode
 \break 
 Eine weitere Erkenntnis ist die dass von den drei verwendeten Visualisierungs-Methoden nur \Gls{OS} die Fokussierung auf das falsche Bildelement ersichtlich macht. 
 
-\subsection{Vortrainiertes ImageNet Modell}
+\subsection{Black Box Modelll}
+
 Das für die folgenden Analysen verwendete Modell stammt aus der ImageNet Challenge \parencite{imageNet} aus dem Jahr 2014 und ist frei verfügbar \parencite{Simonyan2014}. Ein ImageNet Model definiert 1001 Klassen von Objekten welche erkannt werden. Eine Klassifikation mit \parencite{TensorFlow} erzeugt eine Liste mit den Wahrscheinlichkeiten für alle Klassen. 
 
 \subsubsection*{Versuch: Explorative Analyse der Bildklassifikation}
@@ -1068,15 +1138,22 @@ Mit der selben Technik wurde noch einmal das ursprüngliche Testbild analysiert.
 \imgText{Toilett-Tissue-Classification.png}{}{}
 
 
-\section{Texterkennung}
+\section{Texterkennung: Stimmungs-Analyse von Film-Bewertungen}
 Auch im Bereich der Texterkennung kann ein besseres Wissen über die Funktionsweise einer \Gls{MLg} Anwendung sowohl den Entwicklern als auch Anwendern helfen. Insbesondere bei den Problemstellungen Sentiment Analyse und Dokumenten Klassifikation kann \Gls{XAI} das Verständnis fördern.
 
-\subsection{Stimmungs-Analyse von Film-Bewertungen}
+\subsection{White Box Modell}
 \label{eli5MovieReview}
-Das folgende Beispiel visualisiert eine Sentiment Analyse von Bewertungen von Kinofilmen. Grundlage für das Experiment ist ein Tutorial \cite{movieReview} welches generell die Text Analyse mit \cite{scikit-learnLink} erläutert. Die Daten stammen aus einer Arbeit von Bo Pang and Lillian Lee \parencite{Pang+Lee2004} aus dem Jahre 2004 und sind ein Auszug von Film Reviews der Internetplattform IMDB. Jeweils 100 positive und negative Reviews werden, mit einem Testanteil von 20 Prozent, von einem RandomForest trainiert.
 
-\parencite{textClassEli5}
+Das folgende Beispiel visualisiert eine Stimmungs-Analyse (Sentiment Analysis) über die Kritiken von Kinofilmen der Besucher einer Internetseite über Filme. Grundlage für das Experiment ist ein Tutorial \cite{movieReview} welches eine Einführung in die Text Analyse mit scikit-learn erläutert. 
 
+\parag{Daten}
+Die Daten stammen aus einer Arbeit von Bo Pang and Lillian Lee \parencite{Pang+Lee2004} aus dem Jahre 2004 und sind ein Auszug von Film Reviews der Internetplattform IMDB. Jeweils 1000 positive und negative Reviews werden mit verschiedenen Algorithmen trainiert. Der Testanteil an den Daten ist jeweils 20\%.
+
+\parag{Verwendete Bibliotheken}
+Das Experiment verwendet \cite{nltk} um die Texte vorzubereiten, scikit-learn \cite{scikit-learnLink} für die Klassifikation und \cite{ELI5} um aus den Ergebnissen Erklärungen zu generieren. 
+
+\parag{Versuch 1: RandomForest Klassifikator}
+Der komplette Source Code ist als Jupyter Notebook unter folgendem Link erhältlich: \parencite{textClassEli5}
 \begin{lstlisting}[language=Python]
 from sklearn.ensemble import RandomForestClassifier
 
@@ -1090,6 +1167,10 @@ Die Konfusionsmatrix mit einer für ein Experiment annehmbare Fehlerquote und ei
 
 \subsubsection*{Visualisierung durch ELI5}
 Die Python Bibliothek \cite{ELI5} unterstützt einige \gls{ML} Bibliotheken und bietet die Möglichkeit Schlüsselwörter welche für eine Klassifikation relevant sind direkt in dem Ursprungstext darzustellen. 
+
+\begin{myboxi}[Darstellungsprobleme mit ELI5]
+Die Darstellung des Textes mit hervorgehobenen wichtigen Features (Wörtern) für die Klassifikation war nicht immer in Jupyter Notebook ersichtlich. Während auf einem Windows 10 Rechner keine Darstellung ersichtlich war, funktionierte die Anzeige auf einem zweiten PC mit den gleichen Versionen einwandfrei.
+\end{myboxi}
 
 \begin{center}
 \begin{minipage}[t]{0.45\linewidth}
@@ -1134,8 +1215,8 @@ Bei der Darstellung des negativen Film Reviews fällt auf dass Wörter welche f�
 \end{minipage}
 \end{center}
 
-\subsubsection*{Visualisierung durch LIME}
-\paragraph*{Positive Klassifikation - Eintrag 413}
+\parag{Versuch 2: Decision Tree Klassifikator}
+
 \begin{lstlisting}
 from sklearn.tree import DecisionTreeClassifier
 
@@ -1158,8 +1239,19 @@ print('Probability(neg) =', c.predict_proba([doc])[0,1])
 exp.show_in_notebook(text=True) 
 \end{lstlisting}
 
+\imgText{MovieReview-DT-Accuracy.PNG}{}{}
+
+\subsubsection*{Visualisierung durch LIME}
+\paragraph*{Positive Klassifikation - Eintrag 413}
+
+
 \imgText{MovieReview-DecisionTree-Display-413.PNG}{}{
 }
+
+\imgText{MovieReview-DecisionTree-Display-414.PNG}{}{
+}
+
+\parag{Versuch 3: Naive Bayes Klassifikator}
 
 \begin{lstlisting}
 from sklearn.naive_bayes import MultinomialNB
@@ -1173,13 +1265,20 @@ print('Probability(neg) =', pipelineNB.predict_proba([doc])[0,1])
 exp.show_in_notebook(text=True)
 \end{lstlisting}
 
+\imgText{MovieReview-NB-Accuracy.PNG}{}{}
+
 \imgText{MovieReview-NaiveBayes-Display-413.PNG}{}{
 }
+
+\imgText{MovieReview-NaiveBayes-Display-414.PNG}{}{
+}
+
+\subsection{Black Box Modell}
 
 \subsubsection*{Blackbox Visualisierung mit LIME}
 Während in dem vorherigen Beispiel ein \Gls{White Box} Model angewendet wurde, kann können auch \Gls{Black Box} Modelle analysiert werden. Dafür benutzen sowohl \cite{ELI5} als auch \cite{lime} das \acrshort{lime} Verfahren um die Vorhersage zu erklären und das Modell zu interpretieren.
 \\\\
-Der selbe Datensatz wie in \ref{eli5MovieReview} wurde für einen weiteren Klassifikator genutzt, dieses Mal allerdings mit dem \acrfull{lstm} Verfahren welches zu den neuralen Netzen gehört. Die Grundlage des Skriptes bildet der Blog-Beitrag \parencite{nThLIME} welcher von mir für die geänderte Datenquelle angepasst wurde. Das Jupyter Notebook mit dem gesamten Source Code ist auf github.com vorhanden \parencite{textClassLime}.
+Der selbe Datensatz wie in \ref{eli5MovieReview} wurde für einen weiteren Klassifikator genutzt, dieses Mal allerdings mit dem \acrfull{lstm} Verfahren welches zu den neuronalen Netzen gehört. Die Grundlage des Skriptes bildet der Blog-Beitrag \parencite{nThLIME} welcher von mir für die geänderte Datenquelle angepasst wurde. Das Jupyter Notebook mit dem gesamten Source Code ist auf github.com vorhanden \parencite{textClassLime}.
 
 \begin{lstlisting}[language=Python, caption=LSTM Modell für LIME Movie Sentiment Analyse]
 model = Sequential()
