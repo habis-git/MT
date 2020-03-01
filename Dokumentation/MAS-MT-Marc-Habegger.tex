@@ -111,13 +111,15 @@
 
 % switch citation style based on entry type
 \DeclareCiteCommand{\parencite}
-  {\ifentrytype{misc}{\textit{\usebibmacro{title}}\bibopenbracket}{\bibopenparen}%
-   \usebibmacro{prenote}}%
-  {\usebibmacro{citeindex}%
-   \ifentrytype{misc}{\usebibmacro{cite:num}}{\usebibmacro{cite}}}
-  {\multicitedelim}
-  {\usebibmacro{postnote}%
-   \ifentrytype{misc}{\bibclosebracket}{\bibcloseparen}}
+  {\ifentrytype{misc}{	\textit{\usebibmacro{title}}\bibopenbracket}{\bibopenparen}\usebibmacro{prenote}}{%
+  	\usebibmacro{citeindex}%
+   	\ifentrytype{misc}{\usebibmacro{cite:num}}{\usebibmacro{cite}}}%
+  {\multicitedelim}{\usebibmacro{postnote}%
+   	\ifentrytype{misc}{\bibclosebracket}{\bibcloseparen}}
+   
+% switch citation style based on entry type
+\DeclareCiteCommand{\cite}
+  	{\ifentrytype{misc}{\textit{\printfield{note} }\bibopenbracket}{}}{\usebibmacro{citeindex}\ifentrytype{misc}{\usebibmacro{cite:num}}{\usebibmacro{cite}}}{\multicitedelim}{\ifentrytype{misc}{\bibclosebracket	}{}}
 
 % end definition directory tree
 
@@ -171,7 +173,7 @@
 		\caption{#2}
 	\end{minipage}\hfill
     \begin{minipage}[t]{0.4\textwidth}
-    		\vspace{20pt}
+    		\vspace{5pt}
   		#3
     \end{minipage}
 \end{center}
@@ -321,7 +323,9 @@ Erkenntnisse durch \gls{xai} Techniken können den Entwicklern helfen Irrwege un
 Ebenso kann ein Modell falsche Resultate liefern, sei es weil die ursprünglichen Trainingsdaten unvollständig waren, oder weil neue Bedingungen aufgetreten sind. Eine Erklärung weshalb dieses falsche Resultat erzeugt wurde kann den Entwickler in die Lage versetzen ein verbessertes Model zu erzeugen. Dies kann sowohl beim Erstellen des Modelles geschehen (training) oder bei der Aufbearbeitung der Daten welche durch das Model verarbeitet werden sollen (preprocessing).
 
 \subsection{Datenschutz}
-Jede \Gls{ML} Lösung setzt grosse Datenmengen voraus. Diese müssen den Anforderungen des Datenschutzes entsprechend aufbereitet und gegebenenfalls anonymisiert werden.
+Jede \Gls{ML} Lösung setzt grosse Datenmengen voraus. Diese müssen den Anforderungen des Datenschutzes entsprechend aufbereitet und gegebenenfalls anonymisiert werden. Zudem besteht die Gefahr dass mit Modelle Rückschlüsse auf die Daten zulassen mit denen sie trainiert wurden.
+
+Das Gebiet Datenschutz ist durch Vorstösse von NGO's, Politikern und vor allem durch die \acrfull{DSGVO} der EU, in den Fokus von Regierungsbehörden gelangt.
 
 Der jüngste Bericht der \acrfull{dek} der Deutschen Regierung \parencite{datenEthik} geht in Kapitel 3. konkret auf  \Gls{ML} Anwendungen ein.
 \break
@@ -600,16 +604,6 @@ Falls aufgrund der geforderten Performance oder vorhandenen Daten ein Verfahren 
 \subsection{Erklärungen aus Modell generieren}
 Wenn man Erklärungen von einem Modell erstellen will muss man sich zuerst über den Spielraum der gewünschten Erklärung sicher sein. Man unterscheidet dabei zwischen einer lokalen (local interpretability) und einer globalen (global interpretability) Erklärung.
 \\\\
-Lokale Erkärungen gelten für eine Bestimmte Klasse und erklären weshalb das Modell gerade diese Klasse als Vorhersage gewählt hat. Diese Arbeit befasst stellt nur lokale Erklärungen vor, diese sind einfach zu prüfen und anzuwenden.
-\\
-\paragraph*{Verfahren für lokale Erklärungen}
-\begin{itemize}
-	\item \Gls{GC} \ref{gradCam}
-	\item \Gls{OS} \ref{os}
-	\item \Gls{GI}
-	\item \Gls{lrp}  \ref{lrp}
-\end{itemize}
-
 Globale Erklärungen können das Verständnis für den Umgang mit sämtlichen Daten liefern, dies ist besonders hilfreich wenn geprüft werden soll ob das Modell einem \Gls{BIAS} unterliegt. Informationen zu den aufgelisteten Verfahren können unter in den referenzierten Artikeln gefunden werden.
 
 \paragraph*{Verfahren für globale Erklärungen}
@@ -620,6 +614,16 @@ Globale Erklärungen können das Verständnis für den Umgang mit sämtlichen Da
 	\item BETA \parencite{Lakkaraju2017}
 \end{itemize}
 
+Lokale Erkärungen gelten für eine Bestimmte Klasse und erklären weshalb das Modell gerade diese Klasse als Vorhersage gewählt hat. Diese Arbeit befasst stellt nur lokale Erklärungen vor, diese sind einfach zu prüfen und anzuwenden.
+\\
+\paragraph*{Verfahren für lokale Erklärungen}
+\begin{itemize}
+	\item \Gls{GC} \ref{gradCam}
+	\item \Gls{OS} \ref{os}
+	\item \Gls{GI}
+	\item \Gls{lrp}  \ref{lrp}
+\end{itemize}
+
 \subsection{Bias Kontrolle}
 
 \chapter{XAI Methoden}
@@ -628,14 +632,14 @@ Globale Erklärungen können das Verständnis für den Umgang mit sämtlichen Da
 \section{Grad CAM}
 \label{gradCam}
 
-\Gls{GC} ist eine Technik \parencite{Selvaraju2016} um auf der Basis von \Gls{grad} die für eine Bildklassifikation relevanten Bereiche eines Bildes hervorzuheben. Während die relevantesten Bereiche (gelb gefärbt) um den Kopf und vor allem den Ohren der Katze sind, zeigen die Darstellungen für die unpassenden Klassen auf Bereiche des Bodens. 
+\Gls{GC} ist eine Technik \parencite{Selvaraju2016} um auf der Basis von \Gls{grad} die für eine Bildklassifikation relevanten Bereiche eines Bildes hervorzuheben. \Gls{grad} gilt als Verfahren für lokale Erklärbarkeit und wird somit immer zusammen mit einer gewählten Klassifikation angewendet. In diesem Beispiel wurden die fünf wahrscheinlichsten Klassen eines \Gls{DNN} für das Bild ganz Rechts dargestellt. Während die relevantesten Bereiche (gelb gefärbt) um den Kopf und vor allem den Ohren der Katze sind, zeigen die Darstellungen für die unpassenden Klassen auf Bereiche des Bodens. 
 
 \fullImg{Grad-Cam-Classes.png}{Grad CAM Analyse für verschiedene Klassen}
 Die Pixel welche einen positiven Einfluss auf die gewählte Klassen haben sind Gelb dargestellt während negativ Einflüsse Blau eingefärbt wurden. Das obenstehende Bild wurde mit dem  Python Skript aus \ref{multiClass} erstellt.
 
 \paragraph*{Visualisierung mit tf\_explain}
 \break
-Um ein Bild der Klasse mit der höchsten Wahrscheinlichkeit zu erzeugen kann dieses Python Skript verwendet werden. Benötigt werden dazu die Bibliotheken \parencite{TensorFlow} und  \parencite{tfExplain}.
+Um ein Bild der Klasse mit der höchsten Wahrscheinlichkeit zu erzeugen kann dieses Python Skript verwendet werden. Benötigt werden dazu die Bibliotheken \parencite{TensorFlow} und  \parencite{tfExplain} sowie das Modell \parencite{vgg16}.
 \begin{lstlisting}[language=Python, caption=Grad CAM Visualisierung für die wahrscheinlichste Klasse]
 import tensorflow as tf
 from keras.applications.vgg16 import preprocess_input
@@ -671,10 +675,7 @@ plt.show()
 \section{Occlusion Sensitivity}
 \label{os}
 Eine weitere Variante um relevante Bildbereiche aufzudecken ist \Gls{OS}, vorgestellt durch Zeiler  und Fergus im Jahr 2013 \parencite{Zeiler2013}. Occlusion Sensitivity bestimmt durch erzeugte Störungen im Ursprungsbild den Einfluss der einzelnen Bildbereiche auf die Vorhersage.
-\\\\
-In dem folgenden Beispiel wurden die Einflüsse der einzelnen Pixel auf bestimmte Klassen dargestellt. Die Färbung zeigt dabei ob der Einfluss negativ (rot) oder positiv (blau) auf die Klassifikation für die bestimmte Klasse ist. Diese Visualisierung wurde durch die Bibliothek \parencite{tfExplain} und dem vortrainierten Modell  \parencite{vgg16} erzeugt.
-\fullImg{OcclusionSensitivity-Classes.png}{Testbild mit Occlusion Sensivity}
-Während bei den drei Klassen welche für Katzenrassen stehen (Egyptian\_cat, tabby\, tiger\_cat) hauptsächlich der Körper oder Kopf der Katze als relevant gilt, sind bei den letzten Klassifikationen welche Objekte darstellen (carton, toilet\_tissue) vor allem Hintergrundbereiche wichtig.
+
 \begin{center}
 \begin{minipage}[t]{0.45\linewidth}
 \vspace{0pt}
@@ -687,6 +688,46 @@ Während bei den drei Klassen welche für Katzenrassen stehen (Egyptian\_cat, ta
 Das Bild links erläutert die Vorgehensweise des \gls{OS} Algorithmus. \Gls{OS} entfernt unterschiedliche Bildbereiche des Original Bildes und misst dabei den Einfluss auf die Klassifizierung. Die Grösse des verdeckten Bildbereiches bestimmt die Auflösung der schlussendlich erzeugten Heatmap, allerdings wird bei einem kleineren Bereich auch die Anzahl an Durchläufen (und somit die Bearbeitungszeit) erhöht um das ganze Bild abdecken.
 \end{minipage}
 \end{center}
+
+In dem folgenden Beispiel wurden die Einflüsse der einzelnen Pixel auf bestimmte Klassen dargestellt. Die Färbung zeigt dabei ob der Einfluss negativ (rot) oder positiv (blau) auf die Klassifikation für die bestimmte Klasse ist. Diese Visualisierung wurde durch die Bibliothek \parencite{tfExplain} und dem vortrainierten Modell  \parencite{vgg16} erzeugt.
+\fullImg{OcclusionSensitivity-Classes.png}{Testbild mit Occlusion Sensivity}
+Während bei den drei Klassen welche für Katzenrassen stehen (Egyptian\_cat, tabby\, tiger\_cat) hauptsächlich der Körper oder Kopf der Katze als relevant gilt, sind bei den letzten Klassifikationen welche Objekte darstellen (carton, toilet\_tissue) vor allem Hintergrundbereiche wichtig.
+
+\paragraph*{Visualisierung mit tf\_explain}
+\break
+Um ein Bild der Klasse mit der höchsten Wahrscheinlichkeit zu erzeugen kann dieses Python Skript verwendet werden. Benötigt werden dazu die Bibliotheken \parencite{TensorFlow} und  \parencite{tfExplain} sowie das Modell \parencite{vgg16}.
+\begin{lstlisting}[language=Python, caption=Occlusion Sensitivity Visualisierung für die wahrscheinlichste Klasse]
+import tensorflow as tf
+from keras.applications.vgg16 import preprocess_input
+from keras.applications.vgg16 import decode_predictions
+from tf_explain.core.occlusion_sensitivity import OcclusionSensitivity
+
+from matplotlib import pyplot as plt
+
+model = tf.keras.applications.vgg16.VGG16(weights="imagenet", include_top=True)
+
+imageOrig = tf.keras.preprocessing.image.load_img('D:/Master Thesis/Repo/Test Images/tabby.2.JPG', target_size=(224, 224))
+imageArr = tf.keras.preprocessing.image.img_to_array(imageOrig)  #output Numpy-array
+
+imageReshaped = imageArr.reshape((1, imageArr.shape[0], imageArr.shape[1], imageArr.shape[2]))
+
+image = preprocess_input(imageReshaped)
+predictions = model.predict(imageReshaped)
+
+import numpy as np
+prediction = np.argsort(predictions)[0,::-1][:1]
+
+labels = decode_predictions(predictions, 15)
+
+img = tf.keras.preprocessing.image.img_to_array(imageOrig)
+data = ([img], None)
+    
+explainer = OcclusionSensitivity()
+img = explainer.explain(class_index=prediction[0], model=model, patch_size= 40, validation_data=data)
+plt.imshow(img)
+plt.show()
+\end{lstlisting}
+Der Parameter ``patch\_size'' in auf Zeile 27 definiert die Grösse des ausgeblendeten Bereiches. Ein kleinerer Wert erhöht die Auflösung des ausgegebenen Bildes, verlängert jedoch auch die Berechnungszeit.
 
 \section{LRP}
 \label{lrp}
@@ -729,7 +770,54 @@ In diesem Beispiel ist ersichtlich welche Bildbereiche (maskiert) nach \gls{lime
  \captionof{figure}{Darstellung relevanter Bildinhalte durch LIME}
 
 Gegenüber den vorherigen Methoden ist LIME durch die Erzeugung temporärer Modelle bedeutend aufwendiger und dadurch auch langsamer.
-\clearpage
+
+\paragraph*{Visualisierung mit lime}
+\break
+Um ein Bild der Klasse mit der höchsten Wahrscheinlichkeit zu erzeugen kann dieses Python Skript verwendet werden. Benötigt werden dazu die Bibliotheken \parencite{TensorFlow} und das Package lime aus \parencite{limeKeras} sowie das Modell \parencite{vgg16}.
+\begin{lstlisting}[language=Python, caption=Lime Visualisierung für die wahrscheinlichste Klasse]
+import tensorflow as tf
+from keras.applications.vgg16 import preprocess_input
+from keras.applications.vgg16 import decode_predictions
+
+from matplotlib import pyplot as plt
+
+model = tf.keras.applications.vgg16.VGG16(weights="imagenet", include_top=True)
+
+imageOrig = tf.keras.preprocessing.image.load_img('D:/Master Thesis/Repo/Test Images/tabby.2.JPG', target_size=(224, 224))
+imageArr = tf.keras.preprocessing.image.img_to_array(imageOrig)  #output Numpy-array
+
+imageReshaped = imageArr.reshape((1, imageArr.shape[0], imageArr.shape[1], imageArr.shape[2]))
+
+image = preprocess_input(imageReshaped)
+predictions = model.predict(imageReshaped)
+
+import numpy as np
+prediction = np.argsort(predictions)[0,::-1][:1]
+
+labels = decode_predictions(predictions, 15)
+    
+import lime 
+from lime import lime_image
+
+imgAsArray = tf.keras.preprocessing.image.img_to_array(imageOrig)
+out = []
+x = np.expand_dims(imgAsArray, axis=0)
+x = preprocess_input(x)
+out.append(x)
+imagesStack = np.vstack(out)
+            
+explainer = lime_image.LimeImageExplainer()
+
+explanation = explainer.explain_instance(imagesStack[0], model.predict, top_labels=1, hide_color=0, num_samples=1000)
+
+from skimage.segmentation import mark_boundaries
+
+temp, mask = explanation.get_image_and_mask(explanation.top_labels[0], positive_only=True, num_features=5, hide_rest=True)
+image = mark_boundaries(temp / 2 + 0.5, mask)
+plt.imshow(image)
+plt.show()
+\end{lstlisting}
+
 \section{TCAV}
  \acrfull{tcav} wurde 2017 vorgestellt \parencite{Kim2017} und ist eine fortgeschrittene Methode um Erklärungen basierend auf den Bildinhalten zu generieren. Zu diesem Zweck werden zusätzliche Modelle als Beispiele für Bildinhalte erzeugt.
  
@@ -984,6 +1072,7 @@ Mit der selben Technik wurde noch einmal das ursprüngliche Testbild analysiert.
 Auch im Bereich der Texterkennung kann ein besseres Wissen über die Funktionsweise einer \Gls{MLg} Anwendung sowohl den Entwicklern als auch Anwendern helfen. Insbesondere bei den Problemstellungen Sentiment Analyse und Dokumenten Klassifikation kann \Gls{XAI} das Verständnis fördern.
 
 \subsection{Stimmungs-Analyse von Film-Bewertungen}
+\label{eli5MovieReview}
 Das folgende Beispiel visualisiert eine Sentiment Analyse von Bewertungen von Kinofilmen. Grundlage für das Experiment ist ein Tutorial \cite{movieReview} welches generell die Text Analyse mit \cite{scikit-learnLink} erläutert. Die Daten stammen aus einer Arbeit von Bo Pang and Lillian Lee \parencite{Pang+Lee2004} aus dem Jahre 2004 und sind ein Auszug von Film Reviews der Internetplattform IMDB. Jeweils 100 positive und negative Reviews werden, mit einem Testanteil von 20 Prozent, von einem RandomForest trainiert.
 
 \parencite{textClassEli5}
@@ -1021,10 +1110,12 @@ Allerdings verhält sich ELI5 bei einer binären Klassifizierung so dass nur ein
 
 Um einen Datensatz zu visualisieren verwendete man die Methode ``explain\_prediction()'', welche sowohl Details über die Features als auch eine Darstellung des Textes mit den hervorgehobenen Schlüsselwörtern anzeigt. Je nach verwendetem Modell weicht die Darstellung von dem hier dargestellten Bild ab, bei gewissen Tree Algorithmen (z.Bsp. DecisionTree) wird zusätzlich noch die Baumstruktur angezeigt.
 \begin{lstlisting}[language=Python]
-doc = documents[414]
+doc = documents[413]
 eli5.explain_prediction(classifier, doc, vec=vectorizer,target_names=['neg','pos'], top=20)
 \end{lstlisting}
 
+\paragraph*{Positive Klassifikation - Eintrag 413}
+\label{eli5413}
 \begin{center}
 \begin{minipage}[t]{\linewidth}
 \includegraphics[width=\textwidth]{Bilder/MovieReviews-SentimentClassification_1.PNG}
@@ -1032,6 +1123,8 @@ eli5.explain_prediction(classifier, doc, vec=vectorizer,target_names=['neg','pos
 \end{minipage}
 \end{center}
 
+\paragraph*{Negative Klassifikation - Eintrag 414}
+\label{eli5414}
 Bei der Darstellung des negativen Film Reviews fällt auf dass Wörter welche für eine negative Stimmung stehen Grün markiert sind. Dies kommt daher dass für ELI5 die wahrscheinlichste Klasse `neg' ist (81\%) und deshalb alle Schlüsselwörter welche auf diese Klasse hinweisen grün markiert werden.
 
 \begin{center}
@@ -1041,8 +1134,89 @@ Bei der Darstellung des negativen Film Reviews fällt auf dass Wörter welche f�
 \end{minipage}
 \end{center}
 
-\subsubsection*{Blackbox Visualisierung mit ELI5}
-Während in dem letzten Beispiel ein White Box Model angewendet wurde, kann \cite{ELI5} auch Black Box Modelle analysieren. Dazu verwendet \cite{ELI5} eine \Gls{lime} implementation und die Vorhersage zu erklären.
+\subsubsection*{Visualisierung durch LIME}
+\paragraph*{Positive Klassifikation - Eintrag 413}
+\begin{lstlisting}
+from sklearn.tree import DecisionTreeClassifier
+
+classifier = DecisionTreeClassifier()
+classifier.fit(X_train, y_train)
+
+doc = documents[413]
+
+from lime import lime_text
+from sklearn.pipeline import make_pipeline
+
+c = make_pipeline(vectorizer, classifier)
+
+from lime.lime_text import LimeTextExplainer
+explainer = LimeTextExplainer(class_names=['neg','pos'])
+
+exp = explainer.explain_instance(doc, c.predict_proba, num_features=10)
+print('Probability(neg) =', c.predict_proba([doc])[0,1])
+
+exp.show_in_notebook(text=True) 
+\end{lstlisting}
+
+\imgText{MovieReview-DecisionTree-Display-413.PNG}{}{
+}
+
+\begin{lstlisting}
+from sklearn.naive_bayes import MultinomialNB
+classifierNB = MultinomialNB().fit(X_train, y_train)
+
+pipelineNB = make_pipeline(vectorizer, classifierNB)
+
+exp = explainer.explain_instance(doc, pipelineNB.predict_proba, num_features=20)
+print('Probability(neg) =', pipelineNB.predict_proba([doc])[0,1])
+
+exp.show_in_notebook(text=True)
+\end{lstlisting}
+
+\imgText{MovieReview-NaiveBayes-Display-413.PNG}{}{
+}
+
+\subsubsection*{Blackbox Visualisierung mit LIME}
+Während in dem vorherigen Beispiel ein \Gls{White Box} Model angewendet wurde, kann können auch \Gls{Black Box} Modelle analysiert werden. Dafür benutzen sowohl \cite{ELI5} als auch \cite{lime} das \acrshort{lime} Verfahren um die Vorhersage zu erklären und das Modell zu interpretieren.
+\\\\
+Der selbe Datensatz wie in \ref{eli5MovieReview} wurde für einen weiteren Klassifikator genutzt, dieses Mal allerdings mit dem \acrfull{lstm} Verfahren welches zu den neuralen Netzen gehört. Die Grundlage des Skriptes bildet der Blog-Beitrag \parencite{nThLIME} welcher von mir für die geänderte Datenquelle angepasst wurde. Das Jupyter Notebook mit dem gesamten Source Code ist auf github.com vorhanden \parencite{textClassLime}.
+
+\begin{lstlisting}[language=Python, caption=LSTM Modell für LIME Movie Sentiment Analyse]
+model = Sequential()
+model.add(Embedding(max_features, 128))
+model.add(Bidirectional(LSTM(128, dropout=0.5, recurrent_dropout=0.5)))
+model.add(Dense(1, activation='sigmoid'))
+model.compile('adam', 'binary_crossentropy', metrics=['accuracy'])
+\end{lstlisting}
+
+\imgText{MovieReview-LSTM-Summary.PNG}{Summary LSTM Netz für Movie Sentiment Analyse}{
+
+}
+
+\imgText{MovieReview-LSTM-Accuracy.PNG}{Accuracy des LSTM Netz für Movie Sentiment Analyse}{
+
+}
+
+\paragraph*{Positive Klassifikation - Eintrag 413}
+Erneut wird der bereits vorher \ref{eli5413} positiv klassifizierte Beitrag mit der Id 413 analysiert.
+\begin{lstlisting}
+Probability(positive) = 0.99591535
+True class: positive
+\end{lstlisting}
+\imgText{MovieReview-LSTM-Display-413.PNG}{Visualisierung Movie Review 413}{
+Obwohl die Klassifizierung auch diesmal positiv ist werden völlig andere Wörter für dieses Resultat verantwortlich gemacht.
+Auffallend ist dass das Wort ``bad'' für dieses Modell und dieses Review keine Relevanz hat.
+}
+
+\paragraph*{Negative Klassifikation - Eintrag 414}
+Auch der Eintrag 414 wird wie bereits in \ref{eli5414} analysiert.
+\begin{lstlisting}
+Probability(positive) = 0.037772316
+True class: negative
+\end{lstlisting}
+\imgText{MovieReview-LSTM-Display-414.PNG}{Visualisierung Movie Review 414}{
+Das Wort ``unfunny'' wurde wie auch in der ersten Analyse als stark relevant für die Klassifikation befunden während diesmal ``stupid'' keine Beachtung findet. Ein Fehler im Skript wird durch diese Darstellung deutlich sichtbar: Die Filterung der Stop-Wörter scheint nicht korrekt zu funktionieren, die beiden Wörter ``and'' und ``in'' sollten nicht in die Klassifizierung einbezogen werden.
+}
 
 \chapter{Schwächen von ML Modellen erkennen}
 Die in den vorherigen Kapiteln vorgestellten Techniken erlauben einen besseren Einblick in die Funktionsweise von \Gls{ML} Modellen. Dieses Wissen kann dazu genutzt werden um Schwächen oder auch gezielte Angriffe auf Anwendungen mit integrierten \Gls{ML} Modellen zu erkennen.

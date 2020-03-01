@@ -57,7 +57,13 @@
 \newglossaryentry{Black Box}                                 
 {
 	name=Black Box,
-	description={System welches nicht im Quellcode vorhanden ist und dadurch nicht durch Analyse der Programmierung verstanden werden kann. Jegliche Rückschlüsse sind nur durch Beobachtungen möglich}                                   
+	description={System welches nicht im Quellcode vorhanden ist und dadurch nicht durch Analyse der Programmierung verstanden werden kann. Jegliche Rückschlüsse sind nur durch Beobachtungen möglich.}                                   
+}     
+
+\newglossaryentry{White Box}                                 
+{
+	name=White Box,
+	description={System über welches man Kenntnisse der inneren Funktionsweise hat. In der Regel ist der Sourcecode des Systems verfügbar und kann für die Analyse verwendet werden.}                                   
 }     
 
 \newglossaryentry{DT}                                 
@@ -125,6 +131,22 @@
 	name=Binärer Klassifikator,
      description={Ein binärer Klassifikator ist eine Sonderform eines Klassifikators welche nur eine Klasse kennt. Häufig sind das ja/nein Fragen zum Beispiel ``ist auf diesem Bild ein Tumor erkennbar?''.}
 }
+
+\newglossaryentry{lstmG}
+{
+	name=Long short-term memory,
+     description={Variante eines neuronalen Netzes welches Informationen aus früheren Verarbeitungsphasen erneut einbinden kann.}
+}
+
+\newglossaryentry{dsgvo}
+{
+	name=Datenschutz-Grundverordnung,
+     description={Verordnung der Europäischen Union mit der die Regeln zur Verarbeitung personenbezogener Daten durch die meisten Datenverarbeiter, sowohl private wie öffentliche, EU-weit vereinheitlicht werden. Definiert Anforderungen an den Datenschutz und die Datenverarbeitung welche für \Gls{ML} Lösungen betreffen.}
+}
+
+\newacronym{lstm}{LSTM}{Long short-term memory}
+
+\newacronym{DSGVO}{DSGVO}{Datenschutz-Grundverordnung}
 
 \newacronym{ML}{ML}{Machine Learning}
 
