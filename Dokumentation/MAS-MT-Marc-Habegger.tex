@@ -256,7 +256,9 @@
 	\end{minipage}\hfill
     \begin{minipage}[t]{0.4\textwidth}
     		\vspace{5pt}
+    		\begin{FlushRight}
   		#4
+  		\end{FlushRight}
     \end{minipage}
 \end{center}
 }
@@ -309,15 +311,16 @@
 \mainmatter % The main part
 %**************************************************************************
 %\part{Part One}
-
+\widowpenalty=500
+\raggedright
 \chapter{Einleitung}
 Computerprogramme bestehen in der Regel aus Tausenden bis Millionen Zeilen von Anweisungen welche, für die verschiedenen Aufgabengebiete zuständig sind. Einige der Programmroutinen stellen die grafische Benutzeroberfläche dar, während andere sich um das Speichern und laden von Dateien kümmern. Ein Teil der Anweisungen definieren Regeln nach denen Daten verarbeitet und analysiert werden. Solche Regeln werden von Fachspezialisten definiert und durch Software-Entwickler umgesetzt. Mit einem derartigen Vorgehen konnten viele alltägliche Probleme gelöst werden, Software ist inzwischen in der Wirtschaft wie im privaten Umfeld allgegenwärtig geworden. 
-\\\\
+
 Die Ausformulierung solcher Regeln nach denen sich Software verhalten soll, ist aber ein aufwendiger und fehlerträchtiger Prozess. Gewisse Gebiete sind durch die Komplexität der Aufgabenstellung nur rudimentär in Regeln zu fassen. Solche Gebiete sind unter anderem Bilderkennung, Text- oder Sprachverständnis. In diesen Gebieten zeigen Menschen und Tiere bedeutend bessere Fähigkeiten zeigen als Computerprogramme. 
-\\\\
+
 Während programmierte Regeln in Computer Programmen sofort zur Verfügung stehen, müssen Menschen und Tiere ihre Fähigkeiten oftmals über längere Zeit trainieren und üben. Bis die gewünschten Fähigkeiten in genügender Qualität vorhanden sind können Jahre vergehen. Durch solche biologische Prozesse als Vorbild wurde die Disziplin \gls{ML} entwickelt, welche auch Computer in die Lage versetzen soll, bislang nur bei Mensch und Tier gefundene Fähigkeiten, zu erlangen.
 \gls{ML} wird seit den 1960er Jahren angewendet, allerdings waren die erzielten Resultate lange Zeit für viele Anwendungen ungenügend. Durch die Verfügbarkeit von grossen Datenmengen (Big Data, Cloud) und der gesteigerten Rechenleistung der Rechner wurden nach der Jahrtausendwende so gute Fortschritte erzielt, so dass immer mehr Anwendungsmöglichkeiten für \gls{ML} Lösungen gefunden wurden. 
-\\\\
+
 Oftmals wird auch von \acrfull{AI} gesprochen wenn \acrfull{ML} gemeint ist, die beiden Begriffe sind schwer zu trennen.
 
 \fullImg{ML-Timeline.png}{Entwicklung des Machine Learning als Zeitachse}
@@ -512,8 +515,8 @@ TODO: Übersicht der Techniken und Anwendungsbereiche wie in der Grafik
 \section{Interpretierbares Modell erstellen}
 
 Falls eine Anforderung besteht, dass die erzeugten Resultate interpretierbar sein müssen, kann direkt ein grundsätzlich interpretierbares Modelle erzeugt werden. Der Preis dafür kann jedoch eine geringere Performance sein. Natürlich ist in diesem Fall \Gls{xai} unnötig.
-\\
-\\
+
+
 Folgende Algorithmen gelten generell als interpretierbar:
 \begin{itemize}
 	\item Linear Regression \ref{lr}
@@ -530,7 +533,7 @@ Folgende Algorithmen gelten generell als interpretierbar:
 	\item K-Nearest Neighbors
 \end{itemize}
 Diese Liste hat keinen Anspruch auf Vollständigkeit, zudem können auch diese Modelle sehr komplex werden was die Verständlichkeit reduziert.
-\\\\
+
 Als einfache Entscheidungshilfe welches Modell am besten zu der gestellten Aufgabe passt kann diese Tabelle benutzt werden. Als Methode kann entweder eine Klassifikation (klass.), Regression (regr.) oder sogar beide Arten angewandt werden.  \\
 \begin{table}[ht]
 \begin{tabular}{@{} *5l @{}}    \toprule
@@ -587,9 +590,9 @@ Lineare Regression hat einige Schwächen wie z. Bsp. die Annahme der Normalverte
 \begin{minipage}[t]{0.55\linewidth}
 \vspace{0pt}
 Wenn die Voraussetzungen für eine Lineare Regression nicht erfüllt sind kann trotzdem mittels \Gls{glm} und \Gls{gam} eine Regression durchgeführt werden.
-\\\\
+
 Die Formeln für die beiden Varianten lauten:
-\\\\
+
 \acrshort{gam} \[g(E_Y(y|x))=\beta_0+\beta_1x_1+…\beta_p(x_p)\]
 
 \acrshort{glm} \[g(E_Y(y|x))=\beta_0+f_1(x_1)+f_2(x_2)+…+f_p(x_p)\]
@@ -638,7 +641,7 @@ Der für diese Visualisierungen verwendete Source Code ist in Kapitel \ref{dt-vi
 \subsection{RuleFit}
 \label{RF}
 RuleFit \parencite{Friedman2008} verwendet Entscheidungsbäume um daraus Regeln abzuleiten welche neue Features erzeugen. Diese neu erzeugten Features werden dann von einem Linearen Modell interpretiert. Durch den Einsatz des linearen Modells verspricht RuleFit die von diesem Algorithmus gewohnte Interpretierbarkeit in Kombination mit besserer Performance.
-\\\\
+
 Eine Python Bibliothek welche RuleFit implementiert ist \parencite{scopeRules}. Dies ist ein Beispiel aus der scope-rules Dokumentation wie durch RuleFit generierte Regeln aussehen können:
 \begin{minipage}[t]{\linewidth}
 \begin{lstlisting}
@@ -670,7 +673,7 @@ Falls aufgrund der geforderten Performance oder vorhandenen Daten ein Verfahren 
 
 \subsection{Erklärungen aus Modell generieren}
 Wenn man Erklärungen von einem Modell erstellen will muss man sich zuerst über den Spielraum der gewünschten Erklärung sicher sein. Man unterscheidet dabei zwischen einer lokalen (local interpretability) und einer globalen (global interpretability) Erklärung.
-\\\\
+
 Globale Erklärungen können das Verständnis für den Umgang mit sämtlichen Daten liefern, dies ist besonders hilfreich wenn geprüft werden soll ob das Modell einem \Gls{BIAS} unterliegt. Informationen zu den aufgelisteten Verfahren können unter in den referenzierten Artikeln gefunden werden.
 
 \paragraph*{Verfahren für globale Erklärungen}
@@ -682,7 +685,7 @@ Globale Erklärungen können das Verständnis für den Umgang mit sämtlichen Da
 \end{itemize}
 
 Lokale Erkärungen gelten für eine Bestimmte Klasse und erklären weshalb das Modell gerade diese Klasse als Vorhersage gewählt hat. Diese Arbeit befasst stellt nur lokale Erklärungen vor, diese sind einfach zu prüfen und anzuwenden.
-\\
+
 \paragraph*{Verfahren für lokale Erklärungen}
 \begin{itemize}
 	\item \Gls{GC} \ref{gradCam}
@@ -802,7 +805,7 @@ Der Parameter ``patch\_size'' in auf Zeile 27 definiert die Grösse des ausgeble
 \acrfull{lrp} ist eine Technik welche bereits 2015 vorgestellt wurde \parencite{Bach2015}. \acrshort{lrp} kann verwendet werden um neuronale Netze zu untersuchen und  ist für viele Problemstellungen wie Bilderkennung, Textanalyse oder Spracherkennung einsetzbar. 
 
 \imgTextQuelle{lrpgraph.PNG}{LRP Berechnung}{www.heatmapping.org}{LRP durchläuft ein \gls{NN} rückwärts und berechnet so den Einfluss jedes Eingangs-Neurons.
-\\\\
+
  Diese Vorgehensweise wird als ``Deep Taylor Decomposition'' bezeichnet.
  }
  
@@ -811,9 +814,9 @@ Der Parameter ``patch\_size'' in auf Zeile 27 definiert die Grösse des ausgeble
 \fullImgQuelle{lrp-example-cat.PNG}{Vergleich Pixel-wise und LRP }{Bach \parencite{Bach2015}}
 
 Die  Erläuterung der Funktionsweise der Deep Taylor Decomposition findet sich auf der Webseite \parencite{deepTaylor}.
-\\
+
  Eine Beispielanwendung des Fraunhofer Instituts zeigt den Einsatz von \acrshort{lrp} in den Gebieten Bilderkennung, Textanalyse und Visual Question Answering \parencite{xaidemos}.
-\\
+
 Die Python Implementierung der LRP Toolbox \parencite{JMLR:v17:15-618} ist auf github vorhanden: \parencite{lrpToolbox}.
 
 \section{Local Surrogate (LIME)}
@@ -1152,70 +1155,7 @@ Die Daten stammen aus einer Arbeit von Bo Pang and Lillian Lee \parencite{Pang+L
 \parag{Verwendete Bibliotheken}
 Das Experiment verwendet \cite{nltk} um die Texte vorzubereiten, scikit-learn \cite{scikit-learnLink} für die Klassifikation und \cite{ELI5} um aus den Ergebnissen Erklärungen zu generieren. 
 
-\parag{Versuch 1: RandomForest Klassifikator}
-Der komplette Source Code ist als Jupyter Notebook unter folgendem Link erhältlich: \parencite{textClassEli5}
-\begin{lstlisting}[language=Python]
-from sklearn.ensemble import RandomForestClassifier
-
-classifier = RandomForestClassifier(n_estimators=1000, random_state=0)
-classifier.fit(X_train, y_train)
-\end{lstlisting}
-
-\imgText{MovieReviews-SentimentClassification_ConfMatrix.PNG}{Konfusions-Matrix Texterkennungs-Experiment}{
-}
-Die Konfusionsmatrix mit einer für ein Experiment annehmbare Fehlerquote und einer Accuracy von 0.855.
-
-\subsubsection*{Visualisierung durch ELI5}
-Die Python Bibliothek \cite{ELI5} unterstützt einige \gls{ML} Bibliotheken und bietet die Möglichkeit Schlüsselwörter welche für eine Klassifikation relevant sind direkt in dem Ursprungstext darzustellen. 
-
-\begin{myboxi}[Darstellungsprobleme mit ELI5]
-Die Darstellung des Textes mit hervorgehobenen wichtigen Features (Wörtern) für die Klassifikation war nicht immer in Jupyter Notebook ersichtlich. Während auf einem Windows 10 Rechner keine Darstellung ersichtlich war, funktionierte die Anzeige auf einem zweiten PC mit den gleichen Versionen einwandfrei.
-\end{myboxi}
-
-\begin{center}
-\begin{minipage}[t]{0.45\linewidth}
-\vspace{0pt}
-\centering
-	\includegraphics[width=0.7\textwidth]{Bilder/MovieReviews-SentimentClassification_Weights.PNG}
-	 \captionof{figure}{Top Features Film Review Klassifizierung}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.45\linewidth}
-\vspace{20pt}
-Eine Übersicht der Top Features zeigt die Funktion ``show\_weights()''.
-\begin{lstlisting}[language=Python]
-eli5.show_weights(classifier, vec=vectorizer, top=10)
-\end{lstlisting}
-Allerdings verhält sich ELI5 bei einer binären Klassifizierung so dass nur eine Klasse (in diesem Fall `neg') dargestellt wird. Die Farbe Grün stellt immer die aktuell gewählte Klasse dar weshalb hier auch negative Wörter grün eingefärbt sind.
-\end{minipage}
-\end{center}
-
-Um einen Datensatz zu visualisieren verwendete man die Methode ``explain\_prediction()'', welche sowohl Details über die Features als auch eine Darstellung des Textes mit den hervorgehobenen Schlüsselwörtern anzeigt. Je nach verwendetem Modell weicht die Darstellung von dem hier dargestellten Bild ab, bei gewissen Tree Algorithmen (z.Bsp. DecisionTree) wird zusätzlich noch die Baumstruktur angezeigt.
-\begin{lstlisting}[language=Python]
-doc = documents[413]
-eli5.explain_prediction(classifier, doc, vec=vectorizer,target_names=['neg','pos'], top=20)
-\end{lstlisting}
-
-\paragraph*{Positive Klassifikation - Eintrag 413}
-\label{eli5413}
-\begin{center}
-\begin{minipage}[t]{\linewidth}
-\includegraphics[width=\textwidth]{Bilder/MovieReviews-SentimentClassification_1.PNG}
-\caption{Visualisierung positives Film Review}
-\end{minipage}
-\end{center}
-
-\paragraph*{Negative Klassifikation - Eintrag 414}
-\label{eli5414}
-Bei der Darstellung des negativen Film Reviews fällt auf dass Wörter welche für eine negative Stimmung stehen Grün markiert sind. Dies kommt daher dass für ELI5 die wahrscheinlichste Klasse `neg' ist (81\%) und deshalb alle Schlüsselwörter welche auf diese Klasse hinweisen grün markiert werden.
-
-\begin{center}
-\begin{minipage}[t]{\linewidth}
-\includegraphics[width=\textwidth]{Bilder/MovieReviews-SentimentClassification_2.PNG}
-\caption{Visualisierung negatives Film Review}
-\end{minipage}
-\end{center}
-
-\parag{Versuch 2: Decision Tree Klassifikator}
+\parag{Versuch 1: Decision Tree Klassifikator}
 
 \begin{lstlisting}
 from sklearn.tree import DecisionTreeClassifier
@@ -1238,6 +1178,109 @@ print('Probability(neg) =', c.predict_proba([doc])[0,1])
 
 exp.show_in_notebook(text=True) 
 \end{lstlisting}
+
+Wenn man die Regeln des Klassifikators als Text darstellt (nur die ersten 21 Zeilen von 241 sind ersichtlich, der Rest wurde gekürzt) bekommt man einen guten Eindruck davon wie dieses Modell eine Kritik als positiv oder negativ einordnet. Allerdings ist auf 16 zu sehen dass die Darstellung auch in der Breite gekürzt wurde da der Teilbaum unter ``tries'' 37 Ebenen tiefer gehen würde.
+\begin{lstlisting}
+from sklearn.tree import export_text
+r = export_text(classifier, feature_names=vectorizer.get_feature_names())
+print(r)
+
+|--- bad <= 0.03
+|   |--- worst <= 0.05
+|   |   |--- lame <= 0.04
+|   |   |   |--- wasted <= 0.04
+|   |   |   |   |--- ridiculous <= 0.03
+|   |   |   |   |   |--- awful <= 0.05
+|   |   |   |   |   |   |--- boring <= 0.05
+|   |   |   |   |   |   |   |--- nothing <= 0.03
+|   |   |   |   |   |   |   |   |--- poorly <= 0.04
+|   |   |   |   |   |   |   |   |   |--- reason <= 0.08
+|   |   |   |   |   |   |   |   |   |   |--- tries <= 0.06
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 37
+|   |   |   |   |   |   |   |   |   |   |--- tries >  0.06
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 5
+|   |   |   |   |   |   |   |   |   |--- reason >  0.08
+|   |   |   |   |   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |   |   |   |--- poorly >  0.04
+|   |   |   |   |   |   |   |   |   |--- rate <= 0.03
+|   |   |   |   |   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |   |   |   |   |--- rate >  0.03
+|   |   |   |   |   |   |   |   |   |   |--- class: 1
+\end{lstlisting}
+Diese Darstellung gibt zwar einen Einblick in die Funktionsweise des Modells, für eine Anwendung auf einen konkreten Text ist sie jedoch zu umständlich. Der nächste Schritt verwendet Visualisierungs-Techniken aus den \Gls{xai} Bibliotheken.
+
+\parag{Versuch 2: RandomForest Klassifikator}
+Der komplette Source Code ist als Jupyter Notebook unter folgendem Link erhältlich: \parencite{textClassEli5}
+
+Obwohl der RandomForest Algorithmus auch zu der Familie der Entscheidungsbäume wie \Gls{DT} gehört und deshalb prinzipiell zu den einfach zu interpretierenden Modellen zählt kann eine grosse Menge an Features die Übersicht stark beeinträchtigen. Wie sich dies in diesem konkreten Fall verhält soll dieser Versuch zeigen.
+\begin{lstlisting}[language=Python]
+from sklearn.ensemble import RandomForestClassifier
+
+classifier = RandomForestClassifier(n_estimators=1000, random_state=0)
+classifier.fit(X_train, y_train)
+\end{lstlisting}
+
+\imgText{MovieReviews-SentimentClassification_ConfMatrix.PNG}{Konfusions-Matrix Texterkennungs-Experiment}{
+Der trainierte RandomForest erreicht für ein Experiment eine annehmbare Fehlerquote und eine Accuracy von 0.86.
+}
+
+\subsubsection*{Visualisierung durch ELI5}
+Die Python Bibliothek \cite{ELI5} unterstützt einige \gls{ML} Bibliotheken, unter anderem auch die hier verwendete Bibliothek scikit-learn. ELI5 bietet die Möglichkeit Schlüsselwörter welche für eine Klassifikation relevant sind direkt in dem Ursprungstext darzustellen. 
+
+\begin{myboxi}[Darstellungsprobleme mit ELI5]
+Die Darstellung des Textes mit hervorgehobenen wichtigen Features (Wörtern) für die Klassifikation war nicht in jedem Fall in Jupyter Notebook ersichtlich. Während auf einem Windows 10 Rechner keine Darstellung ersichtlich war, funktionierte die Anzeige auf einem zweiten PC mit den gleichen Versionen einwandfrei.
+\end{myboxi}
+ \break
+ \break
+Während bei einem digitalen Bild die Bildpunkte als Eingangsdaten (Features) verwendet werden, sind es bei der Textanalyse die vorkommende Wörter. Diese könne sowohl positiven wie auch negativen Einfluss auf eine bestimmte Klasse haben. Eine Übersicht der Top Features zeigt die Funktion ``show\_weights()''.
+\begin{lstlisting}[language=Python]
+eli5.show_weights(classifier, vec=vectorizer, top=10)
+\end{lstlisting}
+\begin{center}
+\begin{minipage}[t]{0.45\linewidth}
+\vspace{0pt}
+\centering
+	\includegraphics[width=0.7\textwidth]{Bilder/MovieReviews-SentimentClassification_Weights.PNG}
+	 \captionof{figure}{Top Features Film Review Klassifizierung}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.45\linewidth}
+\vspace{20pt}
+Bei einer binären Klassifizierung verhält sich ELI5  so dass nur eine Klasse (in diesem Fall `neg') dargestellt wird. Die Farbe Grün stellt immer die aktuell gewählte Klasse dar weshalb hier in diesem Beispiel auch negative Wörter grün eingefärbt sind.
+\end{minipage}
+\end{center}
+
+Um den Text eines Datensatzes zu visualisieren verwendet man die Methode ``explain\_prediction()'', welche sowohl den Einfluss der Features als auch eine Darstellung des Textes mit den hervorgehobenen Schlüsselwörtern anzeigt. Je nach verwendetem Modell weicht die Darstellung von dem hier dargestellten Bild ab, bei gewissen Tree Algorithmen (z.Bsp. DecisionTree) wird zusätzlich noch die Baumstruktur angezeigt.
+
+\parag{Positive Klassifikation - Eintrag 413}
+Der erste Testdatensatz ist eine positive Kritik über den Film ``The Perfect Storm''.
+\begin{lstlisting}[language=Python]
+doc = documents[413]
+eli5.explain_prediction(classifier, doc, vec=vectorizer,target_names=['neg','pos'], top=20)
+\end{lstlisting}
+\label{eli5413}
+\begin{center}
+\begin{minipage}[t]{\linewidth}
+\includegraphics[width=\textwidth]{Bilder/MovieReviews-SentimentClassification_ELI5-413.PNG}
+\caption{Visualisierung positives Film Review}
+\end{minipage}
+\end{center}
+Mit 66\% Wahrscheinlichkeit für die Klasse ``pos'' ist die Einschätzung für diese Klasse eher tief. Der grösste Anteil an der Klassifizierung haben Features welche ELI5 nicht als Wörter im Text gefunden hat, deshalb ist der Eintrag ``<BIAS>'' an erster Stelle der Feature Tabelle. Auf den ersten Blick stechen die negativen Einflüsse wie ``bad'' und ``nothing'' hervor. Insgesamt überwiegen jedoch die positiv eingeschätzten Wörter in der Summe.
+
+\parag{Negative Klassifikation - Eintrag 414}
+Der zweite Beitrag stammt aus dem Test-Datensatz mit den als negativ eingeschätzten Kritiken.
+\begin{lstlisting}[language=Python]
+doc = documents[414]
+eli5.explain_prediction(classifier, doc, vec=vectorizer,target_names=['neg','pos'], top=20)
+\end{lstlisting}
+\label{eli5414}
+Dieser Text wurde mit 83\% klar als ``neg'' klassifiziert.
+\begin{center}
+\begin{minipage}[t]{\linewidth}
+\includegraphics[width=\textwidth]{Bilder/MovieReviews-SentimentClassification_ELI5-414.PNG}
+\caption{Visualisierung negatives Film Review}
+\end{minipage}
+\end{center}
+Bei der Darstellung des negativen Film Reviews fällt auf dass Wörter, welche für eine negative Stimmung stehen, Grün markiert sind. Dies kommt daher dass für ELI5 die wahrscheinlichste Klasse `neg' ist mit 81\% Wahrscheinlichkeit und deshalb alle Schlüsselwörter welche auf diese Klasse hinweisen grün markiert werden. In diesem Fall konnte die erzeugte Erklärung immer noch den grössten Anteil nicht visualisieren (``<BIAS>'' mit 0.495 Prozentpunkten) aber die hervorgehobenen Wörter zeigen 
 
 \imgText{MovieReview-DT-Accuracy.PNG}{}{}
 
@@ -1277,7 +1320,7 @@ exp.show_in_notebook(text=True)
 
 \subsubsection*{Blackbox Visualisierung mit LIME}
 Während in dem vorherigen Beispiel ein \Gls{White Box} Model angewendet wurde, kann können auch \Gls{Black Box} Modelle analysiert werden. Dafür benutzen sowohl \cite{ELI5} als auch \cite{lime} das \acrshort{lime} Verfahren um die Vorhersage zu erklären und das Modell zu interpretieren.
-\\\\
+
 Der selbe Datensatz wie in \ref{eli5MovieReview} wurde für einen weiteren Klassifikator genutzt, dieses Mal allerdings mit dem \acrfull{lstm} Verfahren welches zu den neuronalen Netzen gehört. Die Grundlage des Skriptes bildet der Blog-Beitrag \parencite{nThLIME} welcher von mir für die geänderte Datenquelle angepasst wurde. Das Jupyter Notebook mit dem gesamten Source Code ist auf github.com vorhanden \parencite{textClassLime}.
 
 \begin{lstlisting}[language=Python, caption=LSTM Modell für LIME Movie Sentiment Analyse]
@@ -1328,8 +1371,8 @@ Dieser Fall kann auch als Beispiel für ``Data Poisoning'' angesehen werden da d
 \section{Manipulierte Bilder: Adversarial Attacks}
 Wie bereits in Kapitel \ref{Sicherheit} angedeutet, sind \Gls{ML} Anwendungen oftmals unerwartet empfindlich auf kleinste Änderungen an den Eingangsdaten. In einer Arbeit von Google Forschern   \parencite{Goodfellow2014} konnte gezeigt werden dass dies eine grundsätzliche Eigenschaft nicht nur von Neuronalen Netzen sondern auch anderen Linearen Klassifikatoren ist. Erklärbar ist ein solches Fehlverhalten wenn man sich vor Augen hält das Neuronale Netze und andere Klassifikatoren keine abstrakten Konzepte wie ``Tier'' oder auch ``Fahrzeug'' lernen sondern sich alleine an den für das Training verwendeten Bilddaten orientieren.\\
 Die Tensorflow Webseite stellt ein Tutorial zu Verfügung welches die Erzeugung solcher ``Adverserial'' Bilder erläutert: \parencite{tensorflowFGSM}
-\\ 
-\\
+
+
 Eines der in dem Tutorial erzeugten Bilder wird schliesslich als ``brain\_coral'' (Hirnkoralle) erkannt, allerdings mit deutlich sichtbaren Bild-Artefakten. Für den menschlichen Betrachter sieht es jedoch eher aus als ob das Bild stark verrauscht wäre und nicht nach einem gezielt manipulierten Bild.
 \begin{center}
 \begin{minipage}[t]{0.45\linewidth}
@@ -1349,26 +1392,26 @@ Eines der in dem Tutorial erzeugten Bilder wird schliesslich als ``brain\_coral'
 
 \imgText{adversarial.png}{Adversarial Beispiel Szegedy 2013}{
 Ein subtileres Beispiel stammt aus der Arbeit ``Intriguing properties of neural networks'' \parencite{Szegedy2013}. 
-\\\\
+
 Die linke Spalte zeigt ein korrekt Klassifiziertes Bild.
-\\
+
 Die mittlere Spalte stellt den Unterschied zwischen dem korrekt klassifizierten Bild und der falschen Klasse dar.
-\\
+
 Rechts ist das mit der Adversarial Technik manipulierte Bild zu sehen.
-\\
-\\
+
+
 Alle Bilder in der Rechten Spalte wurden als ``Ostrich'' = Straus klassifiziert!
 }
 
 \subsubsection*{Täuschung der Verkehrszeichen-Erkennung eines Tesla}
 Ein interessantes Beispiel einer solchen ``Adversarial Attack'' ist die Arbeit eines Teams von McAffe Labs welches gezielt das System eines Tesla angegriffen hat und schlussendlich das Auto dazu gebracht hat anstatt 35mph (ungefähr 55kmh)  85mph (ca. 135kmh) als Geschwindigkeitsbegrenzung zu erkennen.\\
-\\
+
 \parencite{advTesla} 
-\\
+
 \imgText{speed-limit-fake.png}{Gefälschtes Verkehrsschild als Adversarial Attack}{
 Eine Verlängerung des mittleren Balkens einer Drei führte das \Gls{NN} eines Tesla zu einer Fehlklassifizierung als Acht und dadurch zu einer erlaubten Geschwindigkeit von 85 Meilen pro Stunde. Obwohl die veränderte Ziffer durchaus an eine Acht erinnern kann sehen Menschen die Ziffer trotzdem als Drei, im Gegensatz zu den Systemen des Teslas.
-\\
-\\
+
+
 Mittlerweile wurde das Verhalten der Tesla-Systeme angepasst und diese spezifische Attacke ist nun nicht mehr möglich.
 }
 
@@ -1378,7 +1421,7 @@ Durch die Arbeit einiger Forscher \parencite{papernot2018cleverhans} gibt es ein
 \section{Manipulierte Daten: Data Poisoning}
 \label{dataP}
 Mit ``Data Poisoning `` werden Techniken benannt welche \Gls{ML} Modelle über die Trainingsdaten angreifen. Oftmals werden Model nach einem initialen Training mit einem festen Datensatz wiederkehrend mit aktualisierten Daten erneut trainiert. Ein typisches Beispiel sind Spam Filter welche in regelmässigen Intervallen Emails, welche durch die Benutzer als Spam markiert wurden, in ihren Trainingsdatensatz integrieren.
- \\\\
+ 
 Grundsätzlich wird zwischen zwei Arten von Data Poisoning unterschieden:
 \begin{description}
   		\item[Availability] Das Ziel einer solchen Attacke ist es die Datenbasis eines \Gls{ML} Models so zu erweitern so dass die Wahrscheinlichkeit für bestimmte Klassifikation entweder stark erhöht oder verringert wird. Wie durch die Arbeit ``Online Data Poisoning Attacks'' \parencite{Zhang2019} nachgewiesen wurde, kann ein solcher Angriff sowohl für Überwachtes Lernen wie auch Unüberwachtes Lernen (Clustering) erfolgreich eingesetzt werden. 
