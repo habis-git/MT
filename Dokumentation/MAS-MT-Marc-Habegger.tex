@@ -658,6 +658,7 @@ BILL_AMT1 > 410.0 and PAY_1 > 1.5 and PAY_old_mean > 0.125
 \end{minipage}
 
 \subsection{Naive Bayes}
+\label{nb}
 Naive Bayes Filter werden seid einiger Zeit sehr erfolgreich für die Spam Klassifikation von Emails eingesetzt. Aber auch für andere Klassifikationen ist Naive Bayes aufgrund der schnellen Berechnung bei guten Resultaten beliebt. Der Name kommt von der ``naiven'' Annahme dass die Features voneinander unabhängig sind, die sogenannte  ``Annahme von Unabhangigkeit''. Obwohl das in der Realität fast nie der Fall ist funktioniert Naive Bayes in der Regel sehr gut.
 
 \[ P(C_k|x) = \frac{1}{Z}P(C_k) \prod_{i=1}^{n}  P(x_i|C_k) \]
@@ -1156,56 +1157,43 @@ Die Daten stammen aus einer Arbeit von Bo Pang and Lillian Lee \parencite{Pang+L
 Das Experiment verwendet \cite{nltk} um die Texte vorzubereiten, scikit-learn \cite{scikit-learnLink} für die Klassifikation und \cite{ELI5} um aus den Ergebnissen Erklärungen zu generieren. 
 
 \parag{Versuch 1: Decision Tree Klassifikator}
-
+Der Algorithmus \Gls{DT} gilt als gut interpretierbar weshalb dies der erste Versuch ist. Der Source Code ist zu finden unter \cite{textClassDT}.
 \begin{lstlisting}
 from sklearn.tree import DecisionTreeClassifier
 
 classifier = DecisionTreeClassifier()
 classifier.fit(X_train, y_train)
-
-doc = documents[413]
-
-from lime import lime_text
-from sklearn.pipeline import make_pipeline
-
-c = make_pipeline(vectorizer, classifier)
-
-from lime.lime_text import LimeTextExplainer
-explainer = LimeTextExplainer(class_names=['neg','pos'])
-
-exp = explainer.explain_instance(doc, c.predict_proba, num_features=10)
-print('Probability(neg) =', c.predict_proba([doc])[0,1])
-
-exp.show_in_notebook(text=True) 
 \end{lstlisting}
 
-Wenn man die Regeln des Klassifikators als Text darstellt (nur die ersten 21 Zeilen von 241 sind ersichtlich, der Rest wurde gekürzt) bekommt man einen guten Eindruck davon wie dieses Modell eine Kritik als positiv oder negativ einordnet. Allerdings ist auf 16 zu sehen dass die Darstellung auch in der Breite gekürzt wurde da der Teilbaum unter ``tries'' 37 Ebenen tiefer gehen würde.
+\imgText{MovieReview-DT-Accuracy.PNG}{Performance Sentiment Analyse mit DecisionTree}{
+Die Vorhersagequalität dieses Modells ist schlecht. Dies war aber zu erwarten da im Allgemeinen die Qualität eines Modells entgegengesetzt zu der Interpretierbarkeit steht.
+}
+
+Wenn man die Regeln des Klassifikators als Text darstellt (nur die ersten 18 Zeilen von 248 sind ersichtlich, der Rest wurde gekürzt) bekommt man einen guten Eindruck davon wie dieses Modell eine Kritik als positiv oder negativ einordnet. Allerdings ist auf 16 zu sehen dass die Darstellung auch in der Breite gekürzt wurde da der Baum unter ``turns'' 26 Ebenen tiefer gehen würde.
 \begin{lstlisting}
 from sklearn.tree import export_text
 r = export_text(classifier, feature_names=vectorizer.get_feature_names())
 print(r)
 
-|--- bad <= 0.03
+|--- bad <= 0.04
 |   |--- worst <= 0.05
-|   |   |--- lame <= 0.04
+|   |   |--- boring <= 0.04
 |   |   |   |--- wasted <= 0.04
 |   |   |   |   |--- ridiculous <= 0.03
-|   |   |   |   |   |--- awful <= 0.05
-|   |   |   |   |   |   |--- boring <= 0.05
-|   |   |   |   |   |   |   |--- nothing <= 0.03
-|   |   |   |   |   |   |   |   |--- poorly <= 0.04
-|   |   |   |   |   |   |   |   |   |--- reason <= 0.08
-|   |   |   |   |   |   |   |   |   |   |--- tries <= 0.06
-|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 37
-|   |   |   |   |   |   |   |   |   |   |--- tries >  0.06
-|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 5
-|   |   |   |   |   |   |   |   |   |--- reason >  0.08
-|   |   |   |   |   |   |   |   |   |   |--- class: 0
-|   |   |   |   |   |   |   |   |--- poorly >  0.04
-|   |   |   |   |   |   |   |   |   |--- rate <= 0.03
-|   |   |   |   |   |   |   |   |   |   |--- class: 0
-|   |   |   |   |   |   |   |   |   |--- rate >  0.03
-|   |   |   |   |   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |--- awful <= 0.04
+|   |   |   |   |   |   |--- performances <= 0.02
+|   |   |   |   |   |   |   |--- minutes <= 0.05
+|   |   |   |   |   |   |   |   |--- lame <= 0.06
+|   |   |   |   |   |   |   |   |   |--- filmmakers <= 0.06
+|   |   |   |   |   |   |   |   |   |   |--- turns <= 0.08
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 26
+|   |   |   |   |   |   |   |   |   |   |--- turns >  0.08
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 2
+|   |   |   |   |   |   |   |   |   |--- filmmakers >  0.06
+|   |   |   |   |   |   |   |   |   |   |--- making <= 0.03
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 2
+|   |   |   |   |   |   |   |   |   |   |--- making >  0.03
+|   |   |   |   |   |   |   |   |   |   |   |--- class: 1
 \end{lstlisting}
 Diese Darstellung gibt zwar einen Einblick in die Funktionsweise des Modells, für eine Anwendung auf einen konkreten Text ist sie jedoch zu umständlich. Der nächste Schritt verwendet Visualisierungs-Techniken aus den \Gls{xai} Bibliotheken.
 
@@ -1221,7 +1209,7 @@ classifier.fit(X_train, y_train)
 \end{lstlisting}
 
 \imgText{MovieReviews-SentimentClassification_ConfMatrix.PNG}{Konfusions-Matrix Texterkennungs-Experiment}{
-Der trainierte RandomForest erreicht für ein Experiment eine annehmbare Fehlerquote und eine Accuracy von 0.86.
+Der trainierte RandomForest erreicht für ein Experiment eine annehmbare Fehlerquote und eine Accuracy von 0.86. Dies ist eine bedeutende Steigerung gegenüber dem vorherigen \Gls{DT} welcher nur auf eine Accuracy von 0.64  kam.
 }
 
 \subsubsection*{Visualisierung durch ELI5}
@@ -1252,22 +1240,24 @@ Bei einer binären Klassifizierung verhält sich ELI5  so dass nur eine Klasse (
 Um den Text eines Datensatzes zu visualisieren verwendet man die Methode ``explain\_prediction()'', welche sowohl den Einfluss der Features als auch eine Darstellung des Textes mit den hervorgehobenen Schlüsselwörtern anzeigt. Je nach verwendetem Modell weicht die Darstellung von dem hier dargestellten Bild ab, bei gewissen Tree Algorithmen (z.Bsp. DecisionTree) wird zusätzlich noch die Baumstruktur angezeigt.
 
 \parag{Positive Klassifikation - Eintrag 413}
-Der erste Testdatensatz ist eine positive Kritik über den Film ``The Perfect Storm''.
+Der erste Datensatz ist eine positive Kritik über den Film ``The Perfect Storm''.
 \begin{lstlisting}[language=Python]
 doc = documents[413]
 eli5.explain_prediction(classifier, doc, vec=vectorizer,target_names=['neg','pos'], top=20)
 \end{lstlisting}
 \label{eli5413}
+
 \begin{center}
 \begin{minipage}[t]{\linewidth}
 \includegraphics[width=\textwidth]{Bilder/MovieReviews-SentimentClassification_ELI5-413.PNG}
-\caption{Visualisierung positives Film Review}
+\caption{Visualisierung positives Film Review mit ELI5}
 \end{minipage}
 \end{center}
+
 Mit 66\% Wahrscheinlichkeit für die Klasse ``pos'' ist die Einschätzung für diese Klasse eher tief. Der grösste Anteil an der Klassifizierung haben Features welche ELI5 nicht als Wörter im Text gefunden hat, deshalb ist der Eintrag ``<BIAS>'' an erster Stelle der Feature Tabelle. Auf den ersten Blick stechen die negativen Einflüsse wie ``bad'' und ``nothing'' hervor. Insgesamt überwiegen jedoch die positiv eingeschätzten Wörter in der Summe.
 
 \parag{Negative Klassifikation - Eintrag 414}
-Der zweite Beitrag stammt aus dem Test-Datensatz mit den als negativ eingeschätzten Kritiken.
+Der zweite Beitrag stammt aus dem Datensatz mit den als negativ eingeschätzten Kritiken.
 \begin{lstlisting}[language=Python]
 doc = documents[414]
 eli5.explain_prediction(classifier, doc, vec=vectorizer,target_names=['neg','pos'], top=20)
@@ -1276,49 +1266,63 @@ eli5.explain_prediction(classifier, doc, vec=vectorizer,target_names=['neg','pos
 Dieser Text wurde mit 83\% klar als ``neg'' klassifiziert.
 \begin{center}
 \begin{minipage}[t]{\linewidth}
+
 \includegraphics[width=\textwidth]{Bilder/MovieReviews-SentimentClassification_ELI5-414.PNG}
-\caption{Visualisierung negatives Film Review}
+
+\caption{Visualisierung negatives Film Review mit ELI5}
 \end{minipage}
 \end{center}
 Bei der Darstellung des negativen Film Reviews fällt auf dass Wörter, welche für eine negative Stimmung stehen, Grün markiert sind. Dies kommt daher dass für ELI5 die wahrscheinlichste Klasse `neg' ist mit 81\% Wahrscheinlichkeit und deshalb alle Schlüsselwörter welche auf diese Klasse hinweisen grün markiert werden. In diesem Fall konnte die erzeugte Erklärung immer noch den grössten Anteil nicht visualisieren (``<BIAS>'' mit 0.495 Prozentpunkten) aber die hervorgehobenen Wörter zeigen 
 
-\imgText{MovieReview-DT-Accuracy.PNG}{}{}
-
 \subsubsection*{Visualisierung durch LIME}
-\paragraph*{Positive Klassifikation - Eintrag 413}
+Eine zweite Bibliothek um Visualisierte Erklärungen zu generieren ist \parencite{lime}. Wie der Name andeutet verwendet diese Bibliothek die Technik \Gls{limeG} um aus einem beliebigen Modell Erklärungen zu erzeugen. Der Aufbau des Versuches ist gleich wie vorher mit ELI5, die Daten und das Text Pre-Processing sind identisch. Der Source Code kann hier \cite{textClassLime} heruntergeladen werden.
 
-
-\imgText{MovieReview-DecisionTree-Display-413.PNG}{}{
+\parag{Positive Klassifikation - Eintrag 413}
+Da das gleiche Modell verwendet wird ist die Wahrscheinlichkeit für die Klasse ``pos'' immer noch 66\%.
+\imgText{MovieReview-RandomForest-Display-413.PNG}{Visualisierung positives Film Review mit LIME}{
+Die meisten der hervorgehobenen Wörter entsprechen der Visualisierung mit ELI5, eine Ausnahme bildet das Wort ``nothing'' welches durch ELI5 als starker Einfluss für die Klassifikation ``neg'' identifiziert wurde. Auch fällt auf dass das Wort ``bad'' durch ELI5 stark negativ gewichtet wurde währen mit LIME das Wort sogar leicht positiv gewichtet wird.
 }
 
-\imgText{MovieReview-DecisionTree-Display-414.PNG}{}{
+\parag{Negative Klassifikation - Eintrag 414}
+Ebenso wie die positive Kritik wird nun auch die negative Kritik mit dem selben Modell visualisiert.
+\imgText{MovieReview-RandomForest-Display-414.PNG}{Visualisierung negatives Film Review mit LIME}{
+Die negative Kritik entspricht in der Visualisierung der Darstellung mit ELI5. Im Gegensatz zu der positiven Kritik fallen hier keine Unterschiede in der Gewichtung auf.
 }
+
+\parag{Fazit Vergleich ELI5 und LIME}
+Wie sich gezeigt hat können kleine Unterschiede zwischen den Erklärungen verschiedener Techniken auftreten. Dies ist nicht weiter verwunderlich da \Gls{limeG} mit generierten Modellen arbeitet welche eine Annäherung an das zu beobachtende Modell darstellen. Grundsätzlich sind die Erklärungen aber vergleichbar.
 
 \parag{Versuch 3: Naive Bayes Klassifikator}
-
+Als letzter Versuch wird noch ein Klassifikator mit dem \Gls{nb} Algorithmus welcher bereits in \ref{nb} beschrieben wurde untersucht.
 \begin{lstlisting}
 from sklearn.naive_bayes import MultinomialNB
 classifierNB = MultinomialNB().fit(X_train, y_train)
-
-pipelineNB = make_pipeline(vectorizer, classifierNB)
-
-exp = explainer.explain_instance(doc, pipelineNB.predict_proba, num_features=20)
-print('Probability(neg) =', pipelineNB.predict_proba([doc])[0,1])
-
-exp.show_in_notebook(text=True)
 \end{lstlisting}
 
-\imgText{MovieReview-NB-Accuracy.PNG}{}{}
-
-\imgText{MovieReview-NaiveBayes-Display-413.PNG}{}{
+\imgText{MovieReview-NB-Accuracy.PNG}{Konfusionsmatrix, Test Zusammenfassung und Accuracy für Naive Bayses}{
+Dieser Klassifikator hat eine etwas geringere Accuray als der RandomForest Klassifikator mit einer Accuracy von 0.8. Diese ist aber immer noch weit besser als mit dem einfachen \Gls{DT} Algorithmus.
 }
+Wie zu erwarten unterscheidet sich die Darstellung etwas von den vorherigen. Da aber ein anderes Modell verwendet wurde ist dies nicht erstaunlich.
+\begin{center}
+    \begin{minipage}[t]{0.45\textwidth}
+    		\vspace{0pt}
+		\includegraphics[width=\textwidth, left]{Bilder/MovieReview-NaiveBayes-Display-413.PNG}
+		\caption{Visualisierung positives Film Review mit LIME und NB}
+	\end{minipage}\hfill
+    \begin{minipage}[t]{0.45\textwidth}
+    		\vspace{0pt}
+  		\includegraphics[width=\textwidth, left]{Bilder/MovieReview-NaiveBayes-Display-414.PNG}
+		\caption{Visualisierung negatives Film Review mit LIME und NB}
+    \end{minipage}
+\end{center}
 
-\imgText{MovieReview-NaiveBayes-Display-414.PNG}{}{
-}
+\parag{Fazit}
+Auch unterschiedliche Klassifikations-Algorithmen können einfach dargestellt und verglichen werden. Dadurch können Auffälligkeiten leicht entdeckt werden und Anpassungen (andere Algorithmen, geändertes Pre-Processing usw.) getestet werden. 
 
 \subsection{Black Box Modell}
 
 \subsubsection*{Blackbox Visualisierung mit LIME}
+\cite{textClassLIME}
 Während in dem vorherigen Beispiel ein \Gls{White Box} Model angewendet wurde, kann können auch \Gls{Black Box} Modelle analysiert werden. Dafür benutzen sowohl \cite{ELI5} als auch \cite{lime} das \acrshort{lime} Verfahren um die Vorhersage zu erklären und das Modell zu interpretieren.
 
 Der selbe Datensatz wie in \ref{eli5MovieReview} wurde für einen weiteren Klassifikator genutzt, dieses Mal allerdings mit dem \acrfull{lstm} Verfahren welches zu den neuronalen Netzen gehört. Die Grundlage des Skriptes bildet der Blog-Beitrag \parencite{nThLIME} welcher von mir für die geänderte Datenquelle angepasst wurde. Das Jupyter Notebook mit dem gesamten Source Code ist auf github.com vorhanden \parencite{textClassLime}.
