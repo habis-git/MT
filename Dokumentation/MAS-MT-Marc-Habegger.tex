@@ -825,7 +825,7 @@ Die Python Implementierung der LRP Toolbox \parencite{JMLR:v17:15-618} ist auf g
 Die Technik LIME wurde 2016 erstmals vorgestellt \parencite{Ribeiro2016}. 
 \Gls{lime} kann für verschiedene Arten von  \Gls{ML} Modellen, insbesondere auch Black Box Modelle, verwendet werden um eine Erklärung zu erzeugen. Dabei wird durch stetiges Verändern eines Eingangsbildes der Einfluss auf das Resultat geprüft. Mit den veränderten Eingangsdaten und den durch das Black Box Modell erzeugten Resultaten wird anschliessend ein neues Modell Trainiert das danach untersucht werden kann.
 
-\paragraph*{}
+\parag{}
 Folgende Schritte werden bei der Anwendung von LIME durchgeführt:
 \begin{itemize}
 	\item Die Klasse für die man eine Erklärung erstellen will muss festgelegt werden
@@ -842,7 +842,7 @@ In diesem Beispiel ist ersichtlich welche Bildbereiche (maskiert) nach \gls{lime
 
 Gegenüber den vorherigen Methoden ist LIME durch die Erzeugung temporärer Modelle bedeutend aufwendiger und dadurch auch langsamer.
 
-\paragraph*{Visualisierung mit lime}
+\parag{Visualisierung mit lime}
 \break
 Um ein Bild der Klasse mit der höchsten Wahrscheinlichkeit zu erzeugen kann dieses Python Skript verwendet werden. Benötigt werden dazu die Bibliotheken \parencite{TensorFlow} und das Package lime aus \parencite{limeKeras} sowie das Modell \parencite{vgg16}.
 \begin{lstlisting}[language=Python, caption=Lime Visualisierung für die wahrscheinlichste Klasse]
@@ -921,13 +921,13 @@ Durch den Vergleich der Vektoren verschiedener Klassen innerhalb des selben Netz
 
 \section{Bilderkennung: Klassifikation Hund - Katze}
 
-In den letzten Jahrzehnten wurden grosse Fortschritte in der Bilderkennung gemacht. Verantwortlich dafür sind vor allem Neuronale Netze, insbesondere die Techniken \acrfull{cnn} in Zusammenhang mit {dnn}. Neuronale Netze, insbesondere die für Bilderkennung weit verbreiteten \acrfull{dnn}, sind ohne weitere Hilfsmittel kaum zu analysieren.
-Durch den starken Fokus auf Neuronale Netze bei der Bilderkennung sind für diese Technik auch einige Methoden vorhanden um das Verhalten eines Modelles  auf ein Bild darzustellen.
+In den letzten Jahrzehnten wurden grosse Fortschritte in der Bilderkennung gemacht. Verantwortlich dafür sind vor allem Neuronale Netze, insbesondere die Techniken \acrfull{cnn} oder andere Varianten von \acrfull{dnn}. Neuronale Netze, insbesondere die für Bilderkennung weit verbreiteten \acrshort{dnn}, sind ohne weitere Hilfsmittel kaum zu analysieren.
+Durch den starken Fokus dieser Techniken in der Bilderkennung sind dadurch auch viele Methoden entwickelt worden um das Verhalten eines Modells  bei der Bildanalyse darzustellen.
 
 \subsection{White Box Modell}
 
 \subsubsection*{Versuch: Eingangsdaten mit BIAS}
-Daten welche für das trainieren von \Gls{ML} Modellen verwendet werden können eine unbekannt Struktur enthalten welche für die gewünschte Vorhersage nicht relevant ist, das Ergebnis jedoch verfälscht. Wenn ein solcher Effekt auftritt spricht man häufig von einem \Gls{KH}. Ein bekanntes Beispiel dieses Effektes trat bei einem Neuronalen Netz auf welches für einen Wettbewerb eingereicht wurde (Pascal VOC \cite{Everingham_thepascal}) und betraf die Erkennung von Pferden \parencite{Lapuschkin2019}. 
+Daten welche für das Trainieren von \Gls{ML} Modellen verwendet werden können eine unbekannt Struktur enthalten. Oft ist diese für die gewünschte Vorhersage nicht relevant ist, verfälscht jedoch das  Ergebnis. Wenn ein solcher Effekt auftritt spricht man häufig von einem \Gls{KH}. Ein bekanntes Beispiel dieses Effektes trat bei einem Neuronalen Netz auf welches für einen Wettbewerb eingereicht wurde (Pascal VOC \cite{Everingham_thepascal}) und betraf die Erkennung von Pferden \parencite{Lapuschkin2019}. 
 
 \begin{center}
 \begin{minipage}[t]{0.45\linewidth}
@@ -943,7 +943,13 @@ Die meisten Bilder mit Pferden in dem bereitgestellten Trainingsdatensatz für d
 \end{center}
 
 \break
-In diesem Versuch soll diese Ausgangslage nachgestellt werden. Die Annahme ist dass ein grosser Teil der Bilder, welche Katzen darstellen, von einem Dienstleister stammen welcher sein Logo auf jedem Bild in der rechten unteren Ecke platzierte. 
+In diesem Versuch soll diese Ausgangslage nachgestellt werden. Die Annahme ist dass ein grosser Teil der Bilder von Katzen, von einem Dienstleister stammen welcher sein Logo jeweils in der rechten unteren Ecke platziert. 
+
+\parag{Daten}
+Die Daten stammen von einer Ausschreibung auf kaggle.com \cite{kaggleDogCats} und enthalten 25'000 Bilder von Katzen und Hunden. Für das trainieren des Netzes werden 20'000 Bilder und für das validieren 5'000 Bilder verwendet.
+
+\parag{Verwendete Bibliotheken}
+Das \Gls{cnn} wurde mit Tensorflow \cite{TensorFlow} berechnet und durch tf\_explain \cite{tfExplain} visualisiert.
 
 \begin{center}
 \begin{minipage}[t]{0.2\linewidth}
@@ -971,13 +977,12 @@ In diesem Versuch soll diese Ausgangslage nachgestellt werden. Die Annahme ist d
 \end{minipage}
 \end{center}
 
-Wenn die Hypothese korrekt ist dann sollten Katzenbilder anhand des Logos erkannt werden, dieser Bildbestandteil ist in den meisten Trainingsbildern für die Klasse ``Katze'' identisch. Wenn nun ein Hundebild ohne Logo, welches korrekt als ``Hund'' klassifiziert wurde, noch einmal als geänderte Version mit Logo klassifiziert wird dann sollte die neue Vorhersage ``Katze'' lauten.
+Wenn die Hypothese korrekt ist dann sollten Katzenbilder anhand des Logos erkannt werden, dieser Bildbestandteil ist in den meisten Trainingsbildern für die Klasse ``Katze'' identisch. Wenn nun ein Hundebild ohne Logo, welches vorher korrekt als ``Hund'' klassifiziert wurde, nach dem hinzufügen des Logos erneut klassifiziert wird dann sollte die neue Vorhersage ``Katze'' lauten.
 
-\subsubsection*{Aufbau des Neuronalen Netzes}
-Die Grundlage bildet ein Blog Post in ``Towards Data Science''  \cite{dogVsCats}. Das erzeugte \acrshort{cnn} ist jedoch in der ursprünglichen Version ein \Gls{binClassificator}. Die für die Visualisierung gewählte Bibliothek ''tf\_explain'' \cite{tfExplain} kann jedoch keine binären Klassifizierer visualisieren weshalb das Model von mir auf die Erkennung von zwei Klassen angepasst wurde.
+\parag{Aufbau des Neuronalen Netzes}
+Die Grundlage dieses Experimentes bildet ein Blog Post auf der Seite ``Towards Data Science''  \cite{dogVsCats}. Das erzeugte \acrshort{cnn} ist in der ursprünglichen Version ein \Gls{binClassificator}, die für die Visualisierung gewählte Bibliothek ''tf\_explain'' \cite{tfExplain} kann jedoch keine binären Klassifizierer visualisieren weshalb das Model auf die Erkennung von zwei Klassen angepasst wurde.
 
-\begin{figure}
-\begin{lstlisting}[language=Python]
+\begin{lstlisting}[language=Python, caption=CNN für Dog vs. Cats]
 model.add(Conv2D(32, 3, strides=(1, 1), padding='same', input_shape=input_shape, activation='relu'))
 model.add(Conv2D(32, 3, strides=(1, 1), padding='same', activation='relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
@@ -1008,71 +1013,85 @@ model.compile(loss='binary_crossentropy',
             optimizer=RMSprop(lr=0.0001),
             metrics=['accuracy'])
 \end{lstlisting}
-\end{figure}
-\caption{CNN für Dog vs. Cats}
 
-\subsubsection*{Training}
+\parag{Training}
 Über 20 Epochen wurde das \acrshort{cnn} trainiert, mit folgenden Resultaten:
-\imgText{Training-Manipulated-LogLoss.png}{Log-loss / Accuracy Dog vs. Cat}{}
-
-\imgText{Training-Manipulated-StatisticsTable.png}{Bewertung des Hund-Katze Netzwerkes}{
-
+\imgText{Training-Manipulated-LogLoss.png}{Log-loss / Accuracy Dog vs. Cat}{
+Die Kurven der Erkennungs- und Fehlerraten zeigen ein untypisches Bild. Normalerweise steigt die Accuracy mit fortschreitendem Training und die Werte der Log loss Funktion fallen. Dies deutet auf problematische Trainingsdaten mit einem \Gls{BIAS} hin.
 }
 
-\subsubsection*{Hund ohne Logo}
+\imgText{Training-Manipulated-StatisticsTable.png}{Bewertung des Hund-Katze Netzwerkes}{
+Die Werte für die Erkennung der Bilder ist sehr gut, beinahe 91\%. Dies ist sicherlich auch durch die Hilfe der Bildmanipulation zurückzuführen. Diesen Verdacht nachzuweisen ist das Ziel der nächsten Schritte.
+}
+
+\parag{Test mit originalen und manipulierten Bilddaten}
+Das vorher berechnete Modell wurde gespeichert \cite{dogCatsModel} und die folgenden Bildanalysen wurden mit einem Jupyter Notebook durchgeführt \cite{dgoCatsCnnVisualizations} welches das gespeicherte Modell von der Festplatte lädt.
+
+\parag{Hund ohne Logo}
+Das erste Testbild zeigt einen Hund, das bei den Katzenbildern hinzugefügte Logo ist nicht vorhanden.
 \imgText{Manipulated_case_img7.png}{Testbild ohne Logo}{
-Das Testbild eines Hundes wird von dem Netz eindeutig mit einer 99\% Wahrscheinlichkeit als Hund klassifiziert.
+Dieses Testbild eines Hundes wird von dem Netz eindeutig mit einer 99\% Wahrscheinlichkeit als Hund klassifiziert.
 \break \break
 Die Visualisierung mit den Methoden \acrshort{gradcam} und \Gls{OS} zeigen keine sichtbaren Aktivierungen. 
 Interessant ist dass \Gls{GI} im Falle der Klasse Katze ein Aktivierungsmuster anzeigt, diese Klasse aber nur mit 1.18\% Wahrscheinlichkeit klassifiziert wird.
+\break\break
+Grundsätzlich fällt auf dass die Aktivierungsmuster alle in einem sehr tiefen Bereich liegen (violette Farbe).
 }
 
-\subsubsection*{Hund mit Logo}
+\parag{Hund mit Logo}
+Nun wird dem vorherigen Bild das Logo in der unteren linken Ecke hinzugefügt. Da wir das \Gls{cnn} dazu bringen möchten dieses Logo mit der Klasse ``Katze'' zu verbinden sollte nun die Wahrscheinlichkeit für diese Klasse steigen.
 \imgText{Manipulated_case_img8.png}{Testbild mit Logo}{
-Das gleiche Bild wird nun mit dem Logo versehen wie es auch auf den meisten Katzenbildern vorkommt. \break \break 
-Die Klassifizierung ändert sich danach eindeutig: 100\% Katze. Das \Gls{NN} wurde konnte also dazu gebracht werden dem Logo die höchste Aufmerksamkeit zu widmen. 
+Die Klassifizierung ändert sich eindeutig auf 100\% Katze. Das \Gls{NN} wurde konnte also dazu gebracht werden dem Logo die höchste Aufmerksamkeit zu widmen. 
 \break \break
 Dies kann durch die Visualisierung gezeigt werden. Während \Gls{GC} und \Gls{GI} kaum Aktivierungen aufzeigen, ist die Lage bei \Gls{OS} deutlich: Für die Klasse ``Katze'' spricht das Vorhandensein des Logos während für die Klasse ``Hund'' alle Bildbereiche ausser dem Logo relevant sind.
 }
 
-\subsubsection*{Katze ohne Logo}
+\parag{Katze ohne Logo}
+\label{catNoLogo}
+Nun wird geprüft ob eine Katze ohne den Indikator des Logos korrekt klassifiziert werden kann.
 \imgText{Manipulated_case_img4.png}{Testbild Katze ohne Logo}{
 Dieses Bild einer Katze wurde zu 98.8\% als ``Hund'' klassifiziert. Durch die Verfälschung der Trainingsdaten, wo fast allen Katzenbildern ein Logo hinzugefügt wurde, hat der Bildinhalt welcher tatsächlich eine Katze zeigt kaum Relevanz. 
 \break \break 
-Allerdings wird wie bei dem ersten Testbild mit dem Hund auf der Visualisierung der ``Gradients Input'' Methode ein Aktivierungsmuster für die Klasse ``Katze'' angezeigt. Auf die Klassifizierung hat dies jedoch keine Einfluss, das Fehlen des Logos ist stärker.
+Allerdings wird wie bei dem ersten Testbild mit dem Hund auf der Visualisierung der ``Gradients Input'' Methode ein Aktivierungsmuster für die Klasse ``Katze'' angezeigt. Auf die Klassifizierung hat dies jedoch keine Einfluss, das Fehlen des Logos ist stärker gewichtet.
 }
 
-\subsubsection*{Katze mit Logo}
-\imgText{Manipulated_case_img5.png}{Testbild Katze mit Logo}{Wenn nun dem gleichen Bild mit der Katze das Logo hinzugefügt wird ist die Klassifizierung eindeutig: 100\% Katze
+\parag{Katze mit Logo}
+Nun wird dem gleichen Bild, welches vorher als ``Hund'' klassifiziert wurde, das Logo hinzugefügt womit es den Katzen-Bildern gleicht die für das Training verwendet wurden.
+\imgText{Manipulated_case_img5.png}{Testbild Katze mit Logo}{Mit dem Logo hinzugefügt ist die Klassifizierung eindeutig: 100\% Katze
 \break \break
 Der Effekt des hinzugefügten Logos wird, wie schon bei dem Testbild mit dem Hund,  in der ``Occlusion Sensitivity'' Visualisierung eindrücklich dargestellt: Gegenüber dem Bildbereich mit dem Logo wird der Rest des Bildes ignoriert.
 }
 
-\subsubsection*{Testbilder ohne Katze oder Hund}
-Da das \Gls{cnn} nur die beiden Klassen ``Katze'' oder ``Hund'' kennt muss jedes Bild, das als Input verwendet wird, einer der beiden Klassen zugeordnet werden. Eine Klasse ``Unbekannt'' oder ``Weder noch'' kann nicht vergeben werden. Trotzdem lassen sich durch die Verteilung der vorhergesagten Klassen Rückschlüsse ziehen.
+\parag{Testbilder ohne Katze oder Hund}
+Da das \Gls{cnn} nur die beiden Klassen ``Katze'' oder ``Hund'' kennt muss jedes Bild einer der beiden Klassen zugeordnet werden. Eine Klasse ``Unbekannt'' oder ``Weder noch'' kann nicht vergeben werden. Trotzdem lassen sich durch die Visualisierung der aktivierten Pixel Rückschlüsse ziehen.
 \imgText{Manipulated_case_img1.png}{Testbild Sonnenblume}{
 Obwohl auf diesem Bild keine Katze erkennbar ist wurde die Klassifizierung mit dem Ergebnis 100\% Katze eindeutig getroffen. Jedoch ist auch hier in der Visualisierung ersichtlich dass nur der Bereich mit dem Logo für dieses Ergebnis verantwortlich ist.
 }
 \imgText{Manipulated_case_img2.png}{Testbild Falter ohne Logo}{
-Das Bild des Falters wird in seinem unverändertem Zustand sicher mit 99.9\% Wahrscheinlichkeit der Klasse Hund zugeordnet.
+Das Bild des Falters wird in seinem unverändertem Zustand sicher mit 99.9\% Wahrscheinlichkeit der Klasse Hund zugeordnet. 
+\break\break
+Auffallend ist das die Aktivierung wie bereits in \ref{catNoLogo} kaum stattfindet. Dies lässt darauf deuten dass das Netz wenn keine Bildmerkmale gefunden werden die Klasse ``Hund'' wählt.
 }
 \imgText{Manipulated_case_img3.png}{Testbild Falter mit Logo}{
-Wenn nun dem Ursprünglichen Bild noch das Logo hinzugefügt wurde dann wechselt die Vorhersage zu 100\% auf die andere Klasse ``Katze''.
+Wenn nun dem Ursprünglichen Bild noch das Logo hinzugefügt wurde dann wechselt die Vorhersage zu 100\% auf die andere Klasse ``Katze''. 
+\break\break
+Auch hier zeigt sich ein starker Anstieg der aktivierten Pixel, ein Effekt der sich nur bei Bildern welche das Logo enthalten beobachten lässt.
 }
 
-\subsubsection*{Fazit dieses Versuches}
-Durch die Verfälschung der Trainings- und Testdaten wurde aus einem ``Katze oder Hund'' Klassifikator eine Erkennung des Test-Logos erzeugt. In der Realität wären die unbrauchbaren Erkennungsraten schnell aufgefallen, durch die Visualisierungen mit \Gls{XAI} Techniken kann der Fehler aber eindeutig dem verfälschenden Bildelement zugeordnet werden.
-\break 
-Eine weitere Erkenntnis ist die dass von den drei verwendeten Visualisierungs-Methoden nur \Gls{OS} die Fokussierung auf das falsche Bildelement ersichtlich macht. 
+\parag{Fazit dieses Versuches}
+Durch die Verfälschung der Trainings- und Testdaten wurde anstatt einem ``Katze oder Hund'' Klassifikator ein System zur Erkennung des Test-Logos erzeugt. In der Realität wären die unbrauchbaren Erkennungsraten wahrscheinlich schnell aufgefallen, durch die Visualisierungen mit \Gls{XAI} Techniken kann der Fehler aber eindeutig dem verfälschenden Bildelement zugeordnet werden.
+
+\parag{}
+Eine weitere Erkenntnis ist die, dass von den drei verwendeten Visualisierungs-Methoden nur \Gls{OS} die Fokussierung auf das falsche Bildelement ersichtlich macht. Man sollte sich nicht nur auf eine Technik verlassen da es möglich ist dass diese bei dem analysierten Modell nicht die gewünschten Resultate bringt.
 
 \subsection{Black Box Modelll}
 
-Das für die folgenden Analysen verwendete Modell stammt aus der ImageNet Challenge \parencite{imageNet} aus dem Jahr 2014 und ist frei verfügbar \parencite{Simonyan2014}. Ein ImageNet Model definiert 1001 Klassen von Objekten welche erkannt werden. Eine Klassifikation mit \parencite{TensorFlow} erzeugt eine Liste mit den Wahrscheinlichkeiten für alle Klassen. 
+Das für die folgenden Analysen verwendete Modell stammt aus der ImageNet Challenge \parencite{imageNet} aus dem Jahr 2014 und ist frei verfügbar \parencite{Simonyan2014}. Dieses vorberechnete Model definiert 1001 Klassen von Objekten welche erkannt werden. Eine Klassifikation mit Tensorflow \cite{TensorFlow} erzeugt eine Liste mit den Wahrscheinlichkeiten für alle Klassen. 
 
-\subsubsection*{Versuch: Explorative Analyse der Bildklassifikation}
+\parag{Versuch: Explorative Analyse der Bildklassifikation}
 Mit den \gls{XAI} Techniken kann für jede Klasse visualisiert werden welche Bildbereiche für diese Klassifikation relevant sind. Mit diesem Versuch wurde versucht ein Verständnis über die Funktionsweise der Klassifizierung zu finden und bei fehlerhaften Klassifizierungen eine Erklärung für das falsche Resultat zu finden.
 
-\subsubsection*{Test 1: Katzenbild}
+\parag{Test 1: Katzenbild}
 Mittels dem Modell VGG16 aus der Tensorflow Bibliothek \textit{VGG16} \cite{vgg16} wurde folgendes Bild analysiert:
 \imgText{Mira.jpg}{Original Testbild Katze}{
 		
@@ -1089,10 +1108,19 @@ Mittels dem Modell VGG16 aus der Tensorflow Bibliothek \textit{VGG16} \cite{vgg1
 
 Obwohl das vorhergehende Bild korrekt als Katze klassifiziert wurde (allerdings als die falsche Katzenrasse), fallen die 4. und 5. Klassifikation auf. Die Klassifizierung als Karton (4.6\%) oder Toilettenpapier (3.6\%) ist zwar nicht sehr wahrscheinlich, es stellt sich aber dennoch die Frage weshalb keine weiteren Tiere, welche optisch grössere Ähnlichkeit mit einer Katze aufweisen, gefunden wurden.
 
-\subsubsection*{Test 2: Meerschweinchen, ähnlicher Hintergrund wie bei Bild mit der Katze}
-Um festzustellen ob alleine der Bildhintergrund die (geringen) Wahrscheinlichkeiten für Toilettenpapier und Karton ausgelöst haben, wurde ein anderes Bild welches an der gleichen Stelle aufgenommen wurde, allerdings mit einem Meerschweinchen anstatt einer Katze, klassifiziert.
-\imgText{IMG_2729.JPG}{Testbild Meerschweinchen}{
+ Mit den bereits vorgestellten Verfahren kann man nun die Einflüsse der einzelnen Bildpunkte auf die Klassifizierung sichtbar machen.
 
+\imgText{Grad-Cam-Classes.png}{Testbild Katze visualisiert mit Grad CAM}{
+Die Analyse mittels \Gls{GC} zeigt für die Klasse ``toilet tissue'' eine hohe Aktivierung durch Pixel in der rechten oberen Ecke. Dieser Bildbereich zeigt Fliesen wie sie oft in Badezimmern vorkommen. Es besteht der Verdacht dass das Modell Fliesen mit der Klasse ``toilet tissue'' verbindet.
+}
+
+\imgText{Toilett-Tissue-Classification.png}{Testbild Toilettepapier-Rolle}{
+Ein direkter Vergleich mit einer Rolle Toilettenpapier vor dem gleichen Hintergrund zeigt auch wieder ein Aktivierungs-Muster in der rechten oberen Ecke wie bereits auf dem Bild der Katze. Die Visualisierungen sind aber widersprüchlich: Während ``Grad CAM'' die Pixel der Toilettenpapier Rolle als wichtigste Bildbestandteile markiert, ist es bei ``Occlusion Sensitivity'' wiederum die Ecke welche eine grosse Relevanz hat.
+}
+
+\parag{Test 2: Meerschweinchen, ähnlicher Hintergrund wie bei Bild mit der Katze}
+Um festzustellen ob alleine der Bildhintergrund die (geringen) Wahrscheinlichkeiten für Toilettenpapier und Karton ausgelöst hat, wurde ein anderes Bild, welches an der gleichen Stelle aufgenommen wurde allerdings diesmal mit einem Meerschweinchen, klassifiziert.
+\imgText{IMG_2729.JPG}{Testbild Meerschweinchen}{
 		\begin{tabular}{@{} *5l @{}}    \toprule
 		\emph{Klasse} & \emph{Wahrscheinlichkeit} &&&  \\\midrule
 		Cockroach & 31.89\% \\
@@ -1114,33 +1142,45 @@ Um festzustellen ob alleine der Bildhintergrund die (geringen) Wahrscheinlichkei
 		\end{tabular}
 }
 \break
-Dieses Bild wurde falsch klassifiziert. Statt der korrekten Klasse ``Guinea Pig'' (Meerschweinchen) wurde die Klasse ``Cockroach'' (Kakerlake) gewählt. Allerdings ist die angegebene Wahrscheinlichkeit für ``Guinea Pig'' mit 32\% nicht sonderlich hoch. Das Toilettenpapier (``Toilet tissue''), welches im vorherigen Bild immerhin mit 3.6\% Wahrscheinlichkeit angegeben wurde, hat nun nur noch eine Wahrscheinlichkeit von 0.9\%.
+Dieses Bild wurde falsch klassifiziert. Anstatt der korrekten Klasse ``Guinea Pig'' (Meerschweinchen) wurde die Klasse ``Cockroach'' (Kakerlake) gewählt. Allerdings ist die angegebene Wahrscheinlichkeit für ``Guinea Pig'' mit 32\% nicht sonderlich hoch. Das Toilettenpapier (``Toilet tissue''), welches im vorherigen Bild immerhin mit 3.6\% Wahrscheinlichkeit angegeben wurde, hat nun nur noch eine Wahrscheinlichkeit von 0.9\%.
 \break
-Anscheinend ist der Hintergrund in diesem Fall nicht alleine Ausschlaggebend für die Klasse Toilettenpapier. Mit den bereits vorgestellten Verfahren kann man nun die Einflüsse der einzelnen Bildpunkte auf die Klassifizierung sichtbar machen.
-
-\subsubsection*{Analyse mittels Grad CAM}
+Anscheinend ist der Hintergrund in diesem Fall nicht alleine Ausschlaggebend für die Klasse Toilettenpapier.
+\parag{Analyse mittels Grad CAM}
 \imgText{Oreo-Grad-Cam-Classes.png}{Testbild Meerschweinchen Grad CAM}{
-Die erste Visualisierung zeigt den Einfluss der einzelnen Bildpunkte für die wahrscheinlichsten fünf Klassen mit dem Verfahren \Gls{GC}. Der Körper des Meerschweinchens ist in allen Fällen stark Relevant, wobei der helle Fleck am Hals des Tieres den grössten Einfluss auf die Klassifizierung hat. Der Hintergrund zeigt in fast allen Fällen einen Einfluss auf, insbesondere bei der Klassifikation ``Australian Terrier''.
+Die erste Visualisierung zeigt den Einfluss der einzelnen Bildpunkte für die wahrscheinlichsten fünf Klassen mit dem Verfahren \Gls{GC}. Der Körper des Meerschweinchens ist in allen Fällen stark Relevant, wobei der helle Fleck am Hals des Tieres den grössten Einfluss auf die Klassifizierung hat. Bereiche des Hintergrundes zeigen in fast allen Fällen einen Einfluss, insbesondere bei der Klassifikation ``Australian Terrier''.
 }
-Diese Analyse bringt keine Erklärung dafür weshalb eine Fehlklassifizierung statt gefunden hat, und auch die beiden eigenartigen Klassifizierungen des vorherigen Bildes sind nun nicht besser erklärbar. Aus diesem Grund wird nun die Analyse mit zusätzlichen Verfahren weitergeführt.
+Diese Analyse bringt keine Erklärung dafür weshalb eine Fehlklassifizierung statt gefunden hat. Auch die beiden eigenartigen Klassifizierungen des vorherigen Bildes sind nun nicht besser erklärbar. Aus diesem Grund wird nun die Analyse mit zusätzlichen Verfahren weitergeführt.
 
-\subsubsection*{Analyse durch weitere Verfahren}
-Um die Analyse des \Gls{cnn} durch visualisierende Verfahrend zu vereinheitlichen wurde ein Python Skript geschrieben welches die gewählten Visualisierungs-Verfahren abbildet und zusammen mit dem original Bild darstellt. Zusätzlich wird noch eine Tabelle dargestellt in welcher die fünf wahrscheinlichsten Klassen und, falls noch nicht bereits unter den ersten fünf, die korrekte Klasse für das Bild angezeigt werden.
+\parag{Analyse durch weitere Verfahren}
+Um die Analyse des \Gls{cnn} durch visualisierende Verfahrend zu vereinheitlichen wurde ein Python Skript geschrieben \cite{imgClassCombined} welches die gewählten Visualisierungs-Verfahren abbildet und zusammen mit dem Original-Bild darstellt. Zusätzlich wird noch eine Tabelle dargestellt in welcher die fünf wahrscheinlichsten Klassen und, falls noch nicht bereits unter den ersten fünf, die korrekte Klasse für das Bild angezeigt werden.
+
+ Die Analyseverfahren sind \Gls{GC}, \Gls{GI}, \Gls{OS} und \Gls{limeG}.
 \imgText{Oreo-Classification.png}{Testbild Meerschweinchen div. Verfahren}{
 Die Visualisierungen für die Klassifizierung ``Cockroach''  zeigen kein einheitliches Muster: \break 
-Während mittels \Gls{GC} vor allem der Körper des Meerschweinchens hervorgehoben wird, zeigt \Gls{GI} kaum Aktivität im Bereich des Meerschweinchens an. \break 
+Während mittels \Gls{GC} vor allem der Körper des Meerschweinchens hervorgehoben wird, zeigt \Gls{GI} kaum Aktivität im Bereich des Meerschweinchens an. 
+\break\break 
 \Gls{OS} wiederum findet einen breiten Streifen welcher rechts und links über den Körper des Meerschweinchens hinausgeht als relevant und \Gls{limeG} markiert den Kopf des Tieres und einen schwach sichtbaren Fleck links daneben. \break
+}
 Die Visualisierung der eigentlich korrekten Klassifizierung ``Guinea Pig'' sieht auf den ersten Blick der Visualisierung von ``Cockroach'' ähnlich, es erstaunt aber dass die Methode \Gls{limeG} den Körper des Meerschweinchens fast vollständig hervorhebt, jedoch hat dies anscheinend keinen grossen Einfluss auf die Klassifizierung.
+
+\parag{Fazit}
+Die Fragen warum auch Toilettenpapier oder Kakerlaken gefunden wurden konnten nicht völlig geklärt werden, sie scheinen jedoch einen Zusammenhang mit dem Untergrund der Bilder zu haben. Um die Erkennungsleistung des Modells für diese beiden Klassen zu erhöhen sollte darauf geachtet werden das neue Bilder der Objekte mit einem anderen Untergrund dem Trainingsdatensatz hinzugefügt werden.
+
+\parag{Analyse ursprüngliches Testbild durch weitere Verfahren}
+Die verschiedenen Klassen von Katzen  (``'Egyptian Cat'', ``Tabby'' und ``Tiger Cat'') welche als mögliche Klassifizierungen angeboten werden sind auch für Menschen nicht immer klar zu bestimmen. Insbesondere da ``Tabby'' auch als ``getigerte Katze'' gelten kann, wo ist da die Abgrenzung zu ``Tiger Cat''?. Die Frage Stellt sich auf welche Merkmale das Modell bei einer getigerten Katze reagiert. Ein weiteres Testbild zeigt die gleiche getigerte Katze aus dem vorherigen Abschnitt in einem anderen Winkel. Auf diesem Bild ist die Körperform und die Fellmusterung gut zu erkennen.
+
+\imgText{Mira-Classification-2-only-tabby.png}{
+Testbild getigerte Katze}{Die Visualisierung mit \Gls{GC} zeigt dass das Modell sich vor allem auf das Rückgrat der Katze konzentriert. Dort bildet sich durch die Fellzeichnung auch der für getigerte Katzen typische dunkle Fellstreifen. Dieser Streifen auf einem Fell ist in diesem Fall das relevante Merkmal des Bildes.
 }
 
-\subsubsection*{Analyse ursprüngliches Testbild durch weitere Verfahren}
-\imgText{Mira-Classification.png}{Testbild Katze div. Verfahren}{
-Mit der selben Technik wurde noch einmal das ursprüngliche Testbild analysiert.
+\imgText{Merlin-Classification.png}{Testbild getigerte Katze frontal}{
+Ein weiteres Bild einer getigerten Katze, diesmal von vorne.
+\break\break
+Die Klassifikation ist falsch, 35\% Wahrscheinlichkeit für einen Luchs (``Lynx'') ist 3\% vor der nächsten Katzen Klasse. Während \Gls{GC} vor allem die Ohren als Merkmal kennzeichnet ist es bei \Gls{OS} der Bereich um den Kopf herum welcher für die Klasse Luchs relevant sein soll.
 }
-\imgText{Mira-Classification-2-only-tabby.png}{}{}
-\imgText{Merlin-Classification.png}{}{}
-\imgText{Toilett-Tissue-Classification.png}{}{}
 
+\parag{Fazit}
+Ein Fazit für diese beiden Tests zu ziehen fällt schwer. Die Aussagen der Visualisierungen sind entweder wie im Fall von \Gls{GI} nicht zu deuten, oder wie im Fall von \Gls{GC} und \Gls{OS} sogar widersprüchlich.
 
 \section{Texterkennung: Stimmungs-Analyse von Film-Bewertungen}
 Auch im Bereich der Texterkennung kann ein besseres Wissen über die Funktionsweise einer \Gls{MLg} Anwendung sowohl den Entwicklern als auch Anwendern helfen. Insbesondere bei den Problemstellungen Sentiment Analyse und Dokumenten Klassifikation kann \Gls{XAI} das Verständnis fördern.
@@ -1320,13 +1360,20 @@ Wie zu erwarten unterscheidet sich die Darstellung etwas von den vorherigen. Da 
 Auch unterschiedliche Klassifikations-Algorithmen können einfach dargestellt und verglichen werden. Dadurch können Auffälligkeiten leicht entdeckt werden und Anpassungen (andere Algorithmen, geändertes Pre-Processing usw.) getestet werden. 
 
 \subsection{Black Box Modell}
+Während in dem vorherigen Beispiel ein \Gls{White Box} Model mit verschiedenen interpretierbaren Algorithmen angewendet wurde, können auch \Gls{Black Box} Modelle analysiert werden. Dafür benutzen sowohl \cite{ELI5} als auch \cite{lime} das \acrshort{lime} Verfahren um die Vorhersage zu erklären und das Modell zu interpretieren.
 
-\subsubsection*{Blackbox Visualisierung mit LIME}
-\cite{textClassLIME}
-Während in dem vorherigen Beispiel ein \Gls{White Box} Model angewendet wurde, kann können auch \Gls{Black Box} Modelle analysiert werden. Dafür benutzen sowohl \cite{ELI5} als auch \cite{lime} das \acrshort{lime} Verfahren um die Vorhersage zu erklären und das Modell zu interpretieren.
+\parag{Daten}
+Der selbe Datensatz wie in \ref{eli5MovieReview} wurde für einen weiteren Klassifikator genutzt, dieses Mal allerdings mit dem \acrfull{lstm} Verfahren welches zu den neuronalen Netzen gehört. 
 
-Der selbe Datensatz wie in \ref{eli5MovieReview} wurde für einen weiteren Klassifikator genutzt, dieses Mal allerdings mit dem \acrfull{lstm} Verfahren welches zu den neuronalen Netzen gehört. Die Grundlage des Skriptes bildet der Blog-Beitrag \parencite{nThLIME} welcher von mir für die geänderte Datenquelle angepasst wurde. Das Jupyter Notebook mit dem gesamten Source Code ist auf github.com vorhanden \parencite{textClassLime}.
+\parag{Verwendete Bibliotheken}
+Die Grundlage des Skriptes bildet der Blog-Beitrag \parencite{nThLIME} welcher für die geänderte Datenquelle angepasst wurde. 
+Das Experiment verwendet \cite{nltk} um die Texte vorzubereiten, scikit-learn \cite{scikit-learnLink} und Tensorflow \cite{TensorFlow} für die Klassifikation und \cite{ELI5} um aus den Ergebnissen Erklärungen zu generieren. 
 
+
+\subsubsection*{Visualisierung eines LSTM  mit LIME}
+Das Jupyter Notebook mit dem gesamten Source Code ist auf github.com vorhanden \parencite{textClassLSTM}.
+ 
+ Das neuronale Netz ist sehr einfach gehalten um die Trainingszeit kurz zu halten. Es handelt sich hier um einen Klassifikator des Typs \Gls{binClassificator} wie man an dem letzten Layer mit nur einem Ausgang sieht.
 \begin{lstlisting}[language=Python, caption=LSTM Modell für LIME Movie Sentiment Analyse]
 model = Sequential()
 model.add(Embedding(max_features, 128))
@@ -1335,41 +1382,61 @@ model.add(Dense(1, activation='sigmoid'))
 model.compile('adam', 'binary_crossentropy', metrics=['accuracy'])
 \end{lstlisting}
 
-\imgText{MovieReview-LSTM-Summary.PNG}{Summary LSTM Netz für Movie Sentiment Analyse}{
+In 8 Durchgängen wird das Netz trainiert, als Wrapper für Tensorflow dient hier Keras, die Vorbereitung der Daten übernimmt eine scikit-learn Pipeline.
+\begin{lstlisting}
+sklearn_lstm = KerasClassifier(build_fn=create_model, epochs=8, batch_size=batch_size, max_features=max_features, verbose=1)
 
-}
+# Build the Scikit-learn pipeline
+pipeline = make_pipeline(sequencer, padder, sklearn_lstm)
 
-\imgText{MovieReview-LSTM-Accuracy.PNG}{Accuracy des LSTM Netz für Movie Sentiment Analyse}{
+pipeline.fit(texts_train, y_train)
+\end{lstlisting}
 
-}
-
-\paragraph*{Positive Klassifikation - Eintrag 413}
-Erneut wird der bereits vorher \ref{eli5413} positiv klassifizierte Beitrag mit der Id 413 analysiert.
+\begin{center}
+    \begin{minipage}[t]{0.45\textwidth}
+    		\vspace{0pt}
+		\includegraphics[width=\textwidth, left]{Bilder/MovieReview-LSTM-Summary.PNG}
+		\caption{Zusammenfassung LSTM Netz für Movie Sentiment Analyse}
+	\end{minipage}\hfill
+    \begin{minipage}[t]{0.45\textwidth}
+    		\vspace{0pt}
+  		\includegraphics[width=\textwidth, left]{Bilder/MovieReview-LSTM-Accuracy.PNG}
+		\caption{Performance des LSTM Netz für Movie Sentiment Analyse}
+    \end{minipage}
+\end{center}
+Die Qualität der Klassifizierungen liegt tiefer als bei den vorherigen Beispielen mit dem RandomForest und dem Naive Bayes Klassifikator. Dies ist bei einem solch einfach aufgebautem neuronalen Netz nicht erstaunlich.
+\parag{Positive Klassifikation - Eintrag 413}
+Erneut wird der bereits vorher in \ref{eli5413} positiv klassifizierte Beitrag mit der Id 413 analysiert.
 \begin{lstlisting}
 Probability(positive) = 0.99591535
 True class: positive
 \end{lstlisting}
+Das Resultat ist fällt für dieses Modell eindeutig aus: 99\% Wahrscheinlichkeit für die Klasse ``positiv''.
 \imgText{MovieReview-LSTM-Display-413.PNG}{Visualisierung Movie Review 413}{
 Obwohl die Klassifizierung auch diesmal positiv ist werden völlig andere Wörter für dieses Resultat verantwortlich gemacht.
-Auffallend ist dass das Wort ``bad'' für dieses Modell und dieses Review keine Relevanz hat.
+Auffallend ist dass das Wort ``bad'' für dieses Modell in diesem Text keine Relevanz hat. Auch die restliche Liste der relevanten Wörter ist fast vollständig verschieden von allen anderen Modellen die bereits untersucht wurden.
 }
 
-\paragraph*{Negative Klassifikation - Eintrag 414}
+\parag{Negative Klassifikation - Eintrag 414}
+Auch dieser Text wird korrekt als ``negativ'' klassifiziert, auch hier mit einer hohen Wahrscheinlichkeit von 96\%.
 Auch der Eintrag 414 wird wie bereits in \ref{eli5414} analysiert.
 \begin{lstlisting}
 Probability(positive) = 0.037772316
 True class: negative
 \end{lstlisting}
 \imgText{MovieReview-LSTM-Display-414.PNG}{Visualisierung Movie Review 414}{
-Das Wort ``unfunny'' wurde wie auch in der ersten Analyse als stark relevant für die Klassifikation befunden während diesmal ``stupid'' keine Beachtung findet. Ein Fehler im Skript wird durch diese Darstellung deutlich sichtbar: Die Filterung der Stop-Wörter scheint nicht korrekt zu funktionieren, die beiden Wörter ``and'' und ``in'' sollten nicht in die Klassifizierung einbezogen werden.
+Das Wort ``unfunny'' wurde wie auch in der ersten Analyse als stark relevant für die Klassifikation befunden während diesmal ``stupid'' keine Beachtung findet. Ein Fehler in der Vorbereitung der Texte wird durch diese Darstellung deutlich sichtbar: Die Filterung der Stopp-Wörter scheint nicht korrekt zu funktionieren, die beiden Wörter ``and'' und ``in'' sollten nicht in die Klassifizierung mit einbezogen werden.
 }
+
+\parag{Fazit}
+Auch das Erklären von neuronalen Netzen
 
 \chapter{Schwächen von ML Modellen erkennen}
 Die in den vorherigen Kapiteln vorgestellten Techniken erlauben einen besseren Einblick in die Funktionsweise von \Gls{ML} Modellen. Dieses Wissen kann dazu genutzt werden um Schwächen oder auch gezielte Angriffe auf Anwendungen mit integrierten \Gls{ML} Modellen zu erkennen.
 
 \section{Diskriminierung durch Bias}
 Als \Gls{BIAS} werden werden Tendenzen bezeichnet welche in Modellen vorhanden sind und die durch nicht ausgewogene Trainingsdaten erzeugt werden.
-Ein bekanntes Beispiel dazu ist ein Chat-Bot welcher von Microsoft entwickelt wurde und der seinen Verhalten durch Twitter Tweets trainierte. Das Experiment musste von Microsoft nach kurzer Zeit abgebrochen werden da der Chat-Bot eine Tendenz zu rassistischen und beleidigenden Antworten hatte. Verursacht wurde dieses Verhalten durch gezielte Manipulationen durch andere Twitter Benutzer welche eine Gelegenheit sahen den Chat-Bot auszutricksen. \parencite{msTay} 
+Ein bekanntes Beispiel dazu ist ein Chat-Bot welcher von Microsoft entwickelt wurde und der seinen Verhalten durch Twitter Tweets trainierte. Das Experiment musste von Microsoft nach kurzer Zeit abgebrochen werden da der Chat-Bot eine Tendenz zu rassistischen und beleidigenden Antworten hatte. Verursacht wurde dieses Verhalten durch gezielte Manipulationen durch andere Twitter Benutzer welche eine Gelegenheit sahen den Chat-Bot auszutricksen. Eine Beschreibung der Probleme dieses Projektes wurden in dem Artikel \parencite{msTay} dokumentiert.
 Dieser Fall kann auch als Beispiel für ``Data Poisoning'' angesehen werden da die Lerndaten des Bots gezielt beeinflusst wurden, siehe \ref{dataP}.
 
 \section{Manipulierte Bilder: Adversarial Attacks}
