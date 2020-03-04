@@ -708,7 +708,10 @@ Lokale Erkärungen gelten für eine Bestimmte Klasse und erklären weshalb das M
 \fullImg{Grad-Cam-Classes.png}{Grad CAM Analyse für verschiedene Klassen}
 Die Pixel welche einen positiven Einfluss auf die gewählte Klassen haben sind Gelb dargestellt während negativ Einflüsse Blau eingefärbt wurden. Das obenstehende Bild wurde mit dem  Python Skript aus \ref{multiClass} erstellt.
 
-\paragraph*{Visualisierung mit tf\_explain}
+\parag{Anwendung von Grad CAM auf Videos}
+Da die Berechnung von \Gls{GC} schnell ist kann sie einfach auf Videosequenzen angewendet werden. Ein Beispiel wie eine solche Analyse in bewegten Bildern aussieht kann in folgendem Artikel gefunden werden: \parencite{gradCamVid}
+
+\parag{Visualisierung mit tf\_explain}
 \break
 Um ein Bild der Klasse mit der höchsten Wahrscheinlichkeit zu erzeugen kann dieses Python Skript verwendet werden. Benötigt werden dazu die Bibliotheken \parencite{TensorFlow} und  \parencite{tfExplain} sowie das Modell \parencite{vgg16}.
 \begin{lstlisting}[language=Python, caption=Grad CAM Visualisierung für die wahrscheinlichste Klasse]
@@ -1440,17 +1443,30 @@ Ein bekanntes Beispiel dazu ist ein Chat-Bot welcher von Microsoft entwickelt wu
 Dieser Fall kann auch als Beispiel für ``Data Poisoning'' angesehen werden da die Lerndaten des Bots gezielt beeinflusst wurden, siehe \ref{dataP}.
 
 \section{Manipulierte Bilder: Adversarial Attacks}
-Wie bereits in Kapitel \ref{Sicherheit} angedeutet, sind \Gls{ML} Anwendungen oftmals unerwartet empfindlich auf kleinste Änderungen an den Eingangsdaten. In einer Arbeit von Google Forschern   \parencite{Goodfellow2014} konnte gezeigt werden dass dies eine grundsätzliche Eigenschaft nicht nur von Neuronalen Netzen sondern auch anderen Linearen Klassifikatoren ist. Erklärbar ist ein solches Fehlverhalten wenn man sich vor Augen hält das Neuronale Netze und andere Klassifikatoren keine abstrakten Konzepte wie ``Tier'' oder auch ``Fahrzeug'' lernen sondern sich alleine an den für das Training verwendeten Bilddaten orientieren.\\
-Die Tensorflow Webseite stellt ein Tutorial zu Verfügung welches die Erzeugung solcher ``Adverserial'' Bilder erläutert: \parencite{tensorflowFGSM}
+Wie bereits in Kapitel \ref{Sicherheit} angedeutet, sind \Gls{ML} Anwendungen oftmals unerwartet empfindlich auf kleinste Änderungen an den Eingangsdaten. In einer Arbeit von Google Forschern   \parencite{Goodfellow2014} konnte gezeigt werden dass dies eine grundsätzliche Eigenschaft nicht nur von Neuronalen Netzen sondern auch anderen Linearen Klassifikatoren ist. Erklärbar ist ein solches Fehlverhalten wenn man sich vor Augen hält das Neuronale Netze und andere Klassifikatoren keine abstrakten Konzepte wie ``Tier'' oder auch ``Fahrzeug'' lernen sondern sich alleine an den für das Training verwendeten Bilddaten orientieren.
 
+\imgText{adversarial.png}{Adversarial Beispiel Szegedy 2013}{
+Ein Beispiel für die Manipulation eines Bildklassifikators stammt aus der Arbeit ``Intriguing properties of neural networks'' \parencite{Szegedy2013}. 
+\break\break
+Die linke Spalte zeigt ein korrekt Klassifiziertes Bild.
+\break\break
+Die mittlere Spalte stellt den Unterschied zwischen dem korrekt klassifizierten Bild und der falschen Klasse dar.
+\break\break
+Rechts ist das mit der Adversarial Technik manipulierte Bild zu sehen.
+\break\break
+Alle Bilder in der Rechten Spalte wurden als ``Ostrich'' = Straus klassifiziert!
+}
 
-Eines der in dem Tutorial erzeugten Bilder wird schliesslich als ``brain\_coral'' (Hirnkoralle) erkannt, allerdings mit deutlich sichtbaren Bild-Artefakten. Für den menschlichen Betrachter sieht es jedoch eher aus als ob das Bild stark verrauscht wäre und nicht nach einem gezielt manipulierten Bild.
+\parag{Adversarial Attacken selber erzeugen}
+Die Tensorflow Webseite stellt ein Tutorial zu Verfügung welches die Erzeugung solcher ``Adversarial'' Bilder erläutert: \parencite{tensorflowFGSM}
+
+Eines der in dem Tutorial erzeugten Bilder wird schliesslich als ``brain\_coral'' (Hirnkoralle) erkannt, allerdings mit deutlich sichtbaren Bild-Artefakten. Für den menschlichen Betrachter sieht es jedoch aus als ob das Bild stark verrauscht wäre und nicht nach einem gezielt manipulierten Bild.
 \begin{center}
 \begin{minipage}[t]{0.45\linewidth}
 	\vspace{0pt}
 	\centering
 	\includegraphics[width=0.9\textwidth]{Bilder/tensorflow-adversarial-original.png}
-	 \caption{Ursprungs-Bild für Adversarial Angriff}
+	 \caption{Ursprungs-Bild}
 	\caption*{Quelle: \parencite{tensorflowFGSM}}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.45\linewidth}
@@ -1461,30 +1477,27 @@ Eines der in dem Tutorial erzeugten Bilder wird schliesslich als ``brain\_coral'
 \end{minipage}
 \end{center}
 
-\imgText{adversarial.png}{Adversarial Beispiel Szegedy 2013}{
-Ein subtileres Beispiel stammt aus der Arbeit ``Intriguing properties of neural networks'' \parencite{Szegedy2013}. 
-
-Die linke Spalte zeigt ein korrekt Klassifiziertes Bild.
-
-Die mittlere Spalte stellt den Unterschied zwischen dem korrekt klassifizierten Bild und der falschen Klasse dar.
-
-Rechts ist das mit der Adversarial Technik manipulierte Bild zu sehen.
-
-
-Alle Bilder in der Rechten Spalte wurden als ``Ostrich'' = Straus klassifiziert!
-}
-
 \subsubsection*{Täuschung der Verkehrszeichen-Erkennung eines Tesla}
 Ein interessantes Beispiel einer solchen ``Adversarial Attack'' ist die Arbeit eines Teams von McAffe Labs welches gezielt das System eines Tesla angegriffen hat und schlussendlich das Auto dazu gebracht hat anstatt 35mph (ungefähr 55kmh)  85mph (ca. 135kmh) als Geschwindigkeitsbegrenzung zu erkennen.\\
 
 \parencite{advTesla} 
 
-\imgText{speed-limit-fake.png}{Gefälschtes Verkehrsschild als Adversarial Attack}{
-Eine Verlängerung des mittleren Balkens einer Drei führte das \Gls{NN} eines Tesla zu einer Fehlklassifizierung als Acht und dadurch zu einer erlaubten Geschwindigkeit von 85 Meilen pro Stunde. Obwohl die veränderte Ziffer durchaus an eine Acht erinnern kann sehen Menschen die Ziffer trotzdem als Drei, im Gegensatz zu den Systemen des Teslas.
+\begin{center}
+\begin{minipage}[t]{0.45\linewidth}
+	\vspace{0pt}
+	\centering
+	\includegraphics[width=0.9\textwidth]{Bilder/speed-limit-fake-small.png}
+	 \caption{Gefälschtes Verkehrsschild als Adversarial Attack}
+	\caption*{Quelle: \parencite{advTesla}}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.45\linewidth}
+	\vspace{0pt}
+	Eine Verlängerung des mittleren Balkens einer Drei führte das \Gls{NN} eines Tesla zu einer Fehlklassifizierung als Acht und dadurch zu einer erlaubten Geschwindigkeit von 85 Meilen pro Stunde. Obwohl die veränderte Ziffer durchaus an eine Acht erinnern kann sehen Menschen die Ziffer trotzdem als Drei, im Gegensatz zu den Systemen des Teslas.
 
 
 Mittlerweile wurde das Verhalten der Tesla-Systeme angepasst und diese spezifische Attacke ist nun nicht mehr möglich.
-}
+\end{minipage}
+\end{center}
 
 \subsubsection*{Eigene Versuche mit Adversarial Attacks}
 Durch die Arbeit einiger Forscher \parencite{papernot2018cleverhans} gibt es eine Python Bibliothek \parencite{cleverHans} welche die Erzeugung von Adversarial Angriffen erleichtert.
@@ -1502,6 +1515,24 @@ on Deep Neural Networks'' \parencite{Gu2019} konnte gezeigt werden wie ein \Gls{
 	\end{description}
 
 \chapter{Weiterentwicklung von XAI}
+Die Weiterentwicklung der Methoden von \Gls{xai} sind eng an die zukünftige Entwicklung von \Gls{ML} gekoppelt. Obwohl Prognosen für die Zukunft natürlich schwierig sind ist es aber momentan wahrscheinlich dass die grossen Investitionen in \Gls{AI} und \Gls{ML} zumindest noch einige Jahre weitergeführt werden. Durch die Verfügbarkeit von Budgets in Forschung und Industrie gekoppelt mit den Forderung vieler Akteure nach einer ``verständlichen'' \Gls{AI} ist weiterhin mit einer Vielzahl an Arbeiten im Bereich \Gls{xai} zu rechnen. Wie schnell dabei Fortschritte erzielt werden können ist jedoch völlig ungewiss und die Geschichte der \Gls{AI} zeigt dass man dabei eine gewisse Vorsicht an den Tag legen sollte.
+
+\section{Aktuelle Probleme}
+Obwohl bereits einige Methoden existieren steht \Gls{xai} immer noch am Anfang und viele der geforderten Leistungen wurden noch nicht erbracht. Selbst Elementare Definition sind nicht vorhanden oder werden von Anwendern und Forschern unterschiedlich interpretiert.  
+
+Auch die Qualität der Erklärung ist allgemein eher klein, die meisten Erklärungen welche durch aktuelle Algorithmen erzeugt werden können nur Details beschreiben. Es ist zwar gut möglich den Einfluss eines einzelnen Pixels zu berechnen, es besteht jedoch keine Verbindung zu abstrakten Begriffen wie Objekten, Körpern oder Personen. Den erzeugten Erklärungen fehlt es oft an Aussagekraft welche es vereinfachen würde die Erklärungen zu deuten. 
+
+\section{Wünschenswerte Entwicklungen}
+
+\subsection{Mathematisch begründete XAI}
+\Gls{xai} benötigt nach Samek \parencite{Samek2019a} eine formale und allgemein akzeptierte Definition was Erklärungen genau sind.
+Ein Möglicher Weg für eine mathematische Begründung einer Erklärung zeigt die Arbeit von Montavon \parencite{Montavon2017} durch die Integration der Taylor decomposition.
+
+\subsection{Modell agnostische Methoden}
+Wie sich auch in dieser Arbeit gezeigt hat sind \acrshort{XAI} Implementierungen der XAI Werkzeuge schwierig anzuwenden. Oftmals müssen die Modelle bestimmte Bedingungen erfüllen damit eine Analyse möglich ist. In anderen Fällen funktioniert die Erklärung einfach nicht ohne das man herausfinden könnte weshalb. Weitere Algorithmen wie \acrshort{lime}, welche allgemein funktionieren, sind nötig. Ein grosser Fortschritte wäre eine allgemein anwendbare Erklärungsfunktion, ähnlich wie Keras bereits eine Abstraktion für \Gls{ML} Implementierungen bereitgestellt hat. 
+
+\subsection{Automatisierung}
+Für die Zukunft wäre es wünschenswert wenn allgemeine Regeln automatisiert geprüft werden könnten. Mögliche Aufgaben wären dabei die Suche nach einem ev. vorhandenen \Gls{BIAS} oder die Anfälligkeit auf Angriffe wie \acrlong{aip} oder Data Poisoning.
 
 \chapter{Anhang}
 \section{Source Code}
