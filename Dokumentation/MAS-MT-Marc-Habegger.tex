@@ -70,7 +70,6 @@
 
 \usepackage{xcolor}
 
-\usepackage[export]{adjustbox}
 \usepackage{ragged2e}
 
 \usepackage[acronym]{glossaries}
@@ -311,8 +310,7 @@
 \mainmatter % The main part
 %**************************************************************************
 %\part{Part One}
-\widowpenalty=500
-\raggedright
+\RaggedRight
 \chapter{Einleitung}
 Computerprogramme bestehen in der Regel aus Tausenden bis Millionen Zeilen von Anweisungen welche, für die verschiedenen Aufgabengebiete zuständig sind. Einige der Programmroutinen stellen die grafische Benutzeroberfläche dar, während andere sich um das Speichern und laden von Dateien kümmern. Ein Teil der Anweisungen definieren Regeln nach denen Daten verarbeitet und analysiert werden. Solche Regeln werden von Fachspezialisten definiert und durch Software-Entwickler umgesetzt. Mit einem derartigen Vorgehen konnten viele alltägliche Probleme gelöst werden, Software ist inzwischen in der Wirtschaft wie im privaten Umfeld allgegenwärtig geworden. 
 
@@ -321,7 +319,7 @@ Die Ausformulierung solcher Regeln nach denen sich Software verhalten soll, ist 
 Während programmierte Regeln in Computer Programmen sofort zur Verfügung stehen, müssen Menschen und Tiere ihre Fähigkeiten oftmals über längere Zeit trainieren und üben. Bis die gewünschten Fähigkeiten in genügender Qualität vorhanden sind können Jahre vergehen. Durch solche biologische Prozesse als Vorbild wurde die Disziplin \gls{ML} entwickelt, welche auch Computer in die Lage versetzen soll, bislang nur bei Mensch und Tier gefundene Fähigkeiten, zu erlangen.
 \gls{ML} wird seit den 1960er Jahren angewendet, allerdings waren die erzielten Resultate lange Zeit für viele Anwendungen ungenügend. Durch die Verfügbarkeit von grossen Datenmengen (Big Data, Cloud) und der gesteigerten Rechenleistung der Rechner wurden nach der Jahrtausendwende so gute Fortschritte erzielt, so dass immer mehr Anwendungsmöglichkeiten für \gls{ML} Lösungen gefunden wurden. 
 
-Oftmals wird auch von \acrfull{AI} gesprochen wenn \acrfull{ML} gemeint ist, die beiden Begriffe sind schwer zu trennen.
+Oftmals wird auch von \Gls{AI} gesprochen wenn \glsentryfull{ML} gemeint ist, die beiden Begriffe sind schwierig zu trennen.
 
 \fullImg{ML-Timeline.png}{Entwicklung des Machine Learning als Zeitachse}
 
@@ -331,15 +329,15 @@ Für viele Dienste im Internet (Bildersammlungen, Empfehlungssysteme) werden in 
  Exemplarisch werden hier einige dieser Gebiete aufgeführt:
 
 \begin{description}
-  \item[Medizin] \gls{ML} Anwendungen für die Krebserkennung bieten grosses Potenzial. Insbesondere die ermüdende Aufgabe auf Röntgen- oder MRT-Bildern Spuren eines Tumors zu erkennen, könnten durch \gls{ML} abgelöst werden. Allerdings sind die Zulassungskriterien für solche Lösungen noch nicht definiert.
-  \item[Justiz] Predictive Policing versucht mittels statistischer und \gls{ML} Verfahren Orte oder Personengruppen zu erkennen, welche  Schauplatz oder Täter/Opfer eines Verbrechens werden könnten.
+  \item[Medizin] \glsentrylong{ML} Anwendungen für die Krebserkennung bieten grosses Potenzial. Insbesondere die ermüdende Aufgabe auf Röntgen- oder MRT-Bildern Spuren eines Tumors zu erkennen, könnten durch \gls{ML} abgelöst werden. Allerdings sind die Zulassungskriterien für solche Lösungen noch nicht definiert.
+  \item[Justiz] Predictive Policing versucht mittels statistischer und \glsentrylong{ML} Verfahren Orte oder Personengruppen zu erkennen, welche  Schauplatz oder Täter/Opfer eines Verbrechens werden könnten.
   \item[Selbstfahrende Fahrzeuge] Obwohl selbstfahrende Fahrzeuge seit Jahren von allen grossen Fahrzeugherstellern entwickelt werden, sind immer noch viele Fragen bezüglich der Haftung und Zulassung offen.
 \end{description}
 
 Aufgrund des Mangels an Techniken um fortgeschrittene \gls{ML} System zu Verstehen, entstand deshalb ein neues Forschungsgebiet \acrfull{xai}, welches sich zum Ziel gesetzt hat Methoden und Werkzeuge zu entwickeln um \gls{ML} Modelle zu analysieren.
 
 \chapter{Was bedeutet Erklärbarkeit?}
-\gls{ML} erzeugt Resultate, welche je nach Anwendungsfall Entscheidungen für Klassen (Pferd, Schaf, Auto), Zuordnungen zu Gruppen (Premium-Kunde, Gelegenheitskäufer) oder numerische Werte  (15 Grad Celsius am 3. April) sind. 
+\glsentryfull{ML} erzeugt Resultate, welche je nach Anwendungsfall Entscheidungen für Klassen (Pferd, Schaf, Auto), Zuordnungen zu Gruppen (Premium-Kunde, Gelegenheitskäufer) oder numerische Werte  (15 Grad Celsius am 3. April) sind. 
 Da sowohl die Erzeugung des Modells als auch die Berechnung des Resultates automatisch erfolgt, können die Schritte auf dem Weg zu dem Resultat nicht direkt nachvollzogen werden.
 
 \begin{figure}[ht]
@@ -348,20 +346,22 @@ Da sowohl die Erzeugung des Modells als auch die Berechnung des Resultates autom
 \caption{Ablauf einer erklärbaren Machine Learning Anwendung}
 \end{figure}
 
-Eine \Gls{ML} Lösung beginnt mit der Beobachtung von realen Ereignissen in der Welt. Dies können die Anzahl Blätter und deren Länge einer Pflanzengattung oder auch Häuserpreise in Brooklyn sein. Diese Beobachtungen werden gesammelt und bilden die Datengrundlage mit deren ein Modell erstellt werden kann. Aus diesem kann danach eine Erklärung erzeugt werden, die ein Mensch verwenden kann um das Resultat zu erklären.
+Eine \Gls{ML} Lösung beginnt mit der Beobachtung von realen Ereignissen in der Welt. Dies können die Anzahl Blätter und deren Länge einer Pflanzengattung oder auch Häuserpreise in Brooklyn sein. Diese Beobachtungen werden gesammelt und bilden die Datengrundlage mit deren ein Modell erstellt werden kann. Aus diesem kann danach eine Erklärung erzeugt werden, die ein Mensch verwenden kann um das Resultat besser zu verstehen. 
+
+Ein oft verwendetes Wort in diesem Zusammenhang ist die Interpretierbarkeit. Ein Modell welches einfach und verständlich ist hat eine hohe Interpretierbarkeit, es kann von Menschen einfach interpretiert werden. 
 
 \section{Unterschiedliche Anforderungen an eine Erklärung}
-Eine Anwendung welche \Gls{ML} einsetzt kann in mehrere Bereiche unterteilt werden.  Durch diese Aufteilung in verschiedene  Komponenten ergeben sich unterschiedliche Anforderungen an die Erklärbarkeit: \parencite{XAI2018}
+Eine Anwendung welche \glsentryfull{ML} einsetzt kann in mehrere Bereiche unterteilt werden.  Durch diese Aufteilung in verschiedene  Komponenten ergeben sich unterschiedliche Anforderungen an die Erklärbarkeit \parencite{XAI2018}:
 
 \begin{description}
 \item[Daten]
-Aus der Sicht der Daten interessiert vor allem welcher Teil der Daten für das Ergebnis die grösste Relevanz hat. Basierend auf dieser Erkenntnis kann das Datenset gezielt erweitert oder reduziert werden, so dass ein ausgeglichenes Verhältnis erzeugt wird.
+Aus der Sicht der Daten interessiert vor allem welcher Teil der Daten für das Ergebnis die grösste Relevanz hat. Basierend auf dieser Erkenntnis können die Daten gezielt erweitert oder reduziert werden, so dass ein ausgeglichenes Verhältnis erzeugt wird.
 
 \item[Modell]
-Kann man aus dem Modell Muster für eine bestimmte Kategorie ableiten? Dies kann helfen Fehlklassifizierungen von neuen Daten zu verhindern, in dem überprüft wird, ob das Modell die richtigen/plausiblen Features berücksichtigt.
+Kann man aus dem Modell ein Muster für eine bestimmte Kategorie ableiten? Dies kann helfen Fehlklassifizierungen von neuen Daten zu verhindern, in dem überprüft wird, ob das Modell die richtigen/plausiblen Features berücksichtigt.
 
 \item[Vorhersage]
-Erklärung weshalb ein bestimmtes Muster in den Daten zu der beobachteten Klassifizierung geführt hat. Dies ist insbesondere für Anwender/Kunden einer ML Lösung um das Verständnis für die Maschinelle Entscheidung zu erhöhen oder eine gesetzlich vorgeschriebene Anfechtbarkeit der Entscheidung zu ermöglichen.
+Das Erzeugen einer Erklärung weshalb ein bestimmtes Muster in den Daten zu der resultierenden Klassifizierung geführt hat. Dies ist insbesondere für Anwender / Kunden einer \glsentrylong{ML} Lösung wichtig um das Verständnis für die Maschinelle Entscheidung zu erhöhen. Eine solche erzeugte Erklärung kann auch benutzt eine gesetzlich vorgeschriebene Anfechtbarkeit der Entscheidung zu ermöglichen.
 \end{description}
 
 Ebenso gibt es bei den Interessengruppe unterschiedliche Anforderungen an die Erklärbarkeit einer ML Anwendung. Nach G. Ras \parencite{Ras2018} werden dabei folgende Gruppierungen unterschieden:
@@ -375,25 +375,29 @@ Ebenso gibt es bei den Interessengruppe unterschiedliche Anforderungen an die Er
   \item[Benutzer]
   Auch bei den Benutzern gibt es verschiedene Ausprägungen
   	\begin{description}
-  		\item[Eigentümer] Eigentümer/Auftraggeber benötigen performante Anwendungen ohne rechtliche Bedenken
-  		\item[Anwender] Sind interessiert wie eine Entscheidung die sie betrifft zustande kam
-  		\item[Person deren Daten verwendet werden] sind an einem starken Datenschutz interessiert ohne eine Missbrauchsmöglichkeit ihrer Daten
+  		\item[Eigentümer] Eigentümer/Auftraggeber benötigen performante Anwendungen welche Gesetzeskonform sind
+  		\item[Anwender] Sind daran interessiert wie eine Entscheidung die sie betrifft zustande kam
+  		\item[Person deren Daten verwendet werden] sind an Datenschutz, ohne eine Missbrauchsmöglichkeit ihrer Daten, interessiert
   		\item[Anspruchsgruppe (Stakeholder)] wie Regulierungsbehörden oder Fachgremien setzen die Rahmenbedingungen für den Einsatz von \Gls{ML} Anwendungen in heiklen Gebieten
 	\end{description}
 \end{description}
-Die Anforderungen an ein erklärbares Modell unterscheiden sich sehr stark, je nach betrachteter Komponente und der Anwendergruppe. Daraus ergibt sich, dass verschiedene Techniken benötigt werden um AI Lösungen generell erklärbar zu machen.
+Die Anforderungen an ein erklärbares Modell unterscheiden sich sehr stark, je nach betrachteter Komponente und der Anwendergruppe. Daraus ergibt sich, dass verschiedene Techniken benötigt werden um \Gls{AI} / \Gls{ML} Lösungen generell erklärbar zu machen.
+
+Ein wichtiges Merkmal einer Erklärung ist die Verständlichkeit für das jeweilige Publikum. Während Forscher auf dem Gebiet des \glsentrylong{ML} mathematische Formeln bevorzugen sind für Anwender Erklärungen auf der Basis einfacher Texte oder Bilder verständlich.
+
+Alle diese Punkte zeigen weshalb ein einziger, einheitlicher, Ansatz nicht zielführend ist. Die Werkzeuge und Methoden müssen passend auf den Kreis der Empfänger abgestimmt werden.
 
 \section{Zielgebiete von XAI}
 
 \subsection{Bessere Anwendungen durch Einblick in die Funktionsweise}
-Ein Grundsatz jedes \Gls{ML} Projektes lautet, dass der Erfolg nicht garantiert ist. Ausgehend von bestehenden Daten kann man nicht sicher sein, dass diese ausreichende Informationen liefern, um ein Model zu entwickeln, welches den Anforderungen entspricht. Selbst wenn genügend Daten vorhanden sind besteht immer noch die Problematik, dass unzählige Algorithmen mit wiederum unzähligen Parametern existieren welche zur Anwendungen kommen können. Es Lösungen, oder Ansätze davon, um mit dieser Problematik umzugehen, dennoch ist es in der Regel ein langwieriger und oftmals teuer Prozess um \Gls{ML} Modelle auf das gewünschte Qualitätsniveau zu bringen.
+Ein Grundsatz jedes \glsentrylong{ML} Projektes lautet, dass der Erfolg nicht garantiert ist. Ausgehend von bestehenden Daten kann man nicht sicher sein, dass diese ausreichende Informationen liefern, um ein Model zu entwickeln, welches den Anforderungen entspricht. Selbst wenn genügend Daten vorhanden sind besteht immer noch die Problematik, dass unzählige Algorithmen mit wiederum unzähligen Parametern existieren welche angewendet werden können. Es gibt Lösungen, um mit dieser Problematik umzugehen, dennoch ist es in der Regel ein langwieriger und oftmals teuer Prozess um \Gls{ML} Modelle auf das gewünschte Qualitätsniveau zu bringen.
 
-Erkenntnisse durch \gls{xai} Techniken können den Entwicklern helfen Irrwege und Probleme frühzeitig zu erkennen und so entweder Arbeitszeit oder Rechenleistung beim berechnen der Modell einzusparen.
+Erkenntnisse durch \gls{xai} Techniken können den Entwicklern helfen Irrwege und Probleme frühzeitig zu erkennen, um so Arbeitszeit und/oder Rechenleistung beim Definieren und Berechnen der Modell einzusparen.
 
-Ebenso kann ein Modell falsche Resultate liefern, sei es weil die ursprünglichen Trainingsdaten unvollständig waren, oder weil neue Bedingungen aufgetreten sind. Eine Erklärung weshalb dieses falsche Resultat erzeugt wurde kann den Entwickler in die Lage versetzen ein verbessertes Model zu erzeugen. Dies kann sowohl beim Erstellen des Modelles geschehen (training) oder bei der Aufbearbeitung der Daten welche durch das Model verarbeitet werden sollen (preprocessing).
+Ebenso kann ein Modell falsche Resultate liefern, sei es weil die ursprünglichen Trainingsdaten unvollständig waren, oder weil neue, vorher unbekannte Bedingungen aufgetreten sind. Eine Erklärung weshalb dieses falsche Resultat erzeugt wurde kann den Entwickler in die Lage versetzen ein verbessertes Model zu erzeugen. Dies kann sowohl in der Phase der Aufarbeitung der Daten welche durch das Model verarbeitet werden sollen (preprocessing) oder beim Erzeugen eines Modelles (training) hilfreich sein.
 
 \subsection{Datenschutz}
-Jede \Gls{ML} Lösung setzt grosse Datenmengen voraus. Diese müssen den Anforderungen des Datenschutzes entsprechend aufbereitet und gegebenenfalls anonymisiert werden. Zudem besteht die Gefahr dass mit Modelle Rückschlüsse auf die Daten zulassen mit denen sie trainiert wurden.
+Jede \glsentryfull{ML} Lösung setzt grosse Datenmengen voraus. Diese müssen den Anforderungen des Datenschutzes entsprechend aufbereitet und gegebenenfalls anonymisiert werden. Dennoch besteht die Gefahr dass mit Modelle Rückschlüsse auf die Daten zulassen mit denen sie trainiert wurden.
 
 Das Gebiet Datenschutz ist durch Vorstösse von NGO's, Politikern und vor allem durch die \acrfull{DSGVO} der EU, in den Fokus von Regierungsbehörden gelangt.
 
@@ -422,20 +426,37 @@ Daraus ergeben sich für die \acrlong{dek} für einen verantwortungsvollen Umgan
 	\item Klare Rechenschaftsstrukturen
 \end{itemize}
 
-\acrlong{xai} kommt vor allem in den Bereichen ``Minimierung von Verzerrungen und Diskriminierung'' und ``Transparenz, Erklärbarkeit und Nachvollziehbarkeit'' zum tragen, kann aber auch bei ``Robustheit und Sicherheit'' und ``Qualität und Leistungsfähigkeit'' helfen. In Kapitel \ref{Sicherheit} wird näher auf die Gefahren eingegangen welche durch die Anwendung von \Gls{ML} entstehen können.
+\acrlong{xai} kommt vor allem in den Bereichen ``Minimierung von Verzerrungen und Diskriminierung'' und ``Transparenz, Erklärbarkeit und Nachvollziehbarkeit'' zum tragen, kann aber auch bei ``Robustheit und Sicherheit'' und ``Qualität und Leistungsfähigkeit'' helfen die gestellten Anforderungen zu erfüllen. 
+
+In Kapitel \ref{Sicherheit} wird näher auf die Gefahren eingegangen welche durch die Anwendung von \Gls{ML} entstehen können. 
+\Gls{xai} Werkzeuge können Entwickler Schwachpunkte aufzeigen oder Experten in die Lage versetzten, angewandte Modelle nachträglich auf Probleme zu untersuchen.
 
 \subsection{Sicherheit}
 \label{Sicherheit}
-Die Sicherheit von \Gls{ML} Modellen ist durch verschiedene Angriffs-Methoden gefährdet. In der Regel geht man für Sicherheitsüberlegungen von einem \Gls{Black Box} Model aus, da ein Angreifer das Model in der Anwendung (d.h. nach dem Training) angreift.
+Die Sicherheit von \Gls{ML} Modellen ist durch verschiedene Angriffsmethoden gefährdet. In der Regel geht man für Sicherheitsüberlegungen von einem \Gls{Black Box} Model aus, da ein Angreifer das Model in der Anwendung (d.h. nach der Erzeugung) angreift.
 \begin{description}
-	\item[Model Stealing Attacks] Ziel eines solchen Angriffes ist es entweder direkt die internen Parameter eines Modells zu extrahieren oder ein neues Modell zu erstellen das sich gleich oder möglichst ähnlich zu dem Original verhält. Dadurch können Geschäftsgeheimnisse gestohlen oder Wettbewerbsvorteile eliminiert werden.
-	\item[Membership Inference Attacks] Diese Art von Angriff versucht herauszufinden ob ein Datensatz dazu verwendet wurde das vorliegende Model zu trainieren.
+	\item[Model Stealing Attacks] Ziel eines solchen Angriffes ist es entweder direkt die internen Parameter eines Modells zu extrahieren oder ein neues Modell zu erstellen das sich gleich oder möglichst ähnlich zu dem Original verhält. Dadurch können Geschäftsgeheimnisse entwendet oder Wettbewerbsvorteile eliminiert werden.
+	\item[Membership Inference Attacks] Diese Art von Angriff versucht herauszufinden ob ein Datensatz dazu verwendet wurde das vorliegende Model zu trainieren. Neben Datenschutzproblemen kann dies auch zu weiteren Angriffsflächen führen.
 	\item[\acrfull{aip}] Oft genügen kleine Änderungen an einem Bildinhalt um ein \Gls{NN} dazu zu bringen die vorhergesagte Klasse zu wechseln. Wenn ein Angreifer eine solche Anfälligkeit entdeckt, kann es möglich sein ein Bild so zu verändern dass es für menschliche Augen gleich (oder beinahe) aussieht wie das Original, jedoch mit einem völlig anderen Ergebnis. Es liegt auf der Hand dass ein solches Verhalten eines Models für Systeme einer Zutrittskontrolle fatal sein können. Es sind jedoch auch andere Formen der Täuschung denkbar welche für den Betreiber zu Verlusten führen können (Waren Rücksendungen, Pfandflaschen Automaten, Qualitätskontrollen bei Lieferanten). Dieses Thema wird näher in Kapitel \ref{Adversarial Attacks} erläutert.
 \end{description}
 
+In der Arbeit von Seong Joon Oh ``Towards Reverse-Engineering Black-Box Neural Networks'' \parencite{Oh2019} werden Methoden vorgestellt wie \Gls{Black Box} Modelle auf diese Probleme untersucht werden können.
+
 \subsection{Regulatorische Bedingungen}
+In vielen Bereichen des Alltags gelten Regeln welche Diskriminierungen von Gruppen verhindern oder von der Gesellschaft als ungerecht empfundene Handlungen untersagen. Dies kann von einer Transportpflicht eines Verkehrsbetriebes bis hin zu einem Kündigungsschutz während einer Schwangerschaft reichen. Dies gerät oft in Konflikt mit dem Recht auf Vertragsfreiheit die es Personen und Firmen frei lässt mit welchen Vertragsparteien Geschäfte getätigt werden.
+
+Durch die Anwendung von \Gls{AI} Systemen können solche Diskriminierungen unbeabsichtigt eingeführt werden. Kaum eine Bank könnte eine Regel aufrechterhalten welche Personen mit dunkler Hautfarbe Kredite verweigert. Ein Modell das einem \Gls{BIAS} unterliegt kann jedoch genau solch eine Entscheidung bewirken.
+
+Grundsätzliche Bedenken wegen dem Missbrauchspotential  führten die Stadt San Francisco zu einem Verbot von Gesichtserkennungssystemen durch die Polizei und anderen Behörden \parencite{nyTimes}. Auch die \Gls{dsgvo} der EU stellt Bedingungen für den Einsatz von \Gls{ML} auf, hierzu existiert ein Leitfaden des Branchenverbandes bitkom welcher diese Aspekte erläutert \parencite{bitkom}.
+
+Einige NGO's versuchen Standards voranzutreiben welche die Industrie zu einem ``fairen'' Einsatz von \Gls{AI} und \Gls{ML} bringen soll und auch Firmen definieren interne Leitfäden für den Umgang mit diesen Technologien. Google als Beispiel  hat zu diesem Zweck einen Satz Regeln aufgestellt: \parencite{aiGoogle}.
+
+\Gls{xai} kann insbesondere bei der Begründung von Entscheidungen, wie sie zum Beispiel von der \acrshort{DSGVO} gefordert wird, einen wichtigen Beitrag leisten.
 
 \subsection{Haftungsfragen}
+Unfälle welche durch \glsentrylong{ML} Techniken verursacht, oder zumindest begünstigt wurden, stellen eine Gefahr bei deren Einsatz dar. Bei Selbstfahrenden Fahrzeugen ist die Frage nach der Schuld des Herstellers naheliegen, wie dieser Unfall mit einem Tesla zeigte: \parencite{teslaCrash}. 
+
+Aber auch eine Diskriminierung durch ein \Gls{ML} Modell mit einem \Gls{BIAS} kann eine Klage durch die Betroffenen hervorrufen. \Gls{xai} kann eingesetzt werden um das Risiko zu verringern indem Schwachstellen in Modellen frühzeitig erkannt werden, siehe \ref{vulnearabilities}. 
 
 \chapter{Wann wird XAI eingesetzt?}
 
@@ -1435,6 +1456,8 @@ Das Wort ``unfunny'' wurde wie auch in der ersten Analyse als stark relevant fü
 Auch das Erklären von neuronalen Netzen
 
 \chapter{Schwächen von ML Modellen erkennen}
+\label{vulnearabilities}
+
 Die in den vorherigen Kapiteln vorgestellten Techniken erlauben einen besseren Einblick in die Funktionsweise von \Gls{ML} Modellen. Dieses Wissen kann dazu genutzt werden um Schwächen oder auch gezielte Angriffe auf Anwendungen mit integrierten \Gls{ML} Modellen zu erkennen.
 
 \section{Diskriminierung durch Bias}
@@ -1443,6 +1466,7 @@ Ein bekanntes Beispiel dazu ist ein Chat-Bot welcher von Microsoft entwickelt wu
 Dieser Fall kann auch als Beispiel für ``Data Poisoning'' angesehen werden da die Lerndaten des Bots gezielt beeinflusst wurden, siehe \ref{dataP}.
 
 \section{Manipulierte Bilder: Adversarial Attacks}
+\label{Adversarial Attacks}
 Wie bereits in Kapitel \ref{Sicherheit} angedeutet, sind \Gls{ML} Anwendungen oftmals unerwartet empfindlich auf kleinste Änderungen an den Eingangsdaten. In einer Arbeit von Google Forschern   \parencite{Goodfellow2014} konnte gezeigt werden dass dies eine grundsätzliche Eigenschaft nicht nur von Neuronalen Netzen sondern auch anderen Linearen Klassifikatoren ist. Erklärbar ist ein solches Fehlverhalten wenn man sich vor Augen hält das Neuronale Netze und andere Klassifikatoren keine abstrakten Konzepte wie ``Tier'' oder auch ``Fahrzeug'' lernen sondern sich alleine an den für das Training verwendeten Bilddaten orientieren.
 
 \imgText{adversarial.png}{Adversarial Beispiel Szegedy 2013}{
