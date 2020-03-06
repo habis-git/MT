@@ -236,7 +236,7 @@
     \begin{minipage}[t]{0.6\textwidth}
     		\vspace{0pt}
 		\includegraphics[width=10cm, left]{Bilder/#1}
-		\caption{#2}
+		\captionof{figure}{#2}
 	\end{minipage}\hfill
     \begin{minipage}[t]{0.4\textwidth}
     		\vspace{5pt}
@@ -250,14 +250,12 @@
     \begin{minipage}[t]{0.6\textwidth}
     		\vspace{0pt}
 		\includegraphics[width=10cm, left]{Bilder/#1}
-		\caption{#2}
-		\caption*{Quelle: #3}
+		\captionof{figure}{#2}
+		\captionof{figure}*{Quelle: #3}
 	\end{minipage}\hfill
     \begin{minipage}[t]{0.4\textwidth}
     		\vspace{5pt}
-    		\begin{FlushRight}
   		#4
-  		\end{FlushRight}
     \end{minipage}
 \end{center}
 }
@@ -265,7 +263,6 @@
 \newcommand{\fullImg}[2]{
 \begin{center}
   \begin{minipage}{\linewidth}
-    \centering
     \includegraphics[width=\linewidth]{Bilder/#1}
     \captionof{figure}{#2}
   \end{minipage}
@@ -275,10 +272,9 @@
 \newcommand{\fullImgQuelle}[3]{
 \begin{center}
   \begin{minipage}{\linewidth}
-    \centering
     \includegraphics[width=\linewidth]{Bilder/#1}
-    \caption{#2}
-    \caption*{Quelle: #3}
+    \captionof{figure}{#2}
+    \captionof{figure}*{Quelle: #3}
   \end{minipage}
 \end{center}
 }
@@ -310,7 +306,9 @@
 \mainmatter % The main part
 %**************************************************************************
 %\part{Part One}
+
 \RaggedRight
+
 \chapter{Einleitung}
 Computerprogramme bestehen in der Regel aus Tausenden bis Millionen Zeilen von Anweisungen welche, für die verschiedenen Aufgabengebiete zuständig sind. Einige der Programmroutinen stellen die grafische Benutzeroberfläche dar, während andere sich um das Speichern und laden von Dateien kümmern. Ein Teil der Anweisungen definieren Regeln nach denen Daten verarbeitet und analysiert werden. Solche Regeln werden von Fachspezialisten definiert und durch Software-Entwickler umgesetzt. Mit einem derartigen Vorgehen konnten viele alltägliche Probleme gelöst werden, Software ist inzwischen in der Wirtschaft wie im privaten Umfeld allgegenwärtig geworden. 
 
@@ -340,11 +338,7 @@ Aufgrund des Mangels an Techniken um fortgeschrittene \gls{ML} System zu Versteh
 \glsentryfull{ML} erzeugt Resultate, welche je nach Anwendungsfall Entscheidungen für Klassen (Pferd, Schaf, Auto), Zuordnungen zu Gruppen (Premium-Kunde, Gelegenheitskäufer) oder numerische Werte  (15 Grad Celsius am 3. April) sind. 
 Da sowohl die Erzeugung des Modells als auch die Berechnung des Resultates automatisch erfolgt, können die Schritte auf dem Weg zu dem Resultat nicht direkt nachvollzogen werden.
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=\textwidth]{Bilder/Explanation-Flow.png}
-\caption{Ablauf einer erklärbaren Machine Learning Anwendung}
-\end{figure}
+\fullImg{Explanation-Flow.png}{Ablauf einer erklärbaren Machine Learning Anwendung}
 
 Eine \Gls{ML} Lösung beginnt mit der Beobachtung von realen Ereignissen in der Welt. Dies können die Anzahl Blätter und deren Länge einer Pflanzengattung oder auch Häuserpreise in Brooklyn sein. Diese Beobachtungen werden gesammelt und bilden die Datengrundlage mit deren ein Modell erstellt werden kann. Aus diesem kann danach eine Erklärung erzeugt werden, die ein Mensch verwenden kann um das Resultat besser zu verstehen. 
 
@@ -361,43 +355,43 @@ Aus der Sicht der Daten interessiert vor allem welcher Teil der Daten für das E
 Kann man aus dem Modell ein Muster für eine bestimmte Kategorie ableiten? Dies kann helfen Fehlklassifizierungen von neuen Daten zu verhindern, in dem überprüft wird, ob das Modell die richtigen/plausiblen Features berücksichtigt.
 
 \item[Vorhersage]
-Das Erzeugen einer Erklärung weshalb ein bestimmtes Muster in den Daten zu der resultierenden Klassifizierung geführt hat. Dies ist insbesondere für Anwender / Kunden einer \glsentrylong{ML} Lösung wichtig um das Verständnis für die Maschinelle Entscheidung zu erhöhen. Eine solche erzeugte Erklärung kann auch benutzt eine gesetzlich vorgeschriebene Anfechtbarkeit der Entscheidung zu ermöglichen.
+Das Erzeugen einer Erklärung weshalb ein bestimmtes Muster in den Daten zu der resultierenden Klassifizierung geführt hat. Dies ist insbesondere für Anwender / Kunden einer \glsentrylong{ML} Lösung wichtig, um das Verständnis für die maschinelle Entscheidung zu erhöhen. Erklärungen können auch benutzt werden um eine gesetzlich vorgeschriebene Anfechtbarkeit der Entscheidung zu ermöglichen.
 \end{description}
 
-Ebenso gibt es bei den Interessengruppe unterschiedliche Anforderungen an die Erklärbarkeit einer ML Anwendung. Nach G. Ras \parencite{Ras2018} werden dabei folgende Gruppierungen unterschieden:
+Ebenso gibt es bei den Interessensgruppen unterschiedliche Anforderungen an die Erklärbarkeit einer ML Anwendung. Nach G. Ras \parencite{Ras2018} werden dabei folgende Gruppierungen unterschieden:
 \begin{description}
   \item[Experten]
   Diese Gruppe kann weiter unterteilt werden in
   	\begin{description}
-  		\item[Forscher] Entwickelt neue Methoden und Algorithmen, verbessert bestehende Algorithmen
-  		\item[Entwickler] Setzt bestehende Methoden und Algorithmen ein, um eine konkrete Aufgabenstellung zu lösen
+  		\item[Forscher] entwickelt neue Methoden und Algorithmen, verbessert bestehende Algorithmen
+  		\item[Entwickler] setzt bestehende Methoden und Algorithmen ein, um eine konkrete Aufgabenstellung zu lösen
 	\end{description}
   \item[Benutzer]
   Auch bei den Benutzern gibt es verschiedene Ausprägungen
   	\begin{description}
   		\item[Eigentümer] Eigentümer/Auftraggeber benötigen performante Anwendungen welche Gesetzeskonform sind
-  		\item[Anwender] Sind daran interessiert wie eine Entscheidung die sie betrifft zustande kam
+  		\item[Anwender] sind daran interessiert wie eine Entscheidung, die sie betrifft, zustande kam
   		\item[Person deren Daten verwendet werden] sind an Datenschutz, ohne eine Missbrauchsmöglichkeit ihrer Daten, interessiert
-  		\item[Anspruchsgruppe (Stakeholder)] wie Regulierungsbehörden oder Fachgremien setzen die Rahmenbedingungen für den Einsatz von \Gls{ML} Anwendungen in heiklen Gebieten
+  		\item[Anspruchsgruppen (Stakeholder)] wie Regulierungsbehörden oder Fachgremien setzen die Rahmenbedingungen für den Einsatz von \Gls{ML} Anwendungen in heiklen Gebieten
 	\end{description}
 \end{description}
 Die Anforderungen an ein erklärbares Modell unterscheiden sich sehr stark, je nach betrachteter Komponente und der Anwendergruppe. Daraus ergibt sich, dass verschiedene Techniken benötigt werden um \Gls{AI} / \Gls{ML} Lösungen generell erklärbar zu machen.
 
-Ein wichtiges Merkmal einer Erklärung ist die Verständlichkeit für das jeweilige Publikum. Während Forscher auf dem Gebiet des \glsentrylong{ML} mathematische Formeln bevorzugen sind für Anwender Erklärungen auf der Basis einfacher Texte oder Bilder verständlich.
+Ein wichtiges Merkmal einer Erklärung ist die Verständlichkeit für das jeweilige Publikum. Während Forscher auf dem Gebiet des \glsentrylong{ML} mathematische Formeln bevorzugen, sind für Anwender Erklärungen auf der Basis einfacher Texte oder Bilder verständlicher.
 
 Alle diese Punkte zeigen weshalb ein einziger, einheitlicher, Ansatz nicht zielführend ist. Die Werkzeuge und Methoden müssen passend auf den Kreis der Empfänger abgestimmt werden.
 
 \section{Zielgebiete von XAI}
 
 \subsection{Bessere Anwendungen durch Einblick in die Funktionsweise}
-Ein Grundsatz jedes \glsentrylong{ML} Projektes lautet, dass der Erfolg nicht garantiert ist. Ausgehend von bestehenden Daten kann man nicht sicher sein, dass diese ausreichende Informationen liefern, um ein Model zu entwickeln, welches den Anforderungen entspricht. Selbst wenn genügend Daten vorhanden sind besteht immer noch die Problematik, dass unzählige Algorithmen mit wiederum unzähligen Parametern existieren welche angewendet werden können. Es gibt Lösungen, um mit dieser Problematik umzugehen, dennoch ist es in der Regel ein langwieriger und oftmals teuer Prozess um \Gls{ML} Modelle auf das gewünschte Qualitätsniveau zu bringen.
+Ein Grundsatz jedes \glsentrylong{ML} Projektes lautet, dass der Erfolg nicht garantiert ist. Ausgehend von bestehenden Daten kann man nicht sicher sein, dass diese ausreichende Informationen liefern, um ein Modell zu entwickeln, welches den Anforderungen entspricht. Selbst wenn genügend Daten vorhanden sind, besteht immer noch die Problematik, dass unzählige Algorithmen mit wiederum unzähligen Parametern existieren, welche angewendet werden können. Es gibt Lösungen, um mit dieser Problematik umzugehen. Dennoch ist es in der Regel ein langwieriger und oftmals teurer Prozess um \Gls{ML} Modelle auf das gewünschte Qualitätsniveau zu bringen.
 
-Erkenntnisse durch \gls{xai} Techniken können den Entwicklern helfen Irrwege und Probleme frühzeitig zu erkennen, um so Arbeitszeit und/oder Rechenleistung beim Definieren und Berechnen der Modell einzusparen.
+Erkenntnisse durch \gls{xai} Techniken können den Entwicklern helfen Irrwege und Probleme frühzeitig zu erkennen, um so Arbeitszeit und/oder Rechenleistung beim Definieren und Berechnen der Modelle einzusparen.
 
-Ebenso kann ein Modell falsche Resultate liefern, sei es weil die ursprünglichen Trainingsdaten unvollständig waren, oder weil neue, vorher unbekannte Bedingungen aufgetreten sind. Eine Erklärung weshalb dieses falsche Resultat erzeugt wurde kann den Entwickler in die Lage versetzen ein verbessertes Model zu erzeugen. Dies kann sowohl in der Phase der Aufarbeitung der Daten welche durch das Model verarbeitet werden sollen (preprocessing) oder beim Erzeugen eines Modelles (training) hilfreich sein.
+Ebenso kann ein Modell falsche Resultate liefern, sei es weil die ursprünglichen Trainingsdaten unvollständig waren, oder weil neue, vorher unbekannte, Bedingungen aufgetreten sind. Eine Erklärung weshalb dieses falsche Resultat erzeugt wurde, kann den Entwickler in die Lage versetzen ein verbessertes Modell zu erzeugen. Dies kann sowohl in der Phase der Aufarbeitung der Daten, welche durch das Modell verarbeitet werden sollen (preprocessing) oder beim Erzeugen eines Modelles (training) hilfreich sein.
 
 \subsection{Datenschutz}
-Jede \glsentryfull{ML} Lösung setzt grosse Datenmengen voraus. Diese müssen den Anforderungen des Datenschutzes entsprechend aufbereitet und gegebenenfalls anonymisiert werden. Dennoch besteht die Gefahr dass mit Modelle Rückschlüsse auf die Daten zulassen mit denen sie trainiert wurden.
+Jede \glsentrylong{ML} Lösung setzt grosse Datenmengen voraus. Diese müssen den Anforderungen des Datenschutzes entsprechend aufbereitet und gegebenenfalls anonymisiert werden. Dennoch besteht die Gefahr, dass Modelle Rückschlüsse auf die Daten zulassen, mit denen sie trainiert wurden.
 
 Das Gebiet Datenschutz ist durch Vorstösse von NGO's, Politikern und vor allem durch die \acrfull{DSGVO} der EU, in den Fokus von Regierungsbehörden gelangt.
 
@@ -426,114 +420,97 @@ Daraus ergeben sich für die \acrlong{dek} für einen verantwortungsvollen Umgan
 	\item Klare Rechenschaftsstrukturen
 \end{itemize}
 
-\acrlong{xai} kommt vor allem in den Bereichen ``Minimierung von Verzerrungen und Diskriminierung'' und ``Transparenz, Erklärbarkeit und Nachvollziehbarkeit'' zum tragen, kann aber auch bei ``Robustheit und Sicherheit'' und ``Qualität und Leistungsfähigkeit'' helfen die gestellten Anforderungen zu erfüllen. 
+\acrlong{xai} kommt vor allem in den Bereichen ``Minimierung von Verzerrungen und Diskriminierung'' und ``Transparenz, Erklärbarkeit und Nachvollziehbarkeit'' zum tragen, kann aber auch bei ``Robustheit und Sicherheit'' und ``Qualität und Leistungsfähigkeit'' helfen, die gestellten Anforderungen zu erfüllen. 
 
 In Kapitel \ref{Sicherheit} wird näher auf die Gefahren eingegangen welche durch die Anwendung von \Gls{ML} entstehen können. 
-\Gls{xai} Werkzeuge können Entwickler Schwachpunkte aufzeigen oder Experten in die Lage versetzten, angewandte Modelle nachträglich auf Probleme zu untersuchen.
+\Gls{xai} Werkzeuge können Entwicklern Schwachpunkte aufzeigen oder Experten in die Lage versetzen, angewandte Modelle nachträglich auf Probleme zu untersuchen.
 
 \subsection{Sicherheit}
 \label{Sicherheit}
-Die Sicherheit von \Gls{ML} Modellen ist durch verschiedene Angriffsmethoden gefährdet. In der Regel geht man für Sicherheitsüberlegungen von einem \Gls{Black Box} Model aus, da ein Angreifer das Model in der Anwendung (d.h. nach der Erzeugung) angreift.
+Die Sicherheit von \Gls{ML} Modellen ist durch verschiedene Angriffsmethoden gefährdet. In der Regel geht man für Sicherheitsüberlegungen von einem \Gls{Black Box} Modell aus, da ein Angreifer das Modell in der Anwendung (d.h. nach der Erzeugung) angreift.
 \begin{description}
-	\item[Model Stealing Attacks] Ziel eines solchen Angriffes ist es entweder direkt die internen Parameter eines Modells zu extrahieren oder ein neues Modell zu erstellen das sich gleich oder möglichst ähnlich zu dem Original verhält. Dadurch können Geschäftsgeheimnisse entwendet oder Wettbewerbsvorteile eliminiert werden.
-	\item[Membership Inference Attacks] Diese Art von Angriff versucht herauszufinden ob ein Datensatz dazu verwendet wurde das vorliegende Model zu trainieren. Neben Datenschutzproblemen kann dies auch zu weiteren Angriffsflächen führen.
-	\item[\acrfull{aip}] Oft genügen kleine Änderungen an einem Bildinhalt um ein \Gls{NN} dazu zu bringen die vorhergesagte Klasse zu wechseln. Wenn ein Angreifer eine solche Anfälligkeit entdeckt, kann es möglich sein ein Bild so zu verändern dass es für menschliche Augen gleich (oder beinahe) aussieht wie das Original, jedoch mit einem völlig anderen Ergebnis. Es liegt auf der Hand dass ein solches Verhalten eines Models für Systeme einer Zutrittskontrolle fatal sein können. Es sind jedoch auch andere Formen der Täuschung denkbar welche für den Betreiber zu Verlusten führen können (Waren Rücksendungen, Pfandflaschen Automaten, Qualitätskontrollen bei Lieferanten). Dieses Thema wird näher in Kapitel \ref{Adversarial Attacks} erläutert.
+	\item[Model Stealing Attacks] Ziel eines solchen Angriffes ist es, entweder direkt die internen Parameter eines Modells zu extrahieren, oder ein neues Modell zu erstellen das sich gleich oder möglichst ähnlich zu dem Original verhält. Dadurch können Geschäftsgeheimnisse entwendet oder Wettbewerbsvorteile eliminiert werden.
+	\item[Membership Inference Attacks] Diese Art von Angriff versucht herauszufinden ob ein Datensatz dazu verwendet wurde das vorliegende Modell zu trainieren. Neben Datenschutzproblemen kann dies auch zu weiteren Angriffsflächen führen.
+	\item[\acrfull{aip}] Oft genügen kleine Änderungen an einem Bildinhalt um ein \gls{NN} dazu zu bringen die vorhergesagte Klasse zu wechseln. Wenn ein Angreifer eine solche Anfälligkeit entdeckt, kann es möglich sein ein Bild so zu verändern, dass es für menschliche Augen gleich (oder beinahe) aussieht wie das Original, jedoch mit einem völlig anderen Ergebnis. Es liegt auf der Hand, dass ein solches Verhalten eines Modells für Systeme einer Zutrittskontrolle unerwünscht ist. Es sind jedoch auch andere Formen der Täuschung denkbar,, welche für den Betreiber zu Verlusten führen können (Waren Rücksendungen, Pfandflaschen Automaten, Qualitätskontrollen bei Lieferanten). Dieses Thema wird näher in Kapitel \ref{Adversarial Attacks} erläutert.
 \end{description}
 
 In der Arbeit von Seong Joon Oh ``Towards Reverse-Engineering Black-Box Neural Networks'' \parencite{Oh2019} werden Methoden vorgestellt wie \Gls{Black Box} Modelle auf diese Probleme untersucht werden können.
 
 \subsection{Regulatorische Bedingungen}
-In vielen Bereichen des Alltags gelten Regeln welche Diskriminierungen von Gruppen verhindern oder von der Gesellschaft als ungerecht empfundene Handlungen untersagen. Dies kann von einer Transportpflicht eines Verkehrsbetriebes bis hin zu einem Kündigungsschutz während einer Schwangerschaft reichen. Dies gerät oft in Konflikt mit dem Recht auf Vertragsfreiheit die es Personen und Firmen frei lässt mit welchen Vertragsparteien Geschäfte getätigt werden.
+In vielen Bereichen des Alltags gelten Regeln, welche Diskriminierungen von Gruppen verhindern oder von der Gesellschaft als ungerecht empfundene Handlungen untersagen. Dies kann von einer Transportpflicht eines Verkehrsbetriebes bis hin zu einem Kündigungsschutz während einer Schwangerschaft reichen. Dies gerät oft in Konflikt mit dem Recht auf Vertragsfreiheit, die es Personen und Firmen frei lässt, mit welchen Vertragsparteien Geschäfte getätigt werden.
 
-Durch die Anwendung von \Gls{AI} Systemen können solche Diskriminierungen unbeabsichtigt eingeführt werden. Kaum eine Bank könnte eine Regel aufrechterhalten welche Personen mit dunkler Hautfarbe Kredite verweigert. Ein Modell das einem \Gls{BIAS} unterliegt kann jedoch genau solch eine Entscheidung bewirken.
+Durch die Anwendung von \Gls{AI} Systemen können solche Diskriminierungen unbeabsichtigt eingeführt werden. Kaum eine Bank könnte eine Regel aufrechterhalten, welche Personen mit dunkler Hautfarbe Kredite verweigert. Ein Modell, das einem \Gls{BIAS} unterliegt, kann jedoch genau solch eine Entscheidung bewirken.
 
-Grundsätzliche Bedenken wegen dem Missbrauchspotential  führten die Stadt San Francisco zu einem Verbot von Gesichtserkennungssystemen durch die Polizei und anderen Behörden \parencite{nyTimes}. Auch die \Gls{dsgvo} der EU stellt Bedingungen für den Einsatz von \Gls{ML} auf, hierzu existiert ein Leitfaden des Branchenverbandes bitkom welcher diese Aspekte erläutert \parencite{bitkom}.
+Grundsätzliche Bedenken wegen dem Missbrauchspotential  führten die Stadt San Francisco zu einem Verbot von Gesichtserkennungssystemen durch die Polizei und anderen Behörden \parencite{nyTimes}. Auch die \Gls{dsgvo} der EU stellt Bedingungen für den Einsatz von \Gls{ML} auf. Hierzu existiert ein Leitfaden des Branchenverbandes bitkom, welcher diese Aspekte erläutert \parencite{bitkom}.
 
-Einige NGO's versuchen Standards voranzutreiben welche die Industrie zu einem ``fairen'' Einsatz von \Gls{AI} und \Gls{ML} bringen soll und auch Firmen definieren interne Leitfäden für den Umgang mit diesen Technologien. Google als Beispiel  hat zu diesem Zweck einen Satz Regeln aufgestellt: \parencite{aiGoogle}.
+Einige NGO's versuchen Standards voranzutreiben welche die Industrie zu einem ``fairen'' Einsatz von \Gls{AI} und \Gls{ML} bringen soll. Auch Firmen definieren interne Leitfäden für den Umgang mit diesen Technologien. Google als Beispiel  hat zu diesem Zweck einen Satz Regeln aufgestellt: \parencite{aiGoogle}.
 
 \Gls{xai} kann insbesondere bei der Begründung von Entscheidungen, wie sie zum Beispiel von der \acrshort{DSGVO} gefordert wird, einen wichtigen Beitrag leisten.
 
 \subsection{Haftungsfragen}
-Unfälle welche durch \glsentrylong{ML} Techniken verursacht, oder zumindest begünstigt wurden, stellen eine Gefahr bei deren Einsatz dar. Bei Selbstfahrenden Fahrzeugen ist die Frage nach der Schuld des Herstellers naheliegen, wie dieser Unfall mit einem Tesla zeigte: \parencite{teslaCrash}. 
+Unfälle, welche durch \glsentrylong{ML} Techniken verursacht, oder zumindest begünstigt wurden, stellen eine Gefahr bei deren Einsatz dar. Bei selbstfahrenden Fahrzeugen ist die Frage nach der Schuld des Herstellers naheliegend, wie dieser Unfall mit einem Tesla zeigte: \parencite{teslaCrash}. 
 
-Aber auch eine Diskriminierung durch ein \Gls{ML} Modell mit einem \Gls{BIAS} kann eine Klage durch die Betroffenen hervorrufen. \Gls{xai} kann eingesetzt werden um das Risiko zu verringern indem Schwachstellen in Modellen frühzeitig erkannt werden, siehe \ref{vulnearabilities}. 
+Aber auch eine Diskriminierung durch ein \Gls{ML} Modell mit einem \Gls{BIAS} kann eine Klage durch die Betroffenen hervorrufen. \Gls{xai} kann eingesetzt werden um das Risiko zu verringern, indem Schwachstellen in Modellen frühzeitig erkannt werden, siehe \ref{vulnearabilities}. 
 
 \chapter{Wann wird XAI eingesetzt?}
+Ein Projekt welches \Gls{ML} einsetzt durchläuft in der Regel mehrere Phasen. \Gls{xai} kann nicht in jeder Phase sinnvoll eingesetzt werden. Dieses Kapitel soll einen kurzen Überblick über die Schritte zu einem fertigen Modell geben und erläutern an welchen Punkten \Gls{xai} sinnvoll eingesetzt werden kann.
+
+\begin{center}
+\begin{minipage}[t]{0.6\linewidth}
+	\includegraphics[width=\textwidth]{Bilder/CRISP-DM-Process-Diagram.png}
+	\captionof{figure}{CRISP-DM Prozessablauf}
+	\captionof*{figure}{Quelle: commons.wikimedia.org \protect\footnotemark{}}
+\end{minipage}
+\end{center}
+\footnotetext{Kenneth Jensen (https://commons.wikimedia.org/wiki/File:CRISP-DM\_Process\_Diagram.png), „CRISP-DM Process Diagram“, https://creativecommons.org/licenses/by-sa/3.0/legalcode}
 
 \section{Exploration}
-Die Exploration Phase hat zum Ziel sich einen Überblick über die Daten zu verschaffen. Die Werkzeuge die man zu diesem Zweck braucht sind in der Regel einfacher und vor allem schneller als komplexere \Gls{xai} Techniken welche sich mit den Modellen beschäftigen die normalerweise erst nach der Exploration Phase erstellt werden. Obwohl die meisten der hier aufgeführten Techniken nicht zu \acrshort{xai} gezählt werden sind sie doch für ein Verständnis der Ausgangslage sehr hilfreich.
-\begin{itemize}
-	\item Biplot
-	
-	\begin{minipage}{\linewidth}
-		Ein Biplot zeigt sowohl die Stichproben als auch Variablen in der gleichen Visualisierung dar.
-            \includegraphics[width=0.7\linewidth]{Bilder/IrisDAbiplot.jpg}
-            \captionof{figure}{Biplot Iris Datensatz}
-            \captionof*{figure}{Quelle: \url{https://en.wikipedia.org/wiki/Biplot}}
-        \end{minipage}
-        
-	\item Darstellung der Korrelation (Correlation graph)
-	
-	\begin{minipage}{\linewidth}
-            \includegraphics[width=0.6\linewidth]{Bilder/325px-Anscombe's_quartet_3.png}
-            \captionof{figure}{Korrelation verschiedener Datensätze als Graph}
-            \captionof*{figure}{Quelle: \url{https://en.wikipedia.org/wiki/Correlation_and_dependence}}
-        \end{minipage}
-        
-	\item Korrelationsmatrix
-	
-	\begin{minipage}[t]{0.45\linewidth}
-		\begin{scriptsize}
-		[ 1.        , -0.03783885,  0.34905716,  0.14648975, -0.34945863],
-      [-0.03783885,  1.        ,  0.67888519, -0.96102583, -0.12757741],
-      [ 0.34905716,  0.67888519,  1.        , -0.45104803, -0.80429469],
-      [ 0.14648975, -0.96102583, -0.45104803,  1.        , -0.15132323],
-      [-0.34945863, -0.12757741, -0.80429469, -0.15132323,  1.        ]
-      \end{scriptsize}
-	\end{minipage}\hfill
-	\begin{minipage}[t]{0.45\linewidth}
+Die Exploration Phase hat zum Ziel sich einen Überblick über die Daten zu verschaffen. Die Werkzeuge die man zu diesem Zweck braucht sind in der Regel einfacher und vor allem schneller als komplexere \Gls{xai} Techniken welche sich mit den Modellen beschäftigen welche normalerweise erst nach der Exploration Phase erstellt werden. Viele Hilfsmittel für die Exploration erzeugen Diagramme und Grafiken da diese schnell interpretiert werden können.
 
-	\end{minipage}
-        
-	\item Heatmap 
-	
-	\begin{minipage}[t]{0.45\linewidth}
-		\vspace{0pt}
-		\includegraphics[width=0.6\linewidth]{Bilder/many_pairwise_correlations.png}
-            \captionof{figure}{Korrelationsmatrix als Heatmap dargestellt}
-            \captionof*{figure}{Quelle: \url{https://seaborn.pydata.org/examples/many_pairwise_correlations.html}}
-            \vspace{10pt}
-            \includegraphics[width=0.6\linewidth]{Bilder/heatmap-sleep.PNG}
-            \captionof{figure}{Heatmap als Kalender}
-	\end{minipage}
-	\begin{minipage}[t]{0.45\linewidth}
-	
-	\end{minipage}
-	
-	\item Parallele Koordinatendarstellung (Parallel coordinates plot)
-	\item Projektion MDS, 1-SNE, UMAP
-	\item Radar Plot
-	\item Scatter Plot
-	\item Univariate Statistiken: Häufigkeits-Verteilung, Histogram, Pivot-Tabelle
-\end{itemize}
 \section{Feature Engineering}
 
 \section{Modellauswahl}
-Nach Seong Joon Oh \parencite{Oh2019} hat Art des Modells von grossem Einfluss auf die Möglichkeiten der Erklärbarkeit. Generell wird unterschieden zwischen
+Nach Seong Joon Oh \parencite{Oh2019} hat Art des Modells von grossen Einfluss auf die Möglichkeiten der Erklärbarkeit. Generell wird unterschieden zwischen
 \begin{description}
-\item[Whitebox Modelle] sind unter der Kontrolle desjenigen welcher eine erklärende Analyse durchführt, sowohl die Daten wie der Aufbau des Modelles sind bekannt
-\item[Blackbox Modelle] sind von unbekannter Struktur, der Anwender bekommt von einem gegebenen Input ein Resultat ohne den Ablauf der Entscheidungsfindung beobachten zu können
+	\item[Whitebox Modelle] sind unter der Kontrolle desjenigen welcher eine erklärende Analyse durchführt, sowohl die Daten wie der Aufbau des Modelles sind bekannt
+	\item[Blackbox Modelle] sind von unbekannter Struktur, der Anwender bekommt von einem gegebenen Input ein Resultat ohne den Ablauf der Entscheidungsfindung beobachten zu können
 \end{description}
 
 Aus der Vielzahl von Werkzeugen welche existieren um \acrfull{ML} Modelle zu analysieren gilt es die für den jeweiligen Use Case relevanten Werkzeuge anzuwenden.
-TODO: Übersicht der Techniken und Anwendungsbereiche wie in der Grafik
-
-\includegraphics[width=\textwidth]{Bilder/blueprint.png}
-\captionof{figure}{Quelle: https://github.com/h2oai/mli-resources}
 
 \section{Existierendes Modell verwenden}
 
-\section{Interpretierbares Modell erstellen}
+\section{Modell analysieren}
+
+\subsection{Modell Testen}
+
+\subsection{Erklärungen aus Modell generieren}
+Wenn man Erklärungen von einem Modell erstellen will muss man sich zuerst über den Spielraum der gewünschten Erklärung sicher sein. Man unterscheidet dabei zwischen einer lokalen (local interpretability) und einer globalen (global interpretability) Erklärung.
+
+Globale Erklärungen können das Verständnis für den Umgang mit sämtlichen Daten liefern, dies ist besonders hilfreich wenn geprüft werden soll ob das Modell einem \Gls{BIAS} unterliegt. Informationen zu den aufgelisteten Verfahren können unter in den referenzierten Artikeln gefunden werden.
+
+\parag{Verfahren für globale Erklärungen}
+\begin{itemize}
+	\item Trepan \parencite{10.5555/2998828.2998832}
+	\item Extract Rules \parencite{Craven1994}
+	\item Oracle Guides \parencite{Johansson2009}
+	\item BETA \parencite{Lakkaraju2017}
+\end{itemize}
+
+Lokale Erkärungen gelten für eine Bestimmte Klasse und erklären weshalb das Modell gerade diese Klasse als Vorhersage gewählt hat. Diese Arbeit befasst stellt nur lokale Erklärungen vor, diese sind einfach zu prüfen und anzuwenden.
+
+\parag{Verfahren für lokale Erklärungen}
+\begin{itemize}
+	\item \Gls{GC} \ref{gradCam}
+	\item \Gls{OS} \ref{os}
+	\item \Gls{GI}
+	\item \Gls{lrp}  \ref{lrp}
+\end{itemize}
+
+\subsection{Bias Kontrolle}
+
+\chapter{Modellvarianten}
+\section{Erklärbare Modelle}
 
 Falls eine Anforderung besteht, dass die erzeugten Resultate interpretierbar sein müssen, kann direkt ein grundsätzlich interpretierbares Modelle erzeugt werden. Der Preis dafür kann jedoch eine geringere Performance sein. Natürlich ist in diesem Fall \Gls{xai} unnötig.
 
@@ -567,7 +544,8 @@ Als einfache Entscheidungshilfe welches Modell am besten zu der gestellten Aufga
 	k-nearest neighbors & Nein & Nein & klass.,regr. \\ \bottomrule
 	 \hline
 \end{tabular}
-\caption*{Quelle: \parencite{iML}}
+\captionof{table}{Entscheidungstabelle Erklärbare Modelle}
+\captionof*{table}{Quelle: \parencite{iML}}
 \end{table}
 
 \subsection{Lineare Regression}
@@ -602,11 +580,11 @@ Die logistische Regression hat die meisten Vor- und Nachteile der linearen Regre
 \subsection{GLM/GAM}
 \label{gam}
 Lineare Regression hat einige Schwächen wie z. Bsp. die Annahme der Normalverteilung, die Variablen sollten nicht korreliert sein oder auch einfach bei einem nichtlinearen Zusammenhang zwischen den Daten und dem Resultat. \acrfull{glm} und \acrfull{gam} erweitern Lineare Modelle um einen breiteren Anwendungsbereich zu ermöglichen.
-\begin{center}
+
 \begin{minipage}[t]{0.3\linewidth}
 \vspace{0pt}
 \includegraphics[width=0.6\linewidth]{Bilder/Regressions-Auschluss-Bedingungen.png}
- \captionof{figure}{Auschluss-Bedingungen lineare Regression}
+\captionof{figure}{Auschluss-Bedingungen lineare Regression}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.55\linewidth}
 \vspace{0pt}
@@ -620,13 +598,13 @@ Die Formeln für die beiden Varianten lauten:
 
 wobei \acrshort{glm} in der Formel von \acrshort{gam} den Term \[\beta_jx_j\] durch eine Funktion ersetzt \[f_j(x_j)\]
 \end{minipage}
-\end{center}
+
 Durch eine Vielzahl von Erweiterungsmöglichkeiten können sehr viele Probleme mit linearen Modellen gelöst werden. Da diese Methoden bereits längere Zeit verwendet werden ist die Erfahrung damit gross und auch die Umsetzung in Mathematik- oder Statistiksoftware ist in der Regel vorhanden. Als Nachteil gilt aber generell eine schlechtere Performance gegenüber komplexeren Verfahren. Zudem sinkt die, prinzipiell vorhandene, Interpretierbarkeit mit der Anzahl Erweiterungen des klassischen linearen Modells.
 
 \subsection{Decision Tree}
 \label{DT}
 \Gls{DT} (deutsch Entscheidungsbäume) können bei einer geringen Anzahl von Parametern einfach visualisiert werden und geben einen guten Überblick über die internen Abläufe die zu einem Resultat führen.
-\begin{center}
+
 \begin{minipage}[t]{0.45\linewidth}
 \vspace{10pt}
 Die Regeln nach denen sich ein \Gls{DT} aufteilt können als Text dargestellt werden. Intuitiv besser verständlich sind jedoch grafische Darstellungen welche entweder den Baum als Struktur oder in einem Diagramm als Fläche darstellen.
@@ -642,9 +620,7 @@ Die Regeln nach denen sich ein \Gls{DT} aufteilt können als Text dargestellt we
 |   |   |--- class: 2
 \end{lstlisting}
 \end{minipage}
-\end{center}
 
-\begin{center}
 \begin{minipage}[t]{0.45\linewidth}
 \centering
 	\includegraphics[width=\textwidth]{Bilder/iris-dt-explained.png}
@@ -655,7 +631,7 @@ Die Regeln nach denen sich ein \Gls{DT} aufteilt können als Text dargestellt we
 	\includegraphics[width=\textwidth]{Bilder/iris-dt-decision-surface.png}
 	 \captionof{figure}{Entscheidungsbaum als Flächen dargestellt}
 \end{minipage}
-\end{center}
+
 Der für diese Visualisierungen verwendete Source Code ist in Kapitel \ref{dt-vis} aufgeführt und verwendet \parencite{scikit-learnLink}.
 
 
@@ -674,8 +650,8 @@ PAY_2 > 1.5 and PAY_AMT_old_mean <= 12955.75 and PAY_old_mean > 0.625
 BILL_AMT2 > 1870.0 and PAY_2 > 1.5 and PAY_AMT_old_mean <= 2525.375
 BILL_AMT1 > 410.0 and PAY_1 > 1.5 and PAY_old_mean > 0.125
 \end{lstlisting}
-\caption {scope-rules Ausgabe der Regeln}
-\caption*{Quelle: \url{https://skope-rules.readthedocs.io/}}
+\captionof{figure}{scope-rules Ausgabe der Regeln}
+\captionof*{figure}{Quelle: \url{https://skope-rules.readthedocs.io/}}
 \end{minipage}
 
 \subsection{Naive Bayes}
@@ -686,37 +662,8 @@ Naive Bayes Filter werden seid einiger Zeit sehr erfolgreich für die Spam Klass
 
 Naive Bayes gilt als interpretierbares Modell aufgrund der Annahme der Unabhängigkeit. Für jedes Feature kann einfach bestimmt werden wie stark der Einfluss auf die Vorhersage ist da man die bedingte Wahrscheinlichkeit interpretieren kann.
 
-\section{Nicht Interpretierbares Model erstellen}
+\section{Schwer erklärbare Modelle}
 Falls aufgrund der geforderten Performance oder vorhandenen Daten ein Verfahren eingesetzt wird das als nicht interpretierbar gilt kann man \Gls{xai} Werkzeuge einsetzen um eine Erklärung für das von dem Modell erzeugte Resultat zu generieren. Diese Techniken werden in dem Kapitel \ref{xai} näher erläutert.
-
-\section{Modell analysieren}
-
-\subsection{Modell Testen}
-
-\subsection{Erklärungen aus Modell generieren}
-Wenn man Erklärungen von einem Modell erstellen will muss man sich zuerst über den Spielraum der gewünschten Erklärung sicher sein. Man unterscheidet dabei zwischen einer lokalen (local interpretability) und einer globalen (global interpretability) Erklärung.
-
-Globale Erklärungen können das Verständnis für den Umgang mit sämtlichen Daten liefern, dies ist besonders hilfreich wenn geprüft werden soll ob das Modell einem \Gls{BIAS} unterliegt. Informationen zu den aufgelisteten Verfahren können unter in den referenzierten Artikeln gefunden werden.
-
-\paragraph*{Verfahren für globale Erklärungen}
-\begin{itemize}
-	\item Trepan \parencite{10.5555/2998828.2998832}
-	\item Extract Rules \parencite{Craven1994}
-	\item Oracle Guides \parencite{Johansson2009}
-	\item BETA \parencite{Lakkaraju2017}
-\end{itemize}
-
-Lokale Erkärungen gelten für eine Bestimmte Klasse und erklären weshalb das Modell gerade diese Klasse als Vorhersage gewählt hat. Diese Arbeit befasst stellt nur lokale Erklärungen vor, diese sind einfach zu prüfen und anzuwenden.
-
-\paragraph*{Verfahren für lokale Erklärungen}
-\begin{itemize}
-	\item \Gls{GC} \ref{gradCam}
-	\item \Gls{OS} \ref{os}
-	\item \Gls{GI}
-	\item \Gls{lrp}  \ref{lrp}
-\end{itemize}
-
-\subsection{Bias Kontrolle}
 
 \chapter{XAI Methoden}
 \label{xai}
@@ -775,8 +722,8 @@ Eine weitere Variante um relevante Bildbereiche aufzudecken ist \Gls{OS}, vorges
 \begin{minipage}[t]{0.45\linewidth}
 \vspace{0pt}
 \includegraphics[width=\linewidth]{Bilder/occlusion-sensitivity-resnet-04.png}
-\caption{Occlusion Sensitivity Beispiel}
-\caption*{Quelle: \parencite{ocSensMathWorks}}
+\captionof{figure}{Occlusion Sensitivity Beispiel}
+\captionof*{figure}{Quelle: \parencite{ocSensMathWorks}}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.45\linewidth}
 \vspace{20pt}
@@ -861,8 +808,7 @@ Folgende Schritte werden bei der Anwendung von LIME durchgeführt:
 \break
 In diesem Beispiel ist ersichtlich welche Bildbereiche (maskiert) nach \gls{lime} für das Resultat verantwortlich sind.
 
-\includegraphics[width=\textwidth]{Bilder/Lime-Classes.png}
- \captionof{figure}{Darstellung relevanter Bildinhalte durch LIME}
+\fullImg{Lime-Classes.png}{Darstellung relevanter Bildinhalte durch LIME}
 
 Gegenüber den vorherigen Methoden ist LIME durch die Erzeugung temporärer Modelle bedeutend aufwendiger und dadurch auch langsamer.
 
@@ -921,7 +867,7 @@ plt.show()
 \begin{center}
 \begin{minipage}[t]{\linewidth}
 \includegraphics[width=\textwidth]{Bilder/Zebra-Explanation.PNG}
-\caption{Darstellung Vorgehensweise TCAV}
+\captionof{figure}{Darstellung Vorgehensweise TCAV}
 \end{minipage}
 \end{center}
 Da bei diesem Verfahren für jede Kategorie von Bildbestandteilen ein Neuronales Netz trainiert werden muss, und für jedes Training Beispieldaten vorhanden sein müssen, ist der Aufwand gross. 
@@ -935,8 +881,8 @@ Durch den Vergleich der Vektoren verschiedener Klassen innerhalb des selben Netz
 \begin{center}
 \begin{minipage}[t]{\linewidth}
  	\includegraphics[width=\textwidth]{Bilder/svcca-similarities.png}
-    	\caption{Vergleich Verschiedener Klassen mit SVCCA}
-    	\caption*{Quelle: Google AI Blog, Interpreting Deep Neural Networks with SVCCA}
+    	\captionof{figure}{Vergleich Verschiedener Klassen mit SVCCA}
+    	\captionof*{figure}{Quelle: Google AI Blog, Interpreting Deep Neural Networks with SVCCA}
 \end{minipage}
 \end{center}
 \cite{svccaLink}
@@ -957,8 +903,8 @@ Daten welche für das Trainieren von \Gls{ML} Modellen verwendet werden können 
 \begin{minipage}[t]{0.45\linewidth}
 \vspace{0pt}
 \includegraphics[width=\linewidth]{Bilder/HorsePredictionPascalVOC.PNG}
-\caption{Klassifizierung eines Pferdes in Pascal VOC}
-\caption*{Quelle: Unmasking Clever Hans Predictors and Assessing What Machines Really Learn \cite{Lapuschkin2019}}
+\captionof{figure}{Klassifizierung eines Pferdes in Pascal VOC}
+\captionof*{figure}{Quelle: Unmasking Clever Hans Predictors and Assessing What Machines Really Learn \cite{Lapuschkin2019}}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.45\linewidth}
 \vspace{20pt}
@@ -1128,6 +1074,7 @@ Mittels dem Modell VGG16 aus der Tensorflow Bibliothek \textit{VGG16} \cite{vgg1
 		 toilet tissue & 3.55\% \\ \bottomrule
 		 \hline
 		\end{tabular}
+		\captionof{table}{Wahrscheinlichkeiten Testbild Katze}
 }
 
 Obwohl das vorhergehende Bild korrekt als Katze klassifiziert wurde (allerdings als die falsche Katzenrasse), fallen die 4. und 5. Klassifikation auf. Die Klassifizierung als Karton (4.6\%) oder Toilettenpapier (3.6\%) ist zwar nicht sehr wahrscheinlich, es stellt sich aber dennoch die Frage weshalb keine weiteren Tiere, welche optisch grössere Ähnlichkeit mit einer Katze aufweisen, gefunden wurden.
@@ -1164,6 +1111,7 @@ Um festzustellen ob alleine der Bildhintergrund die (geringen) Wahrscheinlichkei
 		Toilet tissue & 0.92\% \\ \bottomrule
 		 \hline
 		\end{tabular}
+		\captionof{table}{Wahrscheinlichkeiten Testbild Meerschweinchen}
 }
 \break
 Dieses Bild wurde falsch klassifiziert. Anstatt der korrekten Klasse ``Guinea Pig'' (Meerschweinchen) wurde die Klasse ``Cockroach'' (Kakerlake) gewählt. Allerdings ist die angegebene Wahrscheinlichkeit für ``Guinea Pig'' mit 32\% nicht sonderlich hoch. Das Toilettenpapier (``Toilet tissue''), welches im vorherigen Bild immerhin mit 3.6\% Wahrscheinlichkeit angegeben wurde, hat nun nur noch eine Wahrscheinlichkeit von 0.9\%.
@@ -1314,7 +1262,7 @@ eli5.explain_prediction(classifier, doc, vec=vectorizer,target_names=['neg','pos
 \begin{center}
 \begin{minipage}[t]{\linewidth}
 \includegraphics[width=\textwidth]{Bilder/MovieReviews-SentimentClassification_ELI5-413.PNG}
-\caption{Visualisierung positives Film Review mit ELI5}
+\captionof{figure}{Visualisierung positives Film Review mit ELI5}
 \end{minipage}
 \end{center}
 
@@ -1330,10 +1278,8 @@ eli5.explain_prediction(classifier, doc, vec=vectorizer,target_names=['neg','pos
 Dieser Text wurde mit 83\% klar als ``neg'' klassifiziert.
 \begin{center}
 \begin{minipage}[t]{\linewidth}
-
-\includegraphics[width=\textwidth]{Bilder/MovieReviews-SentimentClassification_ELI5-414.PNG}
-
-\caption{Visualisierung negatives Film Review mit ELI5}
+	\includegraphics[width=\textwidth]{Bilder/MovieReviews-SentimentClassification_ELI5-414.PNG}
+	\captionof{figure}{Visualisierung negatives Film Review mit ELI5}
 \end{minipage}
 \end{center}
 Bei der Darstellung des negativen Film Reviews fällt auf dass Wörter, welche für eine negative Stimmung stehen, Grün markiert sind. Dies kommt daher dass für ELI5 die wahrscheinlichste Klasse `neg' ist mit 81\% Wahrscheinlichkeit und deshalb alle Schlüsselwörter welche auf diese Klasse hinweisen grün markiert werden. In diesem Fall konnte die erzeugte Erklärung immer noch den grössten Anteil nicht visualisieren (``<BIAS>'' mit 0.495 Prozentpunkten) aber die hervorgehobenen Wörter zeigen 
@@ -1371,12 +1317,12 @@ Wie zu erwarten unterscheidet sich die Darstellung etwas von den vorherigen. Da 
     \begin{minipage}[t]{0.45\textwidth}
     		\vspace{0pt}
 		\includegraphics[width=\textwidth, left]{Bilder/MovieReview-NaiveBayes-Display-413.PNG}
-		\caption{Visualisierung positives Film Review mit LIME und NB}
+		\captionof{figure}{Visualisierung positives Film Review mit LIME und NB}
 	\end{minipage}\hfill
     \begin{minipage}[t]{0.45\textwidth}
     		\vspace{0pt}
   		\includegraphics[width=\textwidth, left]{Bilder/MovieReview-NaiveBayes-Display-414.PNG}
-		\caption{Visualisierung negatives Film Review mit LIME und NB}
+		\captionof{figure}{Visualisierung negatives Film Review mit LIME und NB}
     \end{minipage}
 \end{center}
 
@@ -1420,12 +1366,12 @@ pipeline.fit(texts_train, y_train)
     \begin{minipage}[t]{0.45\textwidth}
     		\vspace{0pt}
 		\includegraphics[width=\textwidth, left]{Bilder/MovieReview-LSTM-Summary.PNG}
-		\caption{Zusammenfassung LSTM Netz für Movie Sentiment Analyse}
+		\captionof{figure}{Zusammenfassung LSTM Netz für Movie Sentiment Analyse}
 	\end{minipage}\hfill
     \begin{minipage}[t]{0.45\textwidth}
     		\vspace{0pt}
   		\includegraphics[width=\textwidth, left]{Bilder/MovieReview-LSTM-Accuracy.PNG}
-		\caption{Performance des LSTM Netz für Movie Sentiment Analyse}
+		\captionof{figure}{Performance des LSTM Netz für Movie Sentiment Analyse}
     \end{minipage}
 \end{center}
 Die Qualität der Klassifizierungen liegt tiefer als bei den vorherigen Beispielen mit dem RandomForest und dem Naive Bayes Klassifikator. Dies ist bei einem solch einfach aufgebautem neuronalen Netz nicht erstaunlich.
@@ -1490,14 +1436,14 @@ Eines der in dem Tutorial erzeugten Bilder wird schliesslich als ``brain\_coral'
 	\vspace{0pt}
 	\centering
 	\includegraphics[width=0.9\textwidth]{Bilder/tensorflow-adversarial-original.png}
-	 \caption{Ursprungs-Bild}
-	\caption*{Quelle: \parencite{tensorflowFGSM}}
+	 \captionof{figure}{Ursprungs-Bild}
+	\captionof*{figure}{Quelle: \parencite{tensorflowFGSM}}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.45\linewidth}
 	\vspace{0pt}
 	\centering
 	\includegraphics[width=0.9\textwidth]{Bilder/tensorflow-adversarial-fake.png}
-	 \caption{Durch Adversarial Angriff erzeugtes Bild}
+	 \captionof{figure}{Durch Adversarial Angriff erzeugtes Bild}
 \end{minipage}
 \end{center}
 
@@ -1511,8 +1457,8 @@ Ein interessantes Beispiel einer solchen ``Adversarial Attack'' ist die Arbeit e
 	\vspace{0pt}
 	\centering
 	\includegraphics[width=0.9\textwidth]{Bilder/speed-limit-fake-small.png}
-	 \caption{Gefälschtes Verkehrsschild als Adversarial Attack}
-	\caption*{Quelle: \parencite{advTesla}}
+	 \captionof{figure}{Gefälschtes Verkehrsschild als Adversarial Attack}
+	\captionof*{figure}{Quelle: \parencite{advTesla}}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.45\linewidth}
 	\vspace{0pt}
