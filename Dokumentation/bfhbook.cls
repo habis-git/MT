@@ -87,7 +87,8 @@
 % For Language support use \topicname, etc.
 \GetTranslation{topic of study}: &\@degreeprogramme\\%\topicname
 \GetTranslation{Author}: &\@author\\%\authorname
-\GetTranslation{Supervisor}: &\@thesisadvisor\\%\supervisorname
+%\GetTranslation{Supervisor}: &\@thesisadvisor\\%\supervisorname
+\GetTranslation{Semester}: &\@semester\\%\semester
 % Line with Projectpartner misses if there is no
 \ifthenelse{\equal{\@projectpartner}{}}{}{%
 \GetTranslation{Project-Partner}: &\@projectpartner\\%\clientname

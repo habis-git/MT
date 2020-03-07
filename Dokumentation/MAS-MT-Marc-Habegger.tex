@@ -222,7 +222,7 @@
 
 % Semester
 % Use Variable for language support
-%\semester
+\semester{MAS HS19}
 
 % Logo(s)
 
@@ -230,7 +230,7 @@
 % Secondary Color for Graphics, Tables etc.
 % Naming: BFH*Color*light|middle|dark, e.g. BFHGreendark, BFHBluelight, etc.
 % Possible Color Values: Green, Blue, Purple, Brown 
-\newcommand{\seccolor}{BFHLightGreen} 
+\newcommand{\seccolor}{BFHBluelight} 
 \newcommand{\imgText}[3]{
 \begin{center}
     \begin{minipage}[t]{0.6\textwidth}
@@ -308,6 +308,13 @@
 %\part{Part One}
 
 \RaggedRight
+
+\chapter{Management Summary}
+\Gls{xai} ist ein Gebiet in dem viel geforscht wird. Es stehen einige Tools zur Verfügung welche die Analyse von Modellen durch erzeugte Erklärungen, meistens in der Form von Visualisierungen, unterstützen. Allerdings sind viele dieser Tools im Rahmen einer Forschungsarbeit entstanden und machen Probleme im praktischen Einsatz. Einige Probleme entstehen auch durch den schnellen Zyklus mit dem Software für \Gls{ML} sich ändert. Ein Programm welches vor einem Jahr mit Version X einer Bibliothek funktionierte ist heute fehlerhaft weil sich die zugrunde liegenden Funktionsaufrufe geändert haben. Dadurch das die \Gls{xai} Bibliotheken aus einer Forschungsarbeit entstanden sind ist die fortwährende Weiterentwicklung und Pflege der Bibliothek nicht immer gewährleistet. 
+
+Die Ansprüche an die Erklärbarkeit von \Gls{ML} Modellen steigt und die Erwartungen sind gross, die momentan verfügbaren Werkzeuge sind nur für einfache Einfache Fragestellungen nützlich. Trotzdem konnten durch diese Techniken bereits in einigen Modellen Fehler und Schwachstellen gefunden und beseitigt werden. Für Aufgabengebiete welche strikte Bedingungen für das Zustandekommen einer Entscheidung vorschreiben, bzw. deren Begründung einfordern, muss die Entscheidung getroffen werden ob ein Modell mit einer verständlichen Technik erstellt werden soll oder ein komplexeres, unverständlicheres Modell aber mit einer vielleicht besseren Leistung gewählt wird. \Gls{xai} kann dazu beitragen das Verständnis von komplexeren Modellen zu erhöhen. Ob dies im konkreten Fall ausreicht um die Anforderungen zu erfüllen muss im Einzelfall geprüft werden, es ist nicht möglich dazu Allgemein gültige Aussagen zu treffen. Es ist unsicher ob \Gls{xai} überhaupt jemals in der Lage sein wird Allgemeine Aussagen über die Qualität und Sicherheit von Modellen zu erstellen und es gibt Stimmen die dafür plädieren in kritischen Fällen nur Modelle zu verwenden welche gut Verstanden sind.
+
+Es gibt einige Probleme welche mit \Gls{xai} gut gelöst werden können und welche die Sicherheit und Robustheit von Modellen erhöhen. Der Aufwand für diese Prüfungen kann aber hoch sein und ist nicht automatisierbar. Es fehlen noch Techniken welche den Einsatz vereinfachen und dadurch die Akzeptanz und Verbreitung fördern.
 
 \chapter{Einleitung}
 Computerprogramme bestehen in der Regel aus Tausenden bis Millionen Zeilen von Anweisungen welche, für die verschiedenen Aufgabengebiete zuständig sind. Einige der Programmroutinen stellen die grafische Benutzeroberfläche dar, während andere sich um das Speichern und laden von Dateien kümmern. Ein Teil der Anweisungen definieren Regeln nach denen Daten verarbeitet und analysiert werden. Solche Regeln werden von Fachspezialisten definiert und durch Software-Entwickler umgesetzt. Mit einem derartigen Vorgehen konnten viele alltägliche Probleme gelöst werden, Software ist inzwischen in der Wirtschaft wie im privaten Umfeld allgegenwärtig geworden. 
@@ -677,8 +684,18 @@ Naive Bayes Filter werden seid einiger Zeit sehr erfolgreich für die Spam Klass
 
 Naive Bayes gilt als interpretierbares Modell aufgrund der Annahme der Unabhängigkeit. Für jedes Feature kann einfach bestimmt werden wie stark der Einfluss auf die Vorhersage ist da man die bedingte Wahrscheinlichkeit interpretieren kann.
 
-\section{Schwer erklärbare Modelle}
+\section{Schwer erklärbare / Blackbox Modelle}
 Falls aufgrund der geforderten Performance oder vorhandenen Daten ein Verfahren eingesetzt wird das als nicht interpretierbar gilt kann man \Gls{xai} Werkzeuge einsetzen um eine Erklärung für das von dem Modell erzeugte Resultat zu generieren. Diese Techniken werden in dem Kapitel \ref{xai} näher erläutert.
+
+Grundsätzlich gelten alle Arten von komplexeren, tiefen (\acrlong{dnn}), neuronalen Netzen als schwer interpretierbar, beispielsweise:
+\begin{itemize}
+	\item\acrfull{cnn}
+	\item\acrfull{lstm}
+	\item\acrfull{gam}
+	\item\acrfull{rnn}
+\end{itemize}
+
+Allerdings gelten auch Whitebox Modelle mit vielen Parametern als schwer erklärbar. Es ist möglich einen Entscheidungsbaum (\Gls{DT}) mit 10'000 Eingangsparametern zu trainieren welcher dreistellige Tiefen erreichen kann. In diesem Fällen verwischt die Grenze zwischen White- und Blackbox.
 
 \chapter{XAI Methoden}
 \label{xai}
@@ -910,7 +927,7 @@ Weitere Informationen und Erklärungen zu diesem Verfahren finden sich auf der S
 In den letzten Jahrzehnten wurden grosse Fortschritte in der Bilderkennung gemacht. Verantwortlich dafür sind vor allem Neuronale Netze, insbesondere die Techniken \acrfull{cnn} oder andere Varianten von \acrfull{dnn}. Neuronale Netze, insbesondere die für Bilderkennung weit verbreiteten \acrshort{dnn}, sind ohne weitere Hilfsmittel kaum zu analysieren.
 Durch den starken Fokus dieser Techniken in der Bilderkennung sind dadurch auch viele Methoden entwickelt worden um das Verhalten eines Modells  bei der Bildanalyse darzustellen.
 
-\subsection{White Box Modell}
+\subsection{Eigenes CNN Modell}
 
 \subsubsection*{Versuch: Eingangsdaten mit BIAS}
 Daten welche für das Trainieren von \Gls{ML} Modellen verwendet werden können eine unbekannt Struktur enthalten. Oft ist diese für die gewünschte Vorhersage nicht relevant ist, verfälscht jedoch das  Ergebnis. Wenn ein solcher Effekt auftritt spricht man häufig von einem \Gls{KH}. Ein bekanntes Beispiel dieses Effektes trat bei einem Neuronalen Netz auf welches für einen Wettbewerb eingereicht wurde (Pascal VOC \cite{Everingham_thepascal}) und betraf die Erkennung von Pferden \parencite{Lapuschkin2019}. 
@@ -1070,17 +1087,22 @@ Durch die Verfälschung der Trainings- und Testdaten wurde anstatt einem ``Katze
 \parag{}
 Eine weitere Erkenntnis ist die, dass von den drei verwendeten Visualisierungs-Methoden nur \Gls{OS} die Fokussierung auf das falsche Bildelement ersichtlich macht. Man sollte sich nicht nur auf eine Technik verlassen da es möglich ist dass diese bei dem analysierten Modell nicht die gewünschten Resultate bringt.
 
-\subsection{Black Box Modelll}
+\subsection{Vortrainiertes Modelll}
 
-Das für die folgenden Analysen verwendete Modell stammt aus der ImageNet Challenge \parencite{imageNet} aus dem Jahr 2014 und ist frei verfügbar \parencite{Simonyan2014}. Dieses vorberechnete Model definiert 1001 Klassen von Objekten welche erkannt werden. Eine Klassifikation mit Tensorflow \cite{TensorFlow} erzeugt eine Liste mit den Wahrscheinlichkeiten für alle Klassen. 
+Das für die folgenden Analysen verwendete Modell stammt aus der ImageNet Challenge \cite{imageNet} aus dem Jahr 2014 und ist frei verfügbar \parencite{Simonyan2014}. Dieses vorberechnete Model definiert 1001 Klassen von Objekten welche erkannt werden.
+
+\parag{Verwendete Bibliotheken}
+Das vortrainierte Netz VGG16 \cite{vgg16} ist als Tensorflow \cite{TensorFlow} Klassifikator angewendet worden und die Bilder wurden durch tf\_explain \cite{tfExplain} visualisiert.
 
 \parag{Versuch: Explorative Analyse der Bildklassifikation}
-Mit den \gls{XAI} Techniken kann für jede Klasse visualisiert werden welche Bildbereiche für diese Klassifikation relevant sind. Mit diesem Versuch wurde versucht ein Verständnis über die Funktionsweise der Klassifizierung zu finden und bei fehlerhaften Klassifizierungen eine Erklärung für das falsche Resultat zu finden.
+Mit den \gls{XAI} Techniken kann für jede Klasse visualisiert werden welche Bildbereiche für diese Klassifikation relevant sind. Mit diesem Versuch wurde versucht ein Verständnis über die Funktionsweise der Klassifizierung zu finden und bei fehlerhaften Klassifizierungen eine Erklärung für das falsche Resultat zu finden. 
+
+Eine Klassifikation mit Tensorflow \cite{TensorFlow} erzeugt jeweils die komplette Liste mit den Wahrscheinlichkeiten für alle Klassen. Die Wahrscheinlichsten Klassen werden jeweils rechts neben dem Bild dargestellt.
 
 \parag{Test 1: Katzenbild}
-Mittels dem Modell VGG16 aus der Tensorflow Bibliothek \textit{VGG16} \cite{vgg16} wurde folgendes Bild analysiert:
+Folgendes Bild wurde analysiert:
 \imgText{Mira.jpg}{Original Testbild Katze}{
-		
+		\vspace{-5pt}
 		\begin{tabular}{@{} *5l @{}}    \toprule
 		\emph{Klasse} & \emph{Wahrscheinlichkeit} &&&  \\\midrule
 		Egyptian cat & 55.31\% \\ 
@@ -1108,6 +1130,7 @@ Ein direkter Vergleich mit einer Rolle Toilettenpapier vor dem gleichen Hintergr
 \parag{Test 2: Meerschweinchen, ähnlicher Hintergrund wie bei Bild mit der Katze}
 Um festzustellen ob alleine der Bildhintergrund die (geringen) Wahrscheinlichkeiten für Toilettenpapier und Karton ausgelöst hat, wurde ein anderes Bild, welches an der gleichen Stelle aufgenommen wurde allerdings diesmal mit einem Meerschweinchen, klassifiziert.
 \imgText{IMG_2729.JPG}{Testbild Meerschweinchen}{
+		\vspace{-5pt}
 		\begin{tabular}{@{} *5l @{}}    \toprule
 		\emph{Klasse} & \emph{Wahrscheinlichkeit} &&&  \\\midrule
 		Cockroach & 31.89\% \\
@@ -1246,8 +1269,7 @@ Die Python Bibliothek \cite{ELI5} unterstützt einige \gls{ML} Bibliotheken, unt
 \begin{myboxi}[Darstellungsprobleme mit ELI5]
 Die Darstellung des Textes mit hervorgehobenen wichtigen Features (Wörtern) für die Klassifikation war nicht in jedem Fall in Jupyter Notebook ersichtlich. Während auf einem Windows 10 Rechner keine Darstellung ersichtlich war, funktionierte die Anzeige auf einem zweiten PC mit den gleichen Versionen einwandfrei.
 \end{myboxi}
- \break
- \break
+
 Während bei einem digitalen Bild die Bildpunkte als Eingangsdaten (Features) verwendet werden, sind es bei der Textanalyse die vorkommende Wörter. Diese könne sowohl positiven wie auch negativen Einfluss auf eine bestimmte Klasse haben. Eine Übersicht der Top Features zeigt die Funktion ``show\_weights()''.
 \begin{lstlisting}[language=Python]
 eli5.show_weights(classifier, vec=vectorizer, top=10)
@@ -1346,7 +1368,7 @@ Wie zu erwarten unterscheidet sich die Darstellung etwas von den vorherigen. Da 
 Auch unterschiedliche Klassifikations-Algorithmen können einfach dargestellt und verglichen werden. Dadurch können Auffälligkeiten leicht entdeckt werden und Anpassungen (andere Algorithmen, geändertes Pre-Processing usw.) getestet werden. 
 
 \subsection{Black Box Modell}
-Während in dem vorherigen Beispiel ein \Gls{Whitebox} Model mit verschiedenen interpretierbaren Algorithmen angewendet wurde, können auch \Gls{Blackbox} Modelle analysiert werden. Dafür benutzen sowohl \cite{ELI5} als auch \cite{lime} das \acrshort{lime} Verfahren um die Vorhersage zu erklären und das Modell zu interpretieren.
+Während in dem vorherigen Beispiel ein \Gls{Whitebox} Modelle mit interpretierbaren Algorithmen angewendet wurde, können auch \Gls{Blackbox} Modelle analysiert werden. Dafür benutzen sowohl \cite{ELI5} als auch \cite{lime} das \acrshort{lime} Verfahren um die Vorhersage zu erklären und das Modell zu interpretieren.
 
 \parag{Daten}
 Der selbe Datensatz wie in \ref{eli5MovieReview} wurde für einen weiteren Klassifikator genutzt, dieses Mal allerdings mit dem \acrfull{lstm} Verfahren welches zu den neuronalen Netzen gehört. 
@@ -1500,7 +1522,14 @@ Grundsätzlich wird zwischen zwei Arten von Data Poisoning unterschieden:
 on Deep Neural Networks'' \parencite{Gu2019} konnte gezeigt werden wie ein \gls{NN} durch bestimmte Aufkleber dazu gebracht werden konnte Stopp-Schilder mit Geschwindigkeitsbegrenzungs-Schildern zu verwechseln.
 	\end{description}
 
-\chapter{Weiterentwicklung von XAI}
+\chapter{Fazit}
+Das Ziel dieser Arbeit, einen Überblick über den Stand der \Gls{xai} Entwicklung zu bieten, stand vor einem zuerst nicht erwarteten Problem. Die Menge an Methoden, Artikeln und Forschungsarbeiten zu diesem Thema ist sehr gross. Die Entscheidungen welche Methoden erklärt, oder zumindest erwähnt, werden sollten war nicht einfach. Schlussendlich war der experimentelle Teil ausschlaggebend. Einige der Methoden wie \acrshort{svcca} oder \acrshort{tcav} stellten sich als sehr Aufwändig heraus so dass bei einer Wahl eines dieser Themen viele andere Bereiche nicht hätten beachtet werden können.
+
+Der praktische Teil der Arbeit hatte mit einigen Problemen zu kämpfen. Es stellte sich heraus das einige \Gls{xai} Frameworks für Python spezifische Anforderungen an die dem Modell zugrunde liegenden \Gls{ML} Frameworks stellen. Dies ist nicht weiter erstaunlich wenn man bedenkt, dass die Analyse eines Modells tiefer auf die einzelnen Funktionen und Parameter eingehen muss als dies Vorhersagen tun. Das fragile Gleichgewicht der installierten Framework Versionen wurde immer wieder durch die Installation eines weiteren Werkzeuges zunichte gemacht welches eine andere Version von Tensorflow oder Keras benötigte. Eine Erkenntnis ist daher immer mit einer eigenen Umgebung für jedes Projekt zu arbeiten. Anaconda hilft dabei sehr diese Umgebungen zu verwalten. Da aber nicht alle getesteten Bibliotheken in Anaconda vorhanden sind habe ich leider anfangs fehlende Bestandteile über den Python Packetmanager pip installiert. Diese Vorgehensweise war sehr ungünstig und hat mir mehrere Male die Umgebungen mit nicht miteinander kompatiblen Bibliotheksversionen ``verseucht''. Eine saubere Vorgehensweise mit voneinander getrennten Umgebungen ist unbedingt nötig wenn man möchte das Programme auch nach einigen Wochen noch wie gewünscht funktionieren.
+
+Die Auswertung der Ergebnisse durch exploratives Vorgehen war zu Beginn nicht Erfolgreich. Es ist zwar einfach durch Visualisierungen zu erkennen welche Bestandteile eines Bildes für ein neuronales Netz wichtig sind, Schlussfolgerungen daraus zu ziehen stellte sich jedoch als überraschend schwierig heraus. Bei einem direkten Vergleich zwischen verschiedenen Methoden waren oftmals grosse Unterschiede erkennbar was die wichtigen Bestandteile eines Bildes betrifft. Da einige Methoden unter gewissen Umständen nicht funktionieren (Gradient basierte Verfahren haben nachgewiesene Schwächen) steht immer die Frage im Raum ob die Unterschiede zwischen den Visualisierungen von Bedeutung sind. Der zweite Ansatz welcher mit einem konkreten Ziel, nämlich dem Nachweis eines Kluger-Hans Effektes, gestartet war funktionierte bedeutend besser. Die Visualisierung zeigte sehr deutlich welchen Defekt das neuronale Netz hat und könnte in der Realität auch direkt zu einer Verbesserung (durch Anpassung des Trainings- und Testdaten) des Modells führen. Aber auch hier war nur eine von drei eingesetzten Methoden erfolgreich. Dies führt zu einer weiteren Erkenntnis: Jede Analyse sollte mit mehreren Methoden durchgeführt werden.
+
+\chapter{Ausblick}
 Die Weiterentwicklung der Methoden von \Gls{xai} sind eng an die zukünftige Entwicklung von \Gls{ML} gekoppelt. Obwohl Prognosen für die Zukunft natürlich schwierig sind, ist es aber momentan wahrscheinlich, dass die grossen Investitionen in \Gls{AI} und \Gls{ML} zumindest noch einige Jahre weitergeführt werden. Durch die Verfügbarkeit von Budgets in Forschung und Industrie, gekoppelt mit den Forderungen vieler Akteure nach einer ``verständlichen'' \Gls{AI}, ist weiterhin mit einer Vielzahl an Arbeiten im Bereich \Gls{xai} zu rechnen. Wie schnell dabei Fortschritte erzielt werden können, ist jedoch völlig ungewiss und die Geschichte der \Gls{AI} zeigt, dass man dabei eine gewisse Vorsicht an den Tag legen sollte.
 
 \section{Aktuelle Probleme}
@@ -1705,144 +1734,6 @@ for ax, im in zip(grid, camImages):
     if i >= 0:
         ax.set_title('%s (%.2f%%)' % (label[1], label[2]*100))
     ax.imshow(im)
-    i = i + 1
-
-plt.show()
-\end{lstlisting}
-
-\subsection{Visualisierungen mehrere Klassen}
-\label{multiClass}
-\begin{lstlisting}[language=Python, caption=Visualisierungen der fünf wahrscheinlichsten Klassen mit verschiedenen Verfahren]
-import tensorflow as tf
-from keras.applications.vgg16 import preprocess_input
-from keras.applications.vgg16 import decode_predictions
-
-model = tf.keras.applications.vgg16.VGG16(weights="imagenet", include_top=True)
-
-#print(model.summary())
-
-imageOrig = tf.keras.preprocessing.image.load_img('D:/Master Thesis/Repo/Test Images/tabby.2.JPG', target_size=(224, 224))
-imageArr = tf.keras.preprocessing.image.img_to_array(imageOrig)  #output Numpy-array
-
-imageReshaped = imageArr.reshape((1, imageArr.shape[0], imageArr.shape[1], imageArr.shape[2]))
-
-image = preprocess_input(imageReshaped)
-predictions = model.predict(imageReshaped)
-
-import numpy as np
-top5predictions = np.argsort(predictions)[0,::-1][:5]
-
-labels = decode_predictions(predictions, 15)
-
-from tf_explain.core.grad_cam import GradCAM
-from mpl_toolkits.axes_grid1 import ImageGrid
-from matplotlib import pyplot as plt
-import cv2
-
-def createImageGrid(imageOrig, predictions, labels, explainer, explainerArgs):
-    camImages = [imageOrig]
-
-    for class_index in top5predictions:
-        camImages.append(explainer.explain(class_index=class_index, **explainerArgs))
-    
-    fig = plt.figure(figsize=(20, 20))
-    grid = ImageGrid(fig, 111,          # as in plt.subplot(111)
-                 nrows_ncols=(2,3),
-                 axes_pad=0.5,
-                 share_all=True,
-                 cbar_location="right",
-                 cbar_mode="single",
-                 cbar_size="7%",
-                 cbar_pad=0.15,
-                 )
-    
-    i = -1
-    for ax, im in zip(grid, camImages):
-        ax.set_xticks([])
-        ax.set_yticks([])
-        label = labels[0][i]
-        if i >= 0:
-            ax.set_title('%s (%.2f%%)' % (label[1], label[2]*100), fontsize=20)
-            ax.imshow(imageOrig)
-            imAx = ax.imshow(im, vmin=0, vmax=255)
-        else:
-            ax.imshow(im)
-        i = i + 1
-
-    # Colorbar
-    ax.cax.colorbar(imAx)
-    ax.cax.toggle_label(True)
-    ax.cax.set_yticks([0,128,255])
-    ax.cax.set_yticklabels([-1,0,1])
-    plt.show()
-
-img = tf.keras.preprocessing.image.img_to_array(imageOrig)
-data = ([img], None)
-    
-explainer = GradCAM()
-createImageGrid(imageOrig, predictions, labels, explainer, {'model': model, 'layer_name': 'block5_conv3', 'validation_data': data})
-
-input_images = [preprocess_input(imageArr.copy())]
-
-from tf_explain.core.gradients_inputs import GradientsInputs
-data = (np.array(input_images), None)
-
-explainer = GradientsInputs()
-createImageGrid(imageOrig, predictions, labels, explainer, {'model': model, 'validation_data': data})
-
-from tf_explain.core.integrated_gradients import IntegratedGradients
-
-input_images = [preprocess_input(imageArr.copy())]
-data = (input_images, None)
-
-explainer = IntegratedGradients()
-createImageGrid(imageOrig, predictions, labels, explainer, {'model': model, 'validation_data': data})
-
-from tf_explain.core.occlusion_sensitivity import OcclusionSensitivity
-
-img = tf.keras.preprocessing.image.img_to_array(imageOrig)
-data = ([img], None)
-
-explainer = OcclusionSensitivity()
-createImageGrid(imageOrig, predictions, labels, explainer, {'model': model, 'validation_data': data, 'patch_size': 40})
-
-import lime 
-from lime import lime_image
-
-imgAsArray = tf.keras.preprocessing.image.img_to_array(imageOrig)
-out = []
-x = np.expand_dims(imgAsArray, axis=0)
-x = preprocess_input(x)
-out.append(x)
-imagesStack = np.vstack(out)
-            
-explainer = lime_image.LimeImageExplainer()
-
-explanation = explainer.explain_instance(imagesStack[0], model.predict, top_labels=5, hide_color=0, num_samples=1000)
-
-from skimage.segmentation import mark_boundaries
-
-camImages = [imageOrig]
-fig = plt.figure(figsize=(20., 20.))
-grid = ImageGrid(fig, 111,  # similar to subplot(111)
-             nrows_ncols=(2, 3),
-             axes_pad=0.5,  # pad between axes in inch.
-             )
-for class_index in range(0,5):
-    temp, mask = explanation.get_image_and_mask(explanation.top_labels[class_index], positive_only=True, num_features=5, hide_rest=True)
-    camImages.append(mark_boundaries(temp / 2 + 0.5, mask))
-
-i = -1
-for ax, im in zip(grid, camImages):
-    # Iterating over the grid returns the Axes.
-    ax.set_xticks([])
-    ax.set_yticks([])
-    label = labels[0][i]
-    if i >= 0:
-        ax.set_title('%s (%.2f%%)' % (label[1], label[2]*100), fontsize=20)
-        ax.imshow(im.astype(np.uint8))
-    else:
-        ax.imshow(im)
     i = i + 1
 
 plt.show()
