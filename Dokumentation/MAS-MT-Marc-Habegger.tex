@@ -355,7 +355,7 @@ Aus der Sicht der Daten interessiert vor allem welcher Teil der Daten für das E
 Kann man aus dem Modell ein Muster für eine bestimmte Kategorie ableiten? Dies kann helfen Fehlklassifizierungen von neuen Daten zu verhindern, in dem überprüft wird, ob das Modell die richtigen/plausiblen Features berücksichtigt.
 
 \item[Vorhersage]
-Das Erzeugen einer Erklärung weshalb ein bestimmtes Muster in den Daten zu der resultierenden Klassifizierung geführt hat. Dies ist insbesondere für Anwender / Kunden einer \glsentrylong{ML} Lösung wichtig, um das Verständnis für die maschinelle Entscheidung zu erhöhen. Erklärungen können auch benutzt werden um eine gesetzlich vorgeschriebene Anfechtbarkeit der Entscheidung zu ermöglichen.
+Das Erzeugen einer Erklärung weshalb ein bestimmtes Muster in den Daten zu der resultierenden Klassifizierung geführt hat. Dies ist insbesondere für Anwender / Kunden einer \glsentrylong{ML} Lösung wichtig, um das Verständnis für die maschinelle Entscheidung zu erhöhen. Die daraus erzeugte Erklärung kann dazu genutzt werden um eine gesetzlich vorgeschriebene Anfechtbarkeit der Entscheidung zu ermöglichen.
 \end{description}
 
 Ebenso gibt es bei den Interessensgruppen unterschiedliche Anforderungen an die Erklärbarkeit einer ML Anwendung. Nach G. Ras \parencite{Ras2018} werden dabei folgende Gruppierungen unterschieden:
@@ -381,16 +381,16 @@ Ein wichtiges Merkmal einer Erklärung ist die Verständlichkeit für das jeweil
 
 Alle diese Punkte zeigen weshalb ein einziger, einheitlicher, Ansatz nicht zielführend ist. Die Werkzeuge und Methoden müssen passend auf den Kreis der Empfänger abgestimmt werden.
 
-\section{Zielgebiete von XAI}
+\chapter{Zielgebiete von XAI}
 
-\subsection{Bessere Anwendungen durch Einblick in die Funktionsweise}
+\section{Bessere Anwendungen durch Einblick in die Funktionsweise}
 Ein Grundsatz jedes \glsentrylong{ML} Projektes lautet, dass der Erfolg nicht garantiert ist. Ausgehend von bestehenden Daten kann man nicht sicher sein, dass diese ausreichende Informationen liefern, um ein Modell zu entwickeln, welches den Anforderungen entspricht. Selbst wenn genügend Daten vorhanden sind, besteht immer noch die Problematik, dass unzählige Algorithmen mit wiederum unzähligen Parametern existieren, welche angewendet werden können. Es gibt Lösungen, um mit dieser Problematik umzugehen. Dennoch ist es in der Regel ein langwieriger und oftmals teurer Prozess um \Gls{ML} Modelle auf das gewünschte Qualitätsniveau zu bringen.
 
 Erkenntnisse durch \gls{xai} Techniken können den Entwicklern helfen Irrwege und Probleme frühzeitig zu erkennen, um so Arbeitszeit und/oder Rechenleistung beim Definieren und Berechnen der Modelle einzusparen.
 
 Ebenso kann ein Modell falsche Resultate liefern, sei es weil die ursprünglichen Trainingsdaten unvollständig waren, oder weil neue, vorher unbekannte, Bedingungen aufgetreten sind. Eine Erklärung weshalb dieses falsche Resultat erzeugt wurde, kann den Entwickler in die Lage versetzen ein verbessertes Modell zu erzeugen. Dies kann sowohl in der Phase der Aufarbeitung der Daten, welche durch das Modell verarbeitet werden sollen (preprocessing) oder beim Erzeugen eines Modelles (training) hilfreich sein.
 
-\subsection{Datenschutz}
+\section{Datenschutz}
 Jede \glsentrylong{ML} Lösung setzt grosse Datenmengen voraus. Diese müssen den Anforderungen des Datenschutzes entsprechend aufbereitet und gegebenenfalls anonymisiert werden. Dennoch besteht die Gefahr, dass Modelle Rückschlüsse auf die Daten zulassen, mit denen sie trainiert wurden.
 
 Das Gebiet Datenschutz ist durch Vorstösse von NGO's, Politikern und vor allem durch die \acrfull{DSGVO} der EU, in den Fokus von Regierungsbehörden gelangt.
@@ -425,18 +425,18 @@ Daraus ergeben sich für die \acrlong{dek} für einen verantwortungsvollen Umgan
 In Kapitel \ref{Sicherheit} wird näher auf die Gefahren eingegangen welche durch die Anwendung von \Gls{ML} entstehen können. 
 \Gls{xai} Werkzeuge können Entwicklern Schwachpunkte aufzeigen oder Experten in die Lage versetzen, angewandte Modelle nachträglich auf Probleme zu untersuchen.
 
-\subsection{Sicherheit}
+\section{Sicherheit}
 \label{Sicherheit}
-Die Sicherheit von \Gls{ML} Modellen ist durch verschiedene Angriffsmethoden gefährdet. In der Regel geht man für Sicherheitsüberlegungen von einem \Gls{Black Box} Modell aus, da ein Angreifer das Modell in der Anwendung (d.h. nach der Erzeugung) angreift.
+Die Sicherheit von \Gls{ML} Modellen ist durch verschiedene Angriffsmethoden gefährdet.
 \begin{description}
 	\item[Model Stealing Attacks] Ziel eines solchen Angriffes ist es, entweder direkt die internen Parameter eines Modells zu extrahieren, oder ein neues Modell zu erstellen das sich gleich oder möglichst ähnlich zu dem Original verhält. Dadurch können Geschäftsgeheimnisse entwendet oder Wettbewerbsvorteile eliminiert werden.
 	\item[Membership Inference Attacks] Diese Art von Angriff versucht herauszufinden ob ein Datensatz dazu verwendet wurde das vorliegende Modell zu trainieren. Neben Datenschutzproblemen kann dies auch zu weiteren Angriffsflächen führen.
 	\item[\acrfull{aip}] Oft genügen kleine Änderungen an einem Bildinhalt um ein \gls{NN} dazu zu bringen die vorhergesagte Klasse zu wechseln. Wenn ein Angreifer eine solche Anfälligkeit entdeckt, kann es möglich sein ein Bild so zu verändern, dass es für menschliche Augen gleich (oder beinahe) aussieht wie das Original, jedoch mit einem völlig anderen Ergebnis. Es liegt auf der Hand, dass ein solches Verhalten eines Modells für Systeme einer Zutrittskontrolle unerwünscht ist. Es sind jedoch auch andere Formen der Täuschung denkbar,, welche für den Betreiber zu Verlusten führen können (Waren Rücksendungen, Pfandflaschen Automaten, Qualitätskontrollen bei Lieferanten). Dieses Thema wird näher in Kapitel \ref{Adversarial Attacks} erläutert.
 \end{description}
 
-In der Arbeit von Seong Joon Oh ``Towards Reverse-Engineering Black-Box Neural Networks'' \parencite{Oh2019} werden Methoden vorgestellt wie \Gls{Black Box} Modelle auf diese Probleme untersucht werden können.
+In der Arbeit von Seong Joon Oh ``Towards Reverse-Engineering Black-Box Neural Networks'' \parencite{Oh2019} werden Methoden vorgestellt wie \Gls{Blackbox} Modelle auf diese Probleme untersucht werden können.
 
-\subsection{Regulatorische Bedingungen}
+\section{Regulatorische Bedingungen}
 In vielen Bereichen des Alltags gelten Regeln, welche Diskriminierungen von Gruppen verhindern oder von der Gesellschaft als ungerecht empfundene Handlungen untersagen. Dies kann von einer Transportpflicht eines Verkehrsbetriebes bis hin zu einem Kündigungsschutz während einer Schwangerschaft reichen. Dies gerät oft in Konflikt mit dem Recht auf Vertragsfreiheit, die es Personen und Firmen frei lässt, mit welchen Vertragsparteien Geschäfte getätigt werden.
 
 Durch die Anwendung von \Gls{AI} Systemen können solche Diskriminierungen unbeabsichtigt eingeführt werden. Kaum eine Bank könnte eine Regel aufrechterhalten, welche Personen mit dunkler Hautfarbe Kredite verweigert. Ein Modell, das einem \Gls{BIAS} unterliegt, kann jedoch genau solch eine Entscheidung bewirken.
@@ -447,7 +447,7 @@ Einige NGO's versuchen Standards voranzutreiben welche die Industrie zu einem ``
 
 \Gls{xai} kann insbesondere bei der Begründung von Entscheidungen, wie sie zum Beispiel von der \acrshort{DSGVO} gefordert wird, einen wichtigen Beitrag leisten.
 
-\subsection{Haftungsfragen}
+\section{Haftungsfragen}
 Unfälle, welche durch \glsentrylong{ML} Techniken verursacht, oder zumindest begünstigt wurden, stellen eine Gefahr bei deren Einsatz dar. Bei selbstfahrenden Fahrzeugen ist die Frage nach der Schuld des Herstellers naheliegend, wie dieser Unfall mit einem Tesla zeigte: \parencite{teslaCrash}. 
 
 Aber auch eine Diskriminierung durch ein \Gls{ML} Modell mit einem \Gls{BIAS} kann eine Klage durch die Betroffenen hervorrufen. \Gls{xai} kann eingesetzt werden um das Risiko zu verringern, indem Schwachstellen in Modellen frühzeitig erkannt werden, siehe \ref{vulnearabilities}. 
@@ -456,7 +456,7 @@ Aber auch eine Diskriminierung durch ein \Gls{ML} Modell mit einem \Gls{BIAS} ka
 Ein Projekt welches \Gls{ML} einsetzt durchläuft in der Regel mehrere Phasen. \Gls{xai} kann nicht in jeder Phase sinnvoll eingesetzt werden. Dieses Kapitel soll einen kurzen Überblick über die Schritte zu einem fertigen Modell geben und erläutern an welchen Punkten \Gls{xai} sinnvoll eingesetzt werden kann.
 
 \begin{center}
-\begin{minipage}[t]{0.6\linewidth}
+\begin{minipage}[t]{0.8\linewidth}
 	\includegraphics[width=\textwidth]{Bilder/CRISP-DM-Process-Diagram.png}
 	\captionof{figure}{CRISP-DM Prozessablauf}
 	\captionof*{figure}{Quelle: commons.wikimedia.org \protect\footnotemark{}}
@@ -464,32 +464,42 @@ Ein Projekt welches \Gls{ML} einsetzt durchläuft in der Regel mehrere Phasen. \
 \end{center}
 \footnotetext{Kenneth Jensen (https://commons.wikimedia.org/wiki/File:CRISP-DM\_Process\_Diagram.png), „CRISP-DM Process Diagram“, https://creativecommons.org/licenses/by-sa/3.0/legalcode}
 
-\section{Exploration}
-Die Exploration Phase hat zum Ziel sich einen Überblick über die Daten zu verschaffen. Die Werkzeuge die man zu diesem Zweck braucht sind in der Regel einfacher und vor allem schneller als komplexere \Gls{xai} Techniken welche sich mit den Modellen beschäftigen welche normalerweise erst nach der Exploration Phase erstellt werden. Viele Hilfsmittel für die Exploration erzeugen Diagramme und Grafiken da diese schnell interpretiert werden können.
+Abhängig von der gewählten Art des Modells und der gewünschten Art der Erklärung ist die Anwendung von \Gls{xai} in verschiedenen Phasen möglich.
+\begin{center}
+\begin{minipage}[t]{\linewidth}
+	\includegraphics[width=\textwidth]{Bilder/XAI-Process.png}
+	\captionof{figure}{Erklärungen im ML Ablauf}
+\end{minipage}
+\end{center}
+Es ist ebenfalls möglich ein bereits eingesetztes Modell nachträglich zu untersuchen. Die Vorgehensweise entspricht dabei einer \Gls{Blackbox} Analyse wie bei einem Modell aus einer externen Quelle. 
 
-\section{Feature Engineering}
+\section{Data Understanding}
+Der Phase ``Data Understanding'' ist allgemein als Exploration bekannt.
+In diesem Abschnitt eines \Gls{ML} Projektes verschafft man sich einen Überblick über die Daten und gewinnt Informationen welche weiteren Schritte notwendig sind. Die Werkzeuge die man zu diesem Zweck braucht sind in der Regel einfacher und vor allem schneller als komplexere \Gls{xai} Techniken welche sich mit den Modellen beschäftigen welche normalerweise erst nach der Exploration Phase erstellt werden. Viele Hilfsmittel für die Exploration erzeugen Diagramme und Grafiken da diese schnell interpretiert werden können.
 
-\section{Modellauswahl}
-Nach Seong Joon Oh \parencite{Oh2019} hat Art des Modells von grossen Einfluss auf die Möglichkeiten der Erklärbarkeit. Generell wird unterschieden zwischen
+\section{Data Preparation}
+Data Preparation oder auch preprocessing genannt ist ein Notwendiger Schritt bei dem Daten auf die Verwendung für das Training eines Modells vorbereitet werden. Oft wird auch eine Auswahl der später verwendeten Daten (Features) getroffen, nicht immer macht es Sinn alle verfügbaren Daten einzusetzen.
+
+\section{Modeling}
+In der Modeling Phase entscheidet man sich für die Art des Modells welches man trainieren möchte. Oftmals trifft man eine Auswahl mehrere unterschiedlicher Algorithmen und entscheidet sich nach einem vereinfachten Training für den Algorithmus mit dem besten Ergebnis.
+
+Nach Seong Joon Oh \parencite{Oh2019} hat Art des Modells grossen Einfluss auf die Möglichkeiten der Erklärbarkeit. Generell wird unterschieden zwischen
 \begin{description}
-	\item[Whitebox Modelle] sind unter der Kontrolle desjenigen welcher eine erklärende Analyse durchführt, sowohl die Daten wie der Aufbau des Modelles sind bekannt
-	\item[Blackbox Modelle] sind von unbekannter Struktur, der Anwender bekommt von einem gegebenen Input ein Resultat ohne den Ablauf der Entscheidungsfindung beobachten zu können
+	\item[Whitebox Modelle] Einfachere Modelle welche oftmals geringere Erfolgsquoten als Blackbox Modelle aufweisen. Auch fehlen manchen dieser Modelle Möglichkeiten um komplexere Probleme wie Zusammenhängen zwischen Eigenschaften (feature interaction) zu modellieren. Im Gegenzug sind diese Modelle bedeutend einfacher zu erklären und interpretieren.
+	\item[Blackbox Modelle] Blackbox Modelle liefern oft sehr gute Ergebnisse. Durch den komplexen inneren Aufbau sind sie aber schwer zu verstehen und es ist nicht möglich den Einfluss einer einzelnen Eigenschaft (feature) auf das Ergebnis aufzuzeigen. Auch Zusammenhänge zwischen den einzelnen Eigenschaften sind schwer zu entdecken.
 \end{description}
 
-Aus der Vielzahl von Werkzeugen welche existieren um \acrfull{ML} Modelle zu analysieren gilt es die für den jeweiligen Use Case relevanten Werkzeuge anzuwenden.
+Wenn eine Anforderung in der Aufgabenstellung eine vollständige Erklärbarkeit fordert, sind Whitebox Modelle sicherlich zu bevorzugen. Durch \Gls{xai} können nun aber auch die schwierig zu verstehenden Blackbox Modelle nachträglich Erklärt werden. Allerdings ist die Qualität (Aussagekraft, Vollständigkeit, Verständlichkeit) einer derart erzeugten Erklärung oft kleiner als die gegebene Verständlichkeit eines Whitebox Modells. Hier gilt es abzuwägen wie die Punkte Erklärbarkeit gegen Verständlichkeit gewichtet werden.
 
-\section{Existierendes Modell verwenden}
+\section{Evaluation}
+In der Evaluation Phase werden die Eigenschaften eines Modells überprüft. Neben Überprüfung der Vorhersagequalität werden die Fehlerraten untersucht und mit den Anforderungen abgeglichen. \Gls{xai} kann in dieser Phase wertvolle Einsichten in das Modell liefern welche verwendet werden können um das Modell in einem weiteren Durchlauf zu verbessern oder ob durch den Einsatz dieses Modells Probleme entstehen.
 
-\section{Modell analysieren}
-
-\subsection{Modell Testen}
-
-\subsection{Erklärungen aus Modell generieren}
 Wenn man Erklärungen von einem Modell erstellen will muss man sich zuerst über den Spielraum der gewünschten Erklärung sicher sein. Man unterscheidet dabei zwischen einer lokalen (local interpretability) und einer globalen (global interpretability) Erklärung.
 
+\parag{globale Erklärungen}
 Globale Erklärungen können das Verständnis für den Umgang mit sämtlichen Daten liefern, dies ist besonders hilfreich wenn geprüft werden soll ob das Modell einem \Gls{BIAS} unterliegt. Informationen zu den aufgelisteten Verfahren können unter in den referenzierten Artikeln gefunden werden.
 
-\parag{Verfahren für globale Erklärungen}
+Verfahren für globale Erklärungen
 \begin{itemize}
 	\item Trepan \parencite{10.5555/2998828.2998832}
 	\item Extract Rules \parencite{Craven1994}
@@ -497,9 +507,10 @@ Globale Erklärungen können das Verständnis für den Umgang mit sämtlichen Da
 	\item BETA \parencite{Lakkaraju2017}
 \end{itemize}
 
+\parag{lokale Erklärungen}
 Lokale Erkärungen gelten für eine Bestimmte Klasse und erklären weshalb das Modell gerade diese Klasse als Vorhersage gewählt hat. Diese Arbeit befasst stellt nur lokale Erklärungen vor, diese sind einfach zu prüfen und anzuwenden.
 
-\parag{Verfahren für lokale Erklärungen}
+Verfahren für lokale Erklärungen
 \begin{itemize}
 	\item \Gls{GC} \ref{gradCam}
 	\item \Gls{OS} \ref{os}
@@ -507,10 +518,13 @@ Lokale Erkärungen gelten für eine Bestimmte Klasse und erklären weshalb das M
 	\item \Gls{lrp}  \ref{lrp}
 \end{itemize}
 
-\subsection{Bias Kontrolle}
+Aus der Vielzahl von Werkzeugen welche existieren um \acrfull{ML} Modelle zu analysieren gilt es die für den jeweiligen Use Case relevanten Werkzeuge anzuwenden. Eine Arbeit mehrerer IBM Forscher zeigt verschiedene Bibliotheken auf und gibt einen Leitfaden für deren Anwendung \parencite{Arya2019}.  
+
+\section{Deployment}
+Als Deployment bezeichnet man die Einführung eines \Gls{ML} Modells in ein produktiv nutzbares System. \Gls{xai} kann nun von Anwendern geforderte Begründungen für eine Entscheidung liefern oder bei Problemen helfen das Modell zu verbessern.
 
 \chapter{Modellvarianten}
-\section{Erklärbare Modelle}
+\section{Erklärbare / White Box Modelle}
 
 Falls eine Anforderung besteht, dass die erzeugten Resultate interpretierbar sein müssen, kann direkt ein grundsätzlich interpretierbares Modelle erzeugt werden. Der Preis dafür kann jedoch eine geringere Performance sein. Natürlich ist in diesem Fall \Gls{xai} unnötig.
 
@@ -532,21 +546,22 @@ Folgende Algorithmen gelten generell als interpretierbar:
 \end{itemize}
 Diese Liste hat keinen Anspruch auf Vollständigkeit, zudem können auch diese Modelle sehr komplex werden was die Verständlichkeit reduziert.
 
-Als einfache Entscheidungshilfe welches Modell am besten zu der gestellten Aufgabe passt kann diese Tabelle benutzt werden. Als Methode kann entweder eine Klassifikation (klass.), Regression (regr.) oder sogar beide Arten angewandt werden.  \\
+\parag{Auswahlhilfe Whitebox Modell}
+Als einfache Entscheidungshilfe welches Modell am besten zu der gestellten Aufgabe passt kann diese Tabelle benutzt werden. Als Methode kann entweder eine Klassifikation (klass.), Regression (regr.) oder sogar beide Arten angewandt werden. Linear bedeutet in diesem Zusammenhang dass die Eingangsdaten sich linear (gleichförmig) auf das Resultat einwirken. Monoton trifft auf Fälle zu bei denen Änderungen in den Eingangsdaten sich in der gleichen Richtung (positiv oder negativ) auf das Resultat Einfluss nehmen. ``Zusammenhang'' bedeutet das zwei Eigenschaften zusammen einen stärkeren Einfluss haben als nur alleine Betrachtet (feature interaction).
 \begin{table}[ht]
 \begin{tabular}{@{} *5l @{}}    \toprule
-	\emph{Algorithmus} & \emph{Linear} & \emph{Monoton} & \emph{Methode}  \\\midrule
-	Linear regression & Ja & Ja & 	regr. \\
-	Logistic regression & Nein & Ja & 	klass. \\
-	Decision trees & Nein & einige &	klass.,regr. \\
-	RuleFit & Ja & Nein & 	klass.,regr. \\
-	Naive Bayes	 & Nein & Ja & 	klass. \\
-	k-nearest neighbors & Nein & Nein & klass.,regr. \\ \bottomrule
+	\emph{Algorithmus} & \emph{Linear} & \emph{Monoton} & \emph{Zusammenhang} & \emph{Methode}  \\\midrule
+	Linear regression & Ja & Ja & 	Nein & regr. \\
+	Logistic regression & Nein & Ja & 	Nein & klass. \\
+	Decision trees & Nein & einige &	Ja & klass.,regr. \\
+	RuleFit & Ja & Nein & Ja & 	klass.,regr. \\
+	Naive Bayes	 & Nein & Ja & 	Nein & klass. \\
+	k-nearest neighbors & Nein & Nein & Nein & klass.,regr. \\ \bottomrule
 	 \hline
 \end{tabular}
-\captionof{table}{Entscheidungstabelle Erklärbare Modelle}
-\captionof*{table}{Quelle: \parencite{iML}}
+\captionof{table}{Entscheidungstabelle Erklärbare Modelle \protect\footnotemark{}}
 \end{table}
+\footnotetext{Quelle: \parencite{iML}}
 
 \subsection{Lineare Regression}
 \label{lr}
@@ -632,7 +647,7 @@ Die Regeln nach denen sich ein \Gls{DT} aufteilt können als Text dargestellt we
 	 \captionof{figure}{Entscheidungsbaum als Flächen dargestellt}
 \end{minipage}
 
-Der für diese Visualisierungen verwendete Source Code ist in Kapitel \ref{dt-vis} aufgeführt und verwendet \parencite{scikit-learnLink}.
+Der für diese Visualisierungen verwendete Source Code ist in Kapitel \ref{dt-vis} aufgeführt und verwendet scikit-learn \cite{scikit-learnLink}.
 
 
 \subsection{RuleFit}
@@ -650,9 +665,9 @@ PAY_2 > 1.5 and PAY_AMT_old_mean <= 12955.75 and PAY_old_mean > 0.625
 BILL_AMT2 > 1870.0 and PAY_2 > 1.5 and PAY_AMT_old_mean <= 2525.375
 BILL_AMT1 > 410.0 and PAY_1 > 1.5 and PAY_old_mean > 0.125
 \end{lstlisting}
-\captionof{figure}{scope-rules Ausgabe der Regeln}
-\captionof*{figure}{Quelle: \url{https://skope-rules.readthedocs.io/}}
+\captionof{figure}{scope-rules Ausgabe der Regeln\protect\footnotemark{}}
 \end{minipage}
+\footnotetext{Quelle: \url{https://skope-rules.readthedocs.io/}}
 
 \subsection{Naive Bayes}
 \label{nb}
@@ -881,11 +896,12 @@ Durch den Vergleich der Vektoren verschiedener Klassen innerhalb des selben Netz
 \begin{center}
 \begin{minipage}[t]{\linewidth}
  	\includegraphics[width=\textwidth]{Bilder/svcca-similarities.png}
-    	\captionof{figure}{Vergleich Verschiedener Klassen mit SVCCA}
-    	\captionof*{figure}{Quelle: Google AI Blog, Interpreting Deep Neural Networks with SVCCA}
+    	\captionof{figure}{Vergleich Verschiedener Klassen mit SVCCA\protect\footnotemark{}}
 \end{minipage}
 \end{center}
-\cite{svccaLink}
+\footnotetext{Quelle: Google AI Blog, Interpreting Deep Neural Networks with SVCCA}
+
+Weitere Informationen und Erklärungen zu diesem Verfahren finden sich auf der Seite \parencite{svccaLink}.
 
 \chapter{Konkrete Anwendung von XAI}
 
@@ -903,14 +919,14 @@ Daten welche für das Trainieren von \Gls{ML} Modellen verwendet werden können 
 \begin{minipage}[t]{0.45\linewidth}
 \vspace{0pt}
 \includegraphics[width=\linewidth]{Bilder/HorsePredictionPascalVOC.PNG}
-\captionof{figure}{Klassifizierung eines Pferdes in Pascal VOC}
-\captionof*{figure}{Quelle: Unmasking Clever Hans Predictors and Assessing What Machines Really Learn \cite{Lapuschkin2019}}
+\captionof{figure}{Klassifizierung eines Pferdes in Pascal VOC\protect\footnotemark{}}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.45\linewidth}
 \vspace{20pt}
 Die meisten Bilder mit Pferden in dem bereitgestellten Trainingsdatensatz für die Pascal VOC Challenge enthielten einen Quellen Verweis. Aufgrund dessen lernte das Neuronale Netz anstatt des Erkennens von  Pferden, das Erkennen dieser Verweise. Da dieser Hinweis nur auf Pferdebildern vorhanden war wurden dadurch alle Bilder mit solch einem Hinweis als ``Pferd'' klassifiziert.
 \end{minipage}
 \end{center}
+\footnotetext{Quelle: Unmasking Clever Hans Predictors and Assessing What Machines Really Learn \cite{Lapuschkin2019}}
 
 \break
 In diesem Versuch soll diese Ausgangslage nachgestellt werden. Die Annahme ist dass ein grosser Teil der Bilder von Katzen, von einem Dienstleister stammen welcher sein Logo jeweils in der rechten unteren Ecke platziert. 
@@ -1330,7 +1346,7 @@ Wie zu erwarten unterscheidet sich die Darstellung etwas von den vorherigen. Da 
 Auch unterschiedliche Klassifikations-Algorithmen können einfach dargestellt und verglichen werden. Dadurch können Auffälligkeiten leicht entdeckt werden und Anpassungen (andere Algorithmen, geändertes Pre-Processing usw.) getestet werden. 
 
 \subsection{Black Box Modell}
-Während in dem vorherigen Beispiel ein \Gls{White Box} Model mit verschiedenen interpretierbaren Algorithmen angewendet wurde, können auch \Gls{Black Box} Modelle analysiert werden. Dafür benutzen sowohl \cite{ELI5} als auch \cite{lime} das \acrshort{lime} Verfahren um die Vorhersage zu erklären und das Modell zu interpretieren.
+Während in dem vorherigen Beispiel ein \Gls{Whitebox} Model mit verschiedenen interpretierbaren Algorithmen angewendet wurde, können auch \Gls{Blackbox} Modelle analysiert werden. Dafür benutzen sowohl \cite{ELI5} als auch \cite{lime} das \acrshort{lime} Verfahren um die Vorhersage zu erklären und das Modell zu interpretieren.
 
 \parag{Daten}
 Der selbe Datensatz wie in \ref{eli5MovieReview} wurde für einen weiteren Klassifikator genutzt, dieses Mal allerdings mit dem \acrfull{lstm} Verfahren welches zu den neuronalen Netzen gehört. 
@@ -1401,43 +1417,43 @@ Das Wort ``unfunny'' wurde wie auch in der ersten Analyse als stark relevant fü
 \parag{Fazit}
 Auch das Erklären von neuronalen Netzen
 
-\chapter{Schwächen von ML Modellen erkennen}
+\chapter{Schwächen von Modellen erkennen}
 \label{vulnearabilities}
 
-Die in den vorherigen Kapiteln vorgestellten Techniken erlauben einen besseren Einblick in die Funktionsweise von \Gls{ML} Modellen. Dieses Wissen kann dazu genutzt werden um Schwächen oder auch gezielte Angriffe auf Anwendungen mit integrierten \Gls{ML} Modellen zu erkennen.
+Die in den vorherigen Kapiteln vorgestellten Techniken erlauben einen besseren Einblick in die Funktionsweise von \glsentrylong{ML} Modellen. Dieses Wissen kann dazu genutzt werden um Schwächen oder auch gezielte Angriffe auf Anwendungen mit integrierten \Gls{ML} Modellen zu erkennen.
 
 \section{Diskriminierung durch Bias}
-Als \Gls{BIAS} werden werden Tendenzen bezeichnet welche in Modellen vorhanden sind und die durch nicht ausgewogene Trainingsdaten erzeugt werden.
-Ein bekanntes Beispiel dazu ist ein Chat-Bot welcher von Microsoft entwickelt wurde und der seinen Verhalten durch Twitter Tweets trainierte. Das Experiment musste von Microsoft nach kurzer Zeit abgebrochen werden da der Chat-Bot eine Tendenz zu rassistischen und beleidigenden Antworten hatte. Verursacht wurde dieses Verhalten durch gezielte Manipulationen durch andere Twitter Benutzer welche eine Gelegenheit sahen den Chat-Bot auszutricksen. Eine Beschreibung der Probleme dieses Projektes wurden in dem Artikel \parencite{msTay} dokumentiert.
-Dieser Fall kann auch als Beispiel für ``Data Poisoning'' angesehen werden da die Lerndaten des Bots gezielt beeinflusst wurden, siehe \ref{dataP}.
+Als \Gls{BIAS} werden Tendenzen bezeichnet, welche in Modellen vorhanden sind und durch nicht ausgewogene Trainingsdaten erzeugt werden.
+Ein bekanntes Beispiel dazu ist ein Chat-Bot, welcher von Microsoft entwickelt wurde und der sein Verhalten durch Twitter Tweets trainierte. Das Experiment musste von Microsoft nach kurzer Zeit abgebrochen werden, da der Chat-Bot eine Tendenz zu rassistischen und beleidigenden Antworten hatte. Verursacht wurde dieses Verhalten durch gezielte Manipulationen durch andere Twitter Benutzer, die eine Gelegenheit sahen den Chat-Bot auszutricksen. Eine Beschreibung der Probleme dieses Projektes wurde in dem Artikel \parencite{msTay} dokumentiert.
+Dieser Fall kann auch als Beispiel für ``Data Poisoning'' angesehen werden, da die Lerndaten des Bots gezielt beeinflusst wurden, siehe \ref{dataP}.
 
 \section{Manipulierte Bilder: Adversarial Attacks}
 \label{Adversarial Attacks}
-Wie bereits in Kapitel \ref{Sicherheit} angedeutet, sind \Gls{ML} Anwendungen oftmals unerwartet empfindlich auf kleinste Änderungen an den Eingangsdaten. In einer Arbeit von Google Forschern   \parencite{Goodfellow2014} konnte gezeigt werden dass dies eine grundsätzliche Eigenschaft nicht nur von Neuronalen Netzen sondern auch anderen Linearen Klassifikatoren ist. Erklärbar ist ein solches Fehlverhalten wenn man sich vor Augen hält das Neuronale Netze und andere Klassifikatoren keine abstrakten Konzepte wie ``Tier'' oder auch ``Fahrzeug'' lernen sondern sich alleine an den für das Training verwendeten Bilddaten orientieren.
+Wie bereits in Kapitel \ref{Sicherheit} angedeutet, sind \Gls{ML} Anwendungen oftmals unerwartet empfindlich auf kleinste Änderungen an den Eingangsdaten. In einer Arbeit von Google Forschern   \parencite{Goodfellow2014} konnte gezeigt werden dass dies eine grundsätzliche Eigenschaft nicht nur von neuronalen Netzen, sondern auch anderen linearen Klassifikatoren ist. Erklärbar ist ein solches Fehlverhalten wenn man sich vor Augen hält, dass neuronale Netze und andere Klassifikatoren keine abstrakten Konzepte wie ``Tier'' oder auch ``Fahrzeug'' lernen, sondern sich alleine an den für das Training verwendeten Bilddaten orientieren.
 
-\imgText{adversarial.png}{Adversarial Beispiel Szegedy 2013}{
+\imgText{adversarial.png}{Adversarial Beispiel \protect\footnotemark{}}{
 Ein Beispiel für die Manipulation eines Bildklassifikators stammt aus der Arbeit ``Intriguing properties of neural networks'' \parencite{Szegedy2013}. 
 \break\break
-Die linke Spalte zeigt ein korrekt Klassifiziertes Bild.
+Die linke Spalte zeigt ein korrekt klassifiziertes Bild.
 \break\break
 Die mittlere Spalte stellt den Unterschied zwischen dem korrekt klassifizierten Bild und der falschen Klasse dar.
 \break\break
 Rechts ist das mit der Adversarial Technik manipulierte Bild zu sehen.
 \break\break
-Alle Bilder in der Rechten Spalte wurden als ``Ostrich'' = Straus klassifiziert!
+Alle Bilder in der Rechten Spalte wurden als ``Ostrich'' (Strauss) klassifiziert!
 }
+\footnotetext[1]{Quelle: Szegedy  \parencite{Szegedy2013}}
 
 \parag{Adversarial Attacken selber erzeugen}
-Die Tensorflow Webseite stellt ein Tutorial zu Verfügung welches die Erzeugung solcher ``Adversarial'' Bilder erläutert: \parencite{tensorflowFGSM}
+Die Tensorflow Webseite stellt ein Tutorial zu Verfügung, das die Erzeugung solcher ``Adversarial'' Bilder erläutert: \parencite{tensorflowFGSM}
 
-Eines der in dem Tutorial erzeugten Bilder wird schliesslich als ``brain\_coral'' (Hirnkoralle) erkannt, allerdings mit deutlich sichtbaren Bild-Artefakten. Für den menschlichen Betrachter sieht es jedoch aus als ob das Bild stark verrauscht wäre und nicht nach einem gezielt manipulierten Bild.
+Eines der in dem Tutorial erzeugten Bilder wird schliesslich als ``brain coral'' (Hirnkoralle) erkannt, allerdings mit deutlich sichtbaren Bild-Artefakten. Für das menschliche Auge sieht es jedoch aus als ob das Bild stark verrauscht wäre und nicht nach einem gezielt manipulierten Bild.
 \begin{center}
 \begin{minipage}[t]{0.45\linewidth}
 	\vspace{0pt}
 	\centering
 	\includegraphics[width=0.9\textwidth]{Bilder/tensorflow-adversarial-original.png}
-	 \captionof{figure}{Ursprungs-Bild}
-	\captionof*{figure}{Quelle: \parencite{tensorflowFGSM}}
+	 \captionof{figure}{Ursprungs-Bild\protect\footnotemark{}}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.45\linewidth}
 	\vspace{0pt}
@@ -1446,9 +1462,10 @@ Eines der in dem Tutorial erzeugten Bilder wird schliesslich als ``brain\_coral'
 	 \captionof{figure}{Durch Adversarial Angriff erzeugtes Bild}
 \end{minipage}
 \end{center}
+\footnotetext[2]{Quelle: \parencite{tensorflowFGSM}}
 
 \subsubsection*{Täuschung der Verkehrszeichen-Erkennung eines Tesla}
-Ein interessantes Beispiel einer solchen ``Adversarial Attack'' ist die Arbeit eines Teams von McAffe Labs welches gezielt das System eines Tesla angegriffen hat und schlussendlich das Auto dazu gebracht hat anstatt 35mph (ungefähr 55kmh)  85mph (ca. 135kmh) als Geschwindigkeitsbegrenzung zu erkennen.\\
+Ein interessantes Beispiel einer solchen ``Adversarial Attack'' ist die Arbeit eines Teams von McAffe Labs, welches gezielt das System eines Tesla angegriffen hat. Schlussendlich wurde das Auto dazu gebracht anstatt 35mph (ca. 55kmh)  85mph (ca. 135kmh) als Geschwindigkeitsbegrenzung zu erkennen.
 
 \parencite{advTesla} 
 
@@ -1456,53 +1473,56 @@ Ein interessantes Beispiel einer solchen ``Adversarial Attack'' ist die Arbeit e
 \begin{minipage}[t]{0.45\linewidth}
 	\vspace{0pt}
 	\centering
-	\includegraphics[width=0.9\textwidth]{Bilder/speed-limit-fake-small.png}
-	 \captionof{figure}{Gefälschtes Verkehrsschild als Adversarial Attack}
-	\captionof*{figure}{Quelle: \parencite{advTesla}}
+	\includegraphics[width=0.7\textwidth]{Bilder/speed-limit-fake-small.png}
+	 \captionof{figure}{Gefälschtes Verkehrsschild als Adversarial Attack\protect\footnotemark{}}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.45\linewidth}
 	\vspace{0pt}
-	Eine Verlängerung des mittleren Balkens einer Drei führte das \Gls{NN} eines Tesla zu einer Fehlklassifizierung als Acht und dadurch zu einer erlaubten Geschwindigkeit von 85 Meilen pro Stunde. Obwohl die veränderte Ziffer durchaus an eine Acht erinnern kann sehen Menschen die Ziffer trotzdem als Drei, im Gegensatz zu den Systemen des Teslas.
-
-
+	Eine Verlängerung des mittleren Balkens einer Drei führte das neuronale Netz eines Tesla zu einer Fehlklassifizierung als Acht und dadurch zu einer erlaubten Geschwindigkeit von 85 Meilen pro Stunde. Obwohl die veränderte Ziffer durchaus an eine Acht erinnern kann, sehen Menschen die Ziffer trotzdem als Drei, im Gegensatz zu den Systemen des Teslas.
+\break\break
 Mittlerweile wurde das Verhalten der Tesla-Systeme angepasst und diese spezifische Attacke ist nun nicht mehr möglich.
 \end{minipage}
 \end{center}
+\footnotetext{Quelle: \parencite{advTesla}}
 
 \subsubsection*{Eigene Versuche mit Adversarial Attacks}
-Durch die Arbeit einiger Forscher \parencite{papernot2018cleverhans} gibt es eine Python Bibliothek \parencite{cleverHans} welche die Erzeugung von Adversarial Angriffen erleichtert.
+Durch die Arbeit einiger Forscher \parencite{papernot2018cleverhans} gibt es eine Python Bibliothek \parencite{cleverHans}, welche die Erzeugung von Adversarial Angriffen erleichtert.
 
 \section{Manipulierte Daten: Data Poisoning}
 \label{dataP}
-Mit ``Data Poisoning `` werden Techniken benannt welche \Gls{ML} Modelle über die Trainingsdaten angreifen. Oftmals werden Model nach einem initialen Training mit einem festen Datensatz wiederkehrend mit aktualisierten Daten erneut trainiert. Ein typisches Beispiel sind Spam Filter welche in regelmässigen Intervallen Emails, welche durch die Benutzer als Spam markiert wurden, in ihren Trainingsdatensatz integrieren.
+Mit ``Data Poisoning `` werden Techniken benannt, die \Gls{ML} Modelle über die Trainingsdaten angreifen. Oftmals werden Modelle nach einem initialen Training mit einem festen Datensatz wiederkehrend mit aktualisierten Daten erneut trainiert. Ein typisches Beispiel sind Spam Filter die in regelmässigen Intervallen Emails, welche durch die Benutzer als Spam markiert wurden, in ihren Trainingsdatensatz integrieren.
  
 Grundsätzlich wird zwischen zwei Arten von Data Poisoning unterschieden:
 \begin{description}
-  		\item[Availability] Das Ziel einer solchen Attacke ist es die Datenbasis eines \Gls{ML} Models so zu erweitern so dass die Wahrscheinlichkeit für bestimmte Klassifikation entweder stark erhöht oder verringert wird. Wie durch die Arbeit ``Online Data Poisoning Attacks'' \parencite{Zhang2019} nachgewiesen wurde, kann ein solcher Angriff sowohl für Überwachtes Lernen wie auch Unüberwachtes Lernen (Clustering) erfolgreich eingesetzt werden. 
-  		\item[Backdoor Attacks] Ein Backdoor Angriff versucht die Eingangsparameter eines \Gls{ML} Models derart zu wählen dass ein bestimmtes Ergebnis garantiert ist. So kann ein schädliches Programm welches eigentlich durch einen Virenscanner abgewehrt werden sollte durch Verwendung einer bestimmten Zeichenkette ungehindert aktiviert werden.\\
-  		Es besteht zudem die Möglichkeit dass ein \Gls{ML} welches aus einer externen Quelle bezogen wurde mit einer ``Backdoor'' versehen wurde um auf bestimmte Parameter zu reagieren. In der Arbeit ``BadNets: Evaluating Backdooring Attacks
-on Deep Neural Networks'' \parencite{Gu2019} konnte gezeigt werden wie ein \Gls{NN} durch bestimmte Aufkleber dazu gebracht werden konnte Stopp-Schilder mit Geschwindigkeitsbegrenzungs-Schilder zu verwechseln.
+  		\item[Availability] Das Ziel einer solchen Attacke ist es die Datenbasis eines \Gls{ML} Modells so zu erweitern, dass die Wahrscheinlichkeit für eine bestimmte Klassifikation entweder stark erhöht oder verringert wird. Wie durch die Arbeit ``Online Data Poisoning Attacks'' \parencite{Zhang2019} nachgewiesen wurde, kann ein solcher Angriff sowohl für überwachtes Lernen wie auch unüberwachtes Lernen erfolgreich eingesetzt werden. 
+  		\item[Backdoor Attacks] Ein Backdoor Angriff versucht die Eingangsparameter eines \Gls{ML} Modells so zu wählen, dass ein bestimmtes Ergebnis garantiert ist. Damit kann ein schädliches Programm, welches eigentlich durch einen Virenscanner abgewehrt werden sollte, durch Verwendung einer bestimmten Zeichenkette ungehindert aktiviert werden.\\
+  		Es besteht zudem die Möglichkeit, dass ein Modell, welches aus einer externen Quelle bezogen wurde, mit einer ``Backdoor'' ausgestattet ist um auf bestimmte Parameter zu reagieren. In der Arbeit ``BadNets: Evaluating Backdooring Attacks
+on Deep Neural Networks'' \parencite{Gu2019} konnte gezeigt werden wie ein \gls{NN} durch bestimmte Aufkleber dazu gebracht werden konnte Stopp-Schilder mit Geschwindigkeitsbegrenzungs-Schildern zu verwechseln.
 	\end{description}
 
 \chapter{Weiterentwicklung von XAI}
-Die Weiterentwicklung der Methoden von \Gls{xai} sind eng an die zukünftige Entwicklung von \Gls{ML} gekoppelt. Obwohl Prognosen für die Zukunft natürlich schwierig sind ist es aber momentan wahrscheinlich dass die grossen Investitionen in \Gls{AI} und \Gls{ML} zumindest noch einige Jahre weitergeführt werden. Durch die Verfügbarkeit von Budgets in Forschung und Industrie gekoppelt mit den Forderung vieler Akteure nach einer ``verständlichen'' \Gls{AI} ist weiterhin mit einer Vielzahl an Arbeiten im Bereich \Gls{xai} zu rechnen. Wie schnell dabei Fortschritte erzielt werden können ist jedoch völlig ungewiss und die Geschichte der \Gls{AI} zeigt dass man dabei eine gewisse Vorsicht an den Tag legen sollte.
+Die Weiterentwicklung der Methoden von \Gls{xai} sind eng an die zukünftige Entwicklung von \Gls{ML} gekoppelt. Obwohl Prognosen für die Zukunft natürlich schwierig sind, ist es aber momentan wahrscheinlich, dass die grossen Investitionen in \Gls{AI} und \Gls{ML} zumindest noch einige Jahre weitergeführt werden. Durch die Verfügbarkeit von Budgets in Forschung und Industrie, gekoppelt mit den Forderungen vieler Akteure nach einer ``verständlichen'' \Gls{AI}, ist weiterhin mit einer Vielzahl an Arbeiten im Bereich \Gls{xai} zu rechnen. Wie schnell dabei Fortschritte erzielt werden können, ist jedoch völlig ungewiss und die Geschichte der \Gls{AI} zeigt, dass man dabei eine gewisse Vorsicht an den Tag legen sollte.
 
 \section{Aktuelle Probleme}
-Obwohl bereits einige Methoden existieren steht \Gls{xai} immer noch am Anfang und viele der geforderten Leistungen wurden noch nicht erbracht. Selbst Elementare Definition sind nicht vorhanden oder werden von Anwendern und Forschern unterschiedlich interpretiert.  
+Obwohl bereits einige Methoden existieren, steht \Gls{xai} immer noch am Anfang seiner Entwicklung. Viele der geforderten Leistungen  sind noch ausstehend oder erst unzureichend erfüllt. Selbst elementare Definitionen sind nicht vorhanden oder werden von Anwendern und Forschern unterschiedlich interpretiert.  
 
-Auch die Qualität der Erklärung ist allgemein eher klein, die meisten Erklärungen welche durch aktuelle Algorithmen erzeugt werden können nur Details beschreiben. Es ist zwar gut möglich den Einfluss eines einzelnen Pixels zu berechnen, es besteht jedoch keine Verbindung zu abstrakten Begriffen wie Objekten, Körpern oder Personen. Den erzeugten Erklärungen fehlt es oft an Aussagekraft welche es vereinfachen würde die Erklärungen zu deuten. 
+Auch die Qualität der Erklärung ist allgemein eher klein. Die meisten Erklärungen, die durch aktuelle Algorithmen erzeugt werden, können nur Details beschreiben. Es ist zwar gut möglich den Einfluss eines einzelnen Pixels zu berechnen, es besteht jedoch keine Verbindung zu abstrakten Begriffen wie Objekten, Körpern oder Personen. Den erzeugten Erklärungen fehlt es oft an Aussagekraft.
 
 \section{Wünschenswerte Entwicklungen}
 
 \subsection{Mathematisch begründete XAI}
 \Gls{xai} benötigt nach Samek \parencite{Samek2019a} eine formale und allgemein akzeptierte Definition was Erklärungen genau sind.
-Ein Möglicher Weg für eine mathematische Begründung einer Erklärung zeigt die Arbeit von Montavon \parencite{Montavon2017} durch die Integration der Taylor decomposition.
+Ein möglicher Weg für eine mathematische Begründung einer Erklärung zeigt die Arbeit von Montavon \parencite{Montavon2017} durch die Integration der Taylor decomposition.
 
 \subsection{Modell agnostische Methoden}
-Wie sich auch in dieser Arbeit gezeigt hat sind \acrshort{XAI} Implementierungen der XAI Werkzeuge schwierig anzuwenden. Oftmals müssen die Modelle bestimmte Bedingungen erfüllen damit eine Analyse möglich ist. In anderen Fällen funktioniert die Erklärung einfach nicht ohne das man herausfinden könnte weshalb. Weitere Algorithmen wie \acrshort{lime}, welche allgemein funktionieren, sind nötig. Ein grosser Fortschritte wäre eine allgemein anwendbare Erklärungsfunktion, ähnlich wie Keras bereits eine Abstraktion für \Gls{ML} Implementierungen bereitgestellt hat. 
+Wie sich auch in dieser Arbeit gezeigt hat, sind \acrshort{XAI} Implementierungen der XAI Werkzeuge schwierig anzuwenden. Oftmals müssen die Modelle bestimmte Bedingungen erfüllen damit eine Analyse möglich ist. In anderen Fällen konnte keine funktionierende Erklärung erzeugt werden, ohne dass man herausfinden konnte weshalb. Weitere Algorithmen wie \acrshort{lime}, welche allgemein funktionieren, sind nötig. Ein grosser Fortschritt wäre eine allgemein anwendbare Erklärungsfunktion, ähnlich wie Keras bereits eine Abstraktion für \Gls{ML} Implementierungen bereitgestellt hat. 
 
 \subsection{Automatisierung}
-Für die Zukunft wäre es wünschenswert wenn allgemeine Regeln automatisiert geprüft werden könnten. Mögliche Aufgaben wären dabei die Suche nach einem ev. vorhandenen \Gls{BIAS} oder die Anfälligkeit auf Angriffe wie \acrlong{aip} oder Data Poisoning.
+Für die Zukunft wäre es wünschenswert, wenn allgemeine Regeln automatisiert geprüft werden könnten. Mögliche Aufgaben wären dabei die Suche nach einem eventuell vorhandenen \Gls{BIAS} oder die Anfälligkeit auf Angriffe wie \acrlong{aip} oder Data Poisoning.
+
+\section{Fehlende Lösungen}
+Es besteht die Möglichkeit dass die hohen Erwartungen an \Gls{xai} nicht erfüllt werden, sie es weil es sich als Unmöglich herausstellt die Vorhersagen in der gewünschten, für Menschen verständlichen, Abstraktion zu erzeugen. Oder die Qualität der Vorhersagen wird nicht erreicht da die Diskrepanz zu dem realen Modell zu hoch bleibt. Falls dieses Szenario eintritt 
+\parencite{Rudin2018}
 
 \chapter{Anhang}
 \section{Source Code}
