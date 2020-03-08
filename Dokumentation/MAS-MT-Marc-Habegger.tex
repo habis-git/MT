@@ -310,24 +310,20 @@
 \RaggedRight
 
 \chapter{Management Summary}
-Durch \Gls{ML} erzeugte Modelle werden in vielen Gebieten erfolgreich eingesetzt. Man unterscheidet zwischen zwei Arten von Modellen, zum einen Whitebox Modelle welche eine einfache, zumeist verständliche Struktur haben und bei denen man nachvollziehen kann wie Daten verarbeitet werden. Die andere Art von Modellen nennt sich Blackbox, diese sind von einer derart grossen Komplexität, dass es in der Regel nicht nachvollziehbar ist wie Daten darin verarbeitet werden. 
+\Gls{ML} kombiniert mit grossen Datensätzen bietet seit einigen Jahren die Möglichkeit Arbeiten, welche bisher nur durch Menschen ausgeführt werden konnten, durch Computersysteme zu erledigen. Durch \Gls{ML} erzeugte Modelle werden in vielen Gebieten erfolgreich eingesetzt. 
 
-\Gls{xai} hat das Ziel auch die schwer verständlichen Blackbox Modelle für Menschen verständlich zu machen und Erklärungen für die produzierten Resultate zu erzeugen. Diese ``erklärbarkeit'' von Modellen wird von einigen Akteuren (Politik, Zulassungsbehörden) gefordert bevor der Einsatz von Blackbox Modellen in sensiblen Gebieten wie beispielsweise Medizin akzeptiert wird.
+Man unterscheidet zwischen zwei Arten von Modellen, zum einen Whitebox Modelle welche eine einfache, zumeist verständliche Struktur haben und bei denen nachvollziehbar ist wie Daten verarbeitet werden. Die andere Art von Modellen nennt sich Blackbox, diese sind von einer derart grossen Komplexität, dass es in der Regel nicht möglich ist nachzuvollziehen wie Daten darin verarbeitet werden. 
 
-\Gls{xai} ist ein aktives Gebiet der Forschung, viele Forschungsartikel schlagen neue Methoden vor wie Modelle besser Erklärt werden können. Aus diesen Arbeiten sind Werkzeuge entstanden welche die Analyse von Modellen durch erzeugte Erklärungen, meistens in der Form von Visualisierungen, unterstützen. Der Einsatz dieser Werkzeuge kann Schwierigkeiten bereiten da Abhängigkeiten bestehen an den Aufbau der Modelle und die für die Anwendung der Modelle benötigten Bibliotheken.
+\Gls{xai} hat das Ziel, auch die schwer verständlichen Blackbox Modelle für Menschen verständlich zu machen und Erklärungen für die produzierten Resultate zu erzeugen. Diese ``erklärbarkeit'' von Modellen wird von einigen Akteuren (Politik, Zulassungsbehörden) gefordert bevor der Einsatz von Blackbox Modellen in sensiblen Gebieten wie beispielsweise Medizin akzeptiert wird. 
 
-Es gibt einige Probleme welche mit \Gls{xai} gut gelöst werden können und welche die Sicherheit und Robustheit von Modellen erhöhen. Der Aufwand für diese Prüfungen kann aber hoch sein und ist, momentan jedenfalls, nicht automatisierbar. Es fehlen noch Techniken welche den Einsatz vereinfachen und dadurch die Akzeptanz und Verbreitung fördern.
+Diese Arbeit listet verschiedene Techniken auf welche benutzt werden können um die Arbeitsweise von Blackbox Modellen aufzuzeigen.
+Zusätzlich werden auch einige Whitebox Algorithmen vorgestellt welche als Alternative gegenüber Blackbox Modellen verwendet werden können.
 
-Die erzeugten Erklärungen, meistens Visualisierungen, müssen nach der Erzeugung durch Menschen interpretiert werden und Schlüsse daraus gezogen werden. Dies ist schwierig und wird dadurch erschwert, dass die Erklärungen selbst Fehler enthalten können. Es fehlen allgemein akzeptierte Definitionen und Kriterien nach welchen Erklärungen ausgewertet werden.
+\Gls{xai} ist ein aktives Gebiet der Forschung, viele Forschungsartikel schlagen neue Methoden vor wie Modelle besser Erklärt werden können. Aus diesen Arbeiten sind Werkzeuge entstanden welche die Analyse von Modellen durch erzeugte Erklärungen, meistens in der Form von Visualisierungen, unterstützen. Die in dieser Arbeit gesammelten Erkenntnisse über die verwendeten Werkzeuge und welche Probleme dabei aufgetreten sind können als Anhaltspunkte für den Einsatz in anderen Projekten verwendet werden.
 
-Diese Arbeit zeigt wie in für konkrete Probleme \Gls{xai} eingesetzt werden kann um einem Entwickler eines \Gls{ML} Modells ein besseres Verständnis zu verschaffen und dadurch das Modell zu verbessern.
+Diese Arbeit zeigt wie in für konkrete Probleme \Gls{xai} eingesetzt werden kann um einem Entwickler eines \Gls{ML} Modells ein besseres Verständnis zu verschaffen und dadurch das Modell in verschiedenen Bereichen zu verbessern.
 
- Ob dies im konkreten Fall ausreicht um die Anforderungen zu erfüllen muss im Einzelfall geprüft werden, es ist nicht möglich dazu Allgemein gültige Aussagen zu treffen. Es ist unsicher ob \Gls{xai} überhaupt jemals in der Lage sein wird Allgemeine Aussagen über die Qualität und Sicherheit von Modellen zu erstellen und es gibt Stimmen die dafür plädieren in kritischen Fällen nur Modelle zu verwenden welche gut Verstanden sind.
-
-Allerdings sind viele dieser Tools im Rahmen einer Forschungsarbeit entstanden und machen Probleme im praktischen Einsatz. Einige Probleme entstehen auch durch den schnellen Zyklus mit dem Software für \Gls{ML} sich ändert. Ein Programm welches vor einem Jahr mit Version X einer Bibliothek funktionierte ist heute fehlerhaft weil sich die zugrunde liegenden Funktionsaufrufe geändert haben. Dadurch das die \Gls{xai} Bibliotheken aus einer Forschungsarbeit entstanden sind ist die fortwährende Weiterentwicklung und Pflege der Bibliothek nicht immer gewährleistet. 
-
-Die Ansprüche an die Erklärbarkeit von \Gls{ML} Modellen steigt und die Erwartungen sind gross, die momentan verfügbaren Werkzeuge sind nur für einfache Einfache Fragestellungen nützlich. Trotzdem konnten durch diese Techniken bereits in einigen Modellen Fehler und Schwachstellen gefunden und beseitigt werden. Für Aufgabengebiete welche strikte Bedingungen für das Zustandekommen einer Entscheidung vorschreiben, bzw. deren Begründung einfordern, muss die Entscheidung getroffen werden ob ein Modell mit einer verständlichen Technik erstellt werden soll oder ein komplexeres, unverständlicheres Modell aber mit einer vielleicht besseren Leistung gewählt wird. \Gls{xai} kann dazu beitragen das Verständnis von komplexeren Modellen zu erhöhen. Ob dies im konkreten Fall ausreicht um die Anforderungen zu erfüllen muss im Einzelfall geprüft werden, es ist nicht möglich dazu Allgemein gültige Aussagen zu treffen. Es ist unsicher ob \Gls{xai} überhaupt jemals in der Lage sein wird Allgemeine Aussagen über die Qualität und Sicherheit von Modellen zu erstellen und es gibt Stimmen die dafür plädieren in kritischen Fällen nur Modelle zu verwenden welche gut Verstanden sind.
-
+Es zeigte sich im Rahmen dieser Arbeit das \Gls{xai} momentan nicht in der Lage ist allgemein gültige Aussagen über die Qualität und Sicherheit von  Modellen zu treffen. Es ist unsicher ob \Gls{xai} überhaupt jemals in der Lage sein wird. Es gibt Stimmen die dafür plädieren in kritischen Fällen nur Modelle zu verwenden welche gut verstanden sind und erforscht sind.
 
 \chapter{Einleitung}
 Computerprogramme bestehen in der Regel aus Tausenden bis Millionen Zeilen von Anweisungen welche, für die verschiedenen Aufgabengebiete zuständig sind. Einige der Programmroutinen stellen die grafische Benutzeroberfläche dar, während andere sich um das Speichern und laden von Dateien kümmern. Ein Teil der Anweisungen definieren Regeln nach denen Daten verarbeitet und analysiert werden. Solche Regeln werden von Fachspezialisten definiert und durch Software-Entwickler umgesetzt. Mit einem derartigen Vorgehen konnten viele alltägliche Probleme gelöst werden, Software ist inzwischen in der Wirtschaft wie im privaten Umfeld allgegenwärtig geworden. 
@@ -717,23 +713,24 @@ Grundsätzlich gelten alle Arten von komplexeren, tiefen (\acrlong{dnn}), neuron
 
 Allerdings gelten auch Whitebox Modelle mit vielen Parametern als schwer erklärbar. Es ist möglich einen \Gls{DT} mit 10'000 Eingangsparametern zu trainieren, welcher dreistellige Tiefen erreichen kann. In diesen Fällen verwischt die Grenze zwischen White- und Blackbox.
 
-\chapter{XAI Methoden}
+\chapter{XAI Verfahren}
 \label{xai}
 
 \section{Grad CAM}
 \label{gradCam}
 
-\Gls{GC} ist eine Technik \parencite{Selvaraju2016} um auf der Basis von \Gls{grad} die für eine Bildklassifikation relevanten Bereiche eines Bildes hervorzuheben. \Gls{grad} gilt als Verfahren für lokale Erklärbarkeit und wird somit immer zusammen mit einer gewählten Klassifikation angewendet. In diesem Beispiel wurden die fünf wahrscheinlichsten Klassen eines \Gls{DNN} für das Bild ganz Rechts dargestellt. Während die relevantesten Bereiche (gelb gefärbt) um den Kopf und vor allem den Ohren der Katze sind, zeigen die Darstellungen für die unpassenden Klassen auf Bereiche des Bodens. 
+\Gls{GC} ist eine Technik \parencite{Selvaraju2016} um die, für eine Bildklassifikation relevanten Bereiche eines Bildes, hervorzuheben. Dies geschieht  auf der Basis von \Gls{grad}. \Gls{GC} gilt als Verfahren für lokale Erklärbarkeit und wird somit immer zusammen mit einer gewählten Klassifikation angewendet. 
+
+In diesem Beispiel wurden die fünf wahrscheinlichsten Klassen eines \Gls{DNN} für das Bild links oben dargestellt. Während die relevantesten Bereiche (gelb gefärbt) um den Kopf und vor allem um die Ohren der Katze sind, zeigen die Darstellungen für die unpassenden Klassen auf Bereiche des Bodens. 
 
 \fullImg{Grad-Cam-Classes.png}{Grad CAM Analyse für verschiedene Klassen}
-Die Pixel welche einen positiven Einfluss auf die gewählte Klassen haben sind Gelb dargestellt während negativ Einflüsse Blau eingefärbt wurden. Das obenstehende Bild wurde mit dem  Python Skript aus \ref{multiClass} erstellt.
+Die Pixel, welche einen positiven Einfluss auf die gewählte Klassen haben, sind gelb dargestellt während, negative Einflüsse blau eingefärbt wurden. Das obenstehende Bild wurde mit dem Python Skript \cite{imgClassVisualized} erstellt.
 
 \parag{Anwendung von Grad CAM auf Videos}
-Da die Berechnung von \Gls{GC} schnell ist kann sie einfach auf Videosequenzen angewendet werden. Ein Beispiel wie eine solche Analyse in bewegten Bildern aussieht kann in folgendem Artikel gefunden werden: \parencite{gradCamVid}
+Da die Berechnung von \Gls{GC} schnell, ist kann sie einfach auf Videosequenzen angewendet werden. Ein Beispiel wie eine solche Analyse in bewegten Bildern aussieht kann in folgendem Artikel gefunden werden: \parencite{gradCamVid}
 
 \parag{Visualisierung mit tf\_explain}
-\break
-Um ein Bild der Klasse mit der höchsten Wahrscheinlichkeit zu erzeugen kann dieses Python Skript verwendet werden. Benötigt werden dazu die Bibliotheken \parencite{TensorFlow} und  \parencite{tfExplain} sowie das Modell \parencite{vgg16}.
+Um ein Bild der Klasse mit der höchsten Wahrscheinlichkeit zu erzeugen kann dieses Python Skript verwendet werden. Benötigt werden dazu die Bibliotheken \parencite{TensorFlow} und  \parencite{tfExplain}, sowie das Modell \parencite{vgg16}.
 \begin{lstlisting}[language=Python, caption=Grad CAM Visualisierung für die wahrscheinlichste Klasse]
 import tensorflow as tf
 from keras.applications.vgg16 import preprocess_input
@@ -768,7 +765,7 @@ plt.show()
 
 \section{Occlusion Sensitivity}
 \label{os}
-Eine weitere Variante um relevante Bildbereiche aufzudecken ist \Gls{OS}, vorgestellt durch Zeiler  und Fergus im Jahr 2013 \parencite{Zeiler2013}. Occlusion Sensitivity bestimmt durch erzeugte Störungen im Ursprungsbild den Einfluss der einzelnen Bildbereiche auf die Vorhersage.
+Eine weitere Variante um relevante Bildbereiche aufzudecken ist \Gls{OS}, vorgestellt durch Zeiler  und Fergus im Jahr 2013 \parencite{Zeiler2013}. Occlusion Sensitivity bestimmt, durch erzeugte Störungen im Ursprungsbild, den Einfluss der einzelnen Bildbereiche auf die Vorhersage.
 
 \begin{center}
 \begin{minipage}[t]{0.45\linewidth}
@@ -778,18 +775,17 @@ Eine weitere Variante um relevante Bildbereiche aufzudecken ist \Gls{OS}, vorges
 \captionof*{figure}{Quelle: \parencite{ocSensMathWorks}}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.45\linewidth}
-\vspace{20pt}
-Das Bild links erläutert die Vorgehensweise des \gls{OS} Algorithmus. \Gls{OS} entfernt unterschiedliche Bildbereiche des Original Bildes und misst dabei den Einfluss auf die Klassifizierung. Die Grösse des verdeckten Bildbereiches bestimmt die Auflösung der schlussendlich erzeugten Heatmap, allerdings wird bei einem kleineren Bereich auch die Anzahl an Durchläufen (und somit die Bearbeitungszeit) erhöht um das ganze Bild abdecken.
+\vspace{0pt}
+Das Bild links erläutert die Vorgehensweise des \gls{OS} Algorithmus. \Gls{OS} entfernt unterschiedliche Bildbereiche des original Bildes und misst dabei den Einfluss auf die Klassifizierung. Die Grösse des verdeckten Bildbereiches bestimmt die Auflösung der schlussendlich erzeugten Heatmap. Allerdings wird bei einem kleineren Bereich auch die Anzahl an Durchläufen (und somit die Bearbeitungszeit) erhöht, welche nötig sind um das ganze Bild abzudecken.
 \end{minipage}
 \end{center}
 
-In dem folgenden Beispiel wurden die Einflüsse der einzelnen Pixel auf bestimmte Klassen dargestellt. Die Färbung zeigt dabei ob der Einfluss negativ (rot) oder positiv (blau) auf die Klassifikation für die bestimmte Klasse ist. Diese Visualisierung wurde durch die Bibliothek \parencite{tfExplain} und dem vortrainierten Modell  \parencite{vgg16} erzeugt.
+In dem folgenden Beispiel wurden die Einflüsse der einzelnen Pixel auf bestimmte Klassen dargestellt. Die Färbung zeigt dabei ob der Einfluss negativ (blau) oder positiv (gelb) auf die Klassifikation für die bestimmte Klasse ist. Diese Visualisierung wurde durch die Bibliothek \parencite{tfExplain} und dem vortrainierten Modell  \parencite{vgg16} erzeugt.
 \fullImg{OcclusionSensitivity-Classes.png}{Testbild mit Occlusion Sensivity}
-Während bei den drei Klassen welche für Katzenrassen stehen (Egyptian\_cat, tabby\, tiger\_cat) hauptsächlich der Körper oder Kopf der Katze als relevant gilt, sind bei den letzten Klassifikationen welche Objekte darstellen (carton, toilet\_tissue) vor allem Hintergrundbereiche wichtig.
+Während bei den drei Klassen welche für Katzenrassen stehen (Egyptian\_cat, tabby, tiger\_cat) hauptsächlich der Körper oder Kopf der Katze als relevant gilt, sind bei den letzten Klassifikationen welche Objekte darstellen (carton, toilet\_tissue) vor allem Hintergrundbereiche wichtig.
 
-\paragraph*{Visualisierung mit tf\_explain}
-\break
-Um ein Bild der Klasse mit der höchsten Wahrscheinlichkeit zu erzeugen kann dieses Python Skript verwendet werden. Benötigt werden dazu die Bibliotheken \parencite{TensorFlow} und  \parencite{tfExplain} sowie das Modell \parencite{vgg16}.
+\parag{Visualisierung mit tf\_explain}
+Um ein Bild der Klasse mit der höchsten Wahrscheinlichkeit zu erzeugen kann dieses Python Skript verwendet werden. Benötigt werden dazu die Bibliotheken \parencite{TensorFlow} und  \parencite{tfExplain}, sowie das Modell \parencite{vgg16}.
 \begin{lstlisting}[language=Python, caption=Occlusion Sensitivity Visualisierung für die wahrscheinlichste Klasse]
 import tensorflow as tf
 from keras.applications.vgg16 import preprocess_input
@@ -821,7 +817,7 @@ img = explainer.explain(class_index=prediction[0], model=model, patch_size= 40, 
 plt.imshow(img)
 plt.show()
 \end{lstlisting}
-Der Parameter ``patch\_size'' in auf Zeile 27 definiert die Grösse des ausgeblendeten Bereiches. Ein kleinerer Wert erhöht die Auflösung des ausgegebenen Bildes, verlängert jedoch auch die Berechnungszeit.
+Der Parameter ``patch\_size'' auf Zeile 27 definiert die Grösse des ausgeblendeten Bereiches. Ein kleinerer Wert erhöht die Auflösung des ausgegebenen Bildes, verlängert jedoch auch die Berechnungszeit.
 
 \section{LRP}
 \label{lrp}
@@ -829,6 +825,7 @@ Der Parameter ``patch\_size'' in auf Zeile 27 definiert die Grösse des ausgeble
 \acrfull{lrp} ist eine Technik welche bereits 2015 vorgestellt wurde \parencite{Bach2015}. \acrshort{lrp} kann verwendet werden um neuronale Netze zu untersuchen und  ist für viele Problemstellungen wie Bilderkennung, Textanalyse oder Spracherkennung einsetzbar. 
 
 \imgTextQuelle{lrpgraph.PNG}{LRP Berechnung}{www.heatmapping.org}{LRP durchläuft ein \gls{NN} rückwärts und berechnet so den Einfluss jedes Eingangs-Neurons.
+
 
  Diese Vorgehensweise wird als ``Deep Taylor Decomposition'' bezeichnet.
  }
@@ -845,19 +842,20 @@ Die Python Implementierung der LRP Toolbox \parencite{JMLR:v17:15-618} ist auf g
 
 \section{Local Surrogate (LIME)}
 \label{lime}
+
 Die Technik LIME wurde 2016 erstmals vorgestellt \parencite{Ribeiro2016}. 
-\Gls{lime} kann für verschiedene Arten von  \Gls{ML} Modellen, insbesondere auch Black Box Modelle, verwendet werden um eine Erklärung zu erzeugen. Dabei wird durch stetiges Verändern eines Eingangsbildes der Einfluss auf das Resultat geprüft. Mit den veränderten Eingangsdaten und den durch das Black Box Modell erzeugten Resultaten wird anschliessend ein neues Modell Trainiert das danach untersucht werden kann.
+\Gls{lime} kann für verschiedene Arten von  \Gls{ML} Modellen, insbesondere auch Blackbox Modelle, verwendet werden um eine Erklärung zu erzeugen. Dabei wird durch stetiges Verändern eines Eingangsbildes der Einfluss auf das Resultat geprüft. Mit den veränderten Eingangsdaten und den durch das Blackbox Modell erzeugten Resultaten wird ein neues Modell trainiert, das anschliessend untersucht werden kann.
 
 \parag{}
 Folgende Schritte werden bei der Anwendung von LIME durchgeführt:
 \begin{itemize}
 	\item Die Klasse für die man eine Erklärung erstellen will muss festgelegt werden
-	\item Die ursprünglichen Daten werden verändert und die Resultate des Black Box Modells für diese Daten werden aufgezeichnet
-	\item Die neu erzeugten Datensätzen werden nach der nähe zu der gesuchten Klasse gewichtet
+	\item Die ursprünglichen Daten werden verändert und die Resultate des Blackbox Modells für diese Daten werden aufgezeichnet
+	\item Die neu erzeugten Datensätze werden nach der Nähe zu der gesuchten Klasse gewichtet
 	\item Ein neues Modell mit den gewichteten (neuen) Datensätzen wird erzeugt
-	\item Die Vorhersage des Black Box Modells wird durch Interpretation des neu generierten Modelles erklärt
+	\item Die Vorhersage des Blackbox Modells wird durch Interpretation des neu generierten Modelles erklärt
 \end{itemize}
-\break
+
 In diesem Beispiel ist ersichtlich welche Bildbereiche (maskiert) nach \gls{lime} für das Resultat verantwortlich sind.
 
 \fullImg{Lime-Classes.png}{Darstellung relevanter Bildinhalte durch LIME}
@@ -865,8 +863,7 @@ In diesem Beispiel ist ersichtlich welche Bildbereiche (maskiert) nach \gls{lime
 Gegenüber den vorherigen Methoden ist LIME durch die Erzeugung temporärer Modelle bedeutend aufwendiger und dadurch auch langsamer.
 
 \parag{Visualisierung mit lime}
-\break
-Um ein Bild der Klasse mit der höchsten Wahrscheinlichkeit zu erzeugen kann dieses Python Skript verwendet werden. Benötigt werden dazu die Bibliotheken \parencite{TensorFlow} und das Package lime aus \parencite{limeKeras} sowie das Modell \parencite{vgg16}.
+Um ein Bild der Klasse mit der höchsten Wahrscheinlichkeit zu erzeugen kann dieses Python Skript verwendet werden. Benötigt werden dazu die Bibliotheken \parencite{TensorFlow} und das Package lime aus \parencite{limeKeras}, sowie das Modell \parencite{vgg16}.
 \begin{lstlisting}[language=Python, caption=Lime Visualisierung für die wahrscheinlichste Klasse]
 import tensorflow as tf
 from keras.applications.vgg16 import preprocess_input
@@ -914,31 +911,30 @@ plt.show()
 \section{TCAV}
  \acrfull{tcav} wurde 2017 vorgestellt \parencite{Kim2017} und ist eine fortgeschrittene Methode um Erklärungen basierend auf den Bildinhalten zu generieren. Zu diesem Zweck werden zusätzliche Modelle als Beispiele für Bildinhalte erzeugt.
  
-\break
- Ein als Zebra klassifiziertes Bild kann so zum Beispiel damit begründet werden dass auf dem Bild streifen und ein Pferd entdeckt wurden.
+ Ein als Zebra klassifiziertes Bild kann so zum Beispiel damit begründet werden, dass auf dem Bild streifen und ein Pferd entdeckt wurden.
 \begin{center}
 \begin{minipage}[t]{\linewidth}
 \includegraphics[width=\textwidth]{Bilder/Zebra-Explanation.PNG}
 \captionof{figure}{Darstellung Vorgehensweise TCAV}
 \end{minipage}
 \end{center}
-Da bei diesem Verfahren für jede Kategorie von Bildbestandteilen ein Neuronales Netz trainiert werden muss, und für jedes Training Beispieldaten vorhanden sein müssen, ist der Aufwand gross. 
+Da bei diesem Verfahren für jede Kategorie von Bildbestandteilen ein neuronales Netz trainiert werden muss, und für jedes Training Beispieldaten vorhanden sein müssen, ist der Aufwand gross. 
 
-Eine Implementierung dieses Verfahrens kann unter folgendem Link auf Github gefunden werden: \cite{tcavLink}
+Eine Implementierung dieses Verfahrens kann auf Github gefunden werden \cite{tcavLink}.
 
 \section{SVCCA}
-\acrlong{svcca} \parencite{Raghu2017} vergleicht verschiedene Neuronale Netzwerke oder verschiedene Layer innerhalb des selben Neuronalen Netzwerkes.
-\break
-Durch den Vergleich der Vektoren verschiedener Klassen innerhalb des selben Netzes kann auf die Ähnlichkeit rückgeschlossen werden. Die beiden Klassen ``Husky'' und ``Eskimo Dog'' werden in der Untenstehenden Grafik als parallel verlaufende, beinahe überlappende Linien dargestellt, was auf die starke Ähnlichkeit der beiden Hunderassen hinweist.
+\acrlong{svcca} \parencite{Raghu2017} vergleicht verschiedene neuronale Netzwerke oder verschiedene Layer innerhalb des selben neuronalen Netzwerkes.
+
+Durch den Vergleich der Vektoren verschiedener Klassen innerhalb eines Netzes kann auf die Ähnlichkeit der Klassen untereinander rückgeschlossen werden. Die beiden Klassen ``Husky'' und ``Eskimo Dog'' werden in der untenstehenden Grafik als parallel verlaufende, beinahe überlappende Linien dargestellt, was auf die starke Ähnlichkeit der beiden Hunderassen hinweist.
 \begin{center}
 \begin{minipage}[t]{\linewidth}
  	\includegraphics[width=\textwidth]{Bilder/svcca-similarities.png}
-    	\captionof{figure}{Vergleich Verschiedener Klassen mit SVCCA\protect\footnotemark{}}
+    	\captionof{figure}{Vergleich verschiedener Klassen mit SVCCA\protect\footnotemark{}}
 \end{minipage}
 \end{center}
 \footnotetext{Quelle: Google AI Blog, Interpreting Deep Neural Networks with SVCCA}
 
-Weitere Informationen und Erklärungen zu diesem Verfahren finden sich auf der Seite \parencite{svccaLink}.
+Weitere Informationen und Erklärungen zu diesem Verfahren befinden sich auf der Seite \parencite{svccaLink}.
 
 \chapter{Konkrete Anwendung von XAI}
 
@@ -1543,11 +1539,23 @@ on Deep Neural Networks'' \parencite{Gu2019} konnte gezeigt werden wie ein \gls{
 	\end{description}
 
 \chapter{Fazit}
-Das Ziel dieser Arbeit, einen Überblick über den Stand der \Gls{xai} Entwicklung zu bieten, stand vor einem zuerst nicht erwarteten Problem. Die Menge an Methoden, Artikeln und Forschungsarbeiten zu diesem Thema ist sehr gross. Die Entscheidungen welche Methoden erklärt, oder zumindest erwähnt, werden sollten war nicht einfach. Schlussendlich war der experimentelle Teil ausschlaggebend. Einige der Methoden wie \acrshort{svcca} oder \acrshort{tcav} stellten sich als sehr Aufwändig heraus so dass bei einer Wahl eines dieser Themen viele andere Bereiche nicht hätten beachtet werden können.
+Das Ziel dieser Arbeit, einen Überblick über den Stand der \Gls{xai} Entwicklung zu bieten, stand vor einem unerwarteten Problem. Die Menge an Methoden, Artikeln und Forschungsarbeiten zu diesem Thema ist sehr gross. Die Entscheidungen welche Methoden erklärt, oder zumindest erwähnt, werden sollten war schwierig. Schlussendlich war der experimentelle Teil ausschlaggebend. Einige der Methoden wie \acrshort{svcca} oder \acrshort{tcav} stellten sich als sehr Aufwändig heraus so dass bei einer Wahl eines dieser Themen viele andere Bereiche nicht hätten beachtet werden können.
 
-Der praktische Teil der Arbeit hatte mit einigen Problemen zu kämpfen. Es stellte sich heraus das einige \Gls{xai} Frameworks für Python spezifische Anforderungen an die dem Modell zugrunde liegenden \Gls{ML} Frameworks stellen. Dies ist nicht weiter erstaunlich wenn man bedenkt, dass die Analyse eines Modells tiefer auf die einzelnen Funktionen und Parameter eingehen muss als dies Vorhersagen tun. Das fragile Gleichgewicht der installierten Framework Versionen wurde immer wieder durch die Installation eines weiteren Werkzeuges zunichte gemacht welches eine andere Version von Tensorflow oder Keras benötigte. Eine Erkenntnis ist daher immer mit einer eigenen Umgebung für jedes Projekt zu arbeiten. Anaconda hilft dabei sehr diese Umgebungen zu verwalten. Da aber nicht alle getesteten Bibliotheken in Anaconda vorhanden sind habe ich leider anfangs fehlende Bestandteile über den Python Packetmanager pip installiert. Diese Vorgehensweise war sehr ungünstig und hat mir mehrere Male die Umgebungen mit nicht miteinander kompatiblen Bibliotheksversionen ``verseucht''. Eine saubere Vorgehensweise mit voneinander getrennten Umgebungen ist unbedingt nötig wenn man möchte das Programme auch nach einigen Wochen noch wie gewünscht funktionieren.
+Der praktische Teil der Arbeit hatte mit einigen Problemen zu kämpfen. Einige \Gls{xai} Frameworks für Python stellen sehr spezifische Anforderungen an Version für die dem Modell zugrunde liegenden \Gls{ML} Frameworks. Dies ist nicht weiter erstaunlich wenn man bedenkt, dass die Analyse eines Modells tiefer auf die einzelnen Funktionen und Parameter eingehen muss als dies Vorhersagen tun. Da aber mehrere Bibliotheken kombiniert wurden kam es häufig vor, dass die benötigten Versionen sich gegenseitig widersprachen. 
+
+Das fragile Gleichgewicht der installierten Framework Versionen wurde immer wieder durch die Installation eines weiteren Werkzeuges zunichte gemacht welches eine andere Version von Tensorflow oder Keras benötigte. 
+
+Eine Erkenntnis ist daher immer mit einer eigenen Umgebung für jedes Projekt zu arbeiten. Anaconda hilft dabei sehr diese Umgebungen zu verwalten. Da aber nicht alle getesteten Bibliotheken in Anaconda vorhanden sind habe ich leider anfangs fehlende Bestandteile über den Python Packetmanager pip installiert. Diese Vorgehensweise war sehr ungünstig und hat mir mehrere Male die Umgebungen mit nicht miteinander kompatiblen Bibliotheksversionen ``verseucht''. Eine saubere Vorgehensweise mit voneinander getrennten Umgebungen ist unbedingt nötig wenn man möchte das Programme auch nach einigen Wochen noch wie gewünscht funktionieren.
 
 Die Auswertung der Ergebnisse durch exploratives Vorgehen war zu Beginn nicht Erfolgreich. Es ist zwar einfach durch Visualisierungen zu erkennen welche Bestandteile eines Bildes für ein neuronales Netz wichtig sind, Schlussfolgerungen daraus zu ziehen stellte sich jedoch als überraschend schwierig heraus. Bei einem direkten Vergleich zwischen verschiedenen Methoden waren oftmals grosse Unterschiede erkennbar was die wichtigen Bestandteile eines Bildes betrifft. Da einige Methoden unter gewissen Umständen nicht funktionieren (Gradient basierte Verfahren haben nachgewiesene Schwächen) steht immer die Frage im Raum ob die Unterschiede zwischen den Visualisierungen von Bedeutung sind. Der zweite Ansatz welcher mit einem konkreten Ziel, nämlich dem Nachweis eines Kluger-Hans Effektes, gestartet war funktionierte bedeutend besser. Die Visualisierung zeigte sehr deutlich welchen Defekt das neuronale Netz hat und könnte in der Realität auch direkt zu einer Verbesserung (durch Anpassung des Trainings- und Testdaten) des Modells führen. Aber auch hier war nur eine von drei eingesetzten Methoden erfolgreich. Dies führt zu einer weiteren Erkenntnis: Jede Analyse sollte mit mehreren Methoden durchgeführt werden.
+
+Allerdings sind viele dieser Tools im Rahmen einer Forschungsarbeit entstanden und machen Probleme im praktischen Einsatz. Einige Probleme entstehen auch durch den schnellen Zyklus mit dem Software für \Gls{ML} sich ändert. Ein Programm welches vor einem Jahr mit Version X einer Bibliothek funktionierte ist heute fehlerhaft weil sich die zugrunde liegenden Funktionsaufrufe geändert haben. Dadurch das die \Gls{xai} Bibliotheken aus einer Forschungsarbeit entstanden sind ist die fortwährende Weiterentwicklung und Pflege der Bibliothek nicht immer gewährleistet. 
+
+Die Ansprüche an die Erklärbarkeit von \Gls{ML} Modellen steigt und die Erwartungen sind gross, die momentan verfügbaren Werkzeuge sind nur für einfache Einfache Fragestellungen nützlich. Trotzdem konnten durch diese Techniken bereits in einigen Modellen Fehler und Schwachstellen gefunden und beseitigt werden. Für Aufgabengebiete welche strikte Bedingungen für das Zustandekommen einer Entscheidung vorschreiben, bzw. deren Begründung einfordern, muss die Entscheidung getroffen werden ob ein Modell mit einer verständlichen Technik erstellt werden soll oder ein komplexeres, unverständlicheres Modell aber mit einer vielleicht besseren Leistung gewählt wird. \Gls{xai} kann dazu beitragen das Verständnis von komplexeren Modellen zu erhöhen. Ob dies im konkreten Fall ausreicht um die Anforderungen zu erfüllen muss im Einzelfall geprüft werden, es ist nicht möglich dazu Allgemein gültige Aussagen zu treffen. Es ist unsicher ob \Gls{xai} überhaupt jemals in der Lage sein wird Allgemeine Aussagen über die Qualität und Sicherheit von Modellen zu erstellen und es gibt Stimmen die dafür plädieren in kritischen Fällen nur Modelle zu verwenden welche gut Verstanden sind.
+
+Es gibt einige Probleme welche mit \Gls{xai} gut gelöst werden können und welche die Sicherheit und Robustheit von Modellen erhöhen. Der Aufwand für diese Prüfungen kann aber hoch sein und ist, momentan jedenfalls, nicht automatisierbar. Es fehlen noch Techniken welche den Einsatz vereinfachen und dadurch die Akzeptanz und Verbreitung fördern.
+
+Die erzeugten Erklärungen, meistens Visualisierungen, müssen nach der Erzeugung durch Menschen interpretiert werden und Schlüsse daraus gezogen werden. Dies ist schwierig und wird dadurch erschwert, dass die Erklärungen selbst Fehler enthalten können. Es fehlen allgemein akzeptierte Definitionen und Kriterien nach welchen Erklärungen ausgewertet werden.
 
 \chapter{Ausblick}
 Die Weiterentwicklung der Methoden von \Gls{xai} sind eng an die zukünftige Entwicklung von \Gls{ML} gekoppelt. Obwohl Prognosen für die Zukunft natürlich schwierig sind, ist es aber momentan wahrscheinlich, dass die grossen Investitionen in \Gls{AI} und \Gls{ML} zumindest noch einige Jahre weitergeführt werden. Durch die Verfügbarkeit von Budgets in Forschung und Industrie, gekoppelt mit den Forderungen vieler Akteure nach einer ``verständlichen'' \Gls{AI}, ist weiterhin mit einer Vielzahl an Arbeiten im Bereich \Gls{xai} zu rechnen. Wie schnell dabei Fortschritte erzielt werden können, ist jedoch völlig ungewiss und die Geschichte der \Gls{AI} zeigt, dass man dabei eine gewisse Vorsicht an den Tag legen sollte.
@@ -1574,10 +1582,10 @@ Es besteht die Möglichkeit dass die hohen Erwartungen an \Gls{xai} nicht erfül
 \parencite{Rudin2018}
 
 \chapter{Anhang}
-\section{Source Code}
+\section*{Source Code}
 \label{dt-vis}
 
-\subsection{Entscheidungsbaum Visualisierung mit sklearn und Graphviz}
+\subsection*{Entscheidungsbaum Visualisierung mit sklearn und Graphviz}
 Der folgende Code benötigt mindestens scikit-learn 0.22.
 \begin{lstlisting}[language=Python, caption=Decision Tree Visualisierung]
 from sklearn.datasets import load_iris
@@ -1651,7 +1659,7 @@ plt.axis("tight")
 \end{lstlisting}
 https://scikit-learn.org/stable/modules/tree.html
 
-\subsection{Bild-Klassifikation mit tf-explain}
+\subsection*{Bild-Klassifikation mit tf-explain}
 Das folgende Programm erzeugt mit den Bibliotheken Tensorflow (2.0) und tf-explain und en Algorithmen ``Grad CAM'' und ``Integrated Gradients'' Visualisierungen einer Bild-Klassifizierung. 
 \begin{lstlisting}[language=Python, caption=Visualisiertes Neuronales Netz mit Tensorflow und tf-explain]
 import tensorflow as tf
@@ -1722,7 +1730,7 @@ createImageGrid(imageOrig, predictions, labels, explainer, {'model': model, 'val
 \end{lstlisting}
 https://github.com/sicara/tf-explain
 
-\subsection{Visualisierung einer Klassifikation mit lime}
+\subsection*{Visualisierung einer Klassifikation mit lime}
 Die Visualisierung mit lime benutzt als Grundlage das Tutorial ``Image Classification Kears'' \parencite{limeKeras}.
 \begin{lstlisting}[language=Python, caption=Visualisiertes Neuronales Netz mit Tensorflow und lime]
 import lime 
@@ -1776,7 +1784,6 @@ plt.show()
 
 \printbibliography[type=misc,title={Linkverzeichnis}]
 %Index
-\addcontentsline{toc}{chapter}{Index}
 %\printindex
 % Appendices
 \lstlistoflistings
