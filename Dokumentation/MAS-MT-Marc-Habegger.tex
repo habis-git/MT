@@ -72,7 +72,7 @@
 
 \usepackage{ragged2e}
 
-\usepackage[acronym]{glossaries}
+\usepackage[toc,acronym]{glossaries}
 
 \definecolor{foldercolor}{RGB}{124,166,198}
 
@@ -936,7 +936,7 @@ Durch den Vergleich der Vektoren verschiedener Klassen innerhalb eines Netzes ka
 
 Weitere Informationen und Erklärungen zu diesem Verfahren befinden sich auf der Seite \parencite{svccaLink}.
 
-\chapter{Konkrete Anwendung von XAI}
+\chapter{Konkrete Anwendungen von XAI}
 
 \section{Bilderkennung: Klassifikation Hund - Katze}
 
@@ -1100,7 +1100,6 @@ Auch hier zeigt sich ein starker Anstieg der aktivierten Pixel, ein Effekt der s
 \parag{Fazit dieses Versuches}
 Durch die Verfälschung der Trainings- und Testdaten wurde anstatt einem ``Katze oder Hund'' Klassifikator ein System zur Erkennung des Test-Logos erzeugt. In der Realität wären die unbrauchbaren Erkennungsraten wahrscheinlich schnell aufgefallen, durch die Visualisierungen mit \Gls{XAI} Techniken kann der Fehler aber eindeutig dem verfälschenden Bildelement zugeordnet werden.
 
-\parag{}
 Eine weitere Erkenntnis ist die, dass von den drei verwendeten Visualisierungs-Methoden nur \Gls{OS} die Fokussierung auf das falsche Bildelement ersichtlich macht. Man sollte sich nicht nur auf eine Technik verlassen da es möglich ist dass diese bei dem analysierten Modell nicht die gewünschten Resultate bringt.
 
 \subsection{Vortrainiertes Modelll}
@@ -1541,7 +1540,7 @@ on Deep Neural Networks'' \parencite{Gu2019} konnte gezeigt werden wie ein \gls{
 \chapter{Fazit}
 Das Ziel dieser Arbeit, einen Überblick über den Stand der \Gls{xai} Entwicklung zu bieten, stand vor einem unerwarteten Problem. Die Menge an Methoden, Artikeln und Forschungsarbeiten zu diesem Thema ist sehr gross. Die Entscheidungen welche Methoden erklärt, oder zumindest erwähnt, werden sollten war schwierig. Schlussendlich war der experimentelle Teil ausschlaggebend. Einige der Methoden wie \acrshort{svcca} oder \acrshort{tcav} stellten sich als sehr Aufwändig heraus so dass bei einer Wahl eines dieser Themen viele andere Bereiche nicht hätten beachtet werden können.
 
-Der praktische Teil der Arbeit hatte mit einigen Problemen zu kämpfen. Einige \Gls{xai} Frameworks für Python stellen sehr spezifische Anforderungen an Version für die dem Modell zugrunde liegenden \Gls{ML} Frameworks. Dies ist nicht weiter erstaunlich wenn man bedenkt, dass die Analyse eines Modells tiefer auf die einzelnen Funktionen und Parameter eingehen muss als dies Vorhersagen tun. Da aber mehrere Bibliotheken kombiniert wurden kam es häufig vor, dass die benötigten Versionen sich gegenseitig widersprachen. 
+Der praktische Teil der Arbeit hatte mit einigen Problemen zu kämpfen. Einige \Gls{xai} Frameworks für Python stellen sehr spezifische Anforderungen an Version für die dem Modell zugrunde liegenden \Gls{ML} Frameworks. Dies ist nicht weiter erstaunlich wenn man bedenkt, dass die Analyse eines Modells tiefer auf die einzelnen Funktionen und Parameter eingehen muss als der nomalerweise verwendete Aufruf ``predict''. Da aber mehrere Bibliotheken kombiniert wurden kam es häufig vor, dass die benötigten Versionen sich gegenseitig widersprachen. 
 
 Das fragile Gleichgewicht der installierten Framework Versionen wurde immer wieder durch die Installation eines weiteren Werkzeuges zunichte gemacht welches eine andere Version von Tensorflow oder Keras benötigte. 
 
