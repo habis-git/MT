@@ -310,11 +310,24 @@
 \RaggedRight
 
 \chapter{Management Summary}
-\Gls{xai} ist ein Gebiet in dem viel geforscht wird. Es stehen einige Tools zur Verfügung welche die Analyse von Modellen durch erzeugte Erklärungen, meistens in der Form von Visualisierungen, unterstützen. Allerdings sind viele dieser Tools im Rahmen einer Forschungsarbeit entstanden und machen Probleme im praktischen Einsatz. Einige Probleme entstehen auch durch den schnellen Zyklus mit dem Software für \Gls{ML} sich ändert. Ein Programm welches vor einem Jahr mit Version X einer Bibliothek funktionierte ist heute fehlerhaft weil sich die zugrunde liegenden Funktionsaufrufe geändert haben. Dadurch das die \Gls{xai} Bibliotheken aus einer Forschungsarbeit entstanden sind ist die fortwährende Weiterentwicklung und Pflege der Bibliothek nicht immer gewährleistet. 
+Durch \Gls{ML} erzeugte Modelle werden in vielen Gebieten erfolgreich eingesetzt. Man unterscheidet zwischen zwei Arten von Modellen, zum einen Whitebox Modelle welche eine einfache, zumeist verständliche Struktur haben und bei denen man nachvollziehen kann wie Daten verarbeitet werden. Die andere Art von Modellen nennt sich Blackbox, diese sind von einer derart grossen Komplexität, dass es in der Regel nicht nachvollziehbar ist wie Daten darin verarbeitet werden. 
+
+\Gls{xai} hat das Ziel auch die schwer verständlichen Blackbox Modelle für Menschen verständlich zu machen und Erklärungen für die produzierten Resultate zu erzeugen. Diese ``erklärbarkeit'' von Modellen wird von einigen Akteuren (Politik, Zulassungsbehörden) gefordert bevor der Einsatz von Blackbox Modellen in sensiblen Gebieten wie beispielsweise Medizin akzeptiert wird.
+
+\Gls{xai} ist ein aktives Gebiet der Forschung, viele Forschungsartikel schlagen neue Methoden vor wie Modelle besser Erklärt werden können. Aus diesen Arbeiten sind Werkzeuge entstanden welche die Analyse von Modellen durch erzeugte Erklärungen, meistens in der Form von Visualisierungen, unterstützen. Der Einsatz dieser Werkzeuge kann Schwierigkeiten bereiten da Abhängigkeiten bestehen an den Aufbau der Modelle und die für die Anwendung der Modelle benötigten Bibliotheken.
+
+Es gibt einige Probleme welche mit \Gls{xai} gut gelöst werden können und welche die Sicherheit und Robustheit von Modellen erhöhen. Der Aufwand für diese Prüfungen kann aber hoch sein und ist, momentan jedenfalls, nicht automatisierbar. Es fehlen noch Techniken welche den Einsatz vereinfachen und dadurch die Akzeptanz und Verbreitung fördern.
+
+Die erzeugten Erklärungen, meistens Visualisierungen, müssen nach der Erzeugung durch Menschen interpretiert werden und Schlüsse daraus gezogen werden. Dies ist schwierig und wird dadurch erschwert, dass die Erklärungen selbst Fehler enthalten können. Es fehlen allgemein akzeptierte Definitionen und Kriterien nach welchen Erklärungen ausgewertet werden.
+
+Diese Arbeit zeigt wie in für konkrete Probleme \Gls{xai} eingesetzt werden kann um einem Entwickler eines \Gls{ML} Modells ein besseres Verständnis zu verschaffen und dadurch das Modell zu verbessern.
+
+ Ob dies im konkreten Fall ausreicht um die Anforderungen zu erfüllen muss im Einzelfall geprüft werden, es ist nicht möglich dazu Allgemein gültige Aussagen zu treffen. Es ist unsicher ob \Gls{xai} überhaupt jemals in der Lage sein wird Allgemeine Aussagen über die Qualität und Sicherheit von Modellen zu erstellen und es gibt Stimmen die dafür plädieren in kritischen Fällen nur Modelle zu verwenden welche gut Verstanden sind.
+
+Allerdings sind viele dieser Tools im Rahmen einer Forschungsarbeit entstanden und machen Probleme im praktischen Einsatz. Einige Probleme entstehen auch durch den schnellen Zyklus mit dem Software für \Gls{ML} sich ändert. Ein Programm welches vor einem Jahr mit Version X einer Bibliothek funktionierte ist heute fehlerhaft weil sich die zugrunde liegenden Funktionsaufrufe geändert haben. Dadurch das die \Gls{xai} Bibliotheken aus einer Forschungsarbeit entstanden sind ist die fortwährende Weiterentwicklung und Pflege der Bibliothek nicht immer gewährleistet. 
 
 Die Ansprüche an die Erklärbarkeit von \Gls{ML} Modellen steigt und die Erwartungen sind gross, die momentan verfügbaren Werkzeuge sind nur für einfache Einfache Fragestellungen nützlich. Trotzdem konnten durch diese Techniken bereits in einigen Modellen Fehler und Schwachstellen gefunden und beseitigt werden. Für Aufgabengebiete welche strikte Bedingungen für das Zustandekommen einer Entscheidung vorschreiben, bzw. deren Begründung einfordern, muss die Entscheidung getroffen werden ob ein Modell mit einer verständlichen Technik erstellt werden soll oder ein komplexeres, unverständlicheres Modell aber mit einer vielleicht besseren Leistung gewählt wird. \Gls{xai} kann dazu beitragen das Verständnis von komplexeren Modellen zu erhöhen. Ob dies im konkreten Fall ausreicht um die Anforderungen zu erfüllen muss im Einzelfall geprüft werden, es ist nicht möglich dazu Allgemein gültige Aussagen zu treffen. Es ist unsicher ob \Gls{xai} überhaupt jemals in der Lage sein wird Allgemeine Aussagen über die Qualität und Sicherheit von Modellen zu erstellen und es gibt Stimmen die dafür plädieren in kritischen Fällen nur Modelle zu verwenden welche gut Verstanden sind.
 
-Es gibt einige Probleme welche mit \Gls{xai} gut gelöst werden können und welche die Sicherheit und Robustheit von Modellen erhöhen. Der Aufwand für diese Prüfungen kann aber hoch sein und ist nicht automatisierbar. Es fehlen noch Techniken welche den Einsatz vereinfachen und dadurch die Akzeptanz und Verbreitung fördern.
 
 \chapter{Einleitung}
 Computerprogramme bestehen in der Regel aus Tausenden bis Millionen Zeilen von Anweisungen welche, für die verschiedenen Aufgabengebiete zuständig sind. Einige der Programmroutinen stellen die grafische Benutzeroberfläche dar, während andere sich um das Speichern und laden von Dateien kümmern. Ein Teil der Anweisungen definieren Regeln nach denen Daten verarbeitet und analysiert werden. Solche Regeln werden von Fachspezialisten definiert und durch Software-Entwickler umgesetzt. Mit einem derartigen Vorgehen konnten viele alltägliche Probleme gelöst werden, Software ist inzwischen in der Wirtschaft wie im privaten Umfeld allgegenwärtig geworden. 
@@ -460,7 +473,7 @@ Unfälle, welche durch \glsentrylong{ML} Techniken verursacht, oder zumindest be
 Aber auch eine Diskriminierung durch ein \Gls{ML} Modell mit einem \Gls{BIAS} kann eine Klage durch die Betroffenen hervorrufen. \Gls{xai} kann eingesetzt werden um das Risiko zu verringern, indem Schwachstellen in Modellen frühzeitig erkannt werden, siehe \ref{vulnearabilities}. 
 
 \chapter{Wann wird XAI eingesetzt?}
-Ein Projekt welches \Gls{ML} einsetzt durchläuft in der Regel mehrere Phasen. \Gls{xai} kann nicht in jeder Phase sinnvoll eingesetzt werden. Dieses Kapitel soll einen kurzen Überblick über die Schritte zu einem fertigen Modell geben und erläutern an welchen Punkten \Gls{xai} sinnvoll eingesetzt werden kann.
+Ein Projekt welches \glsentrylong{ML} einsetzt durchläuft in der Regel mehrere Phasen. Die Anwendung von \Gls{xai} ist nicht in jeder Phase sinnvoll. Dieses Kapitel soll einen kurzen Überblick über die Schritte hin zu einem fertigen Modell geben und erläutern an welchen Punkten \Gls{xai} eingesetzt werden kann.
 
 \begin{center}
 \begin{minipage}[t]{0.8\linewidth}
@@ -481,30 +494,30 @@ Abhängig von der gewählten Art des Modells und der gewünschten Art der Erklä
 Es ist ebenfalls möglich ein bereits eingesetztes Modell nachträglich zu untersuchen. Die Vorgehensweise entspricht dabei einer \Gls{Blackbox} Analyse wie bei einem Modell aus einer externen Quelle. 
 
 \section{Data Understanding}
-Der Phase ``Data Understanding'' ist allgemein als Exploration bekannt.
-In diesem Abschnitt eines \Gls{ML} Projektes verschafft man sich einen Überblick über die Daten und gewinnt Informationen welche weiteren Schritte notwendig sind. Die Werkzeuge die man zu diesem Zweck braucht sind in der Regel einfacher und vor allem schneller als komplexere \Gls{xai} Techniken welche sich mit den Modellen beschäftigen welche normalerweise erst nach der Exploration Phase erstellt werden. Viele Hilfsmittel für die Exploration erzeugen Diagramme und Grafiken da diese schnell interpretiert werden können.
+Die Phase ``Data Understanding'' ist allgemein als Exploration bekannt.
+In diesem Abschnitt eines \Gls{ML} Projektes verschafft man sich einen Überblick über die Daten und gewinnt Informationen darüber welche weiteren Schritte notwendig sind. Die Werkzeuge, die man zu diesem Zweck braucht, sind in der Regel einfacher und vor allem schneller als komplexere \Gls{xai} Techniken, die sich mit den in späteren Phasen erzeugten Modellen beschäftigen. Während der Exploration werden häufig Diagramme und Grafiken erzeugt, da diese schnell interpretiert werden können.
 
 \section{Data Preparation}
-Data Preparation oder auch preprocessing genannt ist ein Notwendiger Schritt bei dem Daten auf die Verwendung für das Training eines Modells vorbereitet werden. Oft wird auch eine Auswahl der später verwendeten Daten (Features) getroffen, nicht immer macht es Sinn alle verfügbaren Daten einzusetzen.
+Data Preparation oder auch Preprocessing genannt ist ein notwendiger Schritt bei dem Daten auf die Verwendung für das Training eines Modells vorbereitet werden. Oft wird auch eine Auswahl der später verwendeten Daten (Features) getroffen, nicht immer macht es Sinn alle verfügbaren Daten einzusetzen.
 
 \section{Modeling}
-In der Modeling Phase entscheidet man sich für die Art des Modells welches man trainieren möchte. Oftmals trifft man eine Auswahl mehrere unterschiedlicher Algorithmen und entscheidet sich nach einem vereinfachten Training für den Algorithmus mit dem besten Ergebnis.
+In der Modeling Phase entscheidet man sich für die Art des Modells, das man trainieren möchte. Oftmals trifft man eine Auswahl mehrerer unterschiedlicher Algorithmen und entscheidet sich nach einem vereinfachten Training für den Algorithmus mit dem besten Ergebnis.
 
-Nach Seong Joon Oh \parencite{Oh2019} hat Art des Modells grossen Einfluss auf die Möglichkeiten der Erklärbarkeit. Generell wird unterschieden zwischen
+Nach Seong Joon Oh \parencite{Oh2019} hat die Art des Modells grossen Einfluss auf die Möglichkeiten der Erklärbarkeit. Generell wird unterschieden zwischen
 \begin{description}
-	\item[Whitebox Modelle] Einfachere Modelle welche oftmals geringere Erfolgsquoten als Blackbox Modelle aufweisen. Auch fehlen manchen dieser Modelle Möglichkeiten um komplexere Probleme wie Zusammenhängen zwischen Eigenschaften (feature interaction) zu modellieren. Im Gegenzug sind diese Modelle bedeutend einfacher zu erklären und interpretieren.
+	\item[Whitebox Modelle] Einfachere Modelle, diese weisen oft geringere Erfolgsquoten als Blackbox Modelle auf. Auch fehlen manchen dieser Modelle Möglichkeiten um komplexere Probleme wie Zusammenhänge zwischen Eigenschaften (feature interaction) zu modellieren. Im Gegenzug sind diese Modelle bedeutend einfacher zu erklären und interpretieren.
 	\item[Blackbox Modelle] Blackbox Modelle liefern oft sehr gute Ergebnisse. Durch den komplexen inneren Aufbau sind sie aber schwer zu verstehen und es ist nicht möglich den Einfluss einer einzelnen Eigenschaft (feature) auf das Ergebnis aufzuzeigen. Auch Zusammenhänge zwischen den einzelnen Eigenschaften sind schwer zu entdecken.
 \end{description}
 
-Wenn eine Anforderung in der Aufgabenstellung eine vollständige Erklärbarkeit fordert, sind Whitebox Modelle sicherlich zu bevorzugen. Durch \Gls{xai} können nun aber auch die schwierig zu verstehenden Blackbox Modelle nachträglich Erklärt werden. Allerdings ist die Qualität (Aussagekraft, Vollständigkeit, Verständlichkeit) einer derart erzeugten Erklärung oft kleiner als die gegebene Verständlichkeit eines Whitebox Modells. Hier gilt es abzuwägen wie die Punkte Erklärbarkeit gegen Verständlichkeit gewichtet werden.
+Wenn eine Anforderung in der Aufgabenstellung eine vollständige Erklärbarkeit fordert, sind Whitebox Modelle sicherlich zu bevorzugen. Durch \Gls{xai} können nun aber auch die schwierig zu verstehenden Blackbox Modelle nachträglich erklärt werden. Allerdings ist die Qualität (Aussagekraft, Vollständigkeit, Verständlichkeit) einer derart erzeugten Erklärung oft kleiner als die gegebene Verständlichkeit eines Whitebox Modells. Hier gilt es abzuwägen wie die Punkte Erklärbarkeit gegen Verständlichkeit gewichtet werden.
 
 \section{Evaluation}
-In der Evaluation Phase werden die Eigenschaften eines Modells überprüft. Neben Überprüfung der Vorhersagequalität werden die Fehlerraten untersucht und mit den Anforderungen abgeglichen. \Gls{xai} kann in dieser Phase wertvolle Einsichten in das Modell liefern welche verwendet werden können um das Modell in einem weiteren Durchlauf zu verbessern oder ob durch den Einsatz dieses Modells Probleme entstehen.
+In der Evaluation Phase werden die Eigenschaften eines Modells überprüft. Neben Überprüfung der Vorhersagequalität werden die Fehlerraten untersucht und mit den Anforderungen abgeglichen. \Gls{xai} kann in dieser Phase wertvolle Einsichten in das Modell liefern. Diese können dazu verwendet werden um das Modell in einem weiteren Durchlauf zu verbessern. Zudem kann durch Prüfung auf \Gls{BIAS} und andere Schwachstellen abgeschätzt werden, ob durch den Einsatz dieses Modells Probleme entstehen.
 
-Wenn man Erklärungen von einem Modell erstellen will muss man sich zuerst über den Spielraum der gewünschten Erklärung sicher sein. Man unterscheidet dabei zwischen einer lokalen (local interpretability) und einer globalen (global interpretability) Erklärung.
+Wenn man Erklärungen von einem Modell erstellen will, muss man sich zuerst über den Spielraum der gewünschten Erklärung sicher sein. Man unterscheidet dabei zwischen einer lokalen (local interpretability) und einer globalen (global interpretability) Erklärung.
 
-\parag{globale Erklärungen}
-Globale Erklärungen können das Verständnis für den Umgang mit sämtlichen Daten liefern, dies ist besonders hilfreich wenn geprüft werden soll ob das Modell einem \Gls{BIAS} unterliegt. Informationen zu den aufgelisteten Verfahren können unter in den referenzierten Artikeln gefunden werden.
+\parag{Globale Erklärungen}
+Globale Erklärungen können das Verständnis für den Umgang mit sämtlichen Daten liefern. Dies ist besonders hilfreich wenn geprüft werden soll ob das Modell einem \Gls{BIAS} unterliegt. Informationen zu den aufgelisteten Verfahren können in den untenstehenden aufgeführten Artikeln gefunden werden.
 
 Verfahren für globale Erklärungen
 \begin{itemize}
@@ -514,8 +527,8 @@ Verfahren für globale Erklärungen
 	\item BETA \parencite{Lakkaraju2017}
 \end{itemize}
 
-\parag{lokale Erklärungen}
-Lokale Erkärungen gelten für eine Bestimmte Klasse und erklären weshalb das Modell gerade diese Klasse als Vorhersage gewählt hat. Diese Arbeit befasst stellt nur lokale Erklärungen vor, diese sind einfach zu prüfen und anzuwenden.
+\parag{Lokale Erklärungen}
+Lokale Erklärungen gelten für eine bestimmte Klasse und erklären weshalb das Modell gerade diese Klasse als Vorhersage gewählt hat. Diese Arbeit befasst befasst sich nur mit lokalen Erklärungen, diese sind einfach zu prüfen und anzuwenden.
 
 Verfahren für lokale Erklärungen
 \begin{itemize}
@@ -525,13 +538,13 @@ Verfahren für lokale Erklärungen
 	\item \Gls{lrp}  \ref{lrp}
 \end{itemize}
 
-Aus der Vielzahl von Werkzeugen welche existieren um \acrfull{ML} Modelle zu analysieren gilt es die für den jeweiligen Use Case relevanten Werkzeuge anzuwenden. Eine Arbeit mehrerer IBM Forscher zeigt verschiedene Bibliotheken auf und gibt einen Leitfaden für deren Anwendung \parencite{Arya2019}.  
+Aus der Vielzahl von Werkzeugen, di existieren um \Gls{ML} Modelle zu analysieren, gilt es die für den jeweiligen Use Case relevanten Werkzeuge anzuwenden. Eine Arbeit mehrerer IBM Forscher zeigt verschiedene Bibliotheken auf und gibt einen Leitfaden für deren Anwendung \parencite{Arya2019}.  
 
 \section{Deployment}
 Als Deployment bezeichnet man die Einführung eines \Gls{ML} Modells in ein produktiv nutzbares System. \Gls{xai} kann nun von Anwendern geforderte Begründungen für eine Entscheidung liefern oder bei Problemen helfen das Modell zu verbessern.
 
 \chapter{Modellvarianten}
-\section{Erklärbare / White Box Modelle}
+\section{Erklärbare / Whitebox Modelle}
 
 Falls eine Anforderung besteht, dass die erzeugten Resultate interpretierbar sein müssen, kann direkt ein grundsätzlich interpretierbares Modelle erzeugt werden. Der Preis dafür kann jedoch eine geringere Performance sein. Natürlich ist in diesem Fall \Gls{xai} unnötig.
 
@@ -554,7 +567,8 @@ Folgende Algorithmen gelten generell als interpretierbar:
 Diese Liste hat keinen Anspruch auf Vollständigkeit, zudem können auch diese Modelle sehr komplex werden was die Verständlichkeit reduziert.
 
 \parag{Auswahlhilfe Whitebox Modell}
-Als einfache Entscheidungshilfe welches Modell am besten zu der gestellten Aufgabe passt kann diese Tabelle benutzt werden. Als Methode kann entweder eine Klassifikation (klass.), Regression (regr.) oder sogar beide Arten angewandt werden. Linear bedeutet in diesem Zusammenhang dass die Eingangsdaten sich linear (gleichförmig) auf das Resultat einwirken. Monoton trifft auf Fälle zu bei denen Änderungen in den Eingangsdaten sich in der gleichen Richtung (positiv oder negativ) auf das Resultat Einfluss nehmen. ``Zusammenhang'' bedeutet das zwei Eigenschaften zusammen einen stärkeren Einfluss haben als nur alleine Betrachtet (feature interaction).
+Als einfache Entscheidungshilfe welches Modell am besten zu der gestellten Aufgabe passt, kann diese Tabelle benutzt werden. 
+
 \begin{table}[ht]
 \begin{tabular}{@{} *5l @{}}    \toprule
 	\emph{Algorithmus} & \emph{Linear} & \emph{Monoton} & \emph{Zusammenhang} & \emph{Methode}  \\\midrule
@@ -566,52 +580,58 @@ Als einfache Entscheidungshilfe welches Modell am besten zu der gestellten Aufga
 	k-nearest neighbors & Nein & Nein & Nein & klass.,regr. \\ \bottomrule
 	 \hline
 \end{tabular}
-\captionof{table}{Entscheidungstabelle Erklärbare Modelle \protect\footnotemark{}}
+\captionof{table}{Entscheidungstabelle erklärbare Modelle \protect\footnotemark{}}
 \end{table}
 \footnotetext{Quelle: \parencite{iML}}
 
+Als Methode kann entweder eine Klassifikation (klass.), Regression (regr.) oder sogar beide Arten angewandt werden. Linear bedeutet in diesem Zusammenhang, dass die Eingangsdaten sich gleichförmig auf das Resultat auswirken. Monoton trifft auf Fälle zu bei denen Änderungen in den Eingangsdaten sich in der gleichen Richtung (positiv oder negativ) auf das Resultat widerspiegeln. ``Zusammenhang'' bedeutet, dass zwei Eigenschaften zusammen einen stärkeren Einfluss haben als nur für sich betrachtet (feature interaction).
+
 \subsection{Lineare Regression}
 \label{lr}
-Lineare Regression ist seit langer Zeit ein nützliches Werkzeug für Statistiker und Informatiker. Die Zusammenhänge zwischen dem Berechneten Ergebnis und den Eingangsvariablen können einfach nachvollzogen werden. Lineare Regression ist weit verbreitet, auch in nicht Informatik nahen Gebieten wie Medizin oder Soziologie. Ein Nachteil dieser Methode ist jedoch kleinere Leistungsfähigkeit in Bezug auf die Vorhersagequalität so dass heutzutage oftmals auf leistungsfähigere, jedoch schlechter verständliche, Algorithmen zurückgegriffen wird. Insbesondere im Gebiet der Klassifikation zeigt die Lineare Regression Schwächen.
+Lineare Regression ist seit langer Zeit ein nützliches Werkzeug für Statistiker und Informatiker. Die Zusammenhänge zwischen dem berechneten Ergebnis und den Eingangsvariablen können einfach nachvollzogen werden. Lineare Regression ist weit verbreitet, auch in nicht Informatik nahen Gebieten wie Medizin oder Soziologie. Ein Nachteil dieser Methode ist jedoch eine kleinere Leistungsfähigkeit in Bezug auf die Vorhersagequalität, so dass heutzutage oftmals auf leistungsfähigere, jedoch schlechter verständliche, Algorithmen zurückgegriffen wird. Insbesondere im Gebiet der Klassifikation zeigt die lineare Regression Schwächen.
 
 \begin{center}
 \begin{minipage}[t]{0.3\linewidth}
-\vspace{0pt}
-\includegraphics[width=0.6\linewidth]{Bilder/Regressions-Bedingungen.png}
- \captionof{figure}{Voraussetzungen lineare Regression}
+	\begin{center}
+		\vspace{0pt}
+		\includegraphics[width=0.6\linewidth]{Bilder/Regressions-Bedingungen.png}
+		 \captionof{figure}{Voraussetzungen lineare Regression}
+	\end{center}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.65\linewidth}
 \vspace{0pt}
 Die Formel der linearen Regression lautet: \[y = \beta_0  + \beta_1 x_1 + … + \beta_p x_p + \epsilon\]
-Um die Lineare Regression erfolgreich anzuwenden müssen drei Bedingungen erfüllt sein:
+Um die lineare Regression erfolgreich anzuwenden müssen drei Bedingungen erfüllt sein:
 \begin{itemize}
 	\item Normalverteilte Daten
 	\item Die Variablen sind unabhängig, d.h. die Werte beeinflussen sich nicht, im Gegensatz zum Beispiel bei Geschlecht und Schwangerschaft
 	\item Die vorhergesagten Werte sind linear
 \end{itemize}
-Wenn diese Bedingungen nicht erfüllt sind kann die Lineare Regression kaum erfolgreich angewandt werden.
+Wenn diese Bedingungen nicht erfüllt sind, kann die lineare Regression kaum erfolgreich angewandt werden.
 \end{minipage}
 \end{center}
 
 \subsection{Logistische Regression}
 \label{logR}
-Während lineare Regression für numerische Problemstellungen verwendet wird ist die logistische Regression ein Werkzeug für Klassifizierungen.
+Während lineare Regression für numerische Problemstellungen verwendet wird, ist die logistische Regression ein Werkzeug für Klassifizierungen.
 \[logistic(\eta)=\frac{1}{1+exp(-\eta)}\]
-Grundsätzlich unterscheidet die Logistische Regression zwischen zwei Klassen, eine sogenannte binäre Klassifikation. Man kann aber die logistische Regression zu einer  Multinomialen logistischen Regression erweitern welche mehr als eine Klasse unterstützt.
-Die logistische Regression hat die meisten Vor- und Nachteile der linearen Regression, wobei die schwierigere Interpretation des Modells gegenüber dem linearen in diesem Zusammenhang ein wichtiger Nachteil ist. Gegenüber anderen Klassifikatoren bietet die logistische Regression jedoch den grossen Vorteil dass nicht nur die Klasse, sondern auch die Wahrscheinlichkeit für diese Klasse als Resultat erzeugt wird.
+Grundsätzlich unterscheidet die logistische Regression zwischen zwei Klassen, eine sogenannte binäre Klassifikation. Man kann aber die logistische Regression zu einer  multinomialen logistischen Regression erweitern, welche mehre Klassen unterstützt.
+Die logistische Regression hat die meisten Vor- und Nachteile der linearen Regression, wobei die schwierigere Interpretation des Modells gegenüber einem linearen Modell in diesem Zusammenhang ein wichtiger Nachteil ist. Gegenüber anderen Klassifikatoren bietet die logistische Regression jedoch den grossen Vorteil, dass nicht nur die Klasse, sondern auch die Wahrscheinlichkeit für diese Klasse als Resultat erzeugt wird.
 \subsection{GLM/GAM}
 \label{gam}
-Lineare Regression hat einige Schwächen wie z. Bsp. die Annahme der Normalverteilung, die Variablen sollten nicht korreliert sein oder auch einfach bei einem nichtlinearen Zusammenhang zwischen den Daten und dem Resultat. \acrfull{glm} und \acrfull{gam} erweitern Lineare Modelle um einen breiteren Anwendungsbereich zu ermöglichen.
+Lineare Regression hat einige Schwächen wie z. Bsp. die Annahme der Normalverteilung. Die Variablen sollten nicht korreliert sein. Bei einem nichtlinearen Zusammenhang zwischen den Daten und dem Resultat kann lineare Regression ebenfalls nicht eingesetzt werden. \acrfull{glm} und \acrfull{gam} erweitern lineare Modelle um einen breiteren Anwendungsbereich zu ermöglichen.
 
 \begin{minipage}[t]{0.3\linewidth}
-\vspace{0pt}
-\includegraphics[width=0.6\linewidth]{Bilder/Regressions-Auschluss-Bedingungen.png}
-\captionof{figure}{Auschluss-Bedingungen lineare Regression}
+	\begin{center}
+		\vspace{0pt}
+		\includegraphics[width=0.6\linewidth]{Bilder/Regressions-Auschluss-Bedingungen.png}
+		\captionof{figure}{Auschluss-Bedingungen lineare Regression}
+	\end{center}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.55\linewidth}
 \vspace{0pt}
-Wenn die Voraussetzungen für eine Lineare Regression nicht erfüllt sind kann trotzdem mittels \Gls{glm} und \Gls{gam} eine Regression durchgeführt werden.
-
+Wenn die Voraussetzungen für eine lineare Regression nicht erfüllt sind, kann trotzdem mittels \Gls{glm} und \Gls{gam} eine Regression durchgeführt werden.
+\break\break
 Die Formeln für die beiden Varianten lauten:
 
 \acrshort{gam} \[g(E_Y(y|x))=\beta_0+\beta_1x_1+…\beta_p(x_p)\]
@@ -621,15 +641,15 @@ Die Formeln für die beiden Varianten lauten:
 wobei \acrshort{glm} in der Formel von \acrshort{gam} den Term \[\beta_jx_j\] durch eine Funktion ersetzt \[f_j(x_j)\]
 \end{minipage}
 
-Durch eine Vielzahl von Erweiterungsmöglichkeiten können sehr viele Probleme mit linearen Modellen gelöst werden. Da diese Methoden bereits längere Zeit verwendet werden ist die Erfahrung damit gross und auch die Umsetzung in Mathematik- oder Statistiksoftware ist in der Regel vorhanden. Als Nachteil gilt aber generell eine schlechtere Performance gegenüber komplexeren Verfahren. Zudem sinkt die, prinzipiell vorhandene, Interpretierbarkeit mit der Anzahl Erweiterungen des klassischen linearen Modells.
+Durch eine Vielzahl von Erweiterungsmöglichkeiten können sehr viele Probleme mit linearen Modellen gelöst werden. Da diese Methoden bereits längere Zeit verwendet werden, ist die Erfahrung damit gross. Auch die Umsetzung in Mathematik- oder Statistiksoftware ist in der Regel vorhanden. Als Nachteil gilt aber generell eine schlechtere Performance gegenüber komplexeren Verfahren. Zudem sinkt die, prinzipiell vorhandene, Interpretierbarkeit mit der Anzahl Erweiterungen des klassischen linearen Modells.
 
 \subsection{Decision Tree}
 \label{DT}
-\Gls{DT} (deutsch Entscheidungsbäume) können bei einer geringen Anzahl von Parametern einfach visualisiert werden und geben einen guten Überblick über die internen Abläufe die zu einem Resultat führen.
+Ein \Gls{DT} (Entscheidungsbaum) kann bei einer geringen Anzahl von Parametern einfach visualisiert werden und gibt einen guten Überblick über die internen Abläufe, die zu einem Resultat führen.
 
 \begin{minipage}[t]{0.45\linewidth}
 \vspace{10pt}
-Die Regeln nach denen sich ein \Gls{DT} aufteilt können als Text dargestellt werden. Intuitiv besser verständlich sind jedoch grafische Darstellungen welche entweder den Baum als Struktur oder in einem Diagramm als Fläche darstellen.
+Die Regeln nach denen sich ein \Gls{DT} aufteilt, können als Text dargestellt werden. Intuitiv besser verständlich sind jedoch grafische Darstellungen, welche entweder den Baum als Struktur oder als Fläche darstellen.
 \end{minipage}\hfill
 \begin{minipage}[t]{0.45\linewidth}
 \begin{lstlisting}
@@ -659,9 +679,9 @@ Der für diese Visualisierungen verwendete Source Code ist in Kapitel \ref{dt-vi
 
 \subsection{RuleFit}
 \label{RF}
-RuleFit \parencite{Friedman2008} verwendet Entscheidungsbäume um daraus Regeln abzuleiten welche neue Features erzeugen. Diese neu erzeugten Features werden dann von einem Linearen Modell interpretiert. Durch den Einsatz des linearen Modells verspricht RuleFit die von diesem Algorithmus gewohnte Interpretierbarkeit in Kombination mit besserer Performance.
+RuleFit \parencite{Friedman2008} verwendet Entscheidungsbäume um daraus Regeln abzuleiten, welche neue Features erzeugen. Diese neu erzeugten Features werden dann von einem linearen Modell interpretiert. Durch den Einsatz des linearen Modells verspricht RuleFit die von diesem Algorithmus gewohnte Interpretierbarkeit in Kombination mit besserer Performance.
 
-Eine Python Bibliothek welche RuleFit implementiert ist \parencite{scopeRules}. Dies ist ein Beispiel aus der scope-rules Dokumentation wie durch RuleFit generierte Regeln aussehen können:
+Eine Python Bibliothek, welche RuleFit implementiert, ist \parencite{scopeRules}. Dies ist ein Beispiel aus der scope-rules Dokumentation wie durch RuleFit generierte Regeln aussehen können:
 \begin{minipage}[t]{\linewidth}
 \begin{lstlisting}
 12 rules have been built.
@@ -676,16 +696,16 @@ BILL_AMT1 > 410.0 and PAY_1 > 1.5 and PAY_old_mean > 0.125
 \end{minipage}
 \footnotetext{Quelle: \url{https://skope-rules.readthedocs.io/}}
 
-\subsection{Naive Bayes}
+\subsection{Naïve Bayes}
 \label{nb}
-Naive Bayes Filter werden seid einiger Zeit sehr erfolgreich für die Spam Klassifikation von Emails eingesetzt. Aber auch für andere Klassifikationen ist Naive Bayes aufgrund der schnellen Berechnung bei guten Resultaten beliebt. Der Name kommt von der ``naiven'' Annahme dass die Features voneinander unabhängig sind, die sogenannte  ``Annahme von Unabhangigkeit''. Obwohl das in der Realität fast nie der Fall ist funktioniert Naive Bayes in der Regel sehr gut.
+\Gls{nb} Filter werden seit einiger Zeit sehr erfolgreich für die Spam Klassifikation von Emails eingesetzt. Aber auch für andere Klassifikationen ist \Gls{nb} aufgrund der schnellen Berechnung bei guten Resultaten beliebt. Der Name kommt von der ``naiven'' Annahme, dass die Features voneinander unabhängig sind, die sogenannte  ``Annahme von Unabhangigkeit''. Obwohl das in der Realität fast nie der Fall, ist funktioniert \Gls{nb} in der Regel sehr gut.
 
 \[ P(C_k|x) = \frac{1}{Z}P(C_k) \prod_{i=1}^{n}  P(x_i|C_k) \]
 
-Naive Bayes gilt als interpretierbares Modell aufgrund der Annahme der Unabhängigkeit. Für jedes Feature kann einfach bestimmt werden wie stark der Einfluss auf die Vorhersage ist da man die bedingte Wahrscheinlichkeit interpretieren kann.
+\Gls{nb} gilt als interpretierbares Modell aufgrund der Annahme der Unabhängigkeit. Für jedes Feature kann einfach bestimmt werden wie stark der Einfluss auf die Vorhersage ist, da man die bedingte Wahrscheinlichkeit interpretieren kann.
 
 \section{Schwer erklärbare / Blackbox Modelle}
-Falls aufgrund der geforderten Performance oder vorhandenen Daten ein Verfahren eingesetzt wird das als nicht interpretierbar gilt kann man \Gls{xai} Werkzeuge einsetzen um eine Erklärung für das von dem Modell erzeugte Resultat zu generieren. Diese Techniken werden in dem Kapitel \ref{xai} näher erläutert.
+Wenn aufgrund der geforderten Performance oder den vorhandenen Daten ein Verfahren eingesetzt wird, das als nicht interpretierbar gilt, kann man \Gls{xai} Werkzeuge einsetzen um eine Erklärung zu generieren. Diese Techniken werden in dem Kapitel \ref{xai} näher erläutert.
 
 Grundsätzlich gelten alle Arten von komplexeren, tiefen (\acrlong{dnn}), neuronalen Netzen als schwer interpretierbar, beispielsweise:
 \begin{itemize}
@@ -695,7 +715,7 @@ Grundsätzlich gelten alle Arten von komplexeren, tiefen (\acrlong{dnn}), neuron
 	\item\acrfull{rnn}
 \end{itemize}
 
-Allerdings gelten auch Whitebox Modelle mit vielen Parametern als schwer erklärbar. Es ist möglich einen Entscheidungsbaum (\Gls{DT}) mit 10'000 Eingangsparametern zu trainieren welcher dreistellige Tiefen erreichen kann. In diesem Fällen verwischt die Grenze zwischen White- und Blackbox.
+Allerdings gelten auch Whitebox Modelle mit vielen Parametern als schwer erklärbar. Es ist möglich einen \Gls{DT} mit 10'000 Eingangsparametern zu trainieren, welcher dreistellige Tiefen erreichen kann. In diesen Fällen verwischt die Grenze zwischen White- und Blackbox.
 
 \chapter{XAI Methoden}
 \label{xai}
