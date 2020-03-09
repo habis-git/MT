@@ -310,33 +310,33 @@
 \RaggedRight
 
 \chapter{Management Summary}
-\Gls{ML} kombiniert mit grossen Datensätzen bietet seit einigen Jahren die Möglichkeit Arbeiten, welche bisher nur durch Menschen ausgeführt werden konnten, durch Computersysteme zu erledigen. Durch \Gls{ML} erzeugte Modelle werden in vielen Gebieten erfolgreich eingesetzt. 
+\Gls{ML}, kombiniert mit grossen Datensätzen, bietet seit einigen Jahren die Möglichkeit Arbeiten, welche bisher nur durch Menschen ausgeführt werden konnten, durch Computersysteme zu erledigen. Durch \Gls{ML} erzeugte Modelle werden in vielen Gebieten erfolgreich eingesetzt. 
 
-Man unterscheidet zwischen zwei Arten von Modellen, zum einen Whitebox Modelle welche eine einfache, zumeist verständliche Struktur haben und bei denen nachvollziehbar ist wie Daten verarbeitet werden. Die andere Art von Modellen nennt sich Blackbox. Diese sind von einer derart grossen Komplexität, dass es in der Regel nicht möglich ist nachzuvollziehen wie Daten darin verarbeitet werden. 
+Es wird zwischen zwei Arten von Modellen unterschieden. Zum einen Whitebox Modelle, welche eine einfache, zumeist verständliche Struktur haben und bei denen nachvollziehbar ist, wie Daten verarbeitet werden. Die andere Art von Modellen nennt sich Blackbox. Diese sind von einer derart grossen Komplexität, dass es in der Regel nicht möglich ist nachzuvollziehen wie Daten darin verarbeitet werden. 
 
-\Gls{xai} hat das Ziel, auch die schwer verständlichen Blackbox Modelle für Menschen verständlich zu machen und Erklärungen für die produzierten Resultate zu erzeugen. Diese ``erklärbarkeit'' von Modellen wird von einigen Akteuren (Politik, Zulassungsbehörden, NGO's) gefordert bevor der Einsatz von Blackbox Modellen in sensiblen Gebieten wie beispielsweise Medizin akzeptiert wird. 
+\Gls{xai} hat das Ziel, auch die schwer verständlichen Blackbox Modelle für Menschen verständlich zu machen und Erklärungen für die produzierten Resultate zu erzeugen. Diese ``Erklärbarkeit'' von Modellen wird von einigen Akteuren (Politik, Zulassungsbehörden, Nichtregierungsorganisationen) gefordert bevor der Einsatz von Blackbox Modellen in sensiblen Gebieten wie beispielsweise Medizin akzeptiert wird. 
 
-Diese Arbeit listet verschiedene Techniken auf welche benutzt werden können um die Arbeitsweise von Blackbox Modellen aufzuzeigen.
-Zusätzlich werden auch einige Whitebox Algorithmen vorgestellt welche als Alternative gegenüber Blackbox Modellen verwendet werden können.
+Diese Arbeit listet verschiedene Techniken auf, welche benutzt werden können um die Arbeitsweise von Blackbox Modellen aufzuzeigen.
+Zusätzlich werden auch einige Whitebox Algorithmen vorgestellt, die als Alternative gegenüber Blackbox Modellen verwendet werden können.
 
-\Gls{xai} ist ein aktives Gebiet der Forschung, viele Forschungsartikel schlagen neue Methoden vor wie Modelle besser Erklärt werden können. Aus diesen Arbeiten sind Werkzeuge entstanden welche die Analyse von Modellen durch erzeugte Erklärungen, meistens in der Form von Visualisierungen, unterstützen. Die in dieser Arbeit gesammelten Erkenntnisse über die verwendeten Werkzeuge und welche Probleme dabei aufgetreten sind können als Anhaltspunkte für den Einsatz in weiteren Projekten verwendet werden.
+\Gls{xai} ist ein aktives Gebiet der Forschung, viele Forschungsartikel schlagen neue Methoden vor wie Modelle besser erklärt werden können. Aus diesen Arbeiten sind Werkzeuge, entstanden welche die Analyse von Modellen durch erzeugte Erklärungen, meistens in der Form von Visualisierungen, unterstützen. Die in dieser Arbeit gesammelten Erkenntnisse über die verwendeten Werkzeuge und welche Probleme dabei aufgetreten sind, können als Anhaltspunkte für den Einsatz in weiteren Projekten verwendet werden.
 
-Durch Beispiele und Verweise auf andere Arbeiten wird gezeigt wie für konkrete Probleme \Gls{xai} eingesetzt werden kann um den Entwicklern ein besseres Verständnis über ihre Modelle  zu verschaffen und dadurch zu verbessern.
+Durch eigene Beispiele und Verweise auf andere Arbeiten wird gezeigt wie \Gls{xai} eingesetzt werden kann um den Entwicklern ein besseres Verständnis über ihre Modelle  zu verschaffen und dadurch zu verbessern.
 
-Es zeigte sich aber im Rahmen dieser Arbeit das \Gls{xai} momentan nicht in der Lage ist allgemein gültige Aussagen über die Qualität und Sicherheit von  Modellen zu treffen. Es ist unsicher ob \Gls{xai} überhaupt jemals dazu in der Lage sein wird. Es gibt Forscher die dafür plädieren in kritischen Fällen nur Modelle zu verwenden welche gut verstanden sind und erforscht sind.
+Es zeigte sich das \Gls{xai} momentan nicht in der Lage ist allgemein gültige Aussagen über die Qualität und Sicherheit von  Modellen zu treffen. Es ist unsicher ob \Gls{xai} überhaupt jemals dazu in der Lage sein wird. Es gibt Forscher die dafür plädieren in kritischen Fällen nur Modelle zu verwenden welche gut verstanden und erforscht sind.
 
 \chapter{Einleitung}
-Computerprogramme bestehen in der Regel aus Tausenden bis Millionen Zeilen von Anweisungen welche, für die verschiedenen Aufgabengebiete zuständig sind. Einige der Programmroutinen stellen die grafische Benutzeroberfläche dar, während andere sich um das Speichern und laden von Dateien kümmern. Ein Teil der Anweisungen definieren Regeln nach denen Daten verarbeitet und analysiert werden. Solche Regeln werden von Fachspezialisten definiert und durch Software-Entwickler umgesetzt. Mit einem derartigen Vorgehen konnten viele alltägliche Probleme gelöst werden, Software ist inzwischen in der Wirtschaft wie im privaten Umfeld allgegenwärtig geworden. 
+Computerprogramme bestehen in der Regel aus Tausenden bis Millionen Zeilen von Anweisungen, welche für die verschiedenen Aufgabengebiete zuständig sind. Einige der Programmroutinen stellen die grafische Benutzeroberfläche dar, während andere sich um das Speichern und Laden von Dateien kümmern. Ein Teil der Anweisungen definieren Regeln nach denen Daten verarbeitet und analysiert werden. Solche Regeln werden von Fachspezialisten definiert und durch Software-Entwickler umgesetzt. Mit einem derartigen Vorgehen konnten viele alltägliche Probleme gelöst werden. Software ist inzwischen in der Wirtschaft wie im privaten Umfeld allgegenwärtig geworden. 
 
-Die Ausformulierung solcher Regeln nach denen sich Software verhalten soll, ist aber ein aufwendiger und fehlerträchtiger Prozess. Gewisse Gebiete sind durch die Komplexität der Aufgabenstellung nur rudimentär in Regeln zu fassen. Solche Gebiete sind unter anderem Bilderkennung, Text- oder Sprachverständnis. In diesen Gebieten zeigen Menschen und Tiere bedeutend bessere Fähigkeiten zeigen als Computerprogramme. 
+Die Ausformulierung solcher Regeln nach denen sich Software verhalten soll, ist aber ein aufwendiger und fehlerträchtiger Prozess. Gewisse Gebiete sind durch die Komplexität der Aufgabenstellung nur rudimentär in Regeln zu fassen. Solche Gebiete sind unter anderem Bilderkennung, Text- oder Sprachverständnis. In diesen Gebieten zeigen Menschen und Tiere bedeutend bessere Fähigkeiten als Computerprogramme. 
 
-Während programmierte Regeln in Computer Programmen sofort zur Verfügung stehen, müssen Menschen und Tiere ihre Fähigkeiten oftmals über längere Zeit trainieren und üben. Bis die gewünschten Fähigkeiten in genügender Qualität vorhanden sind können Jahre vergehen. Durch solche biologische Prozesse als Vorbild wurde die Disziplin \gls{ML} entwickelt, welche auch Computer in die Lage versetzen soll, bislang nur bei Mensch und Tier gefundene Fähigkeiten, zu erlangen.
-\gls{ML} wird seit den 1960er Jahren angewendet, allerdings waren die erzielten Resultate lange Zeit für viele Anwendungen ungenügend. Durch die Verfügbarkeit von grossen Datenmengen (Big Data, Cloud) und der gesteigerten Rechenleistung der Rechner wurden nach der Jahrtausendwende so gute Fortschritte erzielt, so dass immer mehr Anwendungsmöglichkeiten für \gls{ML} Lösungen gefunden wurden. 
+Während programmierte Regeln in Computer Programmen sofort zur Verfügung stehen, müssen Menschen und Tiere ihre Fähigkeiten oftmals über längere Zeit trainieren und üben. Bis die gewünschten Fähigkeiten in genügender Qualität vorhanden sind, können Jahre vergehen. Durch solche biologische Prozesse als Vorbild wurde die Disziplin \glsentryfull{ML} entwickelt, welche auch Computer in die Lage versetzen soll, bislang nur bei Mensch und Tier gefundene Fähigkeiten, zu erlangen.
+\gls{ML} wird seit den 1960er Jahren angewendet, allerdings waren die erzielten Resultate lange Zeit für viele Anwendungen ungenügend. Durch die Verfügbarkeit von grossen Datenmengen (Big Data, Cloud) und der gesteigerten Rechenleistung der Rechner wurden nach der Jahrtausendwende so gute Fortschritte erzielt, dass immer mehr Anwendungsmöglichkeiten für \gls{ML} Lösungen gefunden wurden. 
 
-Oftmals wird auch von \Gls{AI} gesprochen wenn \glsentryfull{ML} gemeint ist, die beiden Begriffe sind schwierig zu trennen.
+Oftmals wird auch von \Gls{AI} gesprochen. \glsentryfull{ML} kann als Teilgebiet von \acrshort{AI} angesehen werden.
 
 \fullImg{ML-Timeline.png}{Entwicklung des Machine Learning als Zeitachse}
-
+\clearpage
 Durch die Anwendung von Versuch und Irrtum bei kontinuierlicher Optimierung der internen Regeln erlangten \gls{ML} Systeme bislang unerreichbare Stärken in vorher problematischen Gebieten. Allerdings ist der Preis dafür oftmals der, dass die automatisch erstellten Regeln für Menschen unverständlich und nicht nachvollziehbar sind.
 Für viele Dienste im Internet (Bildersammlungen, Empfehlungssysteme) werden in der Regel keine oder nur geringe Anforderungen an ein verständliches Modell gestellt. Aber es gibt einige Bereiche in denen besondere Ansprüche an die Nachvollziehbarkeit von Entscheidungen bestehen.
 
@@ -356,12 +356,12 @@ Da sowohl die Erzeugung des Modells als auch die Berechnung des Resultates autom
 
 \fullImg{Explanation-Flow.png}{Ablauf einer erklärbaren Machine Learning Anwendung}
 
-Eine \Gls{ML} Lösung beginnt mit der Beobachtung von realen Ereignissen in der Welt. Dies können die Anzahl Blätter und deren Länge einer Pflanzengattung oder auch Häuserpreise in Brooklyn sein. Diese Beobachtungen werden gesammelt und bilden die Datengrundlage mit deren ein Modell erstellt werden kann. Aus diesem kann danach eine Erklärung erzeugt werden, die ein Mensch verwenden kann um das Resultat besser zu verstehen. 
+Eine \Gls{ML} Lösung beginnt mit der Beobachtung von realen Ereignissen in der Welt. Dies können die Anzahl Blätter und deren Länge einer Pflanzengattung oder auch Häuserpreise in Brooklyn sein. Diese Beobachtungen werden gesammelt und bilden die Datengrundlage mit deren ein Modell erstellt wird. Aus diesem kann danach eine Erklärung erzeugt werden die Menschen hilft das Resultat besser zu verstehen. 
 
-Ein oft verwendetes Wort in diesem Zusammenhang ist die Interpretierbarkeit. Ein Modell welches einfach und verständlich ist hat eine hohe Interpretierbarkeit, es kann von Menschen einfach interpretiert werden. 
+Ein oft verwendetes Wort in diesem Zusammenhang ist die Interpretierbarkeit. Ein Modell, welches einfach und verständlich ist, hat eine hohe Interpretierbarkeit, es kann von Menschen einfach interpretiert werden. 
 
 \section{Unterschiedliche Anforderungen an eine Erklärung}
-Eine Anwendung welche \glsentryfull{ML} einsetzt kann in mehrere Bereiche unterteilt werden.  Durch diese Aufteilung in verschiedene  Komponenten ergeben sich unterschiedliche Anforderungen an die Erklärbarkeit \parencite{XAI2018}:
+Eine Anwendung, welche \glsentryfull{ML} einsetzt, kann in mehrere Bereiche unterteilt werden.  Durch diese Aufteilung in verschiedene  Komponenten ergeben sich unterschiedliche Anforderungen an die Erklärbarkeit \parencite{XAI2018}:
 
 \begin{description}
 \item[Daten]
@@ -371,7 +371,7 @@ Aus der Sicht der Daten interessiert vor allem welcher Teil der Daten für das E
 Kann man aus dem Modell ein Muster für eine bestimmte Kategorie ableiten? Dies kann helfen Fehlklassifizierungen von neuen Daten zu verhindern, in dem überprüft wird, ob das Modell die richtigen/plausiblen Features berücksichtigt.
 
 \item[Vorhersage]
-Das Erzeugen einer Erklärung weshalb ein bestimmtes Muster in den Daten zu der resultierenden Klassifizierung geführt hat. Dies ist insbesondere für Anwender / Kunden einer \glsentrylong{ML} Lösung wichtig, um das Verständnis für die maschinelle Entscheidung zu erhöhen. Die daraus erzeugte Erklärung kann dazu genutzt werden um eine gesetzlich vorgeschriebene Anfechtbarkeit der Entscheidung zu ermöglichen.
+Das Erzeugen einer Erklärung weshalb ein bestimmtes Muster in den Daten zu der resultierenden Klassifizierung geführt hat. Dies ist insbesondere für Anwender / Kunden einer \gls{ML} Lösung wichtig, um das Verständnis für die maschinelle Entscheidung zu erhöhen. Die daraus erzeugte Erklärung kann dazu genutzt werden um eine gesetzlich vorgeschriebene Anfechtbarkeit der Entscheidung zu ermöglichen.
 \end{description}
 
 Ebenso gibt es bei den Interessensgruppen unterschiedliche Anforderungen an die Erklärbarkeit einer ML Anwendung. Nach G. Ras \parencite{Ras2018} werden dabei folgende Gruppierungen unterschieden:
@@ -385,36 +385,36 @@ Ebenso gibt es bei den Interessensgruppen unterschiedliche Anforderungen an die 
   \item[Benutzer]
   Auch bei den Benutzern gibt es verschiedene Ausprägungen
   	\begin{description}
-  		\item[Eigentümer] Eigentümer/Auftraggeber benötigen performante Anwendungen welche Gesetzeskonform sind
+  		\item[Eigentümer] Eigentümer/Auftraggeber benötigen performante Anwendungen welche gesetzeskonform sind
   		\item[Anwender] sind daran interessiert wie eine Entscheidung, die sie betrifft, zustande kam
   		\item[Person deren Daten verwendet werden] sind an Datenschutz, ohne eine Missbrauchsmöglichkeit ihrer Daten, interessiert
   		\item[Anspruchsgruppen (Stakeholder)] wie Regulierungsbehörden oder Fachgremien setzen die Rahmenbedingungen für den Einsatz von \Gls{ML} Anwendungen in heiklen Gebieten
 	\end{description}
 \end{description}
 Die Anforderungen an ein erklärbares Modell unterscheiden sich sehr stark, je nach betrachteter Komponente und der Anwendergruppe. Daraus ergibt sich, dass verschiedene Techniken benötigt werden um \Gls{AI} / \Gls{ML} Lösungen generell erklärbar zu machen.
-
-Ein wichtiges Merkmal einer Erklärung ist die Verständlichkeit für das jeweilige Publikum. Während Forscher auf dem Gebiet des \glsentrylong{ML} mathematische Formeln bevorzugen, sind für Anwender Erklärungen auf der Basis einfacher Texte oder Bilder verständlicher.
+\enlargethispage{\baselineskip}
+Ein wichtiges Merkmal einer Erklärung ist die Verständlichkeit für das jeweilige Publikum. Während Forscher auf dem Gebiet des \gls{ML} mathematische Formeln bevorzugen, sind für Anwender Erklärungen auf der Basis einfacher Texte oder Bilder verständlicher.
 
 Alle diese Punkte zeigen weshalb ein einziger, einheitlicher, Ansatz nicht zielführend ist. Die Werkzeuge und Methoden müssen passend auf den Kreis der Empfänger abgestimmt werden.
 
 \chapter{Zielgebiete von XAI}
 
 \section{Bessere Anwendungen durch Einblick in die Funktionsweise}
-Ein Grundsatz jedes \glsentrylong{ML} Projektes lautet, dass der Erfolg nicht garantiert ist. Ausgehend von bestehenden Daten kann man nicht sicher sein, dass diese ausreichende Informationen liefern, um ein Modell zu entwickeln, welches den Anforderungen entspricht. Selbst wenn genügend Daten vorhanden sind, besteht immer noch die Problematik, dass unzählige Algorithmen mit wiederum unzähligen Parametern existieren, welche angewendet werden können. Es gibt Lösungen, um mit dieser Problematik umzugehen. Dennoch ist es in der Regel ein langwieriger und oftmals teurer Prozess um \Gls{ML} Modelle auf das gewünschte Qualitätsniveau zu bringen.
+Ein Grundsatz jedes \glsentryfull{ML} Projektes lautet, dass der Erfolg nicht garantiert ist. Ausgehend von bestehenden Daten kann man nicht sicher sein, dass diese ausreichende Informationen liefern, um ein Modell zu entwickeln, welches den Anforderungen entspricht. Selbst wenn genügend Daten vorhanden sind, besteht immer noch die Problematik, dass unzählige Algorithmen mit wiederum unzähligen Parametern existieren, welche angewendet werden können. Es gibt Lösungen, um mit dieser Problematik umzugehen. Dennoch ist es in der Regel ein langwieriger und oftmals teurer Prozess um \Gls{ML} Modelle auf das gewünschte Qualitätsniveau zu bringen.
 
-Erkenntnisse durch \gls{xai} Techniken können den Entwicklern helfen Irrwege und Probleme frühzeitig zu erkennen, um so Arbeitszeit und/oder Rechenleistung beim Definieren und Berechnen der Modelle einzusparen.
+Erkenntnisse durch \glsentryfull{xai} Techniken können den Entwicklern helfen Irrwege und Probleme frühzeitig zu erkennen, um so Arbeitszeit und/oder Rechenleistung beim Definieren und Berechnen der Modelle einzusparen.
 
 Ebenso kann ein Modell falsche Resultate liefern, sei es weil die ursprünglichen Trainingsdaten unvollständig waren, oder weil neue, vorher unbekannte, Bedingungen aufgetreten sind. Eine Erklärung weshalb dieses falsche Resultat erzeugt wurde, kann den Entwickler in die Lage versetzen ein verbessertes Modell zu erzeugen. Dies kann sowohl in der Phase der Aufarbeitung der Daten, welche durch das Modell verarbeitet werden sollen (preprocessing) oder beim Erzeugen eines Modelles (training) hilfreich sein.
 
 \section{Datenschutz}
-Jede \glsentrylong{ML} Lösung setzt grosse Datenmengen voraus. Diese müssen den Anforderungen des Datenschutzes entsprechend aufbereitet und gegebenenfalls anonymisiert werden. Dennoch besteht die Gefahr, dass Modelle Rückschlüsse auf die Daten zulassen, mit denen sie trainiert wurden.
+Jede \gls{ML} Lösung setzt grosse Datenmengen voraus. Diese müssen den Anforderungen des Datenschutzes entsprechend aufbereitet und gegebenenfalls anonymisiert werden. Dennoch besteht die Gefahr, dass Modelle Rückschlüsse auf die Daten zulassen, mit denen sie trainiert wurden.
 
 Das Gebiet Datenschutz ist durch Vorstösse von NGO's, Politikern und vor allem durch die \acrfull{DSGVO} der EU, in den Fokus von Regierungsbehörden gelangt.
 
-Der jüngste Bericht der \acrfull{dek} der Deutschen Regierung \parencite{datenEthik} geht in Kapitel 3. konkret auf  \Gls{ML} Anwendungen ein.
-\break
+Der jüngste Bericht der \acrfull{dek} der Deutschen Regierung \cite{datenEthik} geht in Kapitel 3 konkret auf  \Gls{ML} Anwendungen ein.
+
 Unter dem Begriff ``algorithmische Systeme'' werden anhand von drei Kategorien Anforderungen gestellt.
-\break
+
  Die von der  \acrshort{dek} definierten Bereiche sind:
  
  \begin{enumerate}
@@ -436,7 +436,7 @@ Daraus ergeben sich für die \acrlong{dek} für einen verantwortungsvollen Umgan
 	\item Klare Rechenschaftsstrukturen
 \end{itemize}
 
-\acrlong{xai} kommt vor allem in den Bereichen ``Minimierung von Verzerrungen und Diskriminierung'' und ``Transparenz, Erklärbarkeit und Nachvollziehbarkeit'' zum tragen, kann aber auch bei ``Robustheit und Sicherheit'' und ``Qualität und Leistungsfähigkeit'' helfen, die gestellten Anforderungen zu erfüllen. 
+\Gls{xai} kommt vor allem in den Bereichen ``Minimierung von Verzerrungen und Diskriminierung'' und ``Transparenz, Erklärbarkeit und Nachvollziehbarkeit'' zum tragen, kann aber auch bei ``Robustheit und Sicherheit'' und ``Qualität und Leistungsfähigkeit'' helfen, die gestellten Anforderungen zu erfüllen. 
 
 In Kapitel \ref{Sicherheit} wird näher auf die Gefahren eingegangen welche durch die Anwendung von \Gls{ML} entstehen können. 
 \Gls{xai} Werkzeuge können Entwicklern Schwachpunkte aufzeigen oder Experten in die Lage versetzen, angewandte Modelle nachträglich auf Probleme zu untersuchen.
@@ -447,29 +447,27 @@ Die Sicherheit von \Gls{ML} Modellen ist durch verschiedene Angriffsmethoden gef
 \begin{description}
 	\item[Model Stealing Attacks] Ziel eines solchen Angriffes ist es, entweder direkt die internen Parameter eines Modells zu extrahieren, oder ein neues Modell zu erstellen das sich gleich oder möglichst ähnlich zu dem Original verhält. Dadurch können Geschäftsgeheimnisse entwendet oder Wettbewerbsvorteile eliminiert werden.
 	\item[Membership Inference Attacks] Diese Art von Angriff versucht herauszufinden ob ein Datensatz dazu verwendet wurde das vorliegende Modell zu trainieren. Neben Datenschutzproblemen kann dies auch zu weiteren Angriffsflächen führen.
-	\item[\acrfull{aip}] Oft genügen kleine Änderungen an einem Bildinhalt um ein \gls{NN} dazu zu bringen die vorhergesagte Klasse zu wechseln. Wenn ein Angreifer eine solche Anfälligkeit entdeckt, kann es möglich sein ein Bild so zu verändern, dass es für menschliche Augen gleich (oder beinahe) aussieht wie das Original, jedoch mit einem völlig anderen Ergebnis. Es liegt auf der Hand, dass ein solches Verhalten eines Modells für Systeme einer Zutrittskontrolle unerwünscht ist. Es sind jedoch auch andere Formen der Täuschung denkbar,, welche für den Betreiber zu Verlusten führen können (Waren Rücksendungen, Pfandflaschen Automaten, Qualitätskontrollen bei Lieferanten). Dieses Thema wird näher in Kapitel \ref{Adversarial Attacks} erläutert.
+	\item[\acrfull{aip}] Oft genügen kleine Änderungen an einem Bildinhalt um ein \gls{NN} dazu zu bringen die vorhergesagte Klasse zu wechseln. Wenn ein Angreifer eine solche Anfälligkeit entdeckt, kann es möglich sein ein Bild so zu verändern, dass es für menschliche Augen gleich (oder beinahe) aussieht wie das Original, jedoch mit einem völlig anderen Ergebnis. Es liegt auf der Hand, dass ein solches Verhalten eines Modells für Systeme einer Zutrittskontrolle unerwünscht ist. Es sind jedoch auch andere Formen der Täuschung denkbar, welche für den Betreiber zu Verlusten führen können (Waren Rücksendungen, Pfandflaschen Automaten, Qualitätskontrollen bei Lieferanten). Dieses Thema wird näher in Kapitel \ref{Adversarial Attacks} erläutert.
 \end{description}
 
 In der Arbeit von Seong Joon Oh ``Towards Reverse-Engineering Black-Box Neural Networks'' \parencite{Oh2019} werden \Gls{xai} Methoden vorgestellt mit denen \Gls{Blackbox} Modelle auf diese Probleme untersucht werden können.
 
 \section{Regulatorische Bedingungen}
-In vielen Bereichen des Alltags gelten Regeln, welche Diskriminierungen von Gruppen verhindern oder von der Gesellschaft als ungerecht empfundene Handlungen untersagen. Dies kann von einer Transportpflicht eines Verkehrsbetriebes bis hin zu einem Kündigungsschutz während einer Schwangerschaft reichen. Dies gerät oft in Konflikt mit dem Recht auf Vertragsfreiheit, die es Personen und Firmen frei lässt, mit welchen Vertragsparteien Geschäfte getätigt werden.
-
+In vielen Bereichen des Alltags gelten Regeln, welche Diskriminierungen verhindern oder von der Gesellschaft als ungerecht empfundene Handlungen untersagen. Dies kann von einer Transportpflicht eines Verkehrsbetriebes bis hin zu einem Kündigungsschutz während einer Schwangerschaft reichen. Dies gerät oft in Konflikt mit dem Recht auf Vertragsfreiheit, die es Personen und Firmen frei lässt, mit welchen Vertragsparteien Geschäfte getätigt werden.
 Durch die Anwendung von \Gls{AI} Systemen können solche Diskriminierungen unbeabsichtigt eingeführt werden. Kaum eine Bank könnte eine Regel aufrechterhalten, welche Personen mit dunkler Hautfarbe Kredite verweigert. Ein Modell, das einem \Gls{BIAS} unterliegt, kann jedoch genau solch eine Entscheidung bewirken.
 
-Grundsätzliche Bedenken wegen dem Missbrauchspotential  führten die Stadt San Francisco zu einem Verbot von Gesichtserkennungssystemen durch die Polizei und anderen Behörden \parencite{nyTimes}. Auch die \Gls{dsgvo} der EU stellt Bedingungen für den Einsatz von \Gls{ML} auf. Hierzu existiert ein Leitfaden des Branchenverbandes bitkom, welcher diese Aspekte erläutert \parencite{bitkom}.
-
-Einige NGO's versuchen Standards voranzutreiben welche die Industrie zu einem ``fairen'' Einsatz von \Gls{AI} und \Gls{ML} bringen soll. Auch Firmen definieren interne Leitfäden für den Umgang mit diesen Technologien. Google als Beispiel  hat zu diesem Zweck einen Satz Regeln aufgestellt: \parencite{aiGoogle}.
+Grundsätzliche Bedenken wegen dem Missbrauchspotential  führten die Stadt San Francisco zu einem Verbot von Gesichtserkennungssystemen durch die Polizei und anderen Behörden \cite{nyTimes}. Auch die \Gls{dsgvo} der EU stellt Bedingungen für den Einsatz von \Gls{ML} auf. Hierzu existiert ein Leitfaden des Branchenverbandes bitkom, welcher diese Aspekte erläutert \cite{bitkom}.
+Einige Organisationen, beispielsweise \parencite{openAi}, versuchen Standards voranzutreiben welche die Industrie zu einem ``fairen'' Einsatz von \Gls{AI} und \Gls{ML} bringen soll. Auch Firmen definieren interne Leitfäden für den Umgang mit diesen Technologien. Google als Beispiel  hat zu diesem Zweck einen Satz Regeln aufgestellt: \parencite{aiGoogle}.
 
 \Gls{xai} kann insbesondere bei der Begründung von Entscheidungen, wie sie zum Beispiel von der \acrshort{DSGVO} gefordert wird, einen wichtigen Beitrag leisten.
 
 \section{Haftungsfragen}
-Unfälle, welche durch \glsentrylong{ML} Techniken verursacht, oder zumindest begünstigt wurden, stellen eine Gefahr bei deren Einsatz dar. Bei selbstfahrenden Fahrzeugen ist die Frage nach der Schuld des Herstellers naheliegend, wie dieser Unfall mit einem Tesla zeigte: \parencite{teslaCrash}. 
+Unfälle, welche durch \gls{ML} Techniken verursacht, oder zumindest begünstigt wurden, stellen eine Gefahr bei deren Einsatz dar. Bei selbstfahrenden Fahrzeugen ist die Frage nach der Schuld des Herstellers naheliegend, wie dieser Unfall mit einem Tesla zeigte: \parencite{teslaCrash}. 
 
-Aber auch eine Diskriminierung durch ein \Gls{ML} Modell mit einem \Gls{BIAS} kann eine Klage durch die Betroffenen hervorrufen. \Gls{xai} kann eingesetzt werden um das Risiko zu verringern, indem Schwachstellen in Modellen frühzeitig erkannt werden, siehe \ref{vulnearabilities}. 
+Aber auch eine Diskriminierung durch ein \Gls{ML} Modell mit einem \Gls{BIAS} kann eine Klage durch die Betroffenen hervorrufen. \Gls{xai} kann eingesetzt werden um das Risiko zu verringern, indem Schwachstellen in Modellen frühzeitig erkannt werden, siehe Kapitel \ref{vulnearabilities}. 
 
 \chapter{Wann wird XAI eingesetzt?}
-Ein Projekt welches \glsentrylong{ML} einsetzt durchläuft in der Regel mehrere Phasen. Die Anwendung von \Gls{xai} ist nicht in jeder Phase sinnvoll. Dieses Kapitel soll einen kurzen Überblick über die Schritte hin zu einem fertigen Modell geben und erläutern an welchen Punkten \Gls{xai} eingesetzt werden kann.
+Ein Projekt, welches \glsentryfull{ML} einsetzt, durchläuft in der Regel mehrere Phasen. Die Anwendung von \Gls{xai} ist nicht in jeder Phase sinnvoll. Dieses Kapitel soll einen kurzen Überblick über die Schritte hin zu einem fertigen Modell geben und erläutern an welchen Punkten \Gls{xai} eingesetzt werden kann.
 
 \begin{center}
 \begin{minipage}[t]{0.8\linewidth}
@@ -479,7 +477,7 @@ Ein Projekt welches \glsentrylong{ML} einsetzt durchläuft in der Regel mehrere 
 \end{minipage}
 \end{center}
 \footnotetext{Kenneth Jensen (https://commons.wikimedia.org/wiki/File:CRISP-DM\_Process\_Diagram.png), „CRISP-DM Process Diagram“, https://creativecommons.org/licenses/by-sa/3.0/legalcode}
-
+\clearpage
 Abhängig von der gewählten Art des Modells und der gewünschten Art der Erklärung ist die Anwendung von \Gls{xai} in verschiedenen Phasen möglich.
 \begin{center}
 \begin{minipage}[t]{\linewidth}
@@ -490,11 +488,11 @@ Abhängig von der gewählten Art des Modells und der gewünschten Art der Erklä
 Es ist ebenfalls möglich ein bereits eingesetztes Modell nachträglich zu untersuchen. Die Vorgehensweise entspricht dabei einer \Gls{Blackbox} Analyse wie bei einem Modell aus einer externen Quelle. 
 
 \section{Data Understanding}
-Die Phase ``Data Understanding'' ist allgemein als Exploration bekannt.
+Die Phase Data Understanding' ist allgemein als Exploration bekannt.
 In diesem Abschnitt eines \Gls{ML} Projektes verschafft man sich einen Überblick über die Daten und gewinnt Informationen darüber welche weiteren Schritte notwendig sind. Die Werkzeuge, die man zu diesem Zweck braucht, sind in der Regel einfacher und vor allem schneller als komplexere \Gls{xai} Techniken, die sich mit den in späteren Phasen erzeugten Modellen beschäftigen. Während der Exploration werden häufig Diagramme und Grafiken erzeugt, da diese schnell interpretiert werden können.
 
 \section{Data Preparation}
-Data Preparation oder auch Preprocessing genannt ist ein notwendiger Schritt bei dem Daten auf die Verwendung für das Training eines Modells vorbereitet werden. Oft wird auch eine Auswahl der später verwendeten Daten (Features) getroffen, nicht immer macht es Sinn alle verfügbaren Daten einzusetzen.
+Data Preparation, oder auch Preprocessing genannt, ist ein notwendiger Schritt bei dem Daten auf die Verwendung für das Training eines Modells vorbereitet werden. Oft wird auch eine Auswahl der später verwendeten Daten (Features) getroffen, nicht immer macht es Sinn alle verfügbaren Daten einzusetzen.
 
 \section{Modeling}
 In der Modeling Phase entscheidet man sich für die Art des Modells, das man trainieren möchte. Oftmals trifft man eine Auswahl mehrerer unterschiedlicher Algorithmen und entscheidet sich nach einem vereinfachten Training für den Algorithmus mit dem besten Ergebnis.
@@ -505,7 +503,9 @@ Nach Seong Joon Oh \parencite{Oh2019} hat die Art des Modells grossen Einfluss a
 	\item[Blackbox Modelle] Blackbox Modelle liefern oft sehr gute Ergebnisse. Durch den komplexen inneren Aufbau sind sie aber schwer zu verstehen und es ist nicht möglich den Einfluss einer einzelnen Eigenschaft (feature) auf das Ergebnis aufzuzeigen. Auch Zusammenhänge zwischen den einzelnen Eigenschaften sind schwer zu entdecken.
 \end{description}
 
-Wenn eine Anforderung in der Aufgabenstellung eine vollständige Erklärbarkeit fordert, sind Whitebox Modelle sicherlich zu bevorzugen. Durch \Gls{xai} können nun aber auch die schwierig zu verstehenden Blackbox Modelle nachträglich erklärt werden. Allerdings ist die Qualität (Aussagekraft, Vollständigkeit, Verständlichkeit) einer derart erzeugten Erklärung oft kleiner als die gegebene Verständlichkeit eines Whitebox Modells. Hier gilt es abzuwägen wie die Punkte Erklärbarkeit gegen Verständlichkeit gewichtet werden.
+Wenn eine Anforderung in der Aufgabenstellung eine vollständige Erklärbarkeit fordert, sind Whitebox Modelle sicherlich zu bevorzugen. Durch \Gls{xai} können nun aber auch die schwierig zu verstehenden Blackbox Modelle nachträglich erklärt werden. Allerdings ist die Qualität (Aussagekraft, Vollständigkeit, Verständlichkeit) einer derart erzeugten Erklärung oft kleiner als die gegebene Verständlichkeit eines Whitebox Modells. Hier gilt es abzuwägen wie die Punkte Erklärbarkeit gegen Verständlichkeit gewichtet werden. 
+
+Man kann auch wie Rudin \parencite{Rudin2018} argumentieren, dass in heiklen Aufgabengebieten auf Blackbox Modelle zugunsten von Whitebox Modellen verzichtet werden soll.
 
 \section{Evaluation}
 In der Evaluation Phase werden die Eigenschaften eines Modells überprüft. Neben Überprüfung der Vorhersagequalität werden die Fehlerraten untersucht und mit den Anforderungen abgeglichen. \Gls{xai} kann in dieser Phase wertvolle Einsichten in das Modell liefern. Diese können dazu verwendet werden um das Modell in einem weiteren Durchlauf zu verbessern. Zudem kann durch Prüfung auf \Gls{BIAS} und andere Schwachstellen abgeschätzt werden, ob durch den Einsatz dieses Modells Probleme entstehen.
@@ -513,7 +513,7 @@ In der Evaluation Phase werden die Eigenschaften eines Modells überprüft. Nebe
 Wenn man Erklärungen von einem Modell erstellen will, muss man sich zuerst über den Spielraum der gewünschten Erklärung sicher sein. Man unterscheidet dabei zwischen einer lokalen (local interpretability) und einer globalen (global interpretability) Erklärung.
 
 \parag{Globale Erklärungen}
-Globale Erklärungen können das Verständnis für den Umgang mit sämtlichen Daten liefern. Dies ist besonders hilfreich wenn geprüft werden soll ob das Modell einem \Gls{BIAS} unterliegt. Informationen zu den aufgelisteten Verfahren können in den untenstehenden aufgeführten Artikeln gefunden werden.
+Globale Erklärungen können das Verständnis für den Umgang mit sämtlichen Daten liefern. Dies ist besonders hilfreich, wenn geprüft werden soll, ob das Modell einem \Gls{BIAS} unterliegt. Informationen zu den aufgelisteten Verfahren können in den untenstehend aufgeführten Artikeln gefunden werden.
 
 Verfahren für globale Erklärungen
 \begin{itemize}
@@ -524,7 +524,7 @@ Verfahren für globale Erklärungen
 \end{itemize}
 
 \parag{Lokale Erklärungen}
-Lokale Erklärungen gelten für eine bestimmte Klasse und erklären weshalb das Modell gerade diese Klasse als Vorhersage gewählt hat. Diese Arbeit befasst befasst sich nur mit lokalen Erklärungen, diese sind einfach zu prüfen und anzuwenden.
+Lokale Erklärungen gelten für eine bestimmte Klasse und erklären weshalb das Modell diese Klasse als Vorhersage gewählt hat. Diese Arbeit befasst sich nur mit lokalen Erklärungen, sie sind einfach zu prüfen und anzuwenden.
 
 Verfahren für lokale Erklärungen
 \begin{itemize}
@@ -534,7 +534,7 @@ Verfahren für lokale Erklärungen
 	\item \Gls{lrp}  \ref{lrp}
 \end{itemize}
 
-Aus der Vielzahl von Werkzeugen, di existieren um \Gls{ML} Modelle zu analysieren, gilt es die für den jeweiligen Use Case relevanten Werkzeuge anzuwenden. Eine Arbeit mehrerer IBM Forscher zeigt verschiedene Bibliotheken auf und gibt einen Leitfaden für deren Anwendung \parencite{Arya2019}.  
+Aus der Vielzahl von Werkzeugen, die existieren um \Gls{ML} Modelle zu analysieren, gilt es die für den jeweiligen Use Case relevanten Werkzeuge anzuwenden. Eine Arbeit mehrerer IBM Forscher zeigt verschiedene Bibliotheken auf und gibt einen Leitfaden für deren Anwendung \parencite{Arya2019}.  
 
 \section{Deployment}
 Als Deployment bezeichnet man die Einführung eines \Gls{ML} Modells in ein produktiv nutzbares System. \Gls{xai} kann nun von Anwendern geforderte Begründungen für eine Entscheidung liefern oder bei Problemen helfen das Modell zu verbessern.
@@ -542,7 +542,7 @@ Als Deployment bezeichnet man die Einführung eines \Gls{ML} Modells in ein prod
 \chapter{Modellvarianten}
 \section{Erklärbare / Whitebox Modelle}
 
-Falls eine Anforderung besteht, dass die erzeugten Resultate interpretierbar sein müssen, kann direkt ein grundsätzlich interpretierbares Modelle erzeugt werden. Der Preis dafür kann jedoch eine geringere Performance sein. Natürlich ist in diesem Fall \Gls{xai} unnötig.
+Falls eine Anforderung besteht, dass die erzeugten Resultate interpretierbar sein müssen, kann direkt ein grundsätzlich interpretierbares Modell erzeugt werden. Der Preis dafür kann jedoch eine geringere Performance sein. Natürlich ist in diesem Fall \Gls{xai} unnötig.
 
 
 Folgende Algorithmen gelten generell als interpretierbar:
@@ -557,7 +557,7 @@ Folgende Algorithmen gelten generell als interpretierbar:
 	\item \acrfull{pate}	
 	\item \acrfull{sbrl}
 	\item \acrfull{slim}
-	\item Naive Bayes Classifier
+	\item Naïve Bayes Classifier
 	\item K-Nearest Neighbors
 \end{itemize}
 Diese Liste hat keinen Anspruch auf Vollständigkeit, zudem können auch diese Modelle sehr komplex werden was die Verständlichkeit reduziert.
@@ -572,7 +572,7 @@ Als einfache Entscheidungshilfe welches Modell am besten zu der gestellten Aufga
 	Logistic regression & Nein & Ja & 	Nein & klass. \\
 	Decision trees & Nein & einige &	Ja & klass.,regr. \\
 	RuleFit & Ja & Nein & Ja & 	klass.,regr. \\
-	Naive Bayes	 & Nein & Ja & 	Nein & klass. \\
+	Naïve Bayes	 & Nein & Ja & 	Nein & klass. \\
 	k-nearest neighbors & Nein & Nein & Nein & klass.,regr. \\ \bottomrule
 	 \hline
 \end{tabular}
@@ -580,7 +580,7 @@ Als einfache Entscheidungshilfe welches Modell am besten zu der gestellten Aufga
 \end{table}
 \footnotetext{Quelle: \parencite{iML}}
 
-Als Methode kann entweder eine Klassifikation (klass.), Regression (regr.) oder sogar beide Arten angewandt werden. Linear bedeutet in diesem Zusammenhang, dass die Eingangsdaten sich gleichförmig auf das Resultat auswirken. Monoton trifft auf Fälle zu bei denen Änderungen in den Eingangsdaten sich in der gleichen Richtung (positiv oder negativ) auf das Resultat widerspiegeln. ``Zusammenhang'' bedeutet, dass zwei Eigenschaften zusammen einen stärkeren Einfluss haben als nur für sich betrachtet (feature interaction).
+Als Methode kann entweder eine Klassifikation (klass.), Regression (regr.) oder sogar beide Arten angewandt werden. ``Linear'' bedeutet in diesem Fall, dass die Eingangsdaten sich gleichförmig auf das Resultat auswirken. ``Monoton'' trifft auf Fälle zu bei denen Änderungen in den Eingangsdaten sich in der gleichen Richtung (positiv oder negativ) auf das Resultat widerspiegeln. ``Zusammenhang'' bedeutet, dass zwei Eigenschaften zusammen einen stärkeren Einfluss haben als nur für sich alleine betrachtet (feature interaction).
 
 \subsection{Lineare Regression}
 \label{lr}
@@ -611,7 +611,7 @@ Wenn diese Bedingungen nicht erfüllt sind, kann die lineare Regression kaum erf
 \label{logR}
 Während lineare Regression für numerische Problemstellungen verwendet wird, ist die logistische Regression ein Werkzeug für Klassifizierungen.
 \[logistic(\eta)=\frac{1}{1+exp(-\eta)}\]
-Grundsätzlich unterscheidet die logistische Regression zwischen zwei Klassen, eine sogenannte binäre Klassifikation. Man kann aber die logistische Regression zu einer  multinomialen logistischen Regression erweitern, welche mehre Klassen unterstützt.
+Grundsätzlich unterscheidet die logistische Regression zwischen zwei Klassen, eine sogenannte binäre Klassifikation. Man kann aber die logistische Regression zu einer  multinomialen logistischen Regression erweitern, welche mehrere Klassen unterstützt.
 Die logistische Regression hat die meisten Vor- und Nachteile der linearen Regression, wobei die schwierigere Interpretation des Modells gegenüber einem linearen Modell in diesem Zusammenhang ein wichtiger Nachteil ist. Gegenüber anderen Klassifikatoren bietet die logistische Regression jedoch den grossen Vorteil, dass nicht nur die Klasse, sondern auch die Wahrscheinlichkeit für diese Klasse als Resultat erzeugt wird.
 \subsection{GLM/GAM}
 \label{gam}
@@ -637,7 +637,7 @@ Die Formeln für die beiden Varianten lauten:
 wobei \acrshort{glm} in der Formel von \acrshort{gam} den Term \[\beta_jx_j\] durch eine Funktion ersetzt \[f_j(x_j)\]
 \end{minipage}
 
-Durch eine Vielzahl von Erweiterungsmöglichkeiten können sehr viele Probleme mit linearen Modellen gelöst werden. Da diese Methoden bereits längere Zeit verwendet werden, ist die Erfahrung damit gross. Auch die Umsetzung in Mathematik- oder Statistiksoftware ist in der Regel vorhanden. Als Nachteil gilt aber generell eine schlechtere Performance gegenüber komplexeren Verfahren. Zudem sinkt die, prinzipiell vorhandene, Interpretierbarkeit mit der Anzahl Erweiterungen des klassischen linearen Modells.
+Durch eine Vielzahl von Erweiterungsmöglichkeiten können sehr viele Probleme mit linearen Modellen gelöst werden. Da diese Methoden bereits längere Zeit verwendet werden, ist die Erfahrung damit gross. Mathematik- oder Statistiksoftware haben in der Regel \gls{glm} und \gls{gam} integriert. Als Nachteil gilt aber generell eine schlechtere Performance gegenüber komplexeren Verfahren. Zudem sinkt die, prinzipiell vorhandene, Interpretierbarkeit mit der Anzahl Erweiterungen des klassischen linearen Modells.
 
 \subsection{Decision Tree}
 \label{DT}
@@ -670,12 +670,12 @@ Die Regeln nach denen sich ein \Gls{DT} aufteilt, können als Text dargestellt w
 	 \captionof{figure}{Entscheidungsbaum als Flächen dargestellt}
 \end{minipage}
 
-Der für diese Visualisierungen verwendete Source Code ist in Kapitel \ref{dt-vis} aufgeführt und verwendet scikit-learn \cite{scikit-learnLink}.
+Der für diese Visualisierungen verwendete Source Code ist in Kapitel \ref{dt-vis} aufgeführt und verwendet \cite{scikit-learnLink}.
 
 
 \subsection{RuleFit}
 \label{RF}
-RuleFit \parencite{Friedman2008} verwendet Entscheidungsbäume um daraus Regeln abzuleiten, welche neue Features erzeugen. Diese neu erzeugten Features werden dann von einem linearen Modell interpretiert. Durch den Einsatz des linearen Modells verspricht RuleFit die von diesem Algorithmus gewohnte Interpretierbarkeit in Kombination mit besserer Performance.
+RuleFit \parencite{Friedman2008} verwendet Entscheidungsbäume um daraus Regeln abzuleiten, welche neue Features erzeugen. Diese neu erzeugten Features werden dann von einem linearen Modell interpretiert. Durch den Einsatz des linearen Modells verspricht RuleFit, in Kombination mit der von diesem Algorithmus gewohnten Interpretierbarkeit, eine bessere Performance.
 
 Eine Python Bibliothek, welche RuleFit implementiert, ist \parencite{scopeRules}. Dies ist ein Beispiel aus der scope-rules Dokumentation wie durch RuleFit generierte Regeln aussehen können:
 \begin{minipage}[t]{\linewidth}
@@ -694,16 +694,16 @@ BILL_AMT1 > 410.0 and PAY_1 > 1.5 and PAY_old_mean > 0.125
 
 \subsection{Naïve Bayes}
 \label{nb}
-\Gls{nb} Filter werden seit einiger Zeit sehr erfolgreich für die Spam Klassifikation von Emails eingesetzt. Aber auch für andere Klassifikationen ist \Gls{nb} aufgrund der schnellen Berechnung bei guten Resultaten beliebt. Der Name kommt von der ``naiven'' Annahme, dass die Features voneinander unabhängig sind, die sogenannte  ``Annahme von Unabhangigkeit''. Obwohl das in der Realität fast nie der Fall, ist funktioniert \Gls{nb} in der Regel sehr gut.
+\Gls{nb} Filter werden seit einiger Zeit sehr erfolgreich für die Spam Klassifikation von Emails eingesetzt. Aber auch für andere Klassifikationen ist \Gls{nb} aufgrund der schnellen Berechnung bei guten Resultaten beliebt. Der Name kommt von der ``naiven'' Annahme, dass die Features voneinander unabhängig sind, die sogenannte  ``Annahme von Unabhangigkeit''. Obwohl das in der Realität fast nie der Fall ist, funktioniert \Gls{nb} in der Regel sehr gut.
 
 \[ P(C_k|x) = \frac{1}{Z}P(C_k) \prod_{i=1}^{n}  P(x_i|C_k) \]
 
 \Gls{nb} gilt als interpretierbares Modell aufgrund der Annahme der Unabhängigkeit. Für jedes Feature kann einfach bestimmt werden wie stark der Einfluss auf die Vorhersage ist, da man die bedingte Wahrscheinlichkeit interpretieren kann.
 
 \section{Schwer erklärbare / Blackbox Modelle}
-Wenn aufgrund der geforderten Performance oder den vorhandenen Daten ein Verfahren eingesetzt wird, das als nicht interpretierbar gilt, kann man \Gls{xai} Werkzeuge einsetzen um eine Erklärung zu generieren. Diese Techniken werden in dem Kapitel \ref{xai} näher erläutert.
+Wenn aufgrund der geforderten Performance oder den vorhandenen Daten ein Verfahren eingesetzt wird, das als nicht interpretierbar gilt, kann man \Gls{xai} Werkzeuge einsetzen um eine Erklärung zu generieren. Diese Techniken werden im Kapitel \ref{xai} näher erläutert.
 
-Grundsätzlich gelten alle Arten von komplexeren, tiefen (\acrlong{dnn}), neuronalen Netzen als schwer interpretierbar, beispielsweise:
+Grundsätzlich gelten alle Arten von komplexeren neuronalen Netzen mit vielen Ebenen (\acrlong{dnn}) als schwer interpretierbar, beispielsweise:
 \begin{itemize}
 	\item\acrfull{cnn}
 	\item\acrfull{lstm}
@@ -724,10 +724,10 @@ Allerdings gelten auch Whitebox Modelle mit vielen Parametern als schwer erklär
 In diesem Beispiel wurden die fünf wahrscheinlichsten Klassen eines \Gls{DNN} für das Bild links oben dargestellt. Während die relevantesten Bereiche (gelb gefärbt) um den Kopf und vor allem um die Ohren der Katze sind, zeigt die Darstellungen für die unpassende Klasse ``toilett\_tissue'' auf Bereiche des Bodens. 
 
 \fullImg{Grad-Cam-Classes.png}{Grad CAM Analyse für verschiedene Klassen}
-Die Pixel, welche einen positiven Einfluss auf die gewählte Klassen haben, sind gelb dargestellt während, negative Einflüsse blau eingefärbt wurden. Das obenstehende Bild wurde mit dem Python Skript \cite{imgClassVisualized} erstellt.
+Die Pixel, welche einen positiven Einfluss auf die gewählte Klassen haben, sind gelb dargestellt, während negative Einflüsse blau eingefärbt wurden. Das obenstehende Bild wurde mit dem Python Skript \cite{imgClassVisualized} erstellt.
 
 \parag{Anwendung von Grad CAM auf Videos}
-Da die Berechnung von \Gls{GC} schnell, ist kann sie einfach auf Videosequenzen angewendet werden. Ein Beispiel wie eine solche Analyse in bewegten Bildern aussieht kann in folgendem Artikel gefunden werden: \parencite{gradCamVid}
+Da die Berechnung von \Gls{GC} schnell ist, kann sie einfach auf Videosequenzen angewendet werden. Ein Beispiel wie eine solche Analyse in bewegten Bildern aussieht, kann in folgendem Artikel gefunden werden: \parencite{gradCamVid}
 
 \parag{Visualisierung mit tf\_explain}
 Um ein Bild der Klasse mit der höchsten Wahrscheinlichkeit zu erzeugen kann dieses Python Skript verwendet werden. Benötigt werden dazu die Bibliotheken \parencite{TensorFlow} und  \parencite{tfExplain}, sowie das Modell \parencite{vgg16}.
@@ -776,16 +776,16 @@ Eine weitere Variante um relevante Bildbereiche aufzudecken ist \Gls{OS}, vorges
 \end{minipage}\hfill
 \begin{minipage}[t]{0.45\linewidth}
 \vspace{0pt}
-Das Bild links erläutert die Vorgehensweise des \gls{OS} Algorithmus. \Gls{OS} entfernt unterschiedliche Bildbereiche des original Bildes und misst dabei den Einfluss auf die Klassifizierung. Die Grösse des verdeckten Bildbereiches bestimmt die Auflösung der schlussendlich erzeugten Heatmap. Allerdings wird bei einem kleineren Bereich auch die Anzahl an Durchläufen (und somit die Bearbeitungszeit) erhöht, welche nötig sind um das ganze Bild abzudecken.
+Die Abbildung links erläutert die Vorgehensweise des \gls{OS} Algorithmus. \Gls{OS} entfernt unterschiedliche Bildbereiche des Originalbildes und misst dabei den Einfluss auf die Klassifizierung. Die Grösse des verdeckten Bildbereiches bestimmt die Auflösung der schlussendlich erzeugten Heatmap. Allerdings wird bei einem kleineren Bereich auch die Anzahl an Durchläufen (und somit die Bearbeitungszeit) erhöht, welche nötig sind um das ganze Bild abzudecken.
 \end{minipage}
 \end{center}
 
 In dem folgenden Beispiel wurden die Einflüsse der einzelnen Pixel auf bestimmte Klassen dargestellt. Die Färbung zeigt dabei ob der Einfluss negativ (blau) oder positiv (gelb) auf die Klassifikation für die bestimmte Klasse ist. Diese Visualisierung wurde durch die Bibliothek \parencite{tfExplain} und dem vortrainierten Modell  \parencite{vgg16} erzeugt.
 \fullImg{OcclusionSensitivity-Classes.png}{Testbild mit Occlusion Sensivity}
-Während bei den drei Klassen welche für Katzenrassen stehen (Egyptian\_cat, tabby, tiger\_cat) hauptsächlich der Körper oder Kopf der Katze als relevant gilt, sind bei den letzten Klassifikationen welche Objekte darstellen (carton, toilet\_tissue) vor allem Hintergrundbereiche wichtig.
+Während bei den drei Klassen, welche für Katzenrassen stehen (Egyptian\_cat, tabby, tiger\_cat), hauptsächlich der Körper oder Kopf der Katze als relevant gilt, sind bei den letzten Klassifikationen, die Objekte darstellen (carton, toilet\_tissue), vor allem Hintergrundbereiche wichtig.
 
 \parag{Visualisierung mit tf\_explain}
-Um ein Bild der Klasse mit der höchsten Wahrscheinlichkeit zu erzeugen kann dieses Python Skript verwendet werden. Benötigt werden dazu die Bibliotheken \parencite{TensorFlow} und  \parencite{tfExplain}, sowie das Modell \parencite{vgg16}.
+Um ein Bild der Klasse mit der höchsten Wahrscheinlichkeit zu erzeugen kann dieses Python Skript verwendet werden. Benötigt werden dazu die Bibliotheken \parencite{TensorFlow} und  \parencite{tfExplain} sowie das Modell \parencite{vgg16}.
 \begin{lstlisting}[language=Python, caption=Occlusion Sensitivity Visualisierung für die wahrscheinlichste Klasse]
 import tensorflow as tf
 from keras.applications.vgg16 import preprocess_input
@@ -846,7 +846,6 @@ Die Python Implementierung der LRP Toolbox \parencite{JMLR:v17:15-618} ist auf g
 Die Technik LIME wurde 2016 erstmals vorgestellt \parencite{Ribeiro2016}. 
 \Gls{lime} kann für verschiedene Arten von  \Gls{ML} Modellen, insbesondere auch Blackbox Modelle, verwendet werden um eine Erklärung zu erzeugen. Dabei wird durch stetiges Verändern eines Eingangsbildes der Einfluss auf das Resultat geprüft. Mit den veränderten Eingangsdaten und den durch das Blackbox Modell erzeugten Resultaten wird ein neues Modell trainiert, das anschliessend untersucht werden kann.
 
-\parag{}
 Folgende Schritte werden bei der Anwendung von LIME durchgeführt:
 \begin{itemize}
 	\item Die Klasse für die man eine Erklärung erstellen will muss festgelegt werden
@@ -864,7 +863,7 @@ Gegenüber den vorherigen Methoden ist LIME durch die Erzeugung temporärer Mode
 
 \parag{Visualisierung mit lime}
 Um ein Bild der Klasse mit der höchsten Wahrscheinlichkeit zu erzeugen kann dieses Python Skript verwendet werden. Benötigt werden dazu die Bibliotheken \parencite{TensorFlow} und das Package lime aus \parencite{limeKeras}, sowie das Modell \parencite{vgg16}.
-\begin{lstlisting}[language=Python, caption=Lime Visualisierung für die wahrscheinlichste Klasse]
+\begin{lstlisting}[language=Python, caption=LIME Visualisierung für die wahrscheinlichste Klasse]
 import tensorflow as tf
 from keras.applications.vgg16 import preprocess_input
 from keras.applications.vgg16 import decode_predictions
@@ -911,7 +910,7 @@ plt.show()
 \section{TCAV}
  \Gls{tcav} wurde 2017 vorgestellt \parencite{Kim2017} und ist eine fortgeschrittene Methode um Erklärungen basierend auf den Bildinhalten zu generieren. Zu diesem Zweck werden zusätzliche Modelle als Beispiele für Bildinhalte erzeugt.
  
- Ein als Zebra klassifiziertes Bild kann so zum Beispiel damit begründet werden, dass auf dem Bild streifen und ein Pferd entdeckt wurden.
+ Ein als Zebra klassifiziertes Bild kann so zum Beispiel damit begründet werden, dass auf dem Bild Streifen und ein Pferd entdeckt wurden.
 \begin{center}
 \begin{minipage}[t]{\linewidth}
 \includegraphics[width=\textwidth]{Bilder/Zebra-Explanation.PNG}
@@ -934,7 +933,7 @@ Durch den Vergleich der Vektoren verschiedener Klassen innerhalb eines Netzes ka
 \end{center}
 \footnotetext{Quelle: Google AI Blog, Interpreting Deep Neural Networks with SVCCA}
 
-Durch die Information welche Klassen ähnlich sind, und ab welchem Trainingsaufwand zwei Klassen erfolgreich unterschieden werden können, ist es möglich entweder die Trainingszeit zu reduzieren oder die Trainingsdaten für bestimmte Klassen zu erhöhen oder verbessern um eine einfachere Unterscheidung der Klassen zu ermöglichen.
+Durch die Information welche Klassen ähnlich sind und ab welchem Trainingsaufwand zwei Klassen erfolgreich unterschieden werden können, ist es möglich die Trainingszeit zu reduzieren. Es können auch die Trainingsdaten für bestimmte Klassen erhöht oder qualitativ verbessert werden um eine einfachere Unterscheidung der Klassen zu erzielen.
 
 Weitere Informationen und Erklärungen zu diesem Verfahren befinden sich auf der Seite \parencite{svccaLink}.
 
@@ -948,7 +947,7 @@ Durch den starken Fokus dieser Techniken in der Bilderkennung sind auch viele Me
 \subsection{Eigenes CNN Modell}
 
 \subsubsection*{Versuch: Eingangsdaten mit BIAS}
-Daten, welche für das Trainieren von \glsentrylong{ML} Modellen verwendet werden, können eine unbekannte Struktur enthalten. Oft ist diese für die gewünschte Vorhersage nicht relevant, verfälscht jedoch das  Ergebnis. Wenn ein solcher Effekt auftritt, spricht man häufig von einem \Gls{KH}. Ein bekanntes Beispiel dieses Effektes trat bei einem neuronalen Netz auf, des für einen Wettbewerb eingereicht wurde (Pascal VOC \cite{Everingham_thepascal}) und betraf die Erkennung von Pferden \parencite{Lapuschkin2019}. 
+Daten, welche für das Trainieren von \glsentryfull{ML} Modellen verwendet werden, können eine unbekannte Struktur enthalten. Oft ist diese für die gewünschte Vorhersage nicht relevant, verfälscht jedoch das  Ergebnis. Wenn ein solcher Effekt auftritt, spricht man häufig von einem \Gls{KH}. Ein bekanntes Beispiel dieses Effektes trat bei einem neuronalen Netz auf, des für einen Wettbewerb eingereicht wurde (Pascal VOC \cite{Everingham_thepascal}) und betraf die Erkennung von Pferden \parencite{Lapuschkin2019}. 
 
 \begin{center}
 \begin{minipage}[t]{0.45\linewidth}
@@ -958,13 +957,13 @@ Daten, welche für das Trainieren von \glsentrylong{ML} Modellen verwendet werde
 \end{minipage}\hfill
 \begin{minipage}[t]{0.45\linewidth}
 \vspace{20pt}
-Die meisten Bilder mit Pferden in dem bereitgestellten Trainingsdatensatz für die Pascal VOC Challenge enthielten einen Quellen Verweis. Aufgrund dessen lernte das neuronale Netz anstatt des Erkennens von  Pferden, das Erkennen dieser Verweise. Da dieser Hinweis nur auf Pferdebildern vorhanden war wurden dadurch alle Bilder mit solch einem Hinweis als ``Pferd'' klassifiziert.
+Die meisten Bilder mit Pferden in dem bereitgestellten Trainingsdatensatz für die Pascal VOC Challenge enthielten einen Quellen-Verweis. Aufgrund dessen lernte das neuronale Netz anstatt des Erkennens von  Pferden, das Erkennen dieser Verweise. Da dieser Hinweis nur auf Pferdebildern vorhanden war, wurden dadurch alle Bilder mit solch einem Hinweis als ``Pferd'' klassifiziert.
 \end{minipage}
 \end{center}
 \footnotetext{Quelle: Unmasking Clever Hans Predictors and Assessing What Machines Really Learn \cite{Lapuschkin2019}}
 
 \break
-In diesem Versuch soll diese Ausgangslage nachgestellt werden. Die Annahme ist, dass ein grosser Teil der Bilder von Katzen von einem Dienstleister stammen, welcher sein Logo jeweils in der rechten unteren Ecke platziert. 
+In diesem Versuch soll diese Ausgangslage nachgestellt werden. Die Annahme ist, dass ein grosser Teil der Bilder von Katzen von einem Dienstleister stammen, welcher sein Logo jeweils in der linken unteren Ecke platziert. 
 
 \parag{Daten}
 Die Daten stammen von einer Ausschreibung auf kaggle.com \cite{kaggleDogCats} und enthalten 25'000 Bilder von Katzen und Hunden. Für das trainieren des Netzes werden 20'000 Bilder und für das validieren 5'000 Bilder verwendet.
@@ -998,7 +997,7 @@ Das \Gls{cnn} wurde mit Tensorflow \cite{TensorFlow} berechnet und durch tf\_exp
 \end{minipage}
 \end{center}
 
-Wenn die Hypothese korrekt, ist dann sollten Katzenbilder anhand des Logos erkannt werden. Dieser Bildbestandteil ist in den meisten Trainingsbildern für die Klasse ``Katze'' identisch. Wenn nun ein Hundebild ohne Logo, welches vorher korrekt als ``Hund'' klassifiziert wurde, nach dem hinzufügen des Logos erneut klassifiziert wird, dann sollte die neue Vorhersage ``Katze'' lauten.
+Wenn die Hypothese korrekt ist, dann sollten Katzenbilder anhand des Logos erkannt werden. Dieser Bildbestandteil ist in den meisten Trainingsbildern für die Klasse ``Katze'' identisch. Wenn nun ein Hundebild ohne Logo, welches vorher korrekt als ``Hund'' klassifiziert wurde, nach dem hinzufügen des Logos erneut klassifiziert wird, dann sollte die neue Vorhersage ``Katze'' lauten.
 
 \parag{Aufbau des neuronalen Netzes}
 
@@ -1039,7 +1038,7 @@ model.compile(loss='binary_crossentropy',
 \parag{Training}
 Über 20 Epochen wurde das \acrshort{cnn} trainiert, mit folgenden Resultaten:
 \imgText{Training-Manipulated-LogLoss.png}{Log-loss / Accuracy Dog vs. Cat}{
-Die Kurven der Erkennungs- und Fehlerraten zeigen ein untypisches Bild. Normalerweise steigt die Accuracy mit fortschreitendem Training und die Werte der Log loss Funktion fallen. Dies deutet auf problematische Trainingsdaten mit einem \Gls{BIAS} hin.
+Die Kurven der Erkennungs- und Fehlerraten zeigen ein untypisches Bild. Normalerweise steigt die Accuracy mit fortschreitendem Training und die Werte der Log-loss Funktion fallen. Dies deutet auf problematische Trainingsdaten mit einem \Gls{BIAS} hin.
 }
 
 \imgText{Training-Manipulated-StatisticsTable.png}{Bewertung des Hund-Katze Netzwerkes}{
@@ -1047,7 +1046,7 @@ Die Werte für die Erkennung der Bilder ist sehr gut, beinahe 91\%. Dies ist sic
 }
 
 \parag{Test mit originalen und manipulierten Bilddaten}
-Das vorher berechnete Modell wurde gespeichert \cite{dogCatsModel} und die folgenden Bildanalysen wurden mit einem Jupyter Notebook durchgeführt \cite{dgoCatsCnnVisualizations} welches das gespeicherte Modell von der Festplatte lädt.
+Das vorher berechnete Modell wurde gespeichert \cite{dogCatsModel} und die folgenden Bildanalysen wurden mit einem Jupyter Notebook durchgeführt \cite{dgoCatsCnnVisualizations}, welches das gespeicherte Modell von der Festplatte lädt.
 
 \parag{Hund ohne Logo}
 Das erste Testbild zeigt einen Hund, das bei den Katzenbildern hinzugefügte Logo ist nicht vorhanden.
@@ -1083,7 +1082,7 @@ Nun wird dem gleichen Bild, welches vorher als ``Hund'' klassifiziert wurde, das
 \break \break
 Der Effekt des hinzugefügten Logos wird, wie schon bei dem Testbild mit dem Hund,  in der \Gls{OS} Visualisierung eindrücklich dargestellt: Gegenüber dem Bildbereich mit dem Logo wird der Rest des Bildes ignoriert.
 }
-
+\clearpage
 \parag{Testbilder ohne Katze oder Hund}
 Da das \Gls{cnn} nur die beiden Klassen ``Katze'' oder ``Hund'' kennt, muss jedes Bild einer der beiden Klassen zugeordnet werden. Eine Klasse ``Unbekannt'' oder ``Weder noch'' kann nicht vergeben werden. Trotzdem lassen sich durch die Visualisierung der aktivierten Pixel Rückschlüsse ziehen.
 \imgText{Manipulated_case_img1.png}{Testbild Sonnenblume}{
@@ -1142,7 +1141,9 @@ Die Analyse mittels \Gls{GC} zeigt für die Klasse ``toilet tissue'' eine hohe A
 }
 
 \imgText{Toilett-Tissue-Classification.png}{Testbild Toilettepapier-Rolle}{
-Ein direkter Vergleich mit einer Rolle Toilettenpapier vor dem gleichen Hintergrund zeigt auch wieder ein Aktivierungs-Muster in der rechten oberen Ecke, wie bereits auf dem Bild der Katze. Die Visualisierungen sind aber widersprüchlich: Während \Gls{GC} die Pixel der Toilettenpapier Rolle als wichtigste Bildbestandteile markiert, ist es bei \Gls{OS}' wiederum die Ecke welche eine grosse Relevanz hat.
+Ein direkter Vergleich mit einer Rolle Toilettenpapier vor dem gleichen Hintergrund zeigt auch wieder ein Aktivierungs-Muster in der rechten oberen Ecke, wie bereits auf dem Bild der Katze. 
+
+Die Visualisierungen sind aber widersprüchlich: Während \Gls{GC} die Pixel der Toilettenpapier Rolle als wichtigste Bildbestandteile markiert, ist es bei \Gls{OS} wiederum die Ecke, welche eine grosse Relevanz hat.
 }
 
 \parag{Test 2: Meerschweinchen, ähnlicher Hintergrund wie bei Bild mit der Katze}
@@ -1188,17 +1189,17 @@ Um die Analyse des \Gls{cnn} durch visualisierende Verfahren zu vereinheitlichen
 Die Visualisierungen für die Klassifizierung ``Cockroach''  zeigen kein einheitliches Muster: \break 
 Während mittels \Gls{GC} vor allem der Körper des Meerschweinchens hervorgehoben wird, zeigt \Gls{GI} kaum Aktivität im Bereich des Meerschweinchens an. 
 \break\break 
-\Gls{OS} wiederum findet einen breiten Streifen, welcher rechts und links über den Körper des Meerschweinchens hinausgeht als relevant.
+\Gls{OS} wiederum findet einen breiten Streifen, welcher rechts und links über den Körper des Meerschweinchens hinausgeht, als relevant.
 
 \Gls{limeG} markiert den Kopf des Tieres und einen schwach sichtbaren Fleck links daneben. \break
 }
 Die Visualisierung der eigentlich korrekten Klassifizierung ``Guinea Pig'' sieht auf den ersten Blick der Visualisierung von ``Cockroach'' ähnlich. Es erstaunt aber, dass die Methode \Gls{limeG} den Körper des Meerschweinchens fast vollständig hervorhebt, jedoch hat dies anscheinend keinen grossen Einfluss auf die Klassifizierung.
 
 \parag{Fazit}
-Die Frage, warum auch Toilettenpapier oder Kakerlaken gefunden wurde, konnte nicht vollständig geklärt werden. Es scheint jedoch einen Zusammenhang mit dem Untergrund der Bilder zu haben. Um die Erkennungsleistung des Modells für diese beiden Klassen zu erhöhen, sollte darauf geachtet werden, dass neue Bilder der Objekte mit einem anderen Untergrund dem Trainingsdatensatz hinzugefügt werden.
+Die Frage, warum auch Toilettenpapier oder eine Kakerlake gefunden wurde, konnte nicht vollständig geklärt werden. Es scheint jedoch einen Zusammenhang mit dem Untergrund der Bilder zu haben. Um die Erkennungsleistung des Modells für diese beiden Klassen zu erhöhen, sollte darauf geachtet werden, dass neue Bilder der Objekte mit einem anderen Untergrund dem Trainingsdatensatz hinzugefügt werden.
 
 \parag{Analyse ursprüngliches Testbild durch weitere Verfahren}
-Die verschiedenen Klassen von Katzen  (``'Egyptian Cat'', ``Tabby'' und ``Tiger Cat''), welche als mögliche Klassifizierungen angeboten werden, sind auch für Menschen nicht immer klar zu bestimmen. Insbesondere da ``Tabby'' auch als ``getigerte Katze'' gelten kann. Wo ist da die Abgrenzung zu ``Tiger Cat''?. Die Frage stellt sich, auf welche Merkmale das Modell bei einer getigerten Katze reagiert. Ein weiteres Testbild zeigt die gleiche getigerte Katze aus dem vorherigen Abschnitt in einem anderen Winkel. Auf diesem Bild ist die Körperform und die Fellmusterung gut zu erkennen.
+Die verschiedenen Klassen von Katzen  (``Egyptian Cat'', ``Tabby'' und ``Tiger Cat''), welche als mögliche Klassifizierungen angeboten werden, sind auch für Menschen nicht immer klar zu bestimmen. Insbesondere da ``Tabby'' auch als ``getigerte Katze'' gelten kann. Wo ist da die Abgrenzung zu ``Tiger Cat''? Die Frage stellt sich, auf welche Merkmale das Modell bei einer getigerten Katze reagiert. Ein weiteres Testbild zeigt die gleiche getigerte Katze aus dem vorherigen Abschnitt in einem anderen Winkel. Auf diesem Bild ist die Körperform und die Fellmusterung gut zu erkennen.
 
 \imgText{Mira-Classification-2-only-tabby.png}{
 Testbild getigerte Katze}{Die Visualisierung mit \Gls{GC} zeigt, dass das Modell sich vor allem auf das Rückgrat der Katze konzentriert. Dort bildet sich durch die Fellzeichnung auch der für getigerte Katzen typische dunkle Fellstreifen. Dieser Streifen ist in diesem Fall das relevante Merkmal des Bildes.
@@ -1212,7 +1213,7 @@ Die Klassifikation ist falsch. Mit 35\% Wahrscheinlichkeit für einen Lynx (``Lu
 Ein Fazit für diese beiden Tests zu ziehen fällt schwer. Die Aussagen der Visualisierungen sind entweder wie im Fall von \Gls{GI} nicht zu deuten, oder wie im Fall von \Gls{GC} und \Gls{OS} sogar widersprüchlich.
 
 \section{Texterkennung: Stimmungs-Analyse von Film-Bewertungen}
-Auch im Bereich der Texterkennung kann ein besseres Wissen über die Funktionsweise einer \Gls{MLg} Anwendung sowohl den Entwicklern als auch Anwendern helfen. Insbesondere bei den Problemstellungen Sentiment Analyse und Dokumenten Klassifikation kann \Gls{XAI} das Verständnis fördern.
+Auch im Bereich der Texterkennung kann ein besseres Wissen über die Funktionsweise einer \glsentryfull{ML} Anwendung sowohl den Entwicklern als auch Anwendern helfen. Insbesondere bei den Problemstellungen Sentiment Analyse und Dokumenten Klassifikation kann \Gls{XAI} das Verständnis fördern.
 
 \subsection{Whitebox Modell}
 \label{eli5MovieReview}
@@ -1235,7 +1236,7 @@ classifier = DecisionTreeClassifier()
 classifier.fit(X_train, y_train)
 \end{lstlisting}
 
-\imgText{MovieReview-DT-Accuracy.PNG}{Performance Sentiment Analyse mit Decision Tree}{
+\imgText{MovieReview-DT-Accuracy.PNG}{Konfusionsmatrix, Test Zusammenfassung und Accuracy für Decision Tree}{
 Die Vorhersagequalität dieses Modells ist schlecht. Dies war aber zu erwarten, da im Allgemeinen die Qualität eines Modells entgegengesetzt zu der Interpretierbarkeit steht.
 }
 
@@ -1270,7 +1271,8 @@ Diese Darstellung gibt zwar einen Einblick in die Funktionsweise des Modells, f�
 \parag{Versuch 2: Random Forest Klassifikator}
 Der komplette Source Code ist als Jupyter Notebook unter folgendem Link erhältlich: \parencite{textClassEli5}
 
-Obwohl der Random Forest Algorithmus auch zu der Familie der Entscheidungsbäume wie \Gls{DT} gehört und deshalb prinzipiell zu den einfach zu interpretierenden Modellen zählt, kann eine grosse Menge an Features die Übersicht stark beeinträchtigen. Wie sich dies in diesem konkreten Fall verhält, soll dieser Versuch zeigen.
+Obwohl der Random Forest Algorithmus auch zu der Familie der Entscheidungsbäume wie \Gls{DT} gehört und deshalb prinzipiell zu den einfach zu interpretierenden Modellen zählt, kann eine grosse Menge an Features die Übersicht stark beeinträchtigen. Wie dieser Algorithmus sich in diesem konkreten Fall verhält soll Versuch 2 zeigen.
+
 \begin{lstlisting}[language=Python]
 from sklearn.ensemble import RandomForestClassifier
 
@@ -1278,7 +1280,7 @@ classifier = RandomForestClassifier(n_estimators=1000, random_state=0)
 classifier.fit(X_train, y_train)
 \end{lstlisting}
 
-\imgText{MovieReviews-SentimentClassification_ConfMatrix.PNG}{Konfusions-Matrix Texterkennungs-Experiment}{
+\imgText{MovieReviews-SentimentClassification_ConfMatrix.PNG}{Konfusionsmatrix, Test Zusammenfassung und Accuracy für Random Forest}{
 Der trainierte Random Forest erreicht für ein Experiment eine annehmbare Fehlerquote und eine Accuracy von 0.86. Dies ist eine bedeutende Steigerung gegenüber dem vorherigen \Gls{DT} welcher nur auf eine Accuracy von 0.64  kam.
 }
 
@@ -1456,12 +1458,12 @@ Das Wort ``unfunny'' wurde wie auch in der ersten Analyse als stark relevant fü
 }
 
 \parag{Fazit}
-Auch das Erklären der Entscheidung von neuronalen Netzen in der Sentiment Analyse funktioniert gut. Es fällt auf wie unterschiedlich die Gewichtung der Wörter zwischen den Whitebox Modellen und diesem Blackbox Modell ist. Da das neuronale Netz aber eine tiefere Trefferquote hat und diese wahrscheinlich nach dem entfernen weiterer Stopp Wörter wie ``and'' und ``in'' ansteigen würde, kann sich diese Gewichtung bei einem erneuten Training angleichen.
+Das Erklären der Entscheidung von neuronalen Netzen in der Sentiment Analyse funktioniert gut. Es fällt auf wie unterschiedlich die Gewichtung der Wörter zwischen den Whitebox Modellen und diesem Blackbox Modell ist. Da das neuronale Netz aber eine tiefere Trefferquote hat und diese wahrscheinlich nach dem Entfernen weiterer Stopp Wörter wie ``and'' und ``in'' ansteigen würde, kann sich diese Gewichtung bei einem erneuten Training angleichen.
 
 \chapter{Schwächen von Modellen erkennen}
 \label{vulnearabilities}
 
-Die in den vorherigen Kapiteln vorgestellten Techniken erlauben einen besseren Einblick in die Funktionsweise von \glsentrylong{ML} Modellen. Dieses Wissen kann dazu genutzt werden um Schwächen oder auch gezielte Angriffe auf Anwendungen mit integrierten \Gls{ML} Modellen zu erkennen.
+Die in den vorherigen Kapiteln vorgestellten Techniken erlauben einen besseren Einblick in die Funktionsweise von \glsentryfull{ML} Modellen. Dieses Wissen kann dazu genutzt werden um Schwächen oder auch gezielte Angriffe auf Anwendungen mit integrierten \Gls{ML} Modellen zu erkennen.
 
 \section{Diskriminierung durch Bias}
 Als \Gls{BIAS} werden Tendenzen bezeichnet, welche in Modellen vorhanden sind und durch nicht ausgewogene Trainingsdaten erzeugt werden.
@@ -1470,7 +1472,7 @@ Dieser Fall kann auch als Beispiel für ``Data Poisoning'' angesehen werden, da 
 
 \section{Manipulierte Bilder: Adversarial Attacks}
 \label{Adversarial Attacks}
-Wie bereits in Kapitel \ref{Sicherheit} angedeutet, sind \Gls{ML} Anwendungen oftmals unerwartet empfindlich auf kleinste Änderungen an den Eingangsdaten. In einer Arbeit von Google Forschern   \parencite{Goodfellow2014} konnte gezeigt werden dass dies eine grundsätzliche Eigenschaft nicht nur von neuronalen Netzen, sondern auch anderen linearen Klassifikatoren ist. Erklärbar ist ein solches Fehlverhalten wenn man sich vor Augen hält, dass neuronale Netze und andere Klassifikatoren keine abstrakten Konzepte wie ``Tier'' oder auch ``Fahrzeug'' lernen, sondern sich alleine an den für das Training verwendeten Bilddaten orientieren.
+Wie bereits in Kapitel \ref{Sicherheit} angedeutet, sind \Gls{ML} Anwendungen oftmals unerwartet empfindlich auf kleinste Änderungen an den Eingangsdaten. In einer Arbeit von Google Forschern   \parencite{Goodfellow2014} konnte gezeigt werden, dass dies eine grundsätzliche Eigenschaft nicht nur von neuronalen Netzen, sondern auch anderen linearen Klassifikatoren ist. Erklärbar ist ein solches Fehlverhalten wenn man sich vor Augen hält, dass neuronale Netze und andere Klassifikatoren keine abstrakten Konzepte wie ``Tier'' oder auch ``Fahrzeug'' lernen, sondern sich alleine an den für das Training verwendeten Bilddaten orientieren.
 
 \imgText{adversarial.png}{Adversarial Beispiel \protect\footnotemark{}}{
 Ein Beispiel für die Manipulation eines Bildklassifikators stammt aus der Arbeit ``Intriguing properties of neural networks'' \parencite{Szegedy2013}. 
@@ -1542,39 +1544,39 @@ on Deep Neural Networks'' \parencite{Gu2019} konnte gezeigt werden wie ein \gls{
 	\end{description}
 
 \chapter{Fazit}
-Zu Beginn dieser Arbeit, einen Überblick über den Stand der \Gls{xai} Entwicklung zu bieten, stand ich vor einem unerwarteten Problem. Die Menge an Methoden, Artikeln und Forschungsarbeiten zu diesem Thema ist unerwartet gross. Die Entscheidungen welche Methoden besprochen, oder zumindest erwähnt, werden sollten, war schwierig. Schlussendlich war der experimentelle Teil ausschlaggebend. Einige der Methoden wie \acrshort{svcca} oder \acrshort{tcav} stellten sich als sehr Aufwändig heraus so dass bei einer Wahl eines dieser Themen für ein praktisches Experiment viele andere Bereiche nicht hätten beachtet werden können.
+Zu Beginn dieser Arbeit stand ich vor einem unerwarteten Problem. Die Menge an Methoden, Artikeln und Forschungsarbeiten zu diesem Thema war grösser als erwartet. Die Entscheidungen welche Methoden besprochen, oder zumindest erwähnt, werden sollten, war schwierig. Schlussendlich war der experimentelle Teil ausschlaggebend. Einige der Methoden wie \acrshort{svcca} oder \acrshort{tcav} stellten sich in der Anwendung als sehr aufwändig heraus, so dass bei der Wahl eines dieser Themen als praktisches Experiment viele andere Bereiche nicht hätten beachtet werden können.
 
-Der praktische Teil der Arbeit hatte mit anderen Schwierigkeiten zu kämpfen. Einige \Gls{xai} Frameworks für Python stellen sehr spezifische Anforderungen an die Version für die dem Modell zugrunde liegenden \Gls{ML} Frameworks. Dies ist nicht weiter erstaunlich wenn man bedenkt, dass die Analyse eines Modells tiefer auf die einzelnen Funktionen und Parameter eingehen muss als der nomalerweise verwendete Aufruf  von``predict(..)''. Da aber mehrere Bibliotheken kombiniert wurden kam es häufig vor, dass die benötigten Versionen untereinander nicht kompatibel waren. Das fragile Gleichgewicht der installierten Framework Versionen wurde immer wieder durch die Installation eines weiteren Werkzeuges zunichte gemacht welches eine andere Version von Tensorflow oder Keras benötigte. 
+Im praktischen Teil der Arbeit hatte ich mit anderen Schwierigkeiten zu kämpfen. Einige \Gls{xai} Frameworks für Python stellen sehr spezifische Anforderungen an die Version für die dem Modell zugrunde liegenden \Gls{ML} Frameworks. Dies ist nicht weiter erstaunlich wenn man bedenkt, dass die Analyse eines Modells tiefer auf die einzelnen Funktionen und Parameter eingehen muss als der nomalerweise verwendete Aufruf  von``predict(..)''. Da aber mehrere Bibliotheken kombiniert wurden, kam es häufig vor, dass die benötigten Versionen untereinander nicht kompatibel waren. Das fragile Gleichgewicht der installierten Framework Versionen wurde immer wieder durch die Installation eines weiteren Werkzeuges zunichte gemacht welches eine andere Version von Tensorflow oder Keras benötigte. 
 
-Eine Erkenntnis ist daher immer mit einer eigenen Umgebung für jedes Projekt zu arbeiten. Diese Umgebung sollte die passende Python mit den benötigten Bibliotheken in der passenden Version enthalten und nicht automatisch aktualisiert werden. Die Data Science Applikation Anaconda hilft dabei sehr diese Umgebungen zu verwalten. Da aber nicht alle getesteten Bibliotheken in Anaconda vorhanden sind habe ich leider anfangs fehlende Bestandteile über den Python Packetmanager pip installiert. Diese Vorgehensweise war schlecht und hat mir mehrere Male die Umgebungen mit nicht miteinander kompatiblen Bibliotheksversionen ``verseucht''. Eine saubere Vorgehensweise mit voneinander getrennten Umgebungen ist unbedingt nötig wenn man möchte das Programme auch nach einigen Wochen noch wie gewünscht funktionieren.
+Eine Erkenntnis ist daher immer mit einer eigenen Umgebung für jedes Projekt zu arbeiten. Diese Umgebung sollte die passende Python mit den benötigten Bibliotheken in der passenden Version enthalten und nicht automatisch aktualisiert werden. Die Applikation Anaconda hilft dabei sehr diese Umgebungen zu verwalten. Da aber nicht alle getesteten Bibliotheken in Anaconda vorhanden sind, habe ich leider anfangs fehlende Bestandteile über den Python Packetmanager pip installiert. Diese Vorgehensweise war schlecht und hat mir mehrere Male die Umgebungen mit nicht miteinander kompatiblen Bibliotheksversionen ``verseucht''. Eine saubere Vorgehensweise mit voneinander getrennten Umgebungen ist unbedingt nötig, wenn man möchte, dass Programme auch nach einigen Wochen noch wie gewünscht funktionieren.
 
-Die Auswertung der Ergebnisse durch exploratives Vorgehen war zu Beginn nicht erfolgreich. Es ist zwar einfach durch Visualisierungen zu erkennen welche Bestandteile eines Bildes für ein neuronales Netz wichtig sind, Schlussfolgerungen daraus zu ziehen stellte sich jedoch als überraschend schwierig heraus. Bei einem direkten Vergleich zwischen verschiedenen Methoden waren oftmals grosse Unterschiede erkennbar was die wichtigen Bestandteile eines Bildes betrifft. Da einige Methoden unter gewissen Umständen nicht funktionieren (Gradient basierte Verfahren haben nachgewiesene Schwächen) steht immer die Frage im Raum ob die Unterschiede zwischen den Visualisierungen von Bedeutung sind oder eher durch eine ungeeignete Methode der Visualisierung verursacht wurden. 
+Die Auswertung der Ergebnisse durch exploratives Vorgehen war zu Beginn nicht erfolgreich. Es ist zwar einfach durch Visualisierungen zu erkennen welche Bestandteile eines Bildes für ein neuronales Netz wichtig sind, Schlussfolgerungen daraus zu ziehen, stellte sich jedoch als überraschend schwierig heraus. Bei einem direkten Vergleich zwischen verschiedenen Methoden waren oftmals grosse Unterschiede erkennbar was die wichtigen Bestandteile eines Bildes betraf. Da einige Methoden unter gewissen Umständen nicht funktionieren (Gradient basierte Verfahren haben nachgewiesene Schwächen) steht immer die Frage im Raum ob die Unterschiede zwischen den Visualisierungen von Bedeutung sind oder eher durch eine ungeeignete Methode der Visualisierung verursacht wurden. 
 
-Der zweite Ansatz welcher mit einem konkreten Ziel, nämlich dem Nachweis eines Kluger-Hans Effektes, gestartet war funktionierte bedeutend besser. Die Visualisierung zeigte sehr deutlich welches Problem das neuronale Netz hat und könnte in der Realität auch direkt zu einer Verbesserung (durch Anpassung der Trainings- und Testdaten) des Modells führen. Aber auch hier war nur eine von drei eingesetzten Methoden erfolgreich. 
+Der zweite Ansatz welcher mit einem konkreten Ziel, nämlich dem Nachweis eines Kluger-Hans Effektes, gestartet war, funktionierte bedeutend besser. Die Visualisierung zeigte sehr deutlich welches Problem das neuronale Netz hat und könnte in der Realität auch direkt zu einer Verbesserung (durch Anpassung der Trainings- und Testdaten) des Modells führen. Aber auch hier war nur eine von drei eingesetzten Methoden erfolgreich. 
 
 Dies führt zu einer weiteren Erkenntnis: Jede Analyse sollte mit mehreren Methoden durchgeführt werden. 
 
 Die Ansprüche an die Erklärbarkeit von \Gls{ML} Modellen steigen und die Erwartungen sind gross. Im Gegensatz dazu sind die momentan verfügbaren Werkzeuge oft  nur für einfache Fragestellungen einsetzbar. Trotzdem konnten durch diese Techniken bereits in einigen Modellen Fehler und Schwachstellen gefunden und beseitigt werden. 
 
-Für Aufgabengebiete welche strikte Bedingungen für das Zustandekommen einer Entscheidung vorschreiben, beziehungsweise deren Begründung einfordern, muss die Entscheidung getroffen werden ob ein Modell mit einer verständlichen Technik erstellt werden soll oder ein komplexeres, unverständlicheres Modell aber mit einer vielleicht besseren Leistung gewählt wird. \Gls{xai} kann dazu beitragen das Verständnis von komplexeren Modellen zu erhöhen. Ob dies im konkreten Fall ausreicht um die Anforderungen zu erfüllen muss im Einzelfall geprüft werden, es ist nicht möglich dazu allgemein gültige Aussagen zu treffen. Für mich ist unsicher ob \Gls{xai} überhaupt jemals in der Lage sein wird allgemeine Aussagen über die Qualität und Sicherheit von Modellen zu erstellen und es gibt Stimmen die dafür plädieren in kritischen Fällen nur Modelle zu verwenden welche als gut Verstanden gelten.
+Für Aufgabengebiete welche strikte Bedingungen für das Zustandekommen einer Entscheidung vorschreiben, beziehungsweise deren Begründung einfordern, muss eine Entscheidung getroffen werden. Es kann ein Modell mit einer verständlichen Technik erstellt oder ein komplexeres, unverständlicheres Modell, aber mit einer vielleicht besseren Leistung gewählt werden. \Gls{xai} kann dazu beitragen das Verständnis von komplexeren Modellen zu erhöhen. Ob dies im konkreten Fall ausreicht um die Anforderungen zu erfüllen, muss im Einzelfall geprüft werden. Es ist nicht möglich dazu allgemein gültige Aussagen zu treffen. Für mich ist unsicher ob \Gls{xai} überhaupt jemals in der Lage sein wird allgemeine Aussagen über die Qualität und Sicherheit von Modellen zu erstellen. Es gibt Stimmen die dafür plädieren in kritischen Fällen nur Modelle zu verwenden welche als gut verstanden gelten.
 
-Es gibt einige Probleme welche mit \Gls{xai} gut überprüft werden können und dadurch kann die Sicherheit und Robustheit von Modellen erhöht werden. Der Aufwand für diese Prüfungen kann aber hoch sein und ist, momentan jedenfalls, nicht automatisierbar. Es fehlen noch Techniken welche den Einsatz vereinfachen und dadurch die Akzeptanz und Verbreitung fördern.
+Es gibt einige Probleme welche mit \Gls{xai} gut überprüft werden können und dadurch kann die Sicherheit und Robustheit von Modellen erhöht werden. Der Aufwand für diese Prüfungen kann aber hoch sein und ist, momentan jedenfalls, nicht automatisierbar. Es fehlen noch Techniken, welche den Einsatz vereinfachen und dadurch die Akzeptanz und Verbreitung fördern.
 
-Die erzeugten Erklärungen, meistens Visualisierungen, müssen nach der Erzeugung durch Menschen interpretiert werden und Schlüsse daraus gezogen werden. Dies ist schwierig und wird dadurch erschwert, dass die Erklärungen selbst Fehler enthalten können. Es fehlen allgemein akzeptierte Definitionen und Kriterien nach welchen Erklärungen ausgewertet werden.
+Die erzeugten Erklärungen, meistens Visualisierungen, müssen nach der Erzeugung durch Menschen interpretiert werden und Schlüsse daraus gezogen werden. Dies ist schwierig und wird dadurch erschwert, dass die Erklärungen selbst Fehler enthalten können. Es fehlen allgemein akzeptierte Definitionen und Kriterien nach welchen Erklärungen ausgewertet werden können.
 
 Die nächsten Jahre werden zeigen ob \Gls{xai} den Sprung zu einem etablierten Werkzeug, welches in den meisten \Gls{ML} Projekten standardmässig eingesetzt wird, schafft oder ob die Technik ein Nischendasein fristet und in wenigen Fällen durch Spezialisten angewendet wird.
 
 \chapter{Ausblick}
 Die Weiterentwicklung der Methoden von \Gls{xai} sind eng an die zukünftige Entwicklung von \Gls{ML} gekoppelt. Obwohl Prognosen für die Zukunft natürlich schwierig sind, ist es aber momentan wahrscheinlich, dass die grossen Investitionen in \Gls{AI} und \Gls{ML} zumindest noch einige Jahre weitergeführt werden. Durch die Verfügbarkeit von Budgets in Forschung und Industrie, gekoppelt mit den Forderungen vieler Akteure nach einer ``verständlichen'' \Gls{AI}, ist weiterhin mit einer Vielzahl an Arbeiten im Bereich \Gls{xai} zu rechnen. Wie schnell dabei Fortschritte erzielt werden können, ist jedoch völlig ungewiss und die Geschichte der \Gls{AI} mit längeren Pausen ohne grössere Fortschritte zeigt, dass man dabei eine gewisse Vorsicht an den Tag legen sollte.
 
-Falls die Bedenken, welche momentan den Einsatz hochkomplexer Modelle in sicherheitskritischen Gebieten wie Medizin oder Verkehr behindern, durch den Konsens abgelöst werden dass intensives Testen der Modelle ausreichend ist, kann dies die Investitionen in neue \Gls{xai} Werkzeuge stark dämpfen und würde einen wichtigen Daseinszweck eliminieren.
+Es gibt Bedenken, welche momentan den Einsatz hochkomplexer Modelle in sicherheitskritischen Gebieten wie Medizin oder Verkehr behindern. Falls diese durch den Konsens abgelöst werden, dass intensives Testen der Modelle ausreichend ist, kann dies die Investitionen in neue \Gls{xai} Werkzeuge stark dämpfen und würde einen wichtigen Daseinszweck eliminieren.
 
 \section{Aktuelle Probleme}
 Obwohl bereits einige Methoden existieren, steht \Gls{xai} immer noch am Anfang seiner Entwicklung. Viele der geforderten Leistungen  sind noch ausstehend oder erst unzureichend erfüllt. Selbst elementare Definitionen sind nicht vorhanden oder werden von Anwendern und Forschern unterschiedlich interpretiert.  
 
 Auch die Qualität der Erklärung ist allgemein eher klein. Die meisten Erklärungen, die durch aktuelle Algorithmen erzeugt werden, können nur Details beschreiben. Es ist zwar gut möglich den Einfluss eines einzelnen Pixels zu berechnen, es besteht jedoch keine Verbindung zu abstrakten Begriffen wie Objekten, Körpern oder Personen. Den erzeugten Erklärungen fehlt es oft an Aussagekraft.
 
-Viele der Werkzeuge für \Gls{xai} sind im Rahmen einer Forschungsarbeit entstanden und stellen sich im praktischen Einsatz als schwierig einzusetzen dar. Einige Probleme entstehen auch durch den schnellen Zyklus mit dem Software für \Gls{ML} sich ändert. Ein Programm welches vor einem Jahr mit Version X einer Bibliothek funktionierte ist heute fehlerhaft weil sich die zugrunde liegenden Funktionsaufrufe geändert haben. Durch den Ursprung aus Forschungsarbeiten ist die fortwährende Weiterentwicklung der Bibliothek nicht immer gewährleistet während die millionenfach verwendeten Bibliotheken wie Tensorflow von Google stetig weiterentwickelt und gepflegt werden.
+Viele der Werkzeuge für \Gls{xai} sind im Rahmen einer Forschungsarbeit entstanden und stellen sich im praktischen Einsatz als schwierig einzusetzen dar. Einige Probleme entstehen auch durch den schnellen Zyklus mit dem Software für \Gls{ML} sich ändert. Ein Programm, welches vor einem Jahr mit Version X einer Bibliothek funktionierte, ist heute fehlerhaft, weil sich die zugrunde liegenden Funktionsaufrufe geändert haben. Durch den Ursprung aus Forschungsarbeiten ist die fortwährende Weiterentwicklung der Bibliothek nicht immer gewährleistet, während die millionenfach verwendeten Bibliotheken wie Tensorflow von Google stetig weiterentwickelt und gepflegt werden.
 
 \section{Wünschenswerte Entwicklungen}
 
@@ -1589,8 +1591,7 @@ Wie sich auch in dieser Arbeit gezeigt hat, sind \acrshort{XAI} Implementierunge
 Für die Zukunft wäre es wünschenswert, wenn allgemeine Regeln automatisiert geprüft werden könnten. Mögliche Aufgaben wären dabei die Suche nach einem eventuell vorhandenen \Gls{BIAS} oder die Anfälligkeit auf Angriffe wie \acrlong{aip} oder Data Poisoning.
 
 \section{Fehlende Lösungen}
-Es besteht die Möglichkeit dass die hohen Erwartungen an \Gls{xai} nicht erfüllt werden, sie es weil es sich als Unmöglich herausstellt die Vorhersagen in der gewünschten, für Menschen verständlichen, Abstraktion zu erzeugen. Oder die Qualität der Vorhersagen wird nicht erreicht da die Diskrepanz zu dem realen Modell zu hoch bleibt. Falls dieses Szenario eintritt 
-\parencite{Rudin2018}
+Es besteht die Möglichkeit, dass die hohen Erwartungen an \Gls{xai} nicht erfüllt werden, weil es sich als unmöglich herausstellen könnte die Vorhersagen in der gewünschten, für Menschen verständlichen, Abstraktion zu erzeugen. Oder die Qualität der Vorhersagen wird nicht erreicht, da die Diskrepanz zu dem realen Modell zu hoch bleibt.
 
 \chapter{Anhang}
 \section*{Source Code}
